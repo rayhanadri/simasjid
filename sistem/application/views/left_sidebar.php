@@ -16,6 +16,7 @@
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="<?php echo base_url('buat_notulensi'); ?>">Buat Nolutensi</a></li>
                                 <li><a href="<?php echo base_url('notulensi'); ?>">Daftar Notulensi</a></li>
+                                <li><a href="<?php echo base_url('pekerjaan'); ?>">Daftar Pekerjaan</a></li>
                             </ul>
                         </li>
                         <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-users"></i><span class="hide-menu">Keanggotaan</span></a>
@@ -24,7 +25,6 @@
                                 <li><a href="<?php echo base_url('anggota'); ?>">Daftar Anggota</a></li>
                             </ul>
                         </li>
-                        
                         <!-- <li class="nav-label">Features</li>
                         <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-suitcase"></i><span class="hide-menu">Bootstrap UI <span class="label label-rouded label-warning pull-right">6</span></span></a>
                             <ul aria-expanded="false" class="collapse">

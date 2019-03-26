@@ -13,7 +13,7 @@ class MainKeanggotaan extends CI_Controller {
 	{
 		$this->load->view('header');
 		$this->load->view('left_sidebar');
-		$data['anggotas'] = $this->m_notulen->tampil_semua_data_anggota();
+		$data['anggotas'] = $this->m_notulen->tampil_semua_data_by_table("anggota");
 		$this->load->view('v_beranda',$data);
 		$this->load->view('footer');
 	}
@@ -22,8 +22,8 @@ class MainKeanggotaan extends CI_Controller {
 	{
 		$this->load->view('header');
 		$this->load->view('left_sidebar');
-		$data['anggotas'] = $this->m_anggota->tampil_semua_data_anggota();
-		$data['jabatans'] = $this->m_anggota->tampil_semua_data_jabatan();
+		$data['anggotas'] = $this->m_anggota->tampil_semua_data_by_table("anggota");
+		$data['jabatans'] = $this->m_anggota->tampil_semua_data_by_table("jabatan");
 		$this->load->view('keanggotaan/v_daftar_anggota',$data);
 		$this->load->view('footer');
 	}
@@ -33,7 +33,7 @@ class MainKeanggotaan extends CI_Controller {
 		$this->load->view('header');
 		$this->load->view('left_sidebar');
 		$data['anggota'] = $this->m_anggota->find($id);
-		$data['jabatans'] = $this->m_anggota->tampil_semua_data_jabatan();
+		$data['jabatans'] = $this->m_anggota->tampil_semua_data_by_table("jabatan");
 		$this->load->view('keanggotaan/v_edit_anggota',$data);
 		$this->load->view('footer');
 	}
@@ -42,6 +42,8 @@ class MainKeanggotaan extends CI_Controller {
 	{
 		$namaAnggota = $this->input->post('namaAnggota');
 		$jabatanAnggota = $this->input->post('jabatanAnggota');
+		$usernameAnggota = $this->input->post('usernameAnggota');
+		$passwordAnggota = $this->input->post('passwordAnggota');
 		$idAnggota = $this->input->post('idAnggota');
 		
 		$namaTabel = "anggota";
@@ -51,6 +53,8 @@ class MainKeanggotaan extends CI_Controller {
 			$simpan = array(
 				'id_jabatan' => $jabatanAnggota,
 				'nama' => $namaAnggota,
+				'username' => $usernameAnggota,
+				'password' => $passwordAnggota,
 			);
 			
 			$this->insert($namaTabel, $simpan, $redirectHalaman);
@@ -60,9 +64,12 @@ class MainKeanggotaan extends CI_Controller {
 			$simpan = array(
 				'id_jabatan' => $jabatanAnggota,
 				'nama' => $namaAnggota,
+				'username' => $usernameAnggota,
+				'password' => $passwordAnggota,
 			);
 			$this->update($namaTabel, $kolom, $idAnggota, $simpan, $redirectHalaman);
 			echo "Berhasil ditambahkan";
+			
 		}	
 	}
 	

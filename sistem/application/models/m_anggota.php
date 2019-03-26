@@ -6,6 +6,12 @@ class M_anggota extends CI_Model
 	// 	$this->db->insert('pesan',$data_products);
 	// }
 
+	public function login($param)
+	{
+		$query = $this->db->get_where('anggota', $param);
+		return $query;
+	}
+
 	public function tampil_semua_data_anggota(){
 		$this->db->select('*, anggota.id as id_anggota');
 		$this->db->from('anggota');
@@ -19,10 +25,19 @@ class M_anggota extends CI_Model
 		}
 	}
 
-	public function tampil_semua_data_jabatan(){
+	public function tampil_semua_data_by_table($namaTabel){
 		$this->db->select('*');
-		$this->db->from('jabatan');
-		$this->db->where('id !=', '1');
+		$this->db->from($namaTabel);
+		if($namaTabel == "jabatan"){
+			$this->db->where('id !=', '1');
+		} else if($namaTabel == "anggota"){
+			$this->db->select('anggota.id as id_anggota');	
+			$this->db->join('jabatan', 'anggota.id_jabatan = jabatan.id');
+			$this->db->where('aktif !=', '0');
+		}
+		else {
+			$this->db->where('aktif !=', '0');
+		}
 		$query = $this->db->get();
 		if ($query->num_rows() > 0) {
 			return $query->result();

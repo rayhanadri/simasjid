@@ -49,6 +49,18 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
+                                            <label class="col-sm-12 control-label">Username</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="usernameAnggota" class="form-control" placeholder="Username" value="<?php echo $anggota->username; ?>">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-12 control-label">Password</label>
+                                            <div class="col-sm-10">
+                                                <input type="password" name="passwordAnggota" class="form-control" placeholder="Password" value="<?php echo $anggota->password; ?>">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
                                             <div class="col-sm-offset-2 col-sm-10">
                                                 <button type="submit" class="btn btn-success m-b-10 m-l-5">edit anggota</button>
                                             </div>
