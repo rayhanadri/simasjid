@@ -18,6 +18,7 @@
                 <div class="row">
                     <!-- /# column -->
                     <div class="col-lg-12">
+                        <?php //var_dump($listProgress); ?>
                         <div class="card">
                             <div id="invoice" class="effect2">
                                 <div id="invoice-top">

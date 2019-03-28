@@ -40,8 +40,18 @@ class MainNotulensi extends CI_Controller {
 	{
 		$this->load->view('header');
 		$this->load->view('left_sidebar');
-		$data['takmirs'] = $this->m_notulen->all();
+		$data['notulens'] = $this->m_notulen->all();
 		$this->load->view('notulensi/v_daftar_notulensi',$data);
+		$this->load->view('footer');
+	}
+
+	public function detailNotulensi($idNotulensi = null)
+	{
+		$this->load->view('header');
+		$this->load->view('left_sidebar');
+		$data['notulens'] = $this->m_notulen->tampil_detail_notulen($idNotulensi);
+		$data['pembawa_notulens'] = $this->m_notulen->tampil_data_notulen($idNotulensi);
+		$this->load->view('notulensi/v_detail_notulensi',$data);
 		$this->load->view('footer');
 	}
 

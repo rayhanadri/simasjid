@@ -23,6 +23,8 @@
     <link href="<?php echo base_url('assets/css/helper.css')?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/css/style.css')?>" rel="stylesheet">
 
+    <script src="https://rawgit.com/jackmoore/autosize/master/dist/autosize.min.js"></script>
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
     <!--[if lt IE 9]>

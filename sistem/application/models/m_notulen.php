@@ -7,9 +7,51 @@ class M_notulen extends CI_Model
 	// }
 
 	public function all(){
-		$hasil = $this->db->get('anggota');
-		if ($hasil->num_rows() > 0) {
-			return $hasil->result();
+		$this->db->select('*, master_notulensi.id as id_notulensi, GROUP_CONCAT(proyek.nama_proyek) as pokok_bahasan');
+		$this->db->from("master_notulensi");
+		$this->db->join('anggota', 'master_notulensi.id_takmir = anggota.id');
+		$this->db->join('detail_notulensi', 'master_notulensi.id = detail_notulensi.id_notulensi');
+		$this->db->join('detail_progres', 'detail_progres.id = detail_notulensi.id_progres');
+		$this->db->join('proyek', 'proyek.id = detail_progres.id_proyek');
+
+		$query = $this->db->get();
+		if ($query->num_rows() > 0) {
+			return $query->result();
+		} else {
+			return array();
+		}
+	}
+
+	public function tampil_data_notulen($idNotulensi){
+		$this->db->select('*');
+		$this->db->from("master_notulensi");
+		$this->db->join('anggota', 'anggota.id = master_notulensi.id_notulen');
+		$this->db->where('master_notulensi.id', $idNotulensi);
+
+		$query = $this->db->get();
+		if ($query->num_rows() > 0) {
+			return $query->result();
+		} else {
+			return array();
+		}
+	}
+
+	public function tampil_detail_notulen($idNotulen){
+		$this->db->select('*, master_notulensi.id as id_notulensi, 
+		GROUP_CONCAT(proyek.nama_proyek SEPARATOR "$") as pokok_bahasan, 
+		GROUP_CONCAT(detail_progres.keterangan SEPARATOR "$") as gabungan_progres,
+		GROUP_CONCAT(detail_progres.keputusan SEPARATOR "$") as gabungan_keputusan_progres,
+		GROUP_CONCAT(proyek.status SEPARATOR "$") as status_proyek');
+		$this->db->from("master_notulensi");
+		$this->db->join('anggota', 'master_notulensi.id_takmir = anggota.id');
+		$this->db->join('detail_notulensi', 'master_notulensi.id = detail_notulensi.id_notulensi');
+		$this->db->join('detail_progres', 'detail_progres.id = detail_notulensi.id_progres');
+		$this->db->join('proyek', 'proyek.id = detail_progres.id_proyek');
+		$this->db->where('master_notulensi.id ', $idNotulen);
+
+		$query = $this->db->get();
+		if ($query->num_rows() > 0) {
+			return $query->result();
 		} else {
 			return array();
 		}
@@ -43,11 +85,11 @@ class M_notulen extends CI_Model
 
 	public function tampil_list_progres_by($idProyek){
 		$this->db->select('*, proyek.id as id_proyek');
-		$this->db->from("master_notulensi");
-		$this->db->join('detail_notulensi', 'master_notulensi.id = detail_notulensi.id_notulensi');
-		$this->db->join('detail_progres', 'detail_progres.id = detail_notulensi.id_notulensi');
+		$this->db->from("detail_progres");
+		$this->db->join('detail_notulensi', 'detail_notulensi.id_progres = detail_progres.id');
+		$this->db->join('master_notulensi', 'master_notulensi.id = detail_notulensi.id_notulensi');
 		$this->db->join('proyek', 'proyek.id = detail_progres.id_proyek');
-		$this->db->where('proyek.id ', $idProyek);
+		$this->db->where('detail_progres.id_proyek ', $idProyek);
 		
 
 		$query = $this->db->get();

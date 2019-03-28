@@ -56,6 +56,7 @@ $route['home'] = 'main/home';
 //notulensi
 $route['buat_notulensi'] = 'mainNotulensi/buatNotulensi';
 $route['notulensi'] = 'mainNotulensi/daftarNotulensi';
+$route['notulensi/(:any)'] = 'mainNotulensi/detailNotulensi/$1';
 
 //pekerjaan
 $route['pekerjaan'] = 'mainNotulensi/daftarPekerjaan';

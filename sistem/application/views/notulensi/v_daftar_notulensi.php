@@ -21,6 +21,7 @@
                         <div class="card">
                             <div class="card-title">
                                 <h4>Daftar Notulensi</h4>
+                                <a href="<?php echo base_url('buat_notulensi'); ?>"><button style="float:right" type="button" class="btn btn-primary m-b-10 m-l-5">Buat Notulensi</button></a>
                             </div>
 
                             <div class="card-body">
@@ -37,43 +38,20 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <?php foreach($notulens as $notulen): ?>
                                             <tr>
-                                                <td style="display:none">Tiger Nixon</td>
-                                                <td>21/03/2019</td>
-                                                <td>Rizky Novriansyah</td>
-                                                <td>makanan buka puasa, sistem aplikasi, pintu kamar mandi, pembagian zakat</td>
+                                                <td style="display:none"><?php echo $notulen->created_at; ?></td>
+                                                <td><?php echo $notulen->created_at; ?></td>
+                                                <td><?php echo $notulen->nama; ?></td>
+                                                <td><?php echo $notulen->pokok_bahasan; ?></td>
                                                 <td>
                                                     <div class="alert alert-danger">
                                                     Belum Verifikasi Ketua Amir  <br><a href="#" class="alert-link"><i class="fa fa-check-square-o"></i>Verifikasi Sekarang</a>
                                                     </div>
                                                 </td>
-                                                <td><button type="button" class="btn btn-info m-b-10 m-l-5">Lihat</button></td>
+                                                <td><a href="<?php echo base_url('notulensi/'.$notulen->id);?>"><button type="button" class="btn btn-info m-b-10 m-l-5">Lihat</button></a></td>
                                             </tr>
-                                            <tr>
-                                                <td style="display:none">Tiger Nixon</td>
-                                                <td>24/03/2019</td>
-                                                <td>Rizky Novriansyah</td>
-                                                <td>Bangku, tv, lemari, makanan buka puasa, sistem aplikasi, mekanisme buka puasa saat bulan ramadhan</td>
-                                                <td>
-                                                    <div class="alert alert-info">
-                                                        Sudah Verifikasi Amir
-                                                        <a href="#" class="alert-link"></a>
-                                                    </div>
-                                                </td>
-                                                <td><button type="button" class="btn btn-info m-b-10 m-l-5">Lihat</button></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="table-responsive">
-                                    <table id="myTable" class="table table-bordered table-striped">
-                                        <thead>
-                                            <tr>
-                                                
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            
+                                            <?php endforeach; ?>
                                         </tbody>
                                     </table>
                                 </div>
