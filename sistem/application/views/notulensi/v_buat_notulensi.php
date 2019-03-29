@@ -47,10 +47,10 @@ textarea {
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Notulen <span class="required">*</span>
                                     </label>
                                     <div class="col-md-9 col-sm-9 col-xs-12">
-                                        <select class="form-control">
+                                        <select id="namaNotulen" class="form-control">
                                             <option>Pilih Notulen</option>
                                             <?php foreach ($takmirs as $takmir): ?>
-                                                <option value="$takmir->id"><?php echo $takmir->nama;?></option>
+                                                <option value="<?php echo $takmir->id.'%'.$takmir->nama; ?>"><?php echo $takmir->nama;?></option>
                                             <?php endforeach;?>
                                         </select>
                                     </div>
@@ -59,20 +59,20 @@ textarea {
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Amir <span class="required">*</span>
                                     </label>
                                     <div class="col-md-9 col-sm-9 col-xs-12">
-                                        <select class="form-control">
-                                            <option>Pilih Notulen</option>
+                                        <select id="namaAmir" class="form-control">
+                                            <option>Pilih Amir</option>
                                             <?php foreach ($takmirs as $takmir): ?>
-                                                <option value="$takmir->id"><?php echo $takmir->nama;?></option>
+                                                <option value="<?php echo $takmir->id.'%'.$takmir->nama; ?>"><?php echo $takmir->nama;?></option>
                                             <?php endforeach;?>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Peserta musyawarah</label>
-                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <div id="namaHadirin" class="col-md-9 col-sm-9 col-xs-12">
                                         <select class="select2_multiple form-control" multiple="multiple">
                                             <?php foreach ($takmirs as $takmir): ?>
-                                                <option value="$takmir->id"><?php echo $takmir->nama;?></option>
+                                                <option value="<?php echo $takmir->id.'%'.$takmir->nama; ?>"><?php echo $takmir->nama;?></option>
                                             <?php endforeach;?>
                                         </select>
                                     </div>
@@ -93,23 +93,23 @@ textarea {
 
                     <div class="card col-lg-4">  
                         <div id="kolomMasukkan" class="card-body">
-                            <label class="control-label col-md-12 col-sm-12 col-xs-12" for="first-name">Tambah tanggapan pekerjaan lain<span class="required">*</span>
+                            <label class="control-label col-md-12 col-sm-12 col-xs-12" for="first-name">Tanggapan pekerjaan lain<span class="required">*</span>
                             </label>
-                            <div class="col-md-12 col-sm-12 col-xs-12">
+                            <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                                 <input type="text" id="first-name" class="form-control col-md-7 col-xs-12">
                                 <a href="#" class="btn btn-primary">Tambah</a>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
 
                     <div class="card col-lg-4">  
                         <div id="kolomKeputusan" class="card-body">
-                            <label class="control-label col-md-12 col-sm-12 col-xs-12" for="first-name">Tambah keputusan pekerjaan lain<span class="required">*</span>
+                            <label class="control-label col-md-12 col-sm-12 col-xs-12" for="first-name">Keputusan<span class="required">*</span>
                             </label>
-                            <div class="col-md-12 col-sm-12 col-xs-12">
+                            <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                                 <input type="text" id="first-name" class="form-control col-md-7 col-xs-12">
                                 <a href="#" class="btn btn-primary">Tambah</a>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <style> 
@@ -136,7 +136,12 @@ textarea {
                         </div> -->
 
                         <button type="button" class="btn btn-primary">Simpan</button>
-                        <button type="button" class="btn btn-link">Copy to clipboard</button>
+
+                        <!-- The text field -->
+                        <p id="error-details" hidden></p>
+                        <button id="FailCopy" type="button"  
+                            onclick="copyToClipboard('p#error-details')" class="btn btn-link">Salin</button>
+                        <a href="whatsapp://send?text=URL Artikel">Bagikan ke WhatsApp</a>
                     </div>
                     
 
@@ -149,21 +154,49 @@ textarea {
 <script type="text/javascript">
 
     var tempIdPekerjaan = 0;
+    
+    function copyToClipboard(element) {
+        var $temp = $("<textarea>");
+        var brRegex = /<br\s*[\/]?>/gi;
+        $("body").append($temp);
+        $temp.val($(element).html().replace(brRegex, "\r\n")).select();
+        document.execCommand("copy");
+        $temp.remove();
+    }
+
+    $( "#FailCopy" ).click(function() {
+        alert("Berhasil dicopy!");
+    });
+
+    function myFunction() {
+
+        var brRegex = /<br\s*[\/]?>/gi;
+
+
+        var copyText = document.getElementById("pwd_spn");
+        var textArea = document.createElement("textarea");
+        textArea.value = copyText.textContent;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand("Copy");
+        textArea.remove();
+    }
+
     function tambahProgres(){
         var namaProgress = document.getElementById("namaProgress").value; 
         document.getElementById("namaProgress").value = "";
         console.log(namaProgress);
-        var sethtml = '<br><div class="card" style=""><div class="card-body"><h5 class="card-title">'+namaProgress+'</h5><textarea id="progres'+tempIdPekerjaan+'" onchange="tambahKeterangan('+tempIdPekerjaan+', 0)" class="form-control" aria-label="With textarea"></textarea><br><p class="text-danger" style="float:left">hapus</p><p onclick="resetKeterangan('+tempIdPekerjaan+',0)" style="float:right" class="text-warning col-sx-6">Reset</p></div></div>'
+        var sethtml = '<br><div class="card" style=""><div class="card-body"><h5 class="card-title">'+namaProgress+'</h5><textarea id="progres[]" onchange="tambahKeterangan('+tempIdPekerjaan+', 0)" class="form-control progres" aria-label="With textarea"></textarea><br><p class="text-danger" style="float:left">hapus</p><p onclick="resetKeterangan('+tempIdPekerjaan+',0)" style="float:right" class="text-warning col-sx-6">Reset</p></div></div>'
         $("#kolomProgres").append(sethtml);
-        autosize(document.getElementById('progres'+tempIdPekerjaan));
-        var sethtml = '<br><div class="card" style=""><div class="card-body"><h5 class="card-title">'+namaProgress+'</h5><p id="kontendariprogres'+tempIdPekerjaan+'"></p><textarea id="masukkan'+tempIdPekerjaan+'"  onchange="tambahKeterangan('+tempIdPekerjaan+', 1)" class="form-control" aria-label="With textarea"></textarea><br><p onclick="resetKeterangan('+tempIdPekerjaan+',1)" style="float:right" class="text-warning col-sx-6">Reset</p></div></div>'
+        autosize(document.getElementsByClassName('progres'+tempIdPekerjaan));
+        var sethtml = '<br><div class="card" style=""><div class="card-body"><h5 class="card-title">'+namaProgress+'</h5><p id="kontendariprogres'+tempIdPekerjaan+'" class="kontendariprogres'+tempIdPekerjaan+'"></p><textarea id="masukkan'+tempIdPekerjaan+'"  onchange="tambahKeterangan('+tempIdPekerjaan+', 1)" class="form-control masukkan" aria-label="With textarea"></textarea><br><p onclick="resetKeterangan('+tempIdPekerjaan+',1)" style="float:right" class="text-warning col-sx-6">Reset</p></div></div>'
         $("#kolomMasukkan").append(sethtml);
-        autosize(document.getElementById('kontendariprogres'+tempIdPekerjaan));
-        var sethtml = '<br><div class="card" style=""><div class="card-body"><h5 class="card-title">'+namaProgress+'</h5><p id="kontendarimasukkan'+tempIdPekerjaan+'"></p><textarea id="keputusan'+tempIdPekerjaan+'" onchange="tambahKeterangan('+tempIdPekerjaan+', 2)" class="form-control" aria-label="With textarea"></textarea><br><p onclick="resetKeterangan('+tempIdPekerjaan+',2)" style="float:right" class="text-warning col-sx-6">Reset</p></div></div>'
+        autosize(document.getElementsByClassName('kontendariprogres'+tempIdPekerjaan));
+        var sethtml = '<br><div class="card" style=""><div class="card-body"><h5 class="card-title">'+namaProgress+'</h5><p id="kontendarimasukkan'+tempIdPekerjaan+'" class="kontendarimasukkan'+tempIdPekerjaan+'"></p><textarea id="keputusan'+tempIdPekerjaan+'" onchange="tambahKeterangan('+tempIdPekerjaan+', 2)" class="form-control keputusan" aria-label="With textarea"></textarea><br><p onclick="resetKeterangan('+tempIdPekerjaan+',2)" style="float:right" class="text-warning col-sx-6">Reset</p></div></div>'
         $("#kolomKeputusan").append(sethtml);
-        autosize(document.getElementById('kontendarimasukkan'+tempIdPekerjaan));
+        autosize(document.getElementsByClassName('kontendarimasukkan'+tempIdPekerjaan));
 
-        var sethtml = '<div class="bd-callout bd-callout-warning"><h3 id="conveying-meaning-to-assistive-technologies">'+namaProgress+'</h3><p id="hasilkontendariprogres'+tempIdPekerjaan+'"></p><h6 id="conveying-meaning-to-assistive-technologies">Keputusan </h6><p id="hasilkontendarimasukkan'+tempIdPekerjaan+'"></p></div>';
+        var sethtml = '<div class="bd-callout bd-callout-warning"><h3 id="conveying-meaning-to-assistive-technologies">'+namaProgress+'</h3><p id="hasilkontendariprogres'+tempIdPekerjaan+'" class="hasilkontendariprogres'+tempIdPekerjaan+'"></p><h6 id="conveying-meaning-to-assistive-technologies">Keputusan </h6><p id="hasilkontendarimasukkan'+tempIdPekerjaan+'" class="hasilkontendarimasukkan'+tempIdPekerjaan+'"></p></div>';
         $("#hasil").append(sethtml);
         ++tempIdPekerjaan;
     }
@@ -171,38 +204,72 @@ textarea {
     function tambahKeterangan(nilai, keputusan){
         console.log('id : '+ nilai + '. keputusan -> '+ keputusan);
         if(keputusan == 0) {
-            var contentProgress = document.getElementById("progres"+nilai).value; 
-            var sethtml = ''+contentProgress;
-            console.log(contentProgress);
-            $("#kontendariprogres"+nilai).empty();
-            $("#kontendariprogres"+nilai).append(sethtml);
-            $("#hasilkontendariprogres"+nilai).empty();
-            $("#hasilkontendariprogres"+nilai).append(sethtml);
+            var contentProgress = document.getElementsByClassName("progres"); 
+            console.log(contentProgress[nilai].value);
+            var sethtml = ''+contentProgress[nilai].value;
+            
+            $(".kontendariprogres"+nilai).empty();
+            $(".kontendariprogres"+nilai).append(sethtml);
+            $(".hasilkontendariprogres"+nilai).empty();
+            $(".hasilkontendariprogres"+nilai).append(sethtml);
         } else if(keputusan == 1){
-            var contentProgress1 = document.getElementById("progres"+nilai).value; 
-            var contentProgress2 = document.getElementById("masukkan"+nilai).value; 
-            var sethtml = '<i class="fa fa-comment-o" aria-hidden="true"></i> : '+contentProgress1+'<br><i class="fa fa-comments-o" aria-hidden="true"></i> : '+contentProgress2;
-            // console.log(contentProgress);
-            $("#kontendarimasukkan"+nilai).empty();
-            $("#kontendarimasukkan"+nilai).append(sethtml);
-            $("#hasilkontendariprogres"+nilai).empty();
-            $("#hasilkontendariprogres"+nilai).append(sethtml);
+            var contentProgress1 = document.getElementsByClassName("progres"); 
+            console.log(contentProgress1[nilai].value);
+            var contentProgress2 = document.getElementsByClassName("masukkan"); 
+            var sethtml = '<i class="fa fa-comment-o" aria-hidden="true"></i> : '+contentProgress1[nilai].value+'<br><i class="fa fa-comments-o" aria-hidden="true"></i> : '+contentProgress2[nilai].value;
+            
+            $(".kontendarimasukkan"+nilai).empty();
+            $(".kontendarimasukkan"+nilai).append(sethtml);
+            $(".hasilkontendariprogres"+nilai).empty();
+            $(".hasilkontendariprogres"+nilai).append(sethtml);
         } else {	
-            var contentKeputusan = document.getElementById("keputusan"+nilai).value; 
-            var sethtml = ''+contentKeputusan;
-            console.log(contentProgress);
-            $("#hasilkontendarimasukkan"+nilai).empty();
-            $("#hasilkontendarimasukkan"+nilai).append(sethtml);
+            var contentKeputusan = document.getElementsByClassName("keputusan"); 
+            console.log(contentKeputusan[nilai].value);
+            var sethtml = ''+contentKeputusan[nilai].value;
+            $(".hasilkontendarimasukkan"+nilai).empty();
+            $(".hasilkontendarimasukkan"+nilai).append(sethtml);
         }
+        setMsg();
+    }
+
+    function getName(text){
+        var str = text;
+        var res = str.split("%");
+        return res[1];
+    }
+
+    function setMsg(){
+        var notulen = getName(document.getElementById("namaNotulen").value); 
+        var amir = getName(document.getElementById("namaAmir").value); 
+        // var hadirin = getName(document.getElementById("namaHadirin").value);
+        
+        var index, len, msg = '';
+        msg += 'Musyawarah Masjid 30 Mar 2019';
+        msg += '<br>Amir : '+notulen;
+        msg += '<br>Notulen : '+amir;
+        msg += '<br><br>Hasil Kegiatan Musyawarah';
+
+        var contentProgress = document.getElementsByClassName("progres"); 
+        var contentMasukkan = document.getElementsByClassName("masukkan"); 
+        var contentKeputusan = document.getElementsByClassName("keputusan"); 
+        
+        for (index = 0, len = contentProgress.length; index < len; ++index) {
+            msg += '<br>=='+contentProgress[index].value+'==';
+            msg += '<br>masukkan : '+contentMasukkan[index].value;
+            msg += '<br>keputusan : '+contentKeputusan[index].value;
+            console.log('setmsg : '+msg);
+        }
+        $("#error-details").empty();
+        $("#error-details").append(msg);
     }
 
     function resetKeterangan(nilai, keputusan){
         if(keputusan == 0) {
-            document.getElementById("progres"+nilai).value = "";
+            document.getElementsByClassName("progres"+nilai).value = "";
         } else if(keputusan == 1){
-            document.getElementById("masukkan"+nilai).value = "";
+            document.getElementsByClassName("masukkan"+nilai).value = "";
         } else {	
-            document.getElementById("keputusan"+nilai).value = "";
+            document.getElementsByClassName("keputusan"+nilai).value = "";
         }
         tambahKeterangan(nilai,keputusan);
     }
