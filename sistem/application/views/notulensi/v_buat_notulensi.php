@@ -141,7 +141,7 @@ textarea {
                         <p id="error-details" hidden></p>
                         <button id="FailCopy" type="button"  
                             onclick="copyToClipboard('p#error-details')" class="btn btn-link">Salin</button>
-                        <a href="whatsapp://send?text=URL Artikel">Bagikan ke WhatsApp</a>
+                        <a href="whatsapp://send?text=">Bagikan ke WhatsApp</a>
                     </div>
                     
 
@@ -261,6 +261,7 @@ textarea {
         }
         $("#error-details").empty();
         $("#error-details").append(msg);
+        
     }
 
     function resetKeterangan(nilai, keputusan){
