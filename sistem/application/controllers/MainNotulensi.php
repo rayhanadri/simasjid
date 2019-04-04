@@ -18,6 +18,11 @@ class MainNotulensi extends CI_Controller {
 		}
 	}
 
+	private function insertNotulen($namaTabel, $data){
+		$result = $this->m_notulen->insertData($namaTabel,$data);
+		return $result;
+	}
+
 	public function index()
 	{
 		$this->load->view('header');
@@ -31,7 +36,7 @@ class MainNotulensi extends CI_Controller {
 	{
 		$this->load->view('header');
 		$this->load->view('left_sidebar');
-		$data['takmirs'] = $this->m_anggota->tampil_semua_data_by_table("anggota");
+		$data['takmirs'] = $this->m_anggota->tampil_semua_data_anggota();
 		$data['proyeks'] = $this->m_anggota->tampil_semua_data_by_table("proyek");		
 		$this->load->view('notulensi/v_buat_notulensi',$data);
 		$this->load->view('footer');
@@ -78,36 +83,67 @@ class MainNotulensi extends CI_Controller {
 
 	public function storeNotulensi()
 	{
-		$namaNotulen = $this->input->post('namaNotulen');
-		$namaAmir = $this->input->post('namaAmir');
-		$namaHadirin = $this->input->post('namaHadirin');
+		$idNotulen = $this->input->post('namaNotulen');
+		$idAmir = $this->input->post('namaAmir');
+		//$namaHadirin = $this->input->post('namaHadirin');
 		$idProgress = $this->input->post('idProgress');
 		$namaProgress = $this->input->post('namaProgress');
 		$progres = $this->input->post('progres');
 		$masukkan = $this->input->post('masukkan');
 		$keputusan = $this->input->post('keputusan');
-		// progres,masukkan,keputusan
-		echo "Notulen : ".$namaNotulen.'<br>';
-		echo "Amir : ".$namaAmir.'<br>';
+
+		echo 'amir :'.$idAmir;
+		echo '<br>notulen :'.$idNotulen;
 		
-		echo "Hadirin : ".'<br>';
-		var_dump($namaHadirin);
+		// 1. masuk master_notulensi, ambil id master_notulensinya
+		$simpan = array(
+			'id_takmir' => $idAmir,
+			'id_notulen' => $idNotulen,
+		);
+		$namaTabel = "master_notulensi";
+		$idMasterNotulensi = $this->insertNotulen($namaTabel, $simpan);
+		
 		echo "<br>";
-		echo "id : ".'<br>';
-		var_dump($idProgress);
-		echo "<br>";
-		echo "namaProgress : ".'<br>';
-		var_dump($namaProgress);
-		echo "<br>";
-		echo "isiProgress : ".'<br>';
-		var_dump($progres);
-		echo "<br>";
-		echo "tanggapanProgress : ".'<br>';
-		var_dump($masukkan);
-		echo "<br>";
-		echo "keputusanProgress : ".'<br>';
-		var_dump($keputusan);
-		echo "<br>";
+		for($i = 0; $i< sizeof($idProgress); $i++){
+			if($idProgress[$i] == 0)
+			{
+				echo "progress baru<br>";
+				$simpan = array(
+					'id_anggota' => '0',
+					'nama_proyek' => $namaProgress[$i],
+					'deskripsi' => '',
+				);
+				$namaTabel = "proyek";
+				$idProgress[$i] = $this->insertNotulen($namaTabel, $simpan);
+			} else {
+				echo "progress lama<br>";
+			}
+			
+			echo $i.". ".$namaProgress[$i];
+			echo "<br>";
+			echo "id :".$idProgress[$i];
+			echo "<br>";
+			echo "Progress : ".$progres[$i];
+			echo "<br>";
+			echo "Keputusan : ".$keputusan[$i];
+			echo "<br>";
+			// 2. masuk detail progress, ambil id detail_progressnya
+			$simpan = array(
+				'id_proyek' => $idProgress[$i],
+				'keterangan' => $progres[$i],
+				'keputusan' => $keputusan[$i],
+			);
+			$namaTabel = "detail_progres";
+			$tempIdProgress = $this->insertNotulen($namaTabel, $simpan);
+
+			// 3. taru di detail notulensinya id master & detail notulensinya
+			$simpan = array(
+				'id_notulensi' => $idMasterNotulensi,
+				'id_progres' => $tempIdProgress,
+			);
+			$namaTabel = "detail_notulensi";
+			$this->insertNotulen($namaTabel, $simpan);
+		}
 	}
 
 	public function storePekerjaan()

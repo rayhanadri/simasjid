@@ -51,7 +51,7 @@ textarea {
                                             <select name="namaNotulen" id="namaNotulen" class="form-control">
                                                 <option>Pilih Notulen</option>
                                                 <?php foreach ($takmirs as $takmir): ?>
-                                                    <option value="<?php echo $takmir->nama; ?>"><?php echo $takmir->nama;?></option>
+                                                    <option value="<?php echo $takmir->id_anggota; ?>"><?php echo $takmir->nama;?></option>
                                                 <?php endforeach;?>
                                             </select>
                                         </div>
@@ -63,7 +63,7 @@ textarea {
                                             <select name="namaAmir" id="namaAmir" class="form-control">
                                                 <option>Pilih Amir</option>
                                                 <?php foreach ($takmirs as $takmir): ?>
-                                                    <option value="<?php echo $takmir->nama; ?>"><?php echo $takmir->nama;?></option>
+                                                    <option value="<?php echo $takmir->id_anggota; ?>"><?php echo $takmir->nama;?></option>
                                                 <?php endforeach;?>
                                             </select>
                                         </div>
@@ -73,7 +73,7 @@ textarea {
                                         <div class="col-md-9 col-sm-9 col-xs-12">
                                             <select name="namaHadirin[]" id="namaHadirin[]" class="select2_multiple form-control" multiple="multiple">
                                                 <?php foreach ($takmirs as $takmir): ?>
-                                                    <option value="<?php echo $takmir->nama; ?>"><?php echo $takmir->nama;?></option>
+                                                    <option value="<?php echo $takmir->id_anggota; ?>"><?php echo $takmir->nama;?></option>
                                                 <?php endforeach;?>
                                             </select>
                                         </div>
@@ -162,7 +162,6 @@ textarea {
             </div>
             <!-- End Container fluid -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="<?php echo 'assets/js/lib/toastr/toastr.min.js' ?>"></script>
 
 <script type="text/javascript">
 

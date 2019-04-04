@@ -6,6 +6,12 @@ class M_notulen extends CI_Model
 	// 	$this->db->insert('pesan',$data_products);
 	// }
 
+	public function insertData($tabel, $data){
+		$this->db->insert($tabel, $data);
+		$insert_id = $this->db->insert_id();
+		return $insert_id;
+	}
+
 	public function all(){
 		$this->db->select('*, master_notulensi.id as id_notulensi, GROUP_CONCAT(proyek.nama_proyek) as pokok_bahasan');
 		$this->db->from("master_notulensi");
