@@ -125,5 +125,17 @@ class M_notulen extends CI_Model
 	// public function delete($id){
 	// 	$this->db->where('id',$id)->delete('pesan');
 	// }
+
+	public function ajax_get_nama_pekerjaan_by($id){
+		$this->db->select('*');
+		$this->db->from('proyek');
+		$this->db->where('id =', $id);
+		$query = $this->db->get();
+		if ($query->num_rows() > 0) {
+			return $query->result();
+		} else {
+			return array();
+		}
+	}
 }
 ?>

@@ -37,120 +37,133 @@ textarea {
             <!-- Container fluid  -->
             <div class="container-fluid">
                 <!-- Start Page Content -->
-                <div class="row">
-                    <!-- /# column -->
-                    <div class="col-lg-12">
-                        <div class="card">  
-                            <h5> Deskripsi Musyawarah </h5>
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Notulen <span class="required">*</span>
-                                    </label>
-                                    <div class="col-md-9 col-sm-9 col-xs-12">
-                                        <select id="namaNotulen" class="form-control">
-                                            <option>Pilih Notulen</option>
-                                            <?php foreach ($takmirs as $takmir): ?>
-                                                <option value="<?php echo $takmir->id.'%'.$takmir->nama; ?>"><?php echo $takmir->nama;?></option>
-                                            <?php endforeach;?>
-                                        </select>
+                <form method="post" action="<?php echo base_url('MainNotulensi/storeNotulensi'); ?>">
+                    <div class="row">
+                        <!-- /# column -->
+                        <div class="col-lg-12">
+                            <div class="card">  
+                                <h5> Deskripsi Musyawarah </h5>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Notulen <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <select name="namaNotulen" id="namaNotulen" class="form-control">
+                                                <option>Pilih Notulen</option>
+                                                <?php foreach ($takmirs as $takmir): ?>
+                                                    <option value="<?php echo $takmir->nama; ?>"><?php echo $takmir->nama;?></option>
+                                                <?php endforeach;?>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Amir <span class="required">*</span>
-                                    </label>
-                                    <div class="col-md-9 col-sm-9 col-xs-12">
-                                        <select id="namaAmir" class="form-control">
-                                            <option>Pilih Amir</option>
-                                            <?php foreach ($takmirs as $takmir): ?>
-                                                <option value="<?php echo $takmir->id.'%'.$takmir->nama; ?>"><?php echo $takmir->nama;?></option>
-                                            <?php endforeach;?>
-                                        </select>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Amir <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <select name="namaAmir" id="namaAmir" class="form-control">
+                                                <option>Pilih Amir</option>
+                                                <?php foreach ($takmirs as $takmir): ?>
+                                                    <option value="<?php echo $takmir->nama; ?>"><?php echo $takmir->nama;?></option>
+                                                <?php endforeach;?>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Peserta musyawarah</label>
-                                    <div id="namaHadirin" class="col-md-9 col-sm-9 col-xs-12">
-                                        <select class="select2_multiple form-control" multiple="multiple">
-                                            <?php foreach ($takmirs as $takmir): ?>
-                                                <option value="<?php echo $takmir->id.'%'.$takmir->nama; ?>"><?php echo $takmir->nama;?></option>
-                                            <?php endforeach;?>
-                                        </select>
+                                    <div class="form-group">
+                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Peserta musyawarah</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <select name="namaHadirin[]" id="namaHadirin[]" class="select2_multiple form-control" multiple="multiple">
+                                                <?php foreach ($takmirs as $takmir): ?>
+                                                    <option value="<?php echo $takmir->nama; ?>"><?php echo $takmir->nama;?></option>
+                                                <?php endforeach;?>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card col-lg-4">  
-                        <div id="kolomProgres" class="card-body">
-                            <label class="control-label col-md-12 col-sm-12 col-xs-12" for="first-name">Tambah Progres <span class="required">*</span>
-                            </label>
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <input type="text" id="namaProgress" class="form-control col-md-7 col-xs-12" placeholder="nama progres..">
-                                <button onclick="tambahProgres()" class="btn btn-primary">Tambah</a>
+                        <div class="card col-lg-4">  
+                            <div id="kolomProgres" class="card-body">
+                                <label class="control-label col-md-12 col-sm-12 col-xs-12" for="first-name">Tambah Progres <span class="required">*</span>
+                                </label>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <select id="optionProgress" class="form-control col-md-11 col-sm-11 col-xs-12">
+                                        <option value="">Pilih Progres</option>
+                                        <?php foreach ($proyeks as $proyek): ?>
+                                            <option value="<?php echo $proyek->id; ?>"><?php echo $proyek->nama_proyek;?></option>
+                                        <?php endforeach;?>
+                                    </select>
+                                    <br>
+                                    <input type="text" id="namaProgress" class="form-control col-md-11 col-sm-11 col-xs-12" placeholder="Progress baru..">
+                                    <br>
+                                    <a onclick="tambahProgres()" class="btn btn-primary">Tambah</a>
+                                </div>   
                             </div>
                         </div>
-                    </div>
 
-                    <div class="card col-lg-4">  
-                        <div id="kolomMasukkan" class="card-body">
-                            <label class="control-label col-md-12 col-sm-12 col-xs-12" for="first-name">Tanggapan pekerjaan lain<span class="required">*</span>
-                            </label>
-                            <!-- <div class="col-md-12 col-sm-12 col-xs-12">
-                                <input type="text" id="first-name" class="form-control col-md-7 col-xs-12">
-                                <a href="#" class="btn btn-primary">Tambah</a>
+                        <div class="card col-lg-4">  
+                            <div id="kolomMasukkan" class="card-body">
+                                <label class="control-label col-md-12 col-sm-12 col-xs-12" for="first-name">Tanggapan pekerjaan lain<span class="required">*</span>
+                                </label>
+                                <!-- <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <input type="text" id="first-name" class="form-control col-md-7 col-xs-12">
+                                    <a href="#" class="btn btn-primary">Tambah</a>
+                                </div> -->
+                            </div>
+                        </div>
+
+                        <div class="card col-lg-4">  
+                            <div id="kolomKeputusan" class="card-body">
+                                <label class="control-label col-md-12 col-sm-12 col-xs-12" for="first-name">Keputusan<span class="required">*</span>
+                                </label>
+                                <!-- <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <input type="text" id="first-name" class="form-control col-md-7 col-xs-12">
+                                    <a href="#" class="btn btn-primary">Tambah</a>
+                                </div> -->
+                            </div>
+                        </div>
+                        <style> 
+                            .bd-callout-warning {
+                                border-left-color: #f0ad4e;
+                            }
+                            .bd-callout {
+                                padding: 1.25rem;
+                                margin-top: 1.25rem;
+                                margin-bottom: 1.25rem;
+                                border: 1px solid #eee;
+                                border-left-width: .25rem;
+                                border-radius: .25rem;
+                            }
+                        </style>
+                        <div class="card col-lg-12">  
+                            <div id="hasil"> 
+                            </div>
+                            <!-- <div class="bd-callout bd-callout-warning">
+                                <h5 id="conveying-meaning-to-assistive-technologies">Progress </h5>
+                                <p>Using color to add meaning only provides a visual indication, which will not be conveyed to users of assistive technologies – such as screen readers. Ensure that information denoted by the color is either obvious from the content itself (e.g. the visible text), or is included through alternative means, such as additional text hidden with the <code class="highlighter-rouge">.sr-only</code> class.</p>
+                                <h5 id="conveying-meaning-to-assistive-technologies">Keputusan </h5>
+                                <p>Using color to add meaning only provides a visual indication, which will not be conveyed to users of assistive technologies – such as screen readers. Ensure that information denoted by the color is either obvious from the content itself (e.g. the visible text), or is included through alternative means, such as additional text hidden with the <code class="highlighter-rouge">.sr-only</code> class.</p>
                             </div> -->
+
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+
+                            <!-- The text field -->
+                            <p id="error-details" hidden></p>
+                            <button id="FailCopy" type="button"  
+                                onclick="copyToClipboard('p#error-details')" class="btn btn-link">Salin</button>
+                            <a href="whatsapp://send?text=">Bagikan ke WhatsApp</a>
                         </div>
+                        
+
+                        <!-- /# column -->
                     </div>
-
-                    <div class="card col-lg-4">  
-                        <div id="kolomKeputusan" class="card-body">
-                            <label class="control-label col-md-12 col-sm-12 col-xs-12" for="first-name">Keputusan<span class="required">*</span>
-                            </label>
-                            <!-- <div class="col-md-12 col-sm-12 col-xs-12">
-                                <input type="text" id="first-name" class="form-control col-md-7 col-xs-12">
-                                <a href="#" class="btn btn-primary">Tambah</a>
-                            </div> -->
-                        </div>
-                    </div>
-                    <style> 
-                        .bd-callout-warning {
-                            border-left-color: #f0ad4e;
-                        }
-                        .bd-callout {
-                            padding: 1.25rem;
-                            margin-top: 1.25rem;
-                            margin-bottom: 1.25rem;
-                            border: 1px solid #eee;
-                            border-left-width: .25rem;
-                            border-radius: .25rem;
-                        }
-                    </style>
-                    <div class="card col-lg-12">  
-                        <div id="hasil"> 
-                        </div>
-                        <!-- <div class="bd-callout bd-callout-warning">
-                            <h5 id="conveying-meaning-to-assistive-technologies">Progress </h5>
-                            <p>Using color to add meaning only provides a visual indication, which will not be conveyed to users of assistive technologies – such as screen readers. Ensure that information denoted by the color is either obvious from the content itself (e.g. the visible text), or is included through alternative means, such as additional text hidden with the <code class="highlighter-rouge">.sr-only</code> class.</p>
-                            <h5 id="conveying-meaning-to-assistive-technologies">Keputusan </h5>
-                            <p>Using color to add meaning only provides a visual indication, which will not be conveyed to users of assistive technologies – such as screen readers. Ensure that information denoted by the color is either obvious from the content itself (e.g. the visible text), or is included through alternative means, such as additional text hidden with the <code class="highlighter-rouge">.sr-only</code> class.</p>
-                        </div> -->
-
-                        <button type="button" class="btn btn-primary">Simpan</button>
-
-                        <!-- The text field -->
-                        <p id="error-details" hidden></p>
-                        <button id="FailCopy" type="button"  
-                            onclick="copyToClipboard('p#error-details')" class="btn btn-link">Salin</button>
-                        <a href="whatsapp://send?text=">Bagikan ke WhatsApp</a>
-                    </div>
-                    
-
-                    <!-- /# column -->
-                </div>
+                </form>
                 <!-- /# row -->
                 <!-- End PAge Content -->
             </div>
             <!-- End Container fluid -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="<?php echo 'assets/js/lib/toastr/toastr.min.js' ?>"></script>
+
 <script type="text/javascript">
 
     var tempIdPekerjaan = 0;
@@ -169,10 +182,7 @@ textarea {
     });
 
     function myFunction() {
-
         var brRegex = /<br\s*[\/]?>/gi;
-
-
         var copyText = document.getElementById("pwd_spn");
         var textArea = document.createElement("textarea");
         textArea.value = copyText.textContent;
@@ -183,16 +193,33 @@ textarea {
     }
 
     function tambahProgres(){
-        var namaProgress = document.getElementById("namaProgress").value; 
-        document.getElementById("namaProgress").value = "";
-        console.log(namaProgress);
-        var sethtml = '<br><div class="card" style=""><div class="card-body"><h5 class="card-title">'+namaProgress+'</h5><textarea id="progres[]" onchange="tambahKeterangan('+tempIdPekerjaan+', 0)" class="form-control progres" aria-label="With textarea"></textarea><br><p class="text-danger" style="float:left">hapus</p><p onclick="resetKeterangan('+tempIdPekerjaan+',0)" style="float:right" class="text-warning col-sx-6">Reset</p></div></div>'
+        if(document.getElementById("optionProgress").value == ""){
+            var namaProgress = document.getElementById("namaProgress").value; 
+            document.getElementById("namaProgress").value = "";
+            tambahCard(namaProgress,0);
+
+        } else {
+            var idProgres = document.getElementById("optionProgress").value;
+            console.log(idProgres);    
+            $.get("<?php echo base_url('MainNotulensi/ajax_get_nama_pekerjaan_by'); ?>/"+idProgres, function(respond){
+                var KK = JSON.parse(respond);
+                var namaProgress = KK[0]['nama_proyek'];
+                tambahCard(namaProgress,idProgres);
+                document.getElementById("namaProgress").value = "";
+                document.getElementById("optionProgress").value = "";
+            });
+            
+        }
+    }
+
+    function tambahCard(namaProgress,idProgress){
+        var sethtml = '<br><div class="card" style=""><div class="card-body"><h5 class="card-title">'+namaProgress+'</h5><input type="text" id="idProgress[]" name="idProgress[]" value='+idProgress+'><input type="text" id="namaProgress[]" name="namaProgress[]" value="'+namaProgress+'"><textarea id="progres[]" name="progres[]" onchange="tambahKeterangan('+tempIdPekerjaan+', 0)" class="form-control progres" aria-label="With textarea"></textarea><br><p class="text-danger" style="float:left">hapus</p><p onclick="resetKeterangan('+tempIdPekerjaan+',0)" style="float:right" class="text-warning col-sx-6">Reset</p></div></div>'
         $("#kolomProgres").append(sethtml);
         autosize(document.getElementsByClassName('progres'+tempIdPekerjaan));
-        var sethtml = '<br><div class="card" style=""><div class="card-body"><h5 class="card-title">'+namaProgress+'</h5><p id="kontendariprogres'+tempIdPekerjaan+'" class="kontendariprogres'+tempIdPekerjaan+'"></p><textarea id="masukkan'+tempIdPekerjaan+'"  onchange="tambahKeterangan('+tempIdPekerjaan+', 1)" class="form-control masukkan" aria-label="With textarea"></textarea><br><p onclick="resetKeterangan('+tempIdPekerjaan+',1)" style="float:right" class="text-warning col-sx-6">Reset</p></div></div>'
+        var sethtml = '<br><div class="card" style=""><div class="card-body"><h5 class="card-title">'+namaProgress+'</h5><p id="kontendariprogres'+tempIdPekerjaan+'" class="kontendariprogres'+tempIdPekerjaan+'"></p><textarea id="masukkan[]" name="masukkan[]"  onchange="tambahKeterangan('+tempIdPekerjaan+', 1)" class="form-control masukkan" aria-label="With textarea"></textarea><br><p onclick="resetKeterangan('+tempIdPekerjaan+',1)" style="float:right" class="text-warning col-sx-6">Reset</p></div></div>'
         $("#kolomMasukkan").append(sethtml);
         autosize(document.getElementsByClassName('kontendariprogres'+tempIdPekerjaan));
-        var sethtml = '<br><div class="card" style=""><div class="card-body"><h5 class="card-title">'+namaProgress+'</h5><p id="kontendarimasukkan'+tempIdPekerjaan+'" class="kontendarimasukkan'+tempIdPekerjaan+'"></p><textarea id="keputusan'+tempIdPekerjaan+'" onchange="tambahKeterangan('+tempIdPekerjaan+', 2)" class="form-control keputusan" aria-label="With textarea"></textarea><br><p onclick="resetKeterangan('+tempIdPekerjaan+',2)" style="float:right" class="text-warning col-sx-6">Reset</p></div></div>'
+        var sethtml = '<br><div class="card" style=""><div class="card-body"><h5 class="card-title">'+namaProgress+'</h5><p id="kontendarimasukkan'+tempIdPekerjaan+'" class="kontendarimasukkan'+tempIdPekerjaan+'"></p><textarea id="keputusan[]" name="keputusan[]" onchange="tambahKeterangan('+tempIdPekerjaan+', 2)" class="form-control keputusan" aria-label="With textarea"></textarea><br><p onclick="resetKeterangan('+tempIdPekerjaan+',2)" style="float:right" class="text-warning col-sx-6">Reset</p></div></div>'
         $("#kolomKeputusan").append(sethtml);
         autosize(document.getElementsByClassName('kontendarimasukkan'+tempIdPekerjaan));
 

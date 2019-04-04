@@ -31,7 +31,8 @@ class MainNotulensi extends CI_Controller {
 	{
 		$this->load->view('header');
 		$this->load->view('left_sidebar');
-		$data['takmirs'] = $this->m_notulen->all();
+		$data['takmirs'] = $this->m_anggota->tampil_semua_data_by_table("anggota");
+		$data['proyeks'] = $this->m_anggota->tampil_semua_data_by_table("proyek");		
 		$this->load->view('notulensi/v_buat_notulensi',$data);
 		$this->load->view('footer');
 	}
@@ -75,6 +76,40 @@ class MainNotulensi extends CI_Controller {
 		$this->load->view('footer');
 	}
 
+	public function storeNotulensi()
+	{
+		$namaNotulen = $this->input->post('namaNotulen');
+		$namaAmir = $this->input->post('namaAmir');
+		$namaHadirin = $this->input->post('namaHadirin');
+		$idProgress = $this->input->post('idProgress');
+		$namaProgress = $this->input->post('namaProgress');
+		$progres = $this->input->post('progres');
+		$masukkan = $this->input->post('masukkan');
+		$keputusan = $this->input->post('keputusan');
+		// progres,masukkan,keputusan
+		echo "Notulen : ".$namaNotulen.'<br>';
+		echo "Amir : ".$namaAmir.'<br>';
+		
+		echo "Hadirin : ".'<br>';
+		var_dump($namaHadirin);
+		echo "<br>";
+		echo "id : ".'<br>';
+		var_dump($idProgress);
+		echo "<br>";
+		echo "namaProgress : ".'<br>';
+		var_dump($namaProgress);
+		echo "<br>";
+		echo "isiProgress : ".'<br>';
+		var_dump($progres);
+		echo "<br>";
+		echo "tanggapanProgress : ".'<br>';
+		var_dump($masukkan);
+		echo "<br>";
+		echo "keputusanProgress : ".'<br>';
+		var_dump($keputusan);
+		echo "<br>";
+	}
+
 	public function storePekerjaan()
 	{
 		$namaProyek = $this->input->post('namaProyek');
@@ -105,5 +140,15 @@ class MainNotulensi extends CI_Controller {
 			$this->update($namaTabel, $kolom, $idAnggota, $simpan, $redirectHalaman);
 			echo "Berhasil ditambahkan";
 		}	
+	}
+
+	public function ajax_get_nama_pekerjaan_by($id){
+		$data = $this->m_notulen->ajax_get_nama_pekerjaan_by($id);
+		echo json_encode($data);
+	}
+
+	public function ajax_get_nama(){
+		$data = $this->m_anggota->tampil_semua_data_by_table("anggota");
+		echo json_encode($data);
 	}
 }

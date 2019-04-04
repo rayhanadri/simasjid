@@ -10,18 +10,22 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo base_url('assets/images/ibnusina.jpg')?>">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo base_url('assets/images/ibnusina.jpg');?>">
     <title>Admin Masjid</title>
     <!-- Bootstrap Core CSS -->
-    <link href="<?php echo base_url('assets/css/lib/bootstrap/bootstrap.min.css')?>" rel="stylesheet">
+    <link href="<?php echo base_url('assets/css/lib/bootstrap/bootstrap.min.css');?>" rel="stylesheet">
     <!-- Custom CSS -->
 
-    <link href="<?php echo base_url('assets/css/lib/calendar2/semantic.ui.min.css')?>" rel="stylesheet">
-    <link href="<?php echo base_url('assets/css/lib/calendar2/pignose.calendar.min.css')?>" rel="stylesheet">
-    <link href="<?php echo base_url('assets/css/lib/owl.carousel.min.css')?>" rel="stylesheet">
-    <link href="<?php echo base_url('assets/css/lib/owl.theme.default.min.css')?>" rel="stylesheet">
-    <link href="<?php echo base_url('assets/css/helper.css')?>" rel="stylesheet">
-    <link href="<?php echo base_url('assets/css/style.css')?>" rel="stylesheet">
+    <script href="<?php echo base_url('assets/js/jquery-2.1.4.js'); ?>" ></script>
+    <link href="<?php echo base_url('assets/css/semantic.min.css'); ?>" rel="stylesheet">
+    <script href="<?php echo base_url('assets/js/semantic.min.js'); ?>" ></script>
+
+    <link href="<?php echo base_url('assets/css/lib/calendar2/semantic.ui.min.css');?>" rel="stylesheet">
+    <link href="<?php echo base_url('assets/css/lib/calendar2/pignose.calendar.min.css');?>" rel="stylesheet">
+    <link href="<?php echo base_url('assets/css/lib/owl.carousel.min.css');?>" rel="stylesheet">
+    <link href="<?php echo base_url('assets/css/lib/owl.theme.default.min.css');?>" rel="stylesheet">
+    <link href="<?php echo base_url('assets/css/helper.css');?>" rel="stylesheet">
+    <link href="<?php echo base_url('assets/css/style.css');?>" rel="stylesheet">
 
     <script src="https://rawgit.com/jackmoore/autosize/master/dist/autosize.min.js"></script>
 
