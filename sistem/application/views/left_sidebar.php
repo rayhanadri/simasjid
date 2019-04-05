@@ -5,26 +5,34 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                        <li class="nav-devider"></li>
-                        <li class="nav-label">Home</li>
-                        <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-home"></i><span class="hide-menu">Dashboard</span></a>
-                            <ul aria-expanded="false" class="collapse">
-                                <li><a href="<?php echo base_url(''); ?>">Beranda</a></li>
-                            </ul>
-                        </li>
-                        <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-edit"></i><span class="hide-menu">Notulensi</span></a>
-                            <ul aria-expanded="false" class="collapse">
-                                <li><a href="<?php echo base_url('buat_notulensi'); ?>">Buat Nolutensi</a></li>
-                                <li><a href="<?php echo base_url('notulensi'); ?>">Daftar Notulensi</a></li>
-                                <li><a href="<?php echo base_url('pekerjaan'); ?>">Daftar Pekerjaan</a></li>
-                            </ul>
-                        </li>
-                        <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-users"></i><span class="hide-menu">Keanggotaan</span></a>
-                            <ul aria-expanded="false" class="collapse">
-                                <!-- <li><a href="<?php //echo base_url('buat_anggota'); ?>">Tambah Anggota</a></li> -->
-                                <li><a href="<?php echo base_url('anggota'); ?>">Daftar Anggota</a></li>
-                            </ul>
-                        </li>
+                        <li class="nav-devider"><?php //var_dump($previlege); ?> </li>
+                        <?php if($previlege != 0) { ?>
+                            <li class="nav-label">Home</li>
+                            <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-home"></i><span class="hide-menu">Dashboard</span></a>
+                                <ul aria-expanded="false" class="collapse">
+                                    <li><a href="<?php echo base_url(''); ?>">Beranda</a></li>
+                                </ul>
+                            </li>
+                        <?php } ?>
+                        <?php if($previlege > 1) { ?>
+                            <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-edit"></i><span class="hide-menu">Notulensi</span></a>
+                                <ul aria-expanded="false" class="collapse">
+                                    <?php if($previlege != 2) { ?>
+                                        <li><a href="<?php echo base_url('buat_notulensi'); ?>">Buat Nolutensi</a></li>
+                                    <?php } ?>
+                                    <li><a href="<?php echo base_url('notulensi'); ?>">Daftar Notulensi</a></li>
+                                    <li><a href="<?php echo base_url('pekerjaan'); ?>">Daftar Pekerjaan</a></li>
+                                </ul>
+                            </li>
+                        <?php } ?>
+                        <?php if($previlege > 0 && $previlege < 3) { ?>
+                            <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-users"></i><span class="hide-menu">Keanggotaan</span></a>
+                                <ul aria-expanded="false" class="collapse">
+                                    <!-- <li><a href="<?php //echo base_url('buat_anggota'); ?>">Tambah Anggota</a></li> -->
+                                    <li><a href="<?php echo base_url('anggota'); ?>">Daftar Anggota</a></li>
+                                </ul>
+                            </li>
+                        <?php } ?>
                         <!-- <li class="nav-label">Features</li>
                         <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-suitcase"></i><span class="hide-menu">Bootstrap UI <span class="label label-rouded label-warning pull-right">6</span></span></a>
                             <ul aria-expanded="false" class="collapse">

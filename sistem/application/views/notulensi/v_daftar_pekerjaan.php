@@ -3,11 +3,11 @@
             <!-- Bread crumb -->
             <div class="row page-titles">
                 <div class="col-md-5 align-self-center">
-                    <h3 class="text-primary">Dashboard</h3> </div>
+                    <h3 class="text-primary">Pekerjaan</h3> </div>
                 <div class="col-md-7 align-self-center">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active">Dashboard</li>
+                        <li class="breadcrumb-item active">Pekerjaan</li>
                     </ol>
                 </div>
             </div>
@@ -32,7 +32,9 @@
                                                 <th>Pekerjaan</th>
                                                 <th>Penanggung Jawab</th>
                                                 <th>Progres terakhir</th>
-                                                <th>Verifikasi</th>
+                                                <?php if($i_takmir == 1) { ?>
+                                                    <th>Verifikasi</th>
+                                                <?php } ?>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -44,29 +46,24 @@
                                                     <td style="display:none"><?php echo $proyek->id ?></td>
                                                     <td><?php echo $proyek->nama_proyek ?></td>
                                                     <td><?php echo $proyek->nama_anggota ?></td>
-                                                    <td><span class="label label-warning">Proses</span> <br>Melakukan perbaikan tv </td>
-                                                    <td>
-                                                        <div class="alert alert-danger">
-                                                        Belum Verifikasi Ketua Takmir  <br><a href="#" class="alert-link"><i class="fa fa-check-square-o"></i>Verifikasi Sekarang</a>
-                                                        </div>
-                                                    </td>
+                                                    <td>Melakukan perbaikan tv </td>
+                                                    <?php if($i_takmir == 1) { ?>
+                                                        <td>
+                                                            <?php if($proyek->diverifikasi == 0){ ?>
+                                                                <div class="alert alert-danger">
+                                                                Belum Verifikasi Ketua Takmir  <br><a href="#" class="alert-link"><i class="fa fa-check-square-o"></i>Verifikasi Sekarang</a>
+                                                                </div>
+                                                            <?php } else { ?>
+                                                                <div class="alert alert-info">
+                                                                    Sudah dierifikasi
+                                                                    <a href="#" class="alert-link"></a>
+                                                                </div>
+                                                            <?php }  ?>
+                                                        </td>
+                                                    <?php } ?>
                                                     <td><a href="<?php echo base_url('pekerjaan/'.$proyek->id_proyek); ?>"><button type="button" class="btn btn-info m-b-10 m-l-5">Lihat</button></a></td>
                                                 </tr>
                                             <?php endforeach; ?>
-                                            
-                                            <tr>
-                                                <td style="display:none">Tiger Nixon</td>
-                                                <td>24/03/2019</td>
-                                                <td>Rizky Novriansyah</td>
-                                                <td>Bangku, tv, lemari, makanan buka puasa, sistem aplikasi, mekanisme buka puasa saat bulan ramadhan</td>
-                                                <td>
-                                                    <div class="alert alert-info">
-                                                        Sudah Verifikasi Ketua Takmir
-                                                        <a href="#" class="alert-link"></a>
-                                                    </div>
-                                                </td>
-                                                <td><button type="button" class="btn btn-info m-b-10 m-l-5">Lihat</button></td>
-                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>

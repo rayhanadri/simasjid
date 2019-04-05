@@ -39,8 +39,8 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-4">
                         <div class="login-content card">
-                            <div class="login-form">
-                                <h4>Login</h4>
+                            <div class="login-form">         
+                                <h4>Login<br> Sistem Informasi Masjid Ibnu Sina</h4>
                                 <form method="post" action="<?php echo base_url('Main/login'); ?>">
                                     <div class="form-group">
                                         <label>Username</label>

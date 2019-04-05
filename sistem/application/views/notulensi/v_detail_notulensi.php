@@ -3,11 +3,12 @@
             <!-- Bread crumb -->
             <div class="row page-titles">
                 <div class="col-md-5 align-self-center">
-                    <h3 class="text-primary">Dashboard</h3> </div>
+                    <h3 class="text-primary">Detail Notulensi</h3> </div>
                 <div class="col-md-7 align-self-center">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active">Dashboard</li>
+                        <li class="breadcrumb-item active">Notulensi</li>
+                        <li class="breadcrumb-item active">Detail</li>
                     </ol>
                 </div>
             </div>
@@ -19,13 +20,11 @@
                     <!-- /# column -->
                     <div class="col-lg-12">
                         <?php 
-                            // var_dump($notulens); 
-                            // var_dump($pembawa_notulens); 
-                            $listJudulProgres = explode("$",$notulens[0]->pokok_bahasan);
-                            $listDetailProgres= explode("$",$notulens[0]->gabungan_progres); 
-                            $listKeputusanProyek= explode("$",$notulens[0]->gabungan_keputusan_progres); 
-                            $listStatusProyek= explode("$",$notulens[0]->status_proyek); 
-                            // var_dump($listStatusProyek); 
+                            //var_dump($notulens); 
+                            $listJudulProgres = explode("$",$notulens['0']->pokok_bahasan);
+                            $listDetailProgres= explode("$",$notulens['0']->gabungan_progres); 
+                            $listKeputusanProyek= explode("$",$notulens['0']->gabungan_keputusan_progres); 
+                            $listStatusProyek= explode("$",$notulens['0']->status_proyek); 
                         ?>
                         <div class="card">
                             <div class="card-body">
@@ -90,7 +89,16 @@
                                         </div> -->
 
                                         <div class="text-right">
-                                            <button type="button" class="btn btn-default waves-effect waves-light w-md m-b-30">Verifikasi</button>
+                                            <?php if($notulens['0']->diverifikasi == 0){ ?>
+                                                <?php if($notulens['0']->id_takmir == $i_takmir){ ?>
+                                                    <button type="button" class="btn btn-success waves-effect waves-light w-md m-b-30">Verifikasi</button>
+                                                <?php } else { ?>
+                                                    <button type="button" class="btn btn-default waves-effect waves-light w-md m-b-30">Verifikasi</button>
+                                                <?php }  ?>
+                                            <?php } ?>
+                                            <?php if($notulens['0']->id_notulen == $i_takmir){ ?>
+                                                <button type="button" class="btn btn-warning waves-effect waves-light w-md m-b-30">Edit</button>
+                                            <?php } ?>
                                             <!-- <button type="button" class="btn btn-primary waves-effect waves-light w-md m-b-30">Verifikasi</button> -->
                                         </div>
 

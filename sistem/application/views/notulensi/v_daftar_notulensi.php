@@ -3,11 +3,11 @@
             <!-- Bread crumb -->
             <div class="row page-titles">
                 <div class="col-md-5 align-self-center">
-                    <h3 class="text-primary">Dashboard</h3> </div>
+                    <h3 class="text-primary">Notulensi</h3> </div>
                 <div class="col-md-7 align-self-center">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active">Dashboard</li>
+                        <li class="breadcrumb-item active">Notulensi</li>
                     </ol>
                 </div>
             </div>
@@ -26,12 +26,13 @@
 
                             <div class="card-body">
                                 <div class="table-responsive">
+                                    <?php //var_dump($notulens); ?>
                                     <table id="myTable" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
                                                 <th style="display:none">idNotulen</th>
                                                 <th>Tanggal Notulensi</th>
-                                                <th>Amir Musyawarah</th>
+                                                <th>Notulen Musyawarah</th>
                                                 <th>Pokok Bahasan</th>
                                                 <th>Verifikasi</th>
                                                 <th>Aksi</th>
@@ -45,11 +46,25 @@
                                                 <td><?php echo $notulen->nama; ?></td>
                                                 <td><?php echo $notulen->pokok_bahasan; ?></td>
                                                 <td>
-                                                    <div class="alert alert-danger">
-                                                    Belum Verifikasi Ketua Amir  <br><a href="#" class="alert-link"><i class="fa fa-check-square-o"></i>Verifikasi Sekarang</a>
-                                                    </div>
+                                                    <?php if($notulen->diverifikasi_amir == 0){ ?>
+                                                        <div class="alert alert-danger">
+                                                            Belum Verifikasi Amir  
+                                                            <?php if($notulen->id_takmir == $i_takmir){ ?>
+                                                                <br><a href="#" class="alert-link"><i class="fa fa-check-square-o"></i>Verifikasi Sekarang</a>
+                                                            <?php } ?>
+                                                        </div>
+                                                    <?php } else { ?>
+                                                        <div class="alert alert-info">
+                                                            Sudah diverifikasi Amir  
+                                                        </div>
+                                                    <?php } ?>
                                                 </td>
-                                                <td><a href="<?php echo base_url('notulensi/'.$notulen->id);?>"><button type="button" class="btn btn-info m-b-10 m-l-5">Lihat</button></a></td>
+                                                <td>
+                                                    <a href="<?php echo base_url('notulensi/'.$notulen->id_notulensi);?>"><button type="button" class="btn btn-info m-b-10 m-l-5">Lihat</button></a>
+                                                    <?php if($notulen->id_notulen == $i_takmir){ ?>
+                                                        <a href="<?php echo base_url('notulensi/'.$notulen->id_notulensi);?>"><button type="button" class="btn btn-warning m-b-10 m-l-5">Edit</button></a>
+                                                    <?php } ?>
+                                                </td>
                                             </tr>
                                             <?php endforeach; ?>
                                         </tbody>

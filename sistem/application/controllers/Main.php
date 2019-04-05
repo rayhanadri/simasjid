@@ -41,20 +41,27 @@ class Main extends CI_Controller {
 		$data = $this->m_anggota->login($param)->row_array();
 		if($data > 0){
             $data_session = array(
-                'u_name' => $username,
+				'u_name' => $username,
+				'jabatan' => $data["id_jabatan"],
+				'i_takmir' => $data["id"],
                 'status' => "login"
 			);
-            $this->session->set_userdata($data_session); 
+			$this->session->set_userdata($data_session); 
             redirect('','refresh');	
         }else{
             echo "Username dan password salah !";
         }
 	}
 
+	private function getPrevilege(){
+		return $this->session->userdata("jabatan");
+	}
+
 	public function home()
 	{
 		$this->load->view('header');
-		$this->load->view('left_sidebar');
+		$previlege['previlege'] = $this->getPrevilege();
+		$this->load->view('left_sidebar',$previlege);
 		$this->load->view('v_beranda');
 		$this->load->view('footer');
 	}

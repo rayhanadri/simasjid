@@ -3,11 +3,12 @@
             <!-- Bread crumb -->
             <div class="row page-titles">
                 <div class="col-md-5 align-self-center">
-                    <h3 class="text-primary">Dashboard</h3> </div>
+                    <h3 class="text-primary">Edit Anggota</h3> </div>
                 <div class="col-md-7 align-self-center">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active">Dashboard</li>
+                        <li class="breadcrumb-item">Anggota</li>
+                        <li class="breadcrumb-item active">Edit Anggota</li>
                     </ol>
                 </div>
             </div>
@@ -62,7 +63,7 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="col-sm-offset-2 col-sm-10">
-                                                <button type="submit" class="btn btn-success m-b-10 m-l-5">edit anggota</button>
+                                                <button type="submit" class="btn btn-success m-b-10 m-l-5">Simpan</button>
                                             </div>
                                         </div>
                                     </form>

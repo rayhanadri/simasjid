@@ -9,6 +9,14 @@ class MainNotulensi extends CI_Controller {
 		$this->load->model('m_anggota');
 	}
 
+	private function getPrevilege(){
+		return $this->session->userdata("jabatan");
+	}
+
+	private function getIdTakmir(){
+		return $this->session->userdata("i_takmir");
+	}
+
 	private function insert($namaTabel, $data, $redirectHalaman){
 		$result = $this->m_anggota->insertData($namaTabel,$data);
 		if($result){
@@ -26,7 +34,8 @@ class MainNotulensi extends CI_Controller {
 	public function index()
 	{
 		$this->load->view('header');
-		$this->load->view('left_sidebar');
+		$data['previlege'] = $this->getPrevilege();
+		$this->load->view('left_sidebar',$data);
 		$data['takmirs'] = $this->m_notulen->all();
 		$this->load->view('v_beranda',$data);
 		$this->load->view('footer');
@@ -35,7 +44,9 @@ class MainNotulensi extends CI_Controller {
 	public function buatNotulensi()
 	{
 		$this->load->view('header');
-		$this->load->view('left_sidebar');
+		$data['previlege'] = $this->getPrevilege();
+		$this->load->view('left_sidebar',$data);
+		$data['i_takmir'] = $this->getIdTakmir();
 		$data['takmirs'] = $this->m_anggota->tampil_semua_data_anggota();
 		$data['proyeks'] = $this->m_anggota->tampil_semua_data_by_table("proyek");		
 		$this->load->view('notulensi/v_buat_notulensi',$data);
@@ -45,7 +56,9 @@ class MainNotulensi extends CI_Controller {
 	public function daftarNotulensi()
 	{
 		$this->load->view('header');
-		$this->load->view('left_sidebar');
+		$data['previlege'] = $this->getPrevilege();
+		$this->load->view('left_sidebar',$data);
+		$data['i_takmir'] = $this->getIdTakmir();
 		$data['notulens'] = $this->m_notulen->all();
 		$this->load->view('notulensi/v_daftar_notulensi',$data);
 		$this->load->view('footer');
@@ -54,9 +67,11 @@ class MainNotulensi extends CI_Controller {
 	public function detailNotulensi($idNotulensi = null)
 	{
 		$this->load->view('header');
-		$this->load->view('left_sidebar');
+		$data['previlege'] = $this->getPrevilege();
+		$this->load->view('left_sidebar',$data);
 		$data['notulens'] = $this->m_notulen->tampil_detail_notulen($idNotulensi);
 		$data['pembawa_notulens'] = $this->m_notulen->tampil_data_notulen($idNotulensi);
+		$data['i_takmir'] = $this->getIdTakmir();
 		$this->load->view('notulensi/v_detail_notulensi',$data);
 		$this->load->view('footer');
 	}
@@ -64,7 +79,9 @@ class MainNotulensi extends CI_Controller {
 	public function daftarPekerjaan()
 	{
 		$this->load->view('header');
-		$this->load->view('left_sidebar');
+		$data['previlege'] = $this->getPrevilege();
+		$this->load->view('left_sidebar',$data);
+		$data['i_takmir'] = $this->getIdTakmir();
 		$data['anggotas'] = $this->m_anggota->tampil_semua_data_by_table("anggota");
 		$data['proyeks'] = $this->m_notulen->tampil_semua_data_by_table("proyek");
 		$this->load->view('notulensi/v_daftar_pekerjaan',$data);
@@ -74,7 +91,8 @@ class MainNotulensi extends CI_Controller {
 	public function detailPekerjaan($detail = null)
 	{
 		$this->load->view('header');
-		$this->load->view('left_sidebar');
+		$data['previlege'] = $this->getPrevilege();
+		$this->load->view('left_sidebar',$data);
 		$data['detailProgress'] = $this->m_notulen->tampil_deskripsi_proyek($detail);
 		$data['listProgress'] = $this->m_notulen->tampil_list_progres_by($detail);
 		$this->load->view('notulensi/v_detail_pekerjaan',$data);
@@ -92,8 +110,8 @@ class MainNotulensi extends CI_Controller {
 		$masukkan = $this->input->post('masukkan');
 		$keputusan = $this->input->post('keputusan');
 
-		echo 'amir :'.$idAmir;
-		echo '<br>notulen :'.$idNotulen;
+		// echo 'amir :'.$idAmir;
+		// echo '<br>notulen :'.$idNotulen;
 		
 		// 1. masuk master_notulensi, ambil id master_notulensinya
 		$simpan = array(
@@ -107,7 +125,7 @@ class MainNotulensi extends CI_Controller {
 		for($i = 0; $i< sizeof($idProgress); $i++){
 			if($idProgress[$i] == 0)
 			{
-				echo "progress baru<br>";
+				// echo "progress baru<br>";
 				$simpan = array(
 					'id_anggota' => '0',
 					'nama_proyek' => $namaProgress[$i],
@@ -116,17 +134,17 @@ class MainNotulensi extends CI_Controller {
 				$namaTabel = "proyek";
 				$idProgress[$i] = $this->insertNotulen($namaTabel, $simpan);
 			} else {
-				echo "progress lama<br>";
+				// echo "progress lama<br>";
 			}
 			
-			echo $i.". ".$namaProgress[$i];
-			echo "<br>";
-			echo "id :".$idProgress[$i];
-			echo "<br>";
-			echo "Progress : ".$progres[$i];
-			echo "<br>";
-			echo "Keputusan : ".$keputusan[$i];
-			echo "<br>";
+			// echo $i.". ".$namaProgress[$i];
+			// echo "<br>";
+			// echo "id :".$idProgress[$i];
+			// echo "<br>";
+			// echo "Progress : ".$progres[$i];
+			// echo "<br>";
+			// echo "Keputusan : ".$keputusan[$i];
+			// echo "<br>";
 			// 2. masuk detail progress, ambil id detail_progressnya
 			$simpan = array(
 				'id_proyek' => $idProgress[$i],
@@ -144,6 +162,7 @@ class MainNotulensi extends CI_Controller {
 			$namaTabel = "detail_notulensi";
 			$this->insertNotulen($namaTabel, $simpan);
 		}
+		redirect("notulensi/".$idMasterNotulensi,'refresh');
 	}
 
 	public function storePekerjaan()

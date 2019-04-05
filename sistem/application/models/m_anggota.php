@@ -33,6 +33,7 @@ class M_anggota extends CI_Model
 		} else if($namaTabel == "anggota"){
 			$this->db->select('anggota.id as id_anggota');	
 			$this->db->join('jabatan', 'anggota.id_jabatan = jabatan.id');
+			$this->db->where('anggota.id_jabatan >', '1');
 			$this->db->where('aktif !=', '0');
 		}
 		else {

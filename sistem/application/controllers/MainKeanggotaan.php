@@ -9,10 +9,15 @@ class MainKeanggotaan extends CI_Controller {
 		$this->load->model('m_anggota');
 	}
 
+	private function getPrevilege(){
+		return $this->session->userdata("jabatan");
+	}
+
 	public function buatAnggotaBaru()
 	{
 		$this->load->view('header');
-		$this->load->view('left_sidebar');
+		$previlege['previlege'] = $this->getPrevilege();
+		$this->load->view('left_sidebar',$previlege);
 		$data['anggotas'] = $this->m_notulen->tampil_semua_data_by_table("anggota");
 		$this->load->view('v_beranda',$data);
 		$this->load->view('footer');
@@ -21,7 +26,8 @@ class MainKeanggotaan extends CI_Controller {
 	public function daftarAnggota()
 	{
 		$this->load->view('header');
-		$this->load->view('left_sidebar');
+		$previlege['previlege'] = $this->getPrevilege();
+		$this->load->view('left_sidebar',$previlege);
 		$data['anggotas'] = $this->m_anggota->tampil_semua_data_by_table("anggota");
 		$data['jabatans'] = $this->m_anggota->tampil_semua_data_by_table("jabatan");
 		$this->load->view('keanggotaan/v_daftar_anggota',$data);
@@ -31,7 +37,8 @@ class MainKeanggotaan extends CI_Controller {
 	public function editAnggota($id = "")
 	{
 		$this->load->view('header');
-		$this->load->view('left_sidebar');
+		$previlege['previlege'] = $this->getPrevilege();
+		$this->load->view('left_sidebar',$previlege);
 		$data['anggota'] = $this->m_anggota->find($id);
 		$data['jabatans'] = $this->m_anggota->tampil_semua_data_by_table("jabatan");
 		$this->load->view('keanggotaan/v_edit_anggota',$data);
@@ -58,7 +65,7 @@ class MainKeanggotaan extends CI_Controller {
 			);
 			
 			$this->insert($namaTabel, $simpan, $redirectHalaman);
-			echo "Berhasil ditambahkan";
+			// echo "Berhasil ditambahkan";
 		} else {
 			$kolom = "id";
 			$simpan = array(
@@ -68,8 +75,7 @@ class MainKeanggotaan extends CI_Controller {
 				'password' => $passwordAnggota,
 			);
 			$this->update($namaTabel, $kolom, $idAnggota, $simpan, $redirectHalaman);
-			echo "Berhasil ditambahkan";
-			
+			// echo "Berhasil ditambahkan";
 		}	
 	}
 	
@@ -88,7 +94,7 @@ class MainKeanggotaan extends CI_Controller {
 		if($result){
 			redirect($redirectHalaman,'refresh');
 		} else {
-			echo "gagal";
+			redirect($redirectHalaman,'refresh');
 		}
 	}
 
