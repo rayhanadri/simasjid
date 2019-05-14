@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org">
+<html layout:decorate="~{layout.html}"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>LOGIN</title>
 </head>
 <body>
+<div layout:fragment="content">
     <h1>Halaman Login</h1>
     <a th:href="${'/'}"><h2>Ke hello</h2></a>
+</div>
 </body>
 </html>

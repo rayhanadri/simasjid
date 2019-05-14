@@ -1,11 +1,43 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org">
+<html layout:decorate="~{layout.html}"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+
 </head>
 <body>
-    <h1>Hello spring boot</h1>
-    <a th:href="${'/login'}"><h2>Ke login</h2></a>
+    <!-- KONTENT START -->
+    <div layout:fragment="content">
+        <!-- Bread crumb -->
+        <div class="row page-titles">
+            <div class="col-md-5 align-self-center">
+                <h3 class="text-primary">Dashboard</h3> </div>
+            <div class="col-md-7 align-self-center">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ol>
+            </div>
+        </div>
+        <!-- End Bread crumb -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-title">
+                            <center><h4>Dashboard Masjid Ibnu Sina</h4></center>
+                        </div>
+                        <div class="card-body">
+                            <center><img style="height: 200px" th:src="@{images/ibnusina.jpg}"></center>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <h1>Hello spring boot</h1>
+            <a th:href="${'/login'}"><h2>Ke login</h2></a>
+        </div>
+    </div>
+    <!-- END KONTENT -->
 </body>
 </html>
