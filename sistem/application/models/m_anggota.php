@@ -35,6 +35,7 @@ class M_anggota extends CI_Model
 			$this->db->join('jabatan', 'anggota.id_jabatan = jabatan.id');
 			$this->db->where('anggota.id_jabatan >', '1');
 			$this->db->where('aktif !=', '0');
+			$this->db->limit(3);
 		}
 		else {
 			$this->db->where('aktif !=', '0');

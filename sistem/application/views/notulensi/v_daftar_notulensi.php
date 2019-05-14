@@ -39,7 +39,9 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php foreach($notulens as $notulen): ?>
+                                            <?php
+                                            foreach($notulens as $notulen): 
+                                            ?>
                                             <tr>
                                                 <td style="display:none"><?php echo $notulen->created_at; ?></td>
                                                 <td><?php echo $notulen->created_at; ?></td>

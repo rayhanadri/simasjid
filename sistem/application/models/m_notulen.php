@@ -20,7 +20,7 @@ class M_notulen extends CI_Model
 		$this->db->join('detail_progres', 'detail_progres.id = detail_notulensi.id_progres','Left');
 		$this->db->join('proyek', 'proyek.id = detail_progres.id_proyek','Left');
 		$this->db->group_by("master_notulensi.id");
-
+		$this->db->limit(3);
 		$query = $this->db->get();
 		if ($query->num_rows() > 0) {
 			return $query->result();
@@ -118,6 +118,7 @@ class M_notulen extends CI_Model
 			$this->db->select('anggota.nama as nama_anggota');	
 			$this->db->join('anggota', 'proyek.id_anggota = anggota.id');
 			$this->db->where('proyek.aktif !=', '0');
+			$this->db->limit(3);
 		} 
 		
 		$this->db->where('status !=', '0');

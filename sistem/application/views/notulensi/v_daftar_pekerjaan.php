@@ -17,6 +17,53 @@
                 <!-- Start Page Content -->
                 <div class="row">
                     <!-- /# column -->
+                    <div class="col-lg-4">
+                        <!-- TAMBAH -->
+                        <div class="card">
+                            <div class="card-title">
+                                <h4>Tambah Pekerjaan</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="horizontal-form">
+                                    <form method="post" action="<?php echo base_url('mainNotulensi/storePekerjaan'); ?>" class="form-horizontal">
+                                        <div class="form-group">
+                                            <label class="col-sm-12 control-label">Nama Pekerjaan</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="namaProyek" class="form-control" placeholder="Nama Pekerjaan">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-12 control-label">Deskripsi singkat pekerjaan</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="deskripsiProyek" class="form-control" placeholder="Deskripsi singkat">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-12 control-label">Penanggung Jawab</label>
+                                            <div class="col-sm-10">
+                                                <select class="form-control" name="idAnggota">
+                                                    <option>Pilih Penanggung Jawab</option>
+                                                    <?php foreach ($anggotas as $anggota): ?>
+                                                    <tr>
+                                                        <td style="display:none"> </td>
+                                                        <option value="<?php echo $anggota->id_anggota; ?>"><?php echo $anggota->nama; ?></option>
+                                                    </tr>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-2 col-sm-10">
+                                                <button type="submit" class="btn btn-success m-b-10 m-l-5">Buat pekerjaan</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /# column -->
+                    <!-- /# column -->
                     <div class="col-lg-8">
                         <div class="card">
                             <div class="card-title">
@@ -69,53 +116,6 @@
                                 </div>
                             </div>
                             <br>
-                        </div>
-                    </div>
-                    <!-- /# column -->
-                    <!-- /# column -->
-                    <div class="col-lg-4">
-                        <!-- TAMBAH -->
-                        <div class="card">
-                            <div class="card-title">
-                                <h4>Tambah Pekerjaan</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="horizontal-form">
-                                    <form method="post" action="<?php echo base_url('mainNotulensi/storePekerjaan'); ?>" class="form-horizontal">
-                                        <div class="form-group">
-                                            <label class="col-sm-12 control-label">Nama Pekerjaan</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="namaProyek" class="form-control" placeholder="Nama Pekerjaan">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-12 control-label">Deskripsi singkat pekerjaan</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="deskripsiProyek" class="form-control" placeholder="Deskripsi singkat">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-12 control-label">Penanggung Jawab</label>
-                                            <div class="col-sm-10">
-                                                <select class="form-control" name="idAnggota">
-                                                    <option>Pilih Penanggung Jawab</option>
-                                                    <?php foreach ($anggotas as $anggota): ?>
-                                                    <tr>
-                                                        <td style="display:none"> </td>
-                                                        <option value="<?php echo $anggota->id_anggota; ?>"><?php echo $anggota->nama; ?></option>
-                                                    </tr>
-                                                    <?php endforeach; ?>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-offset-2 col-sm-10">
-                                                <button type="submit" class="btn btn-success m-b-10 m-l-5">Buat pekerjaan</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <!-- /# column -->
