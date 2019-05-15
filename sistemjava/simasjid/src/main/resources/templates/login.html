@@ -3,13 +3,48 @@
       xmlns:layout="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>LOGIN</title>
+
 </head>
 <body>
-<div layout:fragment="content">
-    <h1>Halaman Login</h1>
-    <a th:href="${'/'}"><h2>Ke hello</h2></a>
+<!-- KONTENT START -->
+<div layout:fragment="body-main">
+    <div class="unix-login">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-lg-4">
+                    <div class="login-content card">
+                        <div class="login-form">
+                            <h4>Login</h4>
+                            <form th:action="@{/cekUser}" method="post">
+                                <div class="form-group">
+                                    <label>Username</label>
+                                    <input type="text" class="form-control" placeholder="Username" name="username" autofocus required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input type="password" class="form-control" placeholder="Password" name="password" required>
+                                </div>
+                                <!-- <div class="checkbox">
+                                    <label>
+                                            <input type="checkbox"> Remember Me
+                                        </label>
+                                    <label class="pull-right">
+                                            <a href="#">Forgotten Password?</a>
+                                        </label>
+
+                                </div> -->
+                                <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Sign in</button>
+                                <!-- <div class="register-link m-t-15 text-center">
+                                    <p>Don't have account ? <a href="#"> Sign Up Here</a></p>
+                                </div> -->
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<!-- END KONTENT -->
 </body>
 </html>
