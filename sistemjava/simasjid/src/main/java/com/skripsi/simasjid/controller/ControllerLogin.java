@@ -7,11 +7,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class ControllerLogin {
 
-    @RequestMapping("/login")
-    public String login(){
-        return "login";
-    }
-
     @RequestMapping(value = "/cekUser", method = RequestMethod.POST)
     public String cekUser(){
         return "redirect:/";
