@@ -22,17 +22,55 @@
         <!-- End Bread crumb -->
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-4">
+                <!-- /# column -->
+                <div class="col-lg-12">
                     <div class="card">
                         <div class="card-title">
-                            <center><h4>Dashboard Masjid Ibnu Sina</h4></center>
+                            <h4>Daftar Notulensi</h4>
+                            <a href=""><button style="float:right" type="button" class="btn btn-primary m-b-10 m-l-5">Buat Notulensi</button></a>
                         </div>
+
                         <div class="card-body">
-                            <center><img style="height: 200px" th:src="@{images/ibnusina.jpg}"></center>
+                            <div class="table-responsive">
+                                <table id="myTable" class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th style="display:none">idNotulen</th>
+                                        <th>Tanggal Notulensi</th>
+                                        <th>Notulen Musyawarah</th>
+                                        <th>Pokok Bahasan</th>
+                                        <th>Verifikasi</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td style="display:none"><?php echo $notulen->created_at; ?></td>
+                                        <td>17 November 2006</td>
+                                        <td>Amir musyawarah</td>
+                                        <td>A, B, C, D</td>
+                                        <td>
+                                            <div class="alert alert-danger">
+                                                Belum Verifikasi Amir
+                                                <br><a href="#" class="alert-link"><i class="fa fa-check-square-o"></i>Verifikasi Sekarang</a>
+                                            </div>
+                                            <div class="alert alert-info">
+                                                Sudah diverifikasi Amir
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <a href=""><button type="button" class="btn btn-info m-b-10 m-l-5">Lihat</button></a>
+                                            <a href=""><button type="button" class="btn btn-warning m-b-10 m-l-5">Edit</button></a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <br>
                     </div>
                 </div>
+                <!-- /# column -->
             </div>
         </div>
     </div>
