@@ -43,7 +43,7 @@ public class ControllerNotulensi {
 
     @RequestMapping(value = "/notulensi/cari")
     public String cariNotulensi(){
-        return "notulensi/daftar_notulensi";
+        return "notulensi/form_cari_notulensi";
     }
 
 }

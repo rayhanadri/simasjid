@@ -28,6 +28,7 @@
                             <div class="card">
                                 <div class="card-title">
                                     <h4>Daftar Pekerjaan</h4>
+                                    <a th:href="${'/pekerjaan/cari'}"><button style="float:right" type="button" class="btn btn-primary m-b-10 m-l-5">Filter Notulensi</button></a>
                                 </div>
 
                                 <div class="card-body">
@@ -38,7 +39,7 @@
                                                 <th>idNotulen</th>
                                                 <th>Pekerjaan</th>
                                                 <th>Penanggung Jawab</th>
-                                                <th>Progres terakhir</th>
+                                                <th hidden>Progres terakhir</th>
                                                 <th>Verifikasi</th>
                                                 <th>Aksi</th>
                                             </tr>
@@ -47,19 +48,19 @@
                                             <tr>
                                                 <td>1</td>
                                                 <td>a</td>
-                                                <td><b</td>
-                                                <td>Melakukan perbaikan tv </td>
+                                                <td>pj</td>
+                                                <td hidden>Melakukan perbaikan tv </td>
                                                 <td>
                                                     <div class="alert alert-danger">
                                                         Belum Verifikasi Ketua Takmir  <br><a href="#" class="alert-link"><i class="fa fa-check-square-o"></i>Verifikasi Sekarang</a>
                                                     </div>
                                                     <div class="alert alert-info">
-                                                        Sudah dierifikasi
+                                                        Sudah diverifikasi
                                                         <a href="#" class="alert-link"></a>
                                                     </div>
 
                                                 </td>
-                                                <td><a href=""><button type="button" class="btn btn-info m-b-10 m-l-5">Lihat</button></a></td>
+                                                <td><a th:href="${'/pekerjaan/detail'}"><button type="button" class="btn btn-info m-b-10 m-l-5">Lihat</button></a></td>
                                             </tr>
                                             </tbody>
                                         </table>

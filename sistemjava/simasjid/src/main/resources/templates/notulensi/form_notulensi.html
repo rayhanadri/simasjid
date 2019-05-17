@@ -18,7 +18,7 @@
             <div class="col-md-7 align-self-center">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                    <li class="breadcrumb-item">Notulensi</li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Notulensi</a></li>
                     <li class="breadcrumb-item active">Form Notulensi Musyawarah</li>
                 </ol>
             </div>
@@ -27,14 +27,14 @@
         <div class="container-fluid">
             <div class="row">
                 <!-- /# column -->
-                <div class="col-lg-12">
+                <div class="col-lg-8">
                     <div class="card">
                         <h5> Deskripsi Musyawarah </h5>
                         <div class="card-body">
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Notulen <span class="required">*</span>
+                                <label class="control-label col-md-9 col-sm-9 col-xs-12">Notulen <span class="required">*</span>
                                 </label>
-                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
                                     <select name="namaNotulen" id="namaNotulen" class="form-control">
                                         <option>Pilih Notulen</option>
                                         <option id="" value=""></option>
@@ -42,18 +42,18 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" >Amir <span class="required">*</span>
+                                <label class="control-label col-md-9 col-sm-9 col-xs-12" >Amir <span class="required">*</span>
                                 </label>
-                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
                                     <select name="namaAmir" id="namaAmir" class="form-control">
                                         <option>Pilih Amir</option>
                                         <option value=""></option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group" hidden>
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Peserta musyawarah</label>
-                                <div class="col-md-9 col-sm-9 col-xs-12">
+                            <div class="form-group">
+                                <label class="control-label col-md-9 col-sm-9 col-xs-12">Peserta musyawarah</label>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
                                     <select name="namaHadirin[]" id="namaHadirin[]" class="select2_multiple form-control" multiple="multiple">
                                         <option value="">1</option>
                                         <option value="">2</option>
@@ -79,7 +79,7 @@
                                 <div class="tab-pane active" id="home2" role="tabpanel">
                                     <div class="p-20">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <select id="optionProgress" class="form-control col-md-11 col-sm-11 col-xs-12">
+                                            <select id="optionProgress" class="form-control col-md-12 col-sm-12 col-xs-12">
                                                 <option value="">Pilih Laporan</option>
                                                 <option value="1">tes</option>
                                             </select>
@@ -91,7 +91,12 @@
                                 <div class="tab-pane" id="profile2" role="tabpanel">
                                     <div class="p-20">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <input type="text" id="namaProgress" class="form-control col-md-11 col-sm-11 col-xs-12" placeholder="Progress baru..">
+                                            <input type="text" id="namaProgress" class="form-control col-md-12 col-sm-12 col-xs-12" placeholder="Laporan baru..">
+                                            <input type="text" id="deskripsiProgress" class="form-control col-md-12 col-sm-12 col-xs-12" placeholder="Deskripsi..">
+                                            <select name="namaPenanggungJawab" id="namaPenanggungJawab" class="form-control">
+                                                <option>Pilih Penanggung Jawab</option>
+                                                <option value=""></option>
+                                            </select>
                                             <br>
                                             <a onclick="tambahProgres()" class="btn btn-primary">Tambah</a>
                                         </div>
@@ -127,6 +132,17 @@
                         <div id="kolomKeputusan" class="card-body">
                             <label class="control-label col-md-12 col-sm-12 col-xs-12">Keputusan<span class="required">*</span>
                             </label>
+                        </div>
+                    </div>
+                </div>
+                <!--Catatan tambahan-->
+                <div class="col-lg-12">
+                    <div class="card">
+                        <h5> Catatan Tambahan </h5>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <input type="text" id="catatan" class="form-control col-md-12 col-sm-12 col-xs-12" placeholder="Catatan tambahan..">
+                            </div>
                         </div>
                     </div>
                 </div>

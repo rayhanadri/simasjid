@@ -1,7 +1,3 @@
-function halo() {
-    console.log("halo");
-}
-
 var tempIdPekerjaan = 0;
 
 function copyToClipboard(element) {

@@ -48,6 +48,12 @@ public class ControllerPekerjaan {
         return "redirect:/pekerjaan/detail";
     }
 
+    @RequestMapping(value = "/pekerjaan/cari")
+    public String cariPekerjaan(){
+        return "pekerjaan/form_cari_pekerjaan";
+    }
+
+
     @RequestMapping(value = "/pekerjaan/form")
     public String formAnggota(){
         return "anggota/form_pekerjaan";
