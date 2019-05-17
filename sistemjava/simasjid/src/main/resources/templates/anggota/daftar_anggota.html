@@ -37,30 +37,29 @@
         <!-- End Bread crumb -->
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-9">
                     <div class="card">
                         <div class="card-title">
                             <h4>Daftar Anggota</h4>
+                            <a th:href="${'/anggota/form'}"><button style="float:right" type="button" class="btn btn-primary m-b-10 m-l-5">Buat Anggota</button></a>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive">
+                            <div class="table-responsive" th:if="${not #lists.isEmpty(anggotas)}">
                                 <table id="myTable" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>id jabatan</th>
                                             <th>Nama</th>
-                                            <th>Posisi</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td> id jabatan</td>
-                                            <td> nama </td>
-                                            <td> keterangan</td>
+                                        <tr th:each="anggota : ${anggotas}">
+                                            <td th:text="${anggota.idJabatan}"> id jabatan</td>
+                                            <td th:text="${anggota.nama}"> nama </td>
                                             <td>
-                                                <button onclick="location.href=''" type="button" class="btn btn-warning m-b-10 m-l-5">Edit</button>
-                                                <a href=""><button onclick="return confirm('Konfirmasi untuk hapus?')" type="button" class="btn btn-danger m-b-10 m-l-5">Hapus</button></a>
+                                                <a th:href="${'/anggota/update/'+anggota.id}"><button type="button" class="btn btn-warning m-b-10 m-l-5">Edit</button></a>
+                                                <a th:href="${'/anggota/hapus/'+anggota.id}"><button onclick="return confirm('Konfirmasi untuk hapus?')" type="button" class="btn btn-danger m-b-10 m-l-5">Hapus</button></a>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -68,58 +67,6 @@
                             </div>
                         </div>
                         <br>
-                    </div>
-                </div>
-                <!-- /# column -->
-                <!-- /# column -->
-                <div class="col-lg-6">
-                    <!-- TAMBAH -->
-                    <div class="card">
-                        <div class="card-title">
-                            <h4>Tambah Anggota</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="horizontal-form">
-                                <form method="post" action="" class="form-horizontal">
-                                    <div class="form-group">
-                                        <label class="col-sm-12 control-label">Nama Lengkap</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" name="namaAnggota" class="form-control" placeholder="Nama Anggota">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-12 control-label">Jabatan</label>
-                                        <div class="col-sm-10">
-                                            <select class="form-control" name="jabatanAnggota">
-                                                <option>Pilih Jabatan</option>
-                                                <tr>
-                                                    <td style   ="display:none"> </td>
-                                                    <option value="">1</option>
-                                                </tr>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="form-group">
-                                        <label class="col-sm-12 control-label">Username</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" name="usernameAnggota" class="form-control" placeholder="Username">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-12 control-label">Password</label>
-                                        <div class="col-sm-10">
-                                            <input type="password" name="passwordAnggota" class="form-control" placeholder="Password">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-2 col-sm-10">
-                                            <button type="submit" class="btn btn-success m-b-10 m-l-5">tambah anggota</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <!-- /# column -->
