@@ -1,6 +1,7 @@
 package com.skripsi.simasjid.services;
 
 import com.skripsi.simasjid.model.ModelAnggota;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 

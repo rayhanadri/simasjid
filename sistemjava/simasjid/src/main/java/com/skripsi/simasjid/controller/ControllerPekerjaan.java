@@ -1,5 +1,7 @@
 package com.skripsi.simasjid.controller;
 
+import com.skripsi.simasjid.services.ServicePekerjaan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,8 +10,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class ControllerPekerjaan {
 
+    private ServicePekerjaan servicePekerjaan;
+
+    @Autowired
+    public void setServicePekerjaan(ServicePekerjaan servicePekerjaan) {
+        this.servicePekerjaan = servicePekerjaan;
+    }
+
     @RequestMapping("/pekerjaan")
-    public String index(){
+    public String index(Model model){
+        model.addAttribute("pekerjaans",servicePekerjaan.listPekerjaan());
         return "pekerjaan/daftar_pekerjaan";
     }
 
@@ -56,6 +66,6 @@ public class ControllerPekerjaan {
 
     @RequestMapping(value = "/pekerjaan/form")
     public String formAnggota(){
-        return "anggota/form_pekerjaan";
+        return "pekerjaan/form_pekerjaan";
     }
 }

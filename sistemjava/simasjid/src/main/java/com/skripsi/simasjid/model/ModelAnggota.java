@@ -1,6 +1,8 @@
 package com.skripsi.simasjid.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="anggota")
@@ -12,6 +14,9 @@ public class ModelAnggota {
 
     @Column(name = "id_jabatan")
     private Integer idJabatan;
+
+    @OneToMany(mappedBy = "anggota", fetch = FetchType.LAZY)
+    private Set<ModelPekerjaan> pekerjaans = new HashSet<>();;
 
     private String nama;
 
@@ -36,6 +41,14 @@ public class ModelAnggota {
 
     public void setIdJabatan(Integer idJabatan) {
         this.idJabatan = idJabatan;
+    }
+
+    public Set<ModelPekerjaan> getPekerjaans() {
+        return pekerjaans;
+    }
+
+    public void setPekerjaans(Set<ModelPekerjaan> pekerjaans) {
+        this.pekerjaans = pekerjaans;
     }
 
     public String getNama() {

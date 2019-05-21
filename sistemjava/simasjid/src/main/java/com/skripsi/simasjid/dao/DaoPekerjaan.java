@@ -1,7 +1,9 @@
 package com.skripsi.simasjid.dao;
 
 import com.skripsi.simasjid.model.ModelAnggota;
+import com.skripsi.simasjid.model.ModelPekerjaan;
 import com.skripsi.simasjid.services.ServiceAnggota;
+import com.skripsi.simasjid.services.ServicePekerjaan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +12,7 @@ import javax.persistence.EntityManagerFactory;
 import java.util.List;
 
 @Service
-public class DaoAnggota implements ServiceAnggota {
+public class DaoPekerjaan implements ServicePekerjaan {
 
     private EntityManagerFactory emf;
 
@@ -21,16 +23,16 @@ public class DaoAnggota implements ServiceAnggota {
 
 
     @Override
-    public List<ModelAnggota> listAnggota() {
+    public List<ModelPekerjaan> listPekerjaan() {
         EntityManager em = emf.createEntityManager();
-        return em.createQuery("from ModelAnggota", ModelAnggota.class).getResultList();
+        return em.createQuery("from ModelPekerjaan", ModelPekerjaan.class).getResultList();
     }
 
     @Override
-    public ModelAnggota saveOrUpdate(ModelAnggota mahasiswa) {
+    public ModelPekerjaan saveOrUpdate(ModelPekerjaan pekerjaan) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        ModelAnggota saved = em.merge(mahasiswa);
+        ModelPekerjaan saved = em.merge(pekerjaan);
         em.getTransaction().commit();
         return saved;
     }
@@ -44,8 +46,8 @@ public class DaoAnggota implements ServiceAnggota {
     }
 
     @Override
-    public ModelAnggota getIdAnggota(Integer id) {
+    public ModelPekerjaan getIdAnggota(Integer id) {
         EntityManager em = emf.createEntityManager();
-        return em.find(ModelAnggota.class, id);
+        return em.find(ModelPekerjaan.class, id);
     }
 }
