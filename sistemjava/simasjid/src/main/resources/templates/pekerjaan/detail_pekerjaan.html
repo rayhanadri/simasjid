@@ -34,8 +34,8 @@
                                     <p th:text="${pekerjaan.deskripsi}">deskripsi</p>
                                     <p th:text="${'PIC : '+pekerjaan.deskripsi}">deskripsi</p>
                                     <span class="badge badge-danger" th:if="${pekerjaan.idStatus == '0'}" >Belum verifikasi ketua takmir</span>
-                                    <span class="badge badge-light" th:if="${pekerjaan.idStatus == '1'}" >Selesai</span>
-                                    <span class="badge badge-info" th:if="${pekerjaan.idStatus == '2'}" >Sedang berjalan</span>
+                                    <span class="badge badge-light" th:if="${pekerjaan.idStatus == '2'}" >Selesai</span>
+                                    <span class="badge badge-info" th:if="${pekerjaan.idStatus == '1'}" >Sedang berjalan</span>
                                 </div>
                             </div>
                             <!--End InvoiceTop-->
