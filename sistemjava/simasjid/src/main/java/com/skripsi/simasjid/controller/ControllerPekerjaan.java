@@ -4,6 +4,7 @@ import com.skripsi.simasjid.services.ServicePekerjaan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -23,8 +24,9 @@ public class ControllerPekerjaan {
         return "pekerjaan/daftar_pekerjaan";
     }
 
-    @RequestMapping(value = "/pekerjaan/detail", method = RequestMethod.GET)
-    public String lihatDetailPekerjaan(Model model){
+    @RequestMapping(value = "/pekerjaan/detail/{id}", method = RequestMethod.GET)
+    public String lihatDetailPekerjaan(@PathVariable Integer id, Model model){
+        model.addAttribute("pekerjaans", servicePekerjaan.getDetailById(id));
         return "pekerjaan/detail_pekerjaan";
     }
 

@@ -1,6 +1,8 @@
 package com.skripsi.simasjid.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="pekerjaan")
@@ -72,4 +74,5 @@ public class ModelPekerjaan {
     public void setAktif(Integer aktif) {
         this.aktif = aktif;
     }
+
 }

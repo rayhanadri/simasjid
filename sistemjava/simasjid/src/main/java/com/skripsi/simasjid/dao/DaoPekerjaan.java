@@ -2,6 +2,7 @@ package com.skripsi.simasjid.dao;
 
 import com.skripsi.simasjid.model.ModelAnggota;
 import com.skripsi.simasjid.model.ModelPekerjaan;
+import com.skripsi.simasjid.model.ModelProgresPekerjaan;
 import com.skripsi.simasjid.services.ServiceAnggota;
 import com.skripsi.simasjid.services.ServicePekerjaan;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +47,17 @@ public class DaoPekerjaan implements ServicePekerjaan {
     }
 
     @Override
-    public ModelPekerjaan getIdAnggota(Integer id) {
+    public List<ModelProgresPekerjaan> getProgresById(Integer id) {
+        EntityManager em = emf.createEntityManager();
+        return em.createQuery("from ModelProgresPekerjaan pp", ModelProgresPekerjaan.class).getResultList();
+    }
+
+
+    @Override
+    public ModelPekerjaan getDetailById(Integer id) {
         EntityManager em = emf.createEntityManager();
         return em.find(ModelPekerjaan.class, id);
     }
+
+
 }
