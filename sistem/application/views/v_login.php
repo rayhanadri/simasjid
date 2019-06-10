@@ -33,7 +33,6 @@
     </div>
     <!-- Main wrapper  -->
     <div id="main-wrapper">
-
         <div class="unix-login">
             <div class="container-fluid">
                 <div class="row justify-content-center">

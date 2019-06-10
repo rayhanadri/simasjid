@@ -23,17 +23,56 @@
         <!-- End Bread crumb -->
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-4">
+                <!-- /# column -->
+                <div class="col-lg-8">
+                    <!-- TAMBAH -->
                     <div class="card">
                         <div class="card-title">
-                            <center><h4>Dashboard Masjid Ibnu Sina</h4></center>
+                            <h4>Tambah Pekerjaan</h4>
                         </div>
                         <div class="card-body">
-                            <center><img style="height: 200px" th:src="@{images/ibnusina.jpg}"></center>
+                            <div class="horizontal-form">
+                                <form method="post" th:object="${pekerjaan}" th:action="@{/pekerjaan/simpan}" class="form-horizontal" >
+                                    <input type="hidden" th:field="*{id}" />
+                                    <input type="hidden" th:field="*{anggota.id}" />
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label">Nama Pekerjaan</label>
+                                        <div class="col-sm-12">
+                                            <input type="text" th:field="*{namaPekerjaan}" name="namaProyek" class="form-control" placeholder="Nama Pekerjaan">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label">Deskripsi singkat pekerjaan</label>
+                                        <div class="col-sm-12">
+                                            <input type="text" th:field="*{deskripsi}" name="deskripsiProyek" class="form-control" placeholder="Deskripsi singkat">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" th:text="*{anggota.id}">Penanggung Jawab</label>
+                                        <div class="col-sm-12">
+                                            <form:select path="country">
+                                                <form:option value="NONE" label="--- Select ---"/>
+                                                <form:options items="${anggotas}" />
+                                            </form:select>
+                                            <select class="form-control" name="anggota" th:field="*{anggota.id}">
+                                                <option value="">Pilih Penanggung Jawab</option>
+                                                <!--<div th:each="a : ${anggotas}">-->
+                                                    <!--<option th:value="${a}" th:text="${a.nama}+${a.id}" th:selected="${pekerjaan.anggota.id} == ${a.id}">Pilih Penanggung Jawab</option>-->
+                                                <!--</div>-->
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-12">
+                                            <button type="submit" class="btn btn-success m-b-12 m-l-5">Buat pekerjaan</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                        <br>
                     </div>
                 </div>
+                <!-- /# column -->
             </div>
         </div>
     </div>

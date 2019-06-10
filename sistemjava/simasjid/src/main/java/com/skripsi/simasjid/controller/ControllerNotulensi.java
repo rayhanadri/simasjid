@@ -46,4 +46,9 @@ public class ControllerNotulensi {
         return "notulensi/form_cari_notulensi";
     }
 
+    @RequestMapping(value = "/notulensi/komentar")
+    public String komentarNotulensi(){
+        return "notulensi/form_cari_notulensi";
+    }
+
 }

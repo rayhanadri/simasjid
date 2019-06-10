@@ -3,7 +3,7 @@
       xmlns:layout="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-
+    <script th:src="@{/js/masjid/daftar_pekerjaan.js}"></script>
 </head>
 <body>
 
@@ -30,11 +30,11 @@
                                     <h4>Daftar Pekerjaan</h4>
                                     <a th:href="${'/pekerjaan/cari'}"><button style="float:right" type="button" class="btn btn-primary m-b-10 m-l-5">Filter Pekerjaan</button></a>
                                     <a th:href="${'/pekerjaan/form'}"><button style="float:right" type="button" class="btn btn-success m-b-10 m-l-5">Tambah Pekerjaan</button></a>
-
+                                    <button onclick="hello()">tes</button>
                                 </div>
 
                                 <div class="card-body">
-                                    <div class="table-responsive" th:if="${not #lists.isEmpty(pekerjaans)}">
+                                    <div class="table-responsive">
                                         <table id="myTable" class="table table-bordered table-striped">
                                             <thead>
                                             <tr>
@@ -44,26 +44,32 @@
                                                 <th>Aksi</th>
                                             </tr>
                                             </thead>
-                                            <tbody>
-                                            <tr th:each="pekerjaan : ${pekerjaans}">
-                                                <td th:text="${pekerjaan.namaPekerjaan}">Nama Pekerjaan</td>
-                                                <td th:text="${pekerjaan.deskripsi}">Deskripsi Progres</td>
-                                                <td>
-                                                    <div th:if="${pekerjaan.idStatus == '0'}" class="alert alert-danger">
-                                                        Belum Verifikasi Ketua Takmir  <br><a href="#" class="alert-link"><i class="fa fa-check-square-o"></i>Verifikasi Sekarang</a>
-                                                    </div>
-                                                    <div th:if="${pekerjaan.idStatus == '1'}" class="alert alert-info">
-                                                        Sedang dikerjakan
-                                                        <a href="#" class="alert-link"></a>
-                                                    </div>
+                                            <tbody id="list-pekerjaan">
+                                                <tr>
+                                                    <td>Nama Pekerjaan</td>
+                                                    <td>Deskripsi Pekerjaan</td>
+                                                    <td>Status Pekerjaan</td>
+                                                    <td>halo</td>
+                                                </tr>
+                                                <!--<tr th:each="pekerjaan : ${pekerjaans}">
+                                                    <td th:text="${pekerjaan.namaPekerjaan}">Nama Pekerjaan</td>
+                                                    <td th:text="${pekerjaan.deskripsi}">Deskripsi Progres</td>
+                                                    <td>
+                                                        <div th:if="${pekerjaan.idStatus == '0'}" class="alert alert-danger">
+                                                            Belum Verifikasi Ketua Takmir  <br><a href="#" class="alert-link"><i class="fa fa-check-square-o"></i>Verifikasi Sekarang</a>
+                                                        </div>
+                                                        <div th:if="${pekerjaan.idStatus == '1'}" class="alert alert-info">
+                                                            Sedang dikerjakan
+                                                            <a href="#" class="alert-link"></a>
+                                                        </div>
 
-                                                    <div th:if="${pekerjaan.idStatus == '2'}" class="alert alert-light">
-                                                        Selesai
-                                                        <a href="#" class="alert-link"></a>
-                                                    </div>
-                                                </td>
-                                                <td><a th:href="${'/pekerjaan/detail/'+pekerjaan.id}"><button type="button" class="btn btn-info m-b-10 m-l-5">Lihat</button></a></td>
-                                            </tr>
+                                                        <div th:if="${pekerjaan.idStatus == '2'}" class="alert alert-light">
+                                                            Selesai
+                                                            <a href="#" class="alert-link"></a>
+                                                        </div>
+                                                    </td>
+                                                    <td><a th:href="${'/pekerjaan/detail/'+pekerjaan.id}"><button type="button" class="btn btn-info m-b-10 m-l-5">Lihat</button></a></td>
+                                                </tr>-->
                                             </tbody>
                                         </table>
                                     </div>
@@ -72,52 +78,9 @@
                             </div>
                         </div>
                         <!-- /# column -->
-                        <!-- /# column -->
-                        <div class="col-lg-3" hidden>
-                            <!-- TAMBAH -->
-                            <div class="card">
-                                <div class="card-title">
-                                    <h4>Tambah Pekerjaan</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="horizontal-form">
-                                        <form method="post" action="" class="form-horizontal">
-                                            <div class="form-group">
-                                                <label class="col-sm-12 control-label">Nama Pekerjaan</label>
-                                                <div class="col-sm-12">
-                                                    <input type="text" name="namaProyek" class="form-control" placeholder="Nama Pekerjaan">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-12 control-label">Deskripsi singkat pekerjaan</label>
-                                                <div class="col-sm-12">
-                                                    <input type="text" name="deskripsiProyek" class="form-control" placeholder="Deskripsi singkat">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-12 control-label">Penanggung Jawab</label>
-                                                <div class="col-sm-12">
-                                                    <select class="form-control" name="idAnggota">
-                                                        <option>Pilih Penanggung Jawab</option>
-                                                        <option value="">1</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-sm-offset-2 col-sm-12">
-                                                    <button type="submit" class="btn btn-success m-b-12 m-l-5">Buat pekerjaan</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /# column -->
                     </div>
                 </div>
         <!-- END KONTENT -->
     </div>
-
 </body>
 </html>

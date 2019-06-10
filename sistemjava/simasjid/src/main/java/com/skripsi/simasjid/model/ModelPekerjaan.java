@@ -10,11 +10,11 @@ public class ModelPekerjaan {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "pekerjaan_id")
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "anggotaId", nullable = false)
-    private ModelAnggota anggota;
+    @Column(name = "anggota_id")
+    private Integer anggota;
 
     @Column(name = "id_status",columnDefinition = "integer DEFAULT 0")
     private String idStatus;
@@ -35,11 +35,11 @@ public class ModelPekerjaan {
         this.id = id;
     }
 
-    public ModelAnggota getAnggota() {
+    public Integer getAnggota() {
         return anggota;
     }
 
-    public void setAnggota(ModelAnggota anggota) {
+    public void setAnggota(Integer anggota) {
         this.anggota = anggota;
     }
 

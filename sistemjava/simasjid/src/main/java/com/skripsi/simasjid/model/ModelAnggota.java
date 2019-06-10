@@ -2,6 +2,7 @@ package com.skripsi.simasjid.model;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -10,13 +11,15 @@ public class ModelAnggota {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "anggota_id")
     private Integer id;
 
     @Column(name = "id_jabatan")
     private Integer idJabatan;
 
-    @OneToMany(mappedBy = "anggota", fetch = FetchType.LAZY)
-    private Set<ModelPekerjaan> pekerjaans = new HashSet<>();;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "anggota_id", referencedColumnName = "anggota_id")
+    private List<ModelPekerjaan> pekerjaans;
 
     private String nama;
 
@@ -43,11 +46,11 @@ public class ModelAnggota {
         this.idJabatan = idJabatan;
     }
 
-    public Set<ModelPekerjaan> getPekerjaans() {
+    public List<ModelPekerjaan> getPekerjaans() {
         return pekerjaans;
     }
 
-    public void setPekerjaans(Set<ModelPekerjaan> pekerjaans) {
+    public void setPekerjaans(List<ModelPekerjaan> pekerjaans) {
         this.pekerjaans = pekerjaans;
     }
 
