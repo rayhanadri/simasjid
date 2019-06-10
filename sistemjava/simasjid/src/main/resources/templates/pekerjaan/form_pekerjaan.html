@@ -32,33 +32,27 @@
                         </div>
                         <div class="card-body">
                             <div class="horizontal-form">
-                                <form method="post" th:object="${pekerjaan}" th:action="@{/pekerjaan/simpan}" class="form-horizontal" >
-                                    <input type="hidden" th:field="*{id}" />
-                                    <input type="hidden" th:field="*{anggota.id}" />
+                                <form method="post" class="form-horizontal" th:action="@{/pekerjaan/simpan}">
+                                    <input name="id" th:field="*{pekerjaan.id}" />
                                     <div class="form-group">
                                         <label class="col-sm-12 control-label">Nama Pekerjaan</label>
                                         <div class="col-sm-12">
-                                            <input type="text" th:field="*{namaPekerjaan}" name="namaProyek" class="form-control" placeholder="Nama Pekerjaan">
+                                            <input type="text" th:field="*{pekerjaan.namaPekerjaan}" name="namaPekerjaan" class="form-control" placeholder="Nama Pekerjaan">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-12 control-label">Deskripsi singkat pekerjaan</label>
                                         <div class="col-sm-12">
-                                            <input type="text" th:field="*{deskripsi}" name="deskripsiProyek" class="form-control" placeholder="Deskripsi singkat">
+                                            <input type="text" th:field="*{pekerjaan.deskripsi}" name="deskripsi" class="form-control" placeholder="Deskripsi singkat">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-12 control-label" th:text="*{anggota.id}">Penanggung Jawab</label>
+                                        <label class="col-sm-12 control-label">Penanggung Jawab</label>
                                         <div class="col-sm-12">
-                                            <form:select path="country">
-                                                <form:option value="NONE" label="--- Select ---"/>
-                                                <form:options items="${anggotas}" />
-                                            </form:select>
-                                            <select class="form-control" name="anggota" th:field="*{anggota.id}">
+                                            <select class="form-control" name="anggota" th:field="*{pekerjaan.anggota}">
                                                 <option value="">Pilih Penanggung Jawab</option>
-                                                <!--<div th:each="a : ${anggotas}">-->
-                                                    <!--<option th:value="${a}" th:text="${a.nama}+${a.id}" th:selected="${pekerjaan.anggota.id} == ${a.id}">Pilih Penanggung Jawab</option>-->
-                                                <!--</div>-->
+                                                <option th:each="anggota : ${anggotas}" th:value="${anggota.id}" th:text="${anggota.nama}">Pilih Penanggung Jawab</option>
+
                                             </select>
                                         </div>
                                     </div>
