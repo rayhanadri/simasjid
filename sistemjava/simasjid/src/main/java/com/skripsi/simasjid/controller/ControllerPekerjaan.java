@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.Optional;
+
 @Controller
 public class ControllerPekerjaan {
 
@@ -33,6 +35,12 @@ public class ControllerPekerjaan {
 
     @RequestMapping(value = "/pekerjaan/detail/{id}", method = RequestMethod.GET)
     public String lihatDetailPekerjaan(@PathVariable Integer id, Model model){
+        model.addAttribute("id", id);
+        Optional <ModelPekerjaan> modelPekerjaan = servicePekerjaan.findById(id);
+        System.out.println("nama pekerjaan : "+modelPekerjaan.get().getNamaPekerjaan());
+        model.addAttribute("namaPekerjaan", modelPekerjaan.get().getNamaPekerjaan());
+        model.addAttribute("deskripsiPekerjaan", modelPekerjaan.get().getDeskripsi());
+        model.addAttribute("statusPekerjaan", modelPekerjaan.get().getIdStatus());
         return "pekerjaan/detail_pekerjaan";
     }
 
@@ -59,8 +67,9 @@ public class ControllerPekerjaan {
         return "pekerjaan/form_pekerjaan";
     }
 
-    @RequestMapping("/pekerjaan/hapus")
-    public String hapusPekerjaan(){
+    @RequestMapping(value = "/pekerjaan/hapus/{id}", method = RequestMethod.GET)
+    public String hapusPekerjaan(@PathVariable Integer id){
+        servicePekerjaan.deleteById(id);
         return "redirect:/pekerjaan";
     }
 

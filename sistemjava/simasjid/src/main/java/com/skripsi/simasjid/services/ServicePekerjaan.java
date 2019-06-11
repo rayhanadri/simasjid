@@ -1,12 +1,7 @@
 package com.skripsi.simasjid.services;
 
-import com.skripsi.simasjid.model.ModelAnggota;
 import com.skripsi.simasjid.model.ModelPekerjaan;
-import com.skripsi.simasjid.model.ModelProgresPekerjaan;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 public interface ServicePekerjaan extends JpaRepository<ModelPekerjaan, Integer> {
 

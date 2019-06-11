@@ -21,21 +21,26 @@
         </div>
         <!-- End Bread crumb -->
         <div class="container-fluid">
+
             <div class="row">
+                <p id="idPekerjaan" th:text="*{id}" hidden></p>
                 <!-- /# column -->
                 <div class="col-lg-12">
-                    <div class="card" th:each="pekerjaan : ${pekerjaans}">
-                        <div id="invoice" class="effect2">
-                            <div id="invoice-top">
+                    <div class="card">
+                        <div>
+                            <div class="col-lg-12">
                                 <!--End Title-->
-                                <div id="col-lg-6">
-                                    <br>
-                                    <h2 th:text="${pekerjaan.namaPekerjaan}">nama proyek</h2>
-                                    <p th:text="${pekerjaan.deskripsi}">deskripsi</p>
-                                    <p th:text="${'PIC : '+pekerjaan.deskripsi}">deskripsi</p>
-                                    <span class="badge badge-danger" th:if="${pekerjaan.idStatus == '0'}" >Belum verifikasi ketua takmir</span>
-                                    <span class="badge badge-light" th:if="${pekerjaan.idStatus == '2'}" >Selesai</span>
-                                    <span class="badge badge-info" th:if="${pekerjaan.idStatus == '1'}" >Sedang berjalan</span>
+                                <div class="col-lg-6">
+                                    <h2>[[*{namaPekerjaan}]]</h2>
+                                    <p>[[*{deskripsiPekerjaan}]]</p>
+                                    <p>[[*{deskripsiPekerjaan}]]</p>
+                                    <span class="badge badge-danger" >Belum verifikasi ketua takmir</span>
+                                    <span class="badge badge-light">Selesai</span>
+                                    <span class="badge badge-info" >Sedang berjalan</span>
+                                </div>
+                                <br>
+                                <div class="col-lg-5">
+                                    <button type="button" class="btn btn-danger m-b-10 m-l-5">Hapus</button>
                                 </div>
                             </div>
                             <!--End InvoiceTop-->
@@ -88,6 +93,7 @@
                 <!-- /# column -->
             </div>
         </div>
+        <script th:src="@{/js/masjid/detail_pekerjaan.js}"></script>
     </div>
     <!-- END KONTENT -->
 </body>
