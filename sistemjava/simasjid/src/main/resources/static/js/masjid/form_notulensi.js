@@ -42,19 +42,26 @@ function tambahProgres(){
 }
 
 function tambahCard(namaProgress,idProgress){
-    var sethtml = '<br><div class="card" style=""><div class="card-body"><h5 class="card-title">'+namaProgress+'</h5><input type="text" id="idProgress[]" name="idProgress[]" value='+idProgress+' hidden><input type="text" id="namaProgress[]" name="namaProgress[]" value="'+namaProgress+'" hidden><textarea id="progres[]" name="progres[]" onchange="tambahKeterangan('+tempIdPekerjaan+', 0)" class="form-control progres" aria-label="With textarea"></textarea><br><p class="text-danger" style="float:left">hapus</p><p onclick="resetKeterangan('+tempIdPekerjaan+',0)" style="float:right" class="text-warning col-sx-6">Reset</p></div></div>'
+    var sethtml = '<div class="card cardprogres'+tempIdPekerjaan+'" style=""><div class="card-body"><h5 class="card-title">'+namaProgress+'</h5><input type="text" id="idProgress[]" name="idProgress[]" value='+idProgress+' hidden><input type="text" id="namaProgress[]" name="namaProgress[]" value="'+namaProgress+'" hidden><textarea id="progres[]" name="progres[]" onkeyup="tambahKeterangan('+tempIdPekerjaan+', 0)" class="form-control progres" aria-label="With textarea"></textarea><br><p class="text-danger" onclick="hapusProgres('+tempIdPekerjaan+')" style="float:left">hapus</p><p onclick="resetKeterangan('+tempIdPekerjaan+',0)" style="float:right" class="text-warning col-sx-6">Reset</p></div></div>'
     $("#kolomProgres").append(sethtml);
     autosize(document.getElementsByClassName('progres'+tempIdPekerjaan));
-    var sethtml = '<br><div class="card" style=""><div class="card-body"><h5 class="card-title">'+namaProgress+'</h5><p id="kontendariprogres'+tempIdPekerjaan+'" class="kontendariprogres'+tempIdPekerjaan+'"></p><textarea id="masukkan[]" name="masukkan[]"  onchange="tambahKeterangan('+tempIdPekerjaan+', 1)" class="form-control masukkan" aria-label="With textarea"></textarea><br><p onclick="resetKeterangan('+tempIdPekerjaan+',1)" style="float:right" class="text-warning col-sx-6">Reset</p></div></div>'
+    var sethtml = '<div class="card cardprogres'+tempIdPekerjaan+'" style=""><div class="card-body"><h5 class="card-title">'+namaProgress+'</h5><p id="kontendariprogres'+tempIdPekerjaan+'" class="kontendariprogres'+tempIdPekerjaan+'"></p><textarea id="masukkan[]" name="masukkan[]"  onkeyup="tambahKeterangan('+tempIdPekerjaan+', 1)" class="form-control masukkan" aria-label="With textarea"></textarea><br><p onclick="resetKeterangan('+tempIdPekerjaan+',1)" style="float:right" class="text-warning col-sx-6">Reset</p></div></div>'
     $("#kolomMasukkan").append(sethtml);
     autosize(document.getElementsByClassName('kontendariprogres'+tempIdPekerjaan));
-    var sethtml = '<br><div class="card" style=""><div class="card-body"><h5 class="card-title">'+namaProgress+'</h5><p id="kontendarimasukkan'+tempIdPekerjaan+'" class="kontendarimasukkan'+tempIdPekerjaan+'"></p><textarea id="keputusan[]" name="keputusan[]" onchange="tambahKeterangan('+tempIdPekerjaan+', 2)" class="form-control keputusan" aria-label="With textarea"></textarea><br><p onclick="resetKeterangan('+tempIdPekerjaan+',2)" style="float:right" class="text-warning col-sx-6">Reset</p></div></div>'
+    var sethtml = '<div class="card cardprogres'+tempIdPekerjaan+'" style=""><div class="card-body"><h5 class="card-title">'+namaProgress+'</h5><p id="kontendarimasukkan'+tempIdPekerjaan+'" class="kontendarimasukkan'+tempIdPekerjaan+'"></p><textarea id="keputusan[]" name="keputusan[]" onkeyup="tambahKeterangan('+tempIdPekerjaan+', 2)" class="form-control keputusan" aria-label="With textarea"></textarea><br><p onclick="resetKeterangan('+tempIdPekerjaan+',2)" style="float:right" class="text-warning col-sx-6">Reset</p></div></div>'
     $("#kolomKeputusan").append(sethtml);
     autosize(document.getElementsByClassName('kontendarimasukkan'+tempIdPekerjaan));
 
-    var sethtml = '<div class="bd-callout bd-callout-warning"><h3 id="conveying-meaning-to-assistive-technologies">'+namaProgress+'</h3><p id="hasilkontendariprogres'+tempIdPekerjaan+'" class="hasilkontendariprogres'+tempIdPekerjaan+'"></p><h6 id="conveying-meaning-to-assistive-technologies">Keputusan </h6><p id="hasilkontendarimasukkan'+tempIdPekerjaan+'" class="hasilkontendarimasukkan'+tempIdPekerjaan+'"></p></div>';
+    var sethtml = '<div class="bd-callout bd-callout-warning cardprogres'+tempIdPekerjaan+'"><h3 id="conveying-meaning-to-assistive-technologies">'+namaProgress+'</h3><p id="hasilkontendariprogres'+tempIdPekerjaan+'" class="hasilkontendariprogres'+tempIdPekerjaan+'"></p><h6 id="conveying-meaning-to-assistive-technologies">Keputusan </h6><p id="hasilkontendarimasukkan'+tempIdPekerjaan+'" class="hasilkontendarimasukkan'+tempIdPekerjaan+'"></p></div>';
     $("#hasil").append(sethtml);
     ++tempIdPekerjaan;
+}
+
+function tambahInfo(){
+    $("#cttn").remove();
+    var dataCttn = document.getElementById("catatanTbmhn").value;
+    var sethtml = '<div id="cttn" class="bd-callout bd-callout-warning"><h3 id="conveying-meaning-to-assistive-technologies"></h3><h6 id="conveying-meaning-to-assistive-technologies">Catatan Tambahan</h6><p>'+dataCttn+'</p></div>';
+    $("#hasil").append(sethtml);
 }
 
 function tambahKeterangan(nilai, keputusan){
@@ -124,13 +131,38 @@ function setMsg(){
 
 }
 
-function resetKeterangan(nilai, keputusan){
+function resetKeterangan(idPekerjaan, keputusan){
+    var contentProgress = document.getElementsByClassName("progres");
+    var contentMasukkan = document.getElementsByClassName("masukkan");
+    var contentKeputusan = document.getElementsByClassName("keputusan");
     if(keputusan == 0) {
-        document.getElementsByClassName("progres"+nilai).value = "";
+        contentProgress[idPekerjaan].value = "";
     } else if(keputusan == 1){
-        document.getElementsByClassName("masukkan"+nilai).value = "";
+        contentMasukkan[idPekerjaan].value = "";
     } else {
-        document.getElementsByClassName("keputusan"+nilai).value = "";
+        contentKeputusan[idPekerjaan].value = "";
     }
-    tambahKeterangan(nilai,keputusan);
+    tambahKeterangan(idPekerjaan,keputusan);
+}
+
+function arrayRemove(arr, value) {
+    return arr.filter(function(ele){
+        return ele != value;
+    });
+}
+
+
+function hapusProgres(idPekerjaan) {
+    console.log("tes hapus "+idPekerjaan);
+    $(".cardprogres"+idPekerjaan).hide();
+
+    // $(".cardprogres"+idPekerjaan).addClass("hidden");
+    var contentProgress = document.getElementsByClassName("progres");
+    var contentMasukkan = document.getElementsByClassName("masukkan");
+    var contentKeputusan = document.getElementsByClassName("keputusan");
+    contentProgress[idPekerjaan].value = "";
+    contentMasukkan[idPekerjaan].value = "";
+    contentKeputusan[idPekerjaan].value = "";
+
+
 }

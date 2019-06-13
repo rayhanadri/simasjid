@@ -3,8 +3,8 @@
       xmlns:layout="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <script th:src="@{/js/lib/buatNotulensi.js}"></script>
-    <link th:href="@{/css/lib/buatNotulensi.css}" rel="stylesheet"/>
+    <script th:src="@{/js/masjid/form_notulensi.js}"></script>
+    <link th:href="@{/css/masjid/form_notulensi.css}" rel="stylesheet"/>
 </head>
 <body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -37,7 +37,7 @@
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <select name="namaNotulen" id="namaNotulen" class="form-control">
                                         <option>Pilih Notulen</option>
-                                        <option id="" value=""></option>
+                                        <option th:each="anggota : ${anggotas}" th:value="${anggota.id}" th:text="${anggota.nama}">Pilih Notulen</option>
                                     </select>
                                 </div>
                             </div>
@@ -46,8 +46,8 @@
                                 </label>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <select name="namaAmir" id="namaAmir" class="form-control">
-                                        <option>Pilih Amir</option>
-                                        <option value=""></option>
+                                        <option>Pilih Amir Musyawarah</option>
+                                        <option th:each="anggota : ${anggotas}" th:value="${anggota.id}" th:text="${anggota.nama}">Pilih Amir Musyawarah</option>
                                     </select>
                                 </div>
                             </div>
@@ -55,8 +55,8 @@
                                 <label class="control-label col-md-9 col-sm-9 col-xs-12">Peserta musyawarah</label>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <select name="namaHadirin[]" id="namaHadirin[]" class="select2_multiple form-control" multiple="multiple">
-                                        <option value="">1</option>
-                                        <option value="">2</option>
+                                        <option>Pilih Anggota Hadir Musyawarah</option>
+                                        <option th:each="anggota : ${anggotas}" th:value="${anggota.id}" th:text="${anggota.nama}">Pilih Hadir Musyawarah</option>
                                     </select>
                                 </div>
                             </div>
@@ -81,7 +81,7 @@
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <select id="optionProgress" class="form-control col-md-12 col-sm-12 col-xs-12">
                                                 <option value="">Pilih Laporan</option>
-                                                <option value="1">tes</option>
+                                                <option th:each="anggota : ${pekerjaans}" th:value="${anggota.id}" th:text="${anggota.namaPekerjaan}">Pilih Laporan Progres</option>
                                             </select>
                                             <br>
                                             <a onclick="tambahProgres()" class="btn btn-primary">Tambah</a>
@@ -95,7 +95,7 @@
                                             <input type="text" id="deskripsiProgress" class="form-control col-md-12 col-sm-12 col-xs-12" placeholder="Deskripsi..">
                                             <select name="namaPenanggungJawab" id="namaPenanggungJawab" class="form-control">
                                                 <option>Pilih Penanggung Jawab</option>
-                                                <option value=""></option>
+                                                <option th:each="anggota : ${pekerjaans}" th:value="${anggota.id}" th:text="${anggota.namaPekerjaan}">Pilih Laporan Progres</option>
                                             </select>
                                             <br>
                                             <a onclick="tambahProgres()" class="btn btn-primary">Tambah</a>
@@ -141,7 +141,7 @@
                         <h5> Catatan Tambahan </h5>
                         <div class="card-body">
                             <div class="form-group">
-                                <input type="text" id="catatan" class="form-control col-md-12 col-sm-12 col-xs-12" placeholder="Catatan tambahan..">
+                                <input type="text" onkeyup="tambahInfo()" id="catatanTbmhn" class="form-control col-md-12 col-sm-12 col-xs-12" placeholder="Catatan tambahan..">
                             </div>
                         </div>
                     </div>

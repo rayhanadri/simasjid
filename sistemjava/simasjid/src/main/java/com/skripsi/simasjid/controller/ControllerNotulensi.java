@@ -1,5 +1,8 @@
 package com.skripsi.simasjid.controller;
 
+import com.skripsi.simasjid.services.ServiceAnggota;
+import com.skripsi.simasjid.services.ServicePekerjaan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,13 +14,25 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class ControllerNotulensi {
 
+    @Autowired
+    private ServicePekerjaan servicePekerjaan;
+
+    private ServiceAnggota serviceAnggota;
+
+    @Autowired
+    public void setServiceAnggota(ServiceAnggota mahasiswaService) {
+        this.serviceAnggota = mahasiswaService;
+    }
+
     @RequestMapping("/notulensi")
     public String index(){
         return "notulensi/daftar_notulensi";
     }
 
     @RequestMapping("/notulensi/buat")
-    public String buatNotulensi(){
+    public String buatNotulensi(Model model){
+        model.addAttribute("anggotas",serviceAnggota.listAnggota());
+        model.addAttribute("pekerjaans",servicePekerjaan.findAll());
         return "notulensi/form_notulensi";
     }
 
