@@ -29,4 +29,14 @@ public class RestNotulensi {
         return ""+modelNotulensi.getId();
     }
 
+    @GetMapping("/hapus/{id}")
+    public String getId(@PathVariable("id") final Integer id) {
+        try{
+            serviceNotulensi.deleteById(id);
+            return "Berhasil";
+        } catch (Exception e){
+            return "Gagal";
+        }
+    }
+
 }

@@ -1,6 +1,8 @@
 package com.skripsi.simasjid.model;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -24,6 +26,22 @@ public class ModelNotulensi {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_notulensi", referencedColumnName = "id_notulensi")
     private List<ModelDetailProgres> detailProgres;
+
+    @Transient
+    private String namaAmirMusyawarah;
+
+    @Transient
+    private String namaNotulen;
+
+    @Transient
+    private String convertedDate;
+
+    private Date created;
+
+    @PrePersist
+    protected void onCreate() {
+        created = new Date();
+    }
 
     public Integer getId() {
         return id;
@@ -63,5 +81,45 @@ public class ModelNotulensi {
 
     public void setDetailProgres(List<ModelDetailProgres> detailProgres) {
         this.detailProgres = detailProgres;
+    }
+
+    public String getNamaAmirMusyawarah() {
+        return namaAmirMusyawarah;
+    }
+
+    public void setNamaAmirMusyawarah(String namaAmirMusyawarah) {
+        this.namaAmirMusyawarah = namaAmirMusyawarah;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public String getConvertedDate() {
+        return convertedDate;
+    }
+
+    public void setConvertedDate(Date date) {
+        System.out.println("date : "+ date);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        try{
+            this.convertedDate = format.format(date);
+        } catch (Exception e){
+            this.convertedDate = "-";
+        }
+    }
+
+
+
+    public String getNamaNotulen() {
+        return namaNotulen;
+    }
+
+    public void setNamaNotulen(String namaNotulen) {
+        this.namaNotulen = namaNotulen;
     }
 }

@@ -31,26 +31,29 @@
                             <div class="card-content">
                                 <!-- Left sidebar -->
                                 <div class="inbox-leftbar">
-                                    <h6 class="">Pembahasan Pekerjaan</h6>
+                                    <h6 class="">Pembahasan Pekerjaan ?</h6>
                                     <div class="list-group b-0 mail-list">
-                                        <a href="#" class="list-group-item border-0"><span class="fa fa-circle text-success
-                                                mr-2"></span></a>
+                                        <a th:each="progres : ${progress}" th:href="${'/pekerjaan/detail/'+progres.pekerjaan}" class="list-group-item border-0"><span class="fa fa-circle text-success
+                                                mr-2"></span>[[*{progres.namaPekerjaan}]]</a>
                                     </div>
                                 </div>
                                 <!-- End Left sidebar -->
                                 <div class="inbox-rightbar">
                                     <div class="mt-4">
-                                        <h5>Amir : Nama</h5>
+                                        <h5>Amir : [[${notulensi.namaAmirMusyawarah}]]</h5>
                                         <hr/>
                                         <div class="media mb-4 mt-1">
                                             <div class="media-body">
-                                                <span class="pull-right">Tanggal : 12-12-12</span>
-                                                <h6 class="m-0">Notulen : nama</h6>
+                                                <span class="pull-right">[[${notulensi.convertedDate}]]</span>
+                                                <h6 class="m-0">Notulen : [[${notulensi.namaNotulen}]]</h6>
                                             </div>
                                         </div>
-                                        <p><b><span class="fa fa-circle text-light
-                                                mr-2"></span>Progress</b></p>
-                                        <p><br><i class="fa fa-comment"></i></p>
+                                        <div th:each="progres : ${progress}">
+                                            <b><span class="fa fa-circle text-light
+                                                mr-2"></span>[[*{progres.namaPekerjaan}]]</b>
+                                            <p style="margin-bottom: 10px">[[*{progres.keterangan}]]<br><i class="fa fa-comment"></i> [[*{progres.keputusan}]]</p>
+                                        </div>
+
                                         <hr/>
                                     </div>
                                     <div class="text-right">

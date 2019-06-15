@@ -45,23 +45,23 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
+                                    <tr th:each="notulensi : ${notulensis}">
                                         <td style="display:none"><?php echo $notulen->created_at; ?></td>
-                                        <td>17 November 2006</td>
-                                        <td>Amir musyawarah</td>
+                                        <td th:text="${notulensi.convertedDate}">-</td>
+                                        <td th:text="${notulensi.namaAmirMusyawarah}">Amir musyawarah</td>
                                         <td hidden>A, B, C, D</td>
                                         <td>
-                                            <div class="alert alert-danger">
+                                            <div th:if="${notulensi.idStatus == 0}" class="alert alert-danger">
                                                 Belum Verifikasi Amir
                                                 <br><a href="#" class="alert-link"><i class="fa fa-check-square-o"></i>Verifikasi Sekarang</a>
                                             </div>
-                                            <div class="alert alert-info">
+                                            <div th:if="${notulensi.idStatus == 1}" class="alert alert-info">
                                                 Sudah diverifikasi Amir
                                             </div>
                                         </td>
                                         <td>
-                                            <a th:href="${'/notulensi/detail'}"><button type="button" class="btn btn-info m-b-10 m-l-5">Lihat</button></a>
-                                            <a href="" hidden><button type="button" class="btn btn-warning m-b-10 m-l-5">Edit</button></a>
+                                            <a th:href="${'/notulensi/detail/'+notulensi.id}"><button type="button" class="btn btn-info m-b-10 m-l-5">Lihat</button></a>
+                                            <a th:href="${'/notulensi/detail/'+notulensi.id}"><button type="button" class="btn btn-warning m-b-10 m-l-5">Edit</button></a>
                                         </td>
                                     </tr>
                                     </tbody>

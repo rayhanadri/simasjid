@@ -46,9 +46,37 @@ public class RestPekerjaan {
         }
         return "succeed";
     }
+
+    @GetMapping("/hapusProgresNotulensiBy/{id}")
+    public String hapusProgresByIdNotulensi(@PathVariable("id") final Integer id) {
+        try{
+            List<ModelDetailProgres> listDetailProgres = serviceDetailProgres.findAll();
+            for (ModelDetailProgres mdp: listDetailProgres) {
+                if (mdp.getNotulensi() == id){
+                    serviceDetailProgres.delete(mdp);
+                }
+            }
+            return "Berhasil";
+        } catch (Exception e){
+            return "Gagal";
+        }
+    }
+
 //    @GetMapping("/find/{id}")
 //    public ModelPekerjaan getId(@PathVariable("id") final Integer id) {
 //        return servicePekerjaan.findById(id);
 //    }
+
+    @GetMapping("/cariProgresNotulensiBy/{id}")
+    public List<ModelDetailProgres> getProgresByIdNotulensi(@PathVariable("id") final Integer id) {
+        List<ModelDetailProgres> listDetailProgres = serviceDetailProgres.findAll();
+        List<ModelDetailProgres> listKirim = new ArrayList<>();
+        for (ModelDetailProgres mdp: listDetailProgres) {
+            if (mdp.getNotulensi() == id){
+                listKirim.add(mdp);
+            }
+        }
+        return listKirim;
+    }
 
 }

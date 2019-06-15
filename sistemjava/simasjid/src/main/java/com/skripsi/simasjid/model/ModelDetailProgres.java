@@ -23,6 +23,9 @@ public class ModelDetailProgres {
     @Column(name = "keputusan")
     private String keputusan;
 
+    @Transient
+    private String namaPekerjaan;
+
     public String getKeputusan() {
         return keputusan;
     }
@@ -61,5 +64,13 @@ public class ModelDetailProgres {
 
     public void setKeterangan(String keterangan) {
         this.keterangan = keterangan;
+    }
+
+    public String getNamaPekerjaan() {
+        return namaPekerjaan;
+    }
+
+    public void setNamaPekerjaan(String namaPekerjaan) {
+        this.namaPekerjaan = namaPekerjaan;
     }
 }
