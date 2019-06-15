@@ -11,14 +11,14 @@ public class ModelAnggota {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "anggota_id")
+    @Column(name = "id_anggota")
     private Integer id;
 
     @Column(name = "id_jabatan")
     private Integer idJabatan;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "anggota_id", referencedColumnName = "anggota_id")
+    @JoinColumn(name = "id_anggota", referencedColumnName = "id_anggota")
     private List<ModelPekerjaan> pekerjaans;
 
     private String nama;

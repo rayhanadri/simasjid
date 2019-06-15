@@ -71,8 +71,8 @@
                             <h4 class="card-title">Tambah Laporan</h4>
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs customtab" role="tablist">
-                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home2" role="tab"><span class="hidden-sm-up"><i class="ti-pencil-alt2"></i></span> <span class="hidden-xs-down">Progres Lama</span></a> </li>
-                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#profile2" role="tab"><span class="hidden-sm-up"><i class="ti-plus"></i></span> <span class="hidden-xs-down">Baru</span></a> </li>
+                                <li class="nav-item"> <a id="tabPekerjaan" class="nav-link active" data-toggle="tab" href="#home2" role="tab"><span class="hidden-sm-up"><i class="ti-pencil-alt2"></i></span> <span class="hidden-xs-down">Progres</span></a> </li>
+                                <li class="nav-item"> <a id="tabTambah" class="nav-link" data-toggle="tab" href="#profile2" role="tab"><span class="hidden-sm-up"><i class="ti-plus"></i></span> <span class="hidden-xs-down">Baru</span></a> </li>
                             </ul>
                             <!-- Tab panes -->
                             <div class="tab-content">
@@ -81,10 +81,10 @@
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <select id="optionProgress" class="form-control col-md-12 col-sm-12 col-xs-12">
                                                 <option value="">Pilih Laporan</option>
-                                                <option th:each="anggota : ${pekerjaans}" th:value="${anggota.id}" th:text="${anggota.namaPekerjaan}">Pilih Laporan Progres</option>
+                                                <!--<option th:each="anggota : ${pekerjaans}" th:value="${anggota.id}" th:text="${anggota.namaPekerjaan}">Pilih Laporan Progres</option>-->
                                             </select>
                                             <br>
-                                            <a onclick="tambahProgres()" class="btn btn-primary">Tambah</a>
+                                            <a onclick="tambahProgres()" class="btn btn-primary">Buat</a>
                                         </div>
                                     </div>
                                 </div>
@@ -94,11 +94,11 @@
                                             <input type="text" id="namaProgress" class="form-control col-md-12 col-sm-12 col-xs-12" placeholder="Laporan baru..">
                                             <input type="text" id="deskripsiProgress" class="form-control col-md-12 col-sm-12 col-xs-12" placeholder="Deskripsi..">
                                             <select name="namaPenanggungJawab" id="namaPenanggungJawab" class="form-control">
-                                                <option>Pilih Penanggung Jawab</option>
-                                                <option th:each="anggota : ${pekerjaans}" th:value="${anggota.id}" th:text="${anggota.namaPekerjaan}">Pilih Laporan Progres</option>
+                                                <option value="">Pilih Penanggung Jawab</option>
+                                                <option th:each="anggota : ${anggotas}" th:value="${anggota.id}" th:text="${anggota.nama}">Pilih Penanggung Jawab</option>
                                             </select>
                                             <br>
-                                            <a onclick="tambahProgres()" class="btn btn-primary">Tambah</a>
+                                            <a onclick="tambahPekerjaanBaru()" class="btn btn-primary">Tambah</a>
                                         </div>
                                     </div>
                                 </div>
@@ -149,7 +149,7 @@
                 <div class="card col-lg-12">
                     <div id="hasil">
                     </div>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <button onclick="simpanNotulensi()" type="submit" class="btn btn-primary">Simpan</button>
 
                     <!-- The text field -->
                     <p id="error-details" hidden></p>

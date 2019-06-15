@@ -87,6 +87,7 @@ public class ControllerPekerjaan {
     @RequestMapping(value = "/pekerjaan/form")
     public String formAnggota(Model model){
         model.addAttribute("anggotas",serviceAnggota.listAnggota());
+        model.addAttribute("pekerjaan", new ModelPekerjaan());
         return "pekerjaan/form_pekerjaan";
     }
 }

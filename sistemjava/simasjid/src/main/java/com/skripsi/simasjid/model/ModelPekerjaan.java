@@ -2,6 +2,7 @@ package com.skripsi.simasjid.model;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -10,10 +11,10 @@ public class ModelPekerjaan {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "pekerjaan_id")
+    @Column(name = "id_pekerjaan")
     private Integer id;
 
-    @Column(name = "anggota_id")
+    @Column(name = "id_anggota")
     private Integer anggota;
 
     @Column(name = "id_status",columnDefinition = "integer DEFAULT 0")
@@ -26,6 +27,18 @@ public class ModelPekerjaan {
 
     @Column(columnDefinition = "integer DEFAULT 0")
     private Integer aktif;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_pekerjaan", referencedColumnName = "id_pekerjaan")
+    private List<ModelDetailProgres> detailProgres;
+
+    public List<ModelDetailProgres> getDetailProgres() {
+        return detailProgres;
+    }
+
+    public void setDetailProgres(List<ModelDetailProgres> detailProgres) {
+        this.detailProgres = detailProgres;
+    }
 
     public Integer getId() {
         return id;

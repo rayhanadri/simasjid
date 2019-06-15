@@ -1,4 +1,15 @@
+var server = "http://localhost:8080"
+var rest = server+"/rest";
+var getPekerjaanAll = rest+"/pekerjaan/all";
+var setPekerjaanNew = rest+"/pekerjaan/simpan";
+
 var tempIdPekerjaan = 0;
+
+var setNotulensi = rest+"/notulensi/simpan";
+var setDetailProgres = rest+"/pekerjaan/simpanprogres";
+
+//Autoload
+getPekerjaanList();
 
 function copyToClipboard(element) {
     var $temp = $("<textarea>");
@@ -24,6 +35,64 @@ function myFunction() {
     textArea.remove();
 }
 
+function tambahPekerjaanBaru() {
+    var myObject = new Object();
+    if(document.getElementById("namaProgress").value != "" && document.getElementById("deskripsiProgress").value != "" &&
+        document.getElementById("namaPenanggungJawab").value != ""){
+        myObject.namaPekerjaan = document.getElementById("namaProgress").value;
+        myObject.deskripsi = document.getElementById("deskripsiProgress").value;
+        myObject.anggota = document.getElementById("namaPenanggungJawab").value;
+        myObject.idStatus = "0";
+        myObject.aktif = 1;
+        var data = JSON.stringify(myObject);
+        console.log("data : "+data);
+
+        $.ajax({
+            type : "POST",
+            contentType : 'application/json; charset=utf-8',
+            url : setPekerjaanNew,
+            data : JSON.stringify(myObject),
+            success : function(result) {
+                console.log("SUCCESS: ", result);
+                getPekerjaanList();
+                $("#profile2").removeClass("active");
+                $("#tabTambah").removeClass("active");
+                $("#home2").addClass("active");
+                $("#tabPekerjaan").addClass("active");
+
+                document.getElementById("namaProgress").value = "";
+                document.getElementById("deskripsiProgress").value = "";
+                document.getElementById("namaPenanggungJawab").value = "";
+            },
+            error: function(e){
+                console.log("ERROR: ", e);
+            },
+            done : function(e) {
+                console.log("DONE");
+            }
+        });
+    } else {
+        console.log("data kosong");
+    }
+}
+
+function getPekerjaanList() {
+    $("#optionProgress").empty();
+    $('#optionProgress').append($('<option/>', {
+        value: "",
+        text : "Pilih Laporan"
+    }));
+    $.get(getPekerjaanAll, function(respond){
+        for (var i = 0; i < respond.length; i++) {
+            // console.log(i+". "+respond[i]['namaPekerjaan']);
+            $('#optionProgress').append($('<option/>', {
+                value: respond[i]['id'],
+                text : respond[i]['namaPekerjaan']
+            }));
+        }
+    });
+}
+
 function tambahProgres(){
     if(document.getElementById("optionProgress").value == ""){
         var namaProgress = document.getElementById("namaProgress").value;
@@ -32,17 +101,17 @@ function tambahProgres(){
 
     } else {
         var data = document.getElementById("optionProgress");
-        var idProgres = data.value;
+        var idPekerjaan = data.value;
         var namaProgres = data.options[data.selectedIndex].text;
-        console.log(idProgres);
-        tambahCard(namaProgres,idProgres);
+        console.log(idPekerjaan);
+        tambahCard(namaProgres,idPekerjaan);
         document.getElementById("namaProgress").value = "";
         document.getElementById("optionProgress").value = "";
     }
 }
 
-function tambahCard(namaProgress,idProgress){
-    var sethtml = '<div class="card cardprogres'+tempIdPekerjaan+'" style=""><div class="card-body"><h5 class="card-title">'+namaProgress+'</h5><input type="text" id="idProgress[]" name="idProgress[]" value='+idProgress+' hidden><input type="text" id="namaProgress[]" name="namaProgress[]" value="'+namaProgress+'" hidden><textarea id="progres[]" name="progres[]" onkeyup="tambahKeterangan('+tempIdPekerjaan+', 0)" class="form-control progres" aria-label="With textarea"></textarea><br><p class="text-danger" onclick="hapusProgres('+tempIdPekerjaan+')" style="float:left">hapus</p><p onclick="resetKeterangan('+tempIdPekerjaan+',0)" style="float:right" class="text-warning col-sx-6">Reset</p></div></div>'
+function tambahCard(namaProgress,idPekerjaan){
+    var sethtml = '<div class="card cardprogres'+tempIdPekerjaan+'" style=""><div class="card-body"><h5 class="card-title">'+namaProgress+'</h5><input type="text" id="idPekerjaan[]" class="idPekerjaan" name="idPekerjaan[]" value='+idPekerjaan+' hidden><input type="text" id="namaProgress[]" name="namaProgress[]" value="'+namaProgress+'" hidden><textarea id="progres[]" name="progres[]" onkeyup="tambahKeterangan('+tempIdPekerjaan+', 0)" class="form-control progres" aria-label="With textarea"></textarea><br><p class="text-danger" onclick="hapusProgres('+tempIdPekerjaan+')" style="float:left">hapus</p><p onclick="resetKeterangan('+tempIdPekerjaan+',0)" style="float:right" class="text-warning col-sx-6">Reset</p></div></div>'
     $("#kolomProgres").append(sethtml);
     autosize(document.getElementsByClassName('progres'+tempIdPekerjaan));
     var sethtml = '<div class="card cardprogres'+tempIdPekerjaan+'" style=""><div class="card-body"><h5 class="card-title">'+namaProgress+'</h5><p id="kontendariprogres'+tempIdPekerjaan+'" class="kontendariprogres'+tempIdPekerjaan+'"></p><textarea id="masukkan[]" name="masukkan[]"  onkeyup="tambahKeterangan('+tempIdPekerjaan+', 1)" class="form-control masukkan" aria-label="With textarea"></textarea><br><p onclick="resetKeterangan('+tempIdPekerjaan+',1)" style="float:right" class="text-warning col-sx-6">Reset</p></div></div>'
@@ -145,13 +214,6 @@ function resetKeterangan(idPekerjaan, keputusan){
     tambahKeterangan(idPekerjaan,keputusan);
 }
 
-function arrayRemove(arr, value) {
-    return arr.filter(function(ele){
-        return ele != value;
-    });
-}
-
-
 function hapusProgres(idPekerjaan) {
     console.log("tes hapus "+idPekerjaan);
     $(".cardprogres"+idPekerjaan).hide();
@@ -163,6 +225,70 @@ function hapusProgres(idPekerjaan) {
     contentProgress[idPekerjaan].value = "";
     contentMasukkan[idPekerjaan].value = "";
     contentKeputusan[idPekerjaan].value = "";
+}
+
+function simpanNotulensi() {
+    //kirim notulennya, ambil id notulen
+    var notulen = document.getElementById("namaNotulen");
+    var amir = document.getElementById("namaAmir");
+    var notulensi = new Object();
+    notulensi.idAmir = amir.value;
+    notulensi.idNotulen = notulen.value;
+    notulensi.idStatus = 0;
+    $.ajax({
+        type : "POST",
+        contentType : 'application/json; charset=utf-8',
+        url : setNotulensi,
+        data : JSON.stringify(notulensi),
+        success : function(result) {
+            console.log("simpan notulensi ajax : "+result);
+            simpanProgres(result);
+        },
+        error: function(e){
+            console.log("ERROR: ", e);
+        },
+        done : function(e) {
+            console.log("DONE");
+        }
+    });
+    //kirim detail progresnya, jangan lupa masukkin id notulen
+}
+
+function simpanProgres(idNotulensi) {
+    var data = [];
+
+    var idPekerjaan = document.getElementsByClassName("idPekerjaan");
+    var contentProgress = document.getElementsByClassName("progres");
+    var contentMasukkan = document.getElementsByClassName("masukkan");
+    var contentKeputusan = document.getElementsByClassName("keputusan");
+
+    for (index = 0, len = contentProgress.length; index < len; ++index) {
+        if(contentProgress[index].value != ""){
+            var detailProgres = new Object();
+            detailProgres.keterangan = contentProgress[index].value;
+            detailProgres.keputusan = contentKeputusan[index].value;
+            detailProgres.pekerjaan = idPekerjaan[index].value;
+            detailProgres.notulensi = idNotulensi;
+            data.push(detailProgres);
+            console.log("added : "+detailProgres);
+        }
+    }
+    console.log("data : "+data);
+    $.ajax({
+        type : "POST",
+        contentType : 'application/json; charset=utf-8',
+        url : setDetailProgres,
+        data : JSON.stringify(data),
+        success : function(result) {
+            console.log("simpan progres ajax : "+result);
+        },
+        error: function(e){
+            console.log("ERROR: ", e);
+        },
+        done : function(e) {
+            console.log("DONE");
+        }
+    });
 
 
 }

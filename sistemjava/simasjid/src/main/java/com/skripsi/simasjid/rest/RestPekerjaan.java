@@ -1,12 +1,20 @@
 package com.skripsi.simasjid.rest;
 
+import com.skripsi.simasjid.model.DetailProgresWrapper;
+import com.skripsi.simasjid.model.ModelDetailProgres;
 import com.skripsi.simasjid.model.ModelPekerjaan;
+import com.skripsi.simasjid.services.ServiceDetailProgres;
 import com.skripsi.simasjid.services.ServicePekerjaan;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -16,11 +24,28 @@ public class RestPekerjaan {
     @Autowired
     ServicePekerjaan servicePekerjaan;
 
+    @Autowired
+    ServiceDetailProgres serviceDetailProgres;
+
     @GetMapping("/all")
     public List<ModelPekerjaan> getAll() {
         return servicePekerjaan.findAll();
     }
 
+    @RequestMapping(value = "/simpan", method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public String simpanPekerjaan(@RequestBody ModelPekerjaan modelPekerjaan){
+        System.out.println("body : "+modelPekerjaan.getNamaPekerjaan());
+        servicePekerjaan.save(modelPekerjaan);
+        return ""+modelPekerjaan.getId();
+    }
+
+    @RequestMapping(value = "/simpanprogres", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public String simpanProgres(@RequestBody List<ModelDetailProgres> detailProgres) {
+        for (ModelDetailProgres mdp : detailProgres){
+            serviceDetailProgres.save(mdp);
+        }
+        return "succeed";
+    }
 //    @GetMapping("/find/{id}")
 //    public ModelPekerjaan getId(@PathVariable("id") final Integer id) {
 //        return servicePekerjaan.findById(id);
