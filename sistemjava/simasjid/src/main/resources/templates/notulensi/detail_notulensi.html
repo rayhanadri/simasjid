@@ -31,7 +31,7 @@
                             <div class="card-content">
                                 <!-- Left sidebar -->
                                 <div class="inbox-leftbar">
-                                    <h6 class="">Pembahasan Pekerjaan ?</h6>
+                                    <h6 class="">Pembahasan Pekerjaan</h6>
                                     <div class="list-group b-0 mail-list">
                                         <a th:each="progres : ${progress}" th:href="${'/pekerjaan/detail/'+progres.pekerjaan}" class="list-group-item border-0"><span class="fa fa-circle text-success
                                                 mr-2"></span>[[*{progres.namaPekerjaan}]]</a>
@@ -57,8 +57,9 @@
                                         <hr/>
                                     </div>
                                     <div class="text-right">
+                                        <a th:href="${'/notulensi/hapus/'+notulensi.id}" class="btn btn-link waves-effect waves-light w-md m-b-30">hapus</a>
                                         <button type="button" class="btn btn-success waves-effect waves-light w-md m-b-30">Verifikasi</button>
-                                        <button type="button" class="btn btn-default waves-effect waves-light w-md m-b-30">Verifikasi</button>
+                                        <!--<button type="button" class="btn btn-default waves-effect waves-light w-md m-b-30">Verifikasi</button>-->
                                         <button type="button" class="btn btn-warning waves-effect waves-light w-md m-b-30">Edit</button>
                                     </div>
 

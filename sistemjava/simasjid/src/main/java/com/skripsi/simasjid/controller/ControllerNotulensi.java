@@ -87,8 +87,9 @@ public class ControllerNotulensi {
         return "notulensi/detail_notulensi";
     }
 
-    @RequestMapping("/notulensi/hapus")
-    public String hapusNotulensi(){
+    @RequestMapping("/notulensi/hapus/{id}")
+    public String hapusNotulensi(@PathVariable Integer id){
+        serviceNotulensi.deleteById(id);
         return "redirect:/notulensi";
     }
 

@@ -67,6 +67,18 @@ public class RestPekerjaan {
 //        return servicePekerjaan.findById(id);
 //    }
 
+    //setiap notulensi ke hapus, ternyata detailnya juga ikut kehapus. jadi yang bawah gaperlu diakses
+    @GetMapping("/hapusDetailNotulensi/{id}")
+    public String hapusDetailNotulensi(@PathVariable("id") final Integer id) {
+        List<ModelDetailProgres> listDetailProgres = serviceDetailProgres.findAll();
+        for (ModelDetailProgres mdp: listDetailProgres) {
+            if (mdp.getNotulensi() == id){
+                serviceDetailProgres.delete(mdp);
+            }
+        }
+        return "berhasil";
+    }
+
     @GetMapping("/cariProgresNotulensiBy/{id}")
     public List<ModelDetailProgres> getProgresByIdNotulensi(@PathVariable("id") final Integer id) {
         List<ModelDetailProgres> listDetailProgres = serviceDetailProgres.findAll();

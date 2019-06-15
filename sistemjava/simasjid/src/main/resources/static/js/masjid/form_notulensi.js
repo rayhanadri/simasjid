@@ -8,6 +8,8 @@ var tempIdPekerjaan = 0;
 var setNotulensi = rest+"/notulensi/simpan";
 var setDetailProgres = rest+"/pekerjaan/simpanprogres";
 
+var mappingDaftarNotulensi = server+"/notulensi";
+
 //Autoload
 getPekerjaanList();
 
@@ -256,7 +258,6 @@ function simpanNotulensi() {
 
 function simpanProgres(idNotulensi) {
     var data = [];
-
     var idPekerjaan = document.getElementsByClassName("idPekerjaan");
     var contentProgress = document.getElementsByClassName("progres");
     var contentMasukkan = document.getElementsByClassName("masukkan");
@@ -281,6 +282,7 @@ function simpanProgres(idNotulensi) {
         data : JSON.stringify(data),
         success : function(result) {
             console.log("simpan progres ajax : "+result);
+            window.location.href=mappingDaftarNotulensi;
         },
         error: function(e){
             console.log("ERROR: ", e);
