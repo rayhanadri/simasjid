@@ -20,6 +20,9 @@ public class ModelDetailProgres {
     @Column(name = "keterangan")
     private String keterangan;
 
+    @Column(name = "masukkan")
+    private String masukkan;
+
     @Column(name = "keputusan")
     private String keputusan;
 
@@ -72,5 +75,13 @@ public class ModelDetailProgres {
 
     public void setNamaPekerjaan(String namaPekerjaan) {
         this.namaPekerjaan = namaPekerjaan;
+    }
+
+    public String getMasukkan() {
+        return masukkan;
+    }
+
+    public void setMasukkan(String masukkan) {
+        this.masukkan = masukkan;
     }
 }

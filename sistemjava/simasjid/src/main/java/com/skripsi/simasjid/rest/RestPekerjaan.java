@@ -47,6 +47,14 @@ public class RestPekerjaan {
         return "succeed";
     }
 
+    @RequestMapping(value = "/updateprogres", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public String updateProgres(@RequestBody List<ModelDetailProgres> detailProgres) {
+        for (ModelDetailProgres mdp : detailProgres){
+            serviceDetailProgres.save(mdp);
+        }
+        return "succeed";
+    }
+
     @GetMapping("/hapusProgresNotulensiBy/{id}")
     public String hapusProgresByIdNotulensi(@PathVariable("id") final Integer id) {
         try{

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout.html}"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <script th:src="@{/js/masjid/form_notulensi_edit.js}"></script>
+    <link th:href="@{/css/masjid/form_notulensi.css}" rel="stylesheet"/>
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- KONTENT START -->
+    <div layout:fragment="content">
+        <!-- Bread crumb -->
+        <div class="row page-titles">
+            <div class="col-md-5 align-self-center">
+                <h3 class="text-primary">Notulensi Musyawarah</h3> </div>
+            <div class="col-md-7 align-self-center">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Notulensi</a></li>
+                    <li class="breadcrumb-item active">Form Notulensi Musyawarah</li>
+                </ol>
+            </div>
+        </div>
+        <!-- End Bread crumb -->
+        <div class="container-fluid">
+            <div class="row">
+                <!-- /# column -->
+                <div class="col-lg-8">
+                    <div class="card">
+                        <h5> Deskripsi Musyawarah </h5>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label class="control-label col-md-9 col-sm-9 col-xs-12">Notulen <span class="required">*</span>
+                                </label>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <select name="namaNotulen" id="namaNotulen" class="form-control" th:field="${notulensi.idNotulen}">
+                                        <option value="">Pilih Notulen</option>
+                                        <option th:each="anggota : ${anggotas}" th:value="${anggota.id}" th:text="${anggota.nama}">Pilih Notulen</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-9 col-sm-9 col-xs-12" >Amir <span class="required">*</span>
+                                </label>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <select name="namaAmir" id="namaAmir" class="form-control" th:field="${notulensi.idAmir}">
+                                        <option value="">Pilih Amir Musyawarah</option>
+                                        <option th:each="anggota : ${anggotas}" th:value="${anggota.id}" th:text="${anggota.nama}">Pilih Amir Musyawarah</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-9 col-sm-9 col-xs-12">Peserta musyawarah</label>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <select name="namaHadirin[]" id="namaHadirin[]" class="select2_multiple form-control" multiple="multiple">
+                                        <option>Pilih Anggota Hadir Musyawarah</option>
+                                        <option th:each="anggota : ${anggotas}" th:value="${anggota.id}" th:text="${anggota.nama}">Pilih Hadir Musyawarah</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Data Laporan-->
+                <div class="col-md-4">
+                    <div class="card cardprogres" hidden>
+                        <input type="text" id="idNotulensi" name="idNotulensi" th:value="${notulensi.id}" >
+                        <div th:each="progres : ${progress}" >
+                            <input class="detailProgresId" th:value="${progres.id}" >
+                        </div>
+                    </div>
+                </div>
+
+                <!--Laporan-->
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div id="kolomProgres" class="card-body">
+                            <label class="control-label col-md-12 col-sm-12 col-xs-12" >Detail Laporan<span class="required">*</span>
+                            </label>
+                            <div class="card cardprogres" th:each="progres : ${progress}">
+                                <div class="card-body">
+                                    <h5 class="card-title">[[${progres.namaPekerjaan}]]</h5>
+                                    <input type="text" id="idPekerjaan[]" class="idPekerjaan" name="idPekerjaan[]" th:value="${progres.pekerjaan}" hidden>
+                                    <input type="text" id="namaProgress[]" name="namaProgress[]" value="" hidden>
+                                    <textarea th:id="'progres' + ${progres.pekerjaan}" th:classappend="${'progres'+progres.pekerjaan}" name="progres[]" th:onkeyup="|updateKeterangan('${progres.pekerjaan}', 0)|"  class="form-control progres" aria-label="With textarea">[[${progres.keterangan}]]</textarea>
+                                    <br>
+                                    <!--<p class="text-danger" onclick="" style="float:left">hapus</p>-->
+                                    <p onclick="" style="float:right" class="text-warning col-sx-6">Reset</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Masukkan-->
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div id="kolomMasukkan" class="card-body">
+                            <label class="control-label col-md-12 col-sm-12 col-xs-12">Tanggapan pekerjaan lain<span class="required">*</span>
+                            </label>
+                            <div class="card cardprogres" th:each="progres : ${progress}">
+                                <div class="card-body">
+                                    <h5 class="card-title">[[${progres.namaPekerjaan}]]</h5>
+                                    <p th:id="'kontendariprogres' + ${progres.pekerjaan}" th:classappend="${'kontendariprogres'+progres.pekerjaan}"></p>
+                                    <textarea th:id="'masukkan' + ${progres.pekerjaan}" th:classappend="${'masukkan'+progres.pekerjaan}" name="masukkan[]" th:onkeyup="|updateKeterangan('${progres.pekerjaan}', 1)|" class="form-control masukkan" aria-label="With textarea">[[${progres.masukkan}]]</textarea>
+                                    <br>
+                                    <p onclick="" style="float:right" class="text-warning col-sx-6">Reset</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Keputusan-->
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div id="kolomKeputusan" class="card-body">
+                            <label class="control-label col-md-12 col-sm-12 col-xs-12">Keputusan<span class="required">*</span>
+                            </label>
+                            <div class="card cardprogres" th:each="progres : ${progress}">
+                                <div class="card-body">
+                                    <h5 class="card-title">[[${progres.namaPekerjaan}]]</h5>
+                                    <p th:id="'kontendarimasukkan' + ${progres.pekerjaan}" th:classappend="${'kontendarimasukkan'+progres.pekerjaan}"></p>
+                                    <textarea th:id="'keputusan' + ${progres.pekerjaan}" th:classappend="${'keputusan'+progres.pekerjaan}" name="keputusan[]" th:onkeyup="|updateKeterangan('${progres.pekerjaan}', 2)|" class="form-control keputusan" aria-label="With textarea">[[${progres.keputusan}]]</textarea>
+                                    <br>
+                                    <p onclick="" style="float:right" class="text-warning col-sx-6">Reset</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Catatan tambahan-->
+                <div class="col-lg-12">
+                    <div class="card">
+                        <h5> Catatan Tambahan </h5>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <input type="text" onkeyup="tambahInfo()" id="catatanTbmhn" class="form-control col-md-12 col-sm-12 col-xs-12" placeholder="Catatan tambahan..">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card col-lg-12">
+                    <div id="hasil">
+                        <div class="bd-callout bd-callout-warning cardprogres" th:each="progres : ${progress}">
+                            <h3 id="conveying-meaning-to-assistive-technologies">[[${progres.namaPekerjaan}]]</h3>
+                            <p id="hasilkontendariprogres" th:classappend="${'kontendariprogres'+progres.pekerjaan}">[[${progres.keterangan}]]</p>
+                            <h6 id="conveying-meaning-to-assistive-technologiess">Keputusan </h6>
+                            <p id="hasilkontendarimasukkan" th:classappend="${'hasilkontendarimasukkan'+progres.pekerjaan}">[[${progres.keputusan}]]</p>
+                        </div>
+                    </div>
+                    <button onclick="simpanNotulensi()" type="submit" class="btn btn-primary">Simpan</button>
+
+                    <!-- The text field -->
+                    <p id="error-details" hidden></p>
+                    <button id="FailCopy" type="button"
+                            onclick="copyToClipboard('p#error-details')" class="btn btn-link">Salin</button>
+                    <a href="whatsapp://send?text=">Bagikan ke WhatsApp</a>
+                </div>
+                <!-- /# column -->
+            </div>
+        </div>
+    </div>
+    <!-- END KONTENT -->
+</body>
+</html>

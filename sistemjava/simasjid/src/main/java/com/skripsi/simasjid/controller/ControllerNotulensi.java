@@ -61,6 +61,25 @@ public class ControllerNotulensi {
         return "notulensi/form_notulensi";
     }
 
+    @RequestMapping("/notulensi/edit/{id}")
+    public String editNotulensi(@PathVariable Integer id, Model model){
+        model.addAttribute("anggotas",serviceAnggota.listAnggota());
+        ModelNotulensi mn = serviceNotulensi.getOne(id);
+        System.out.println("Cek id mn : "+mn.getId());
+        model.addAttribute("notulensi", mn);
+
+        List<ModelDetailProgres> listDetailProgres = serviceDetailProgres.findAll();
+        List<ModelDetailProgres> listUsed = new ArrayList<>();
+        for (ModelDetailProgres mdp: listDetailProgres) {
+            if (mdp.getNotulensi() == id){
+                mdp.setNamaPekerjaan(servicePekerjaan.getOne(mdp.getPekerjaan()).getNamaPekerjaan());
+                listUsed.add(mdp);
+            }
+        }
+        model.addAttribute("progress", listUsed);
+        return "notulensi/form_notulensi_edit";
+    }
+
     @RequestMapping("/notulensi/simpan")
     public String simpanNotulensi(){
         return "redirect:/notulensi";
