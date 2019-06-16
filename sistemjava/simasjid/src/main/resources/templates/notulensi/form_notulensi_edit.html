@@ -32,10 +32,18 @@
                         <h5> Deskripsi Musyawarah </h5>
                         <div class="card-body">
                             <div class="form-group">
+                                <label class="control-label col-md-9 col-sm-9 col-xs-12">Nama Musyawarah<span class="required">*</span>
+                                </label>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <input type="text" id="created" class="form-control col-md-12 col-sm-12 col-xs-12" placeholder="Nama Musyawarah" th:field="${notulensi.created}" disabled>
+                                    <input type="text" id="namaMusyawarah" class="form-control col-md-12 col-sm-12 col-xs-12" placeholder="Nama Musyawarah" th:field="${notulensi.namaMusyawarah}" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="control-label col-md-9 col-sm-9 col-xs-12">Notulen <span class="required">*</span>
                                 </label>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <select name="namaNotulen" id="namaNotulen" class="form-control" th:field="${notulensi.idNotulen}">
+                                    <select name="namaNotulen" id="namaNotulen" class="form-control" th:field="${notulensi.idNotulen}" disabled>
                                         <option value="">Pilih Notulen</option>
                                         <option th:each="anggota : ${anggotas}" th:value="${anggota.id}" th:text="${anggota.nama}">Pilih Notulen</option>
                                     </select>
@@ -45,7 +53,7 @@
                                 <label class="control-label col-md-9 col-sm-9 col-xs-12" >Amir <span class="required">*</span>
                                 </label>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <select name="namaAmir" id="namaAmir" class="form-control" th:field="${notulensi.idAmir}">
+                                    <select name="namaAmir" id="namaAmir" class="form-control" th:field="${notulensi.idAmir}" disabled>
                                         <option value="">Pilih Amir Musyawarah</option>
                                         <option th:each="anggota : ${anggotas}" th:value="${anggota.id}" th:text="${anggota.nama}">Pilih Amir Musyawarah</option>
                                     </select>
@@ -54,9 +62,9 @@
                             <div class="form-group">
                                 <label class="control-label col-md-9 col-sm-9 col-xs-12">Peserta musyawarah</label>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <select name="namaHadirin[]" id="namaHadirin[]" class="select2_multiple form-control" multiple="multiple">
+                                    <select name="namaHadirin[]" id="namaHadirin[]" class="select2_multiple form-control" multiple="multiple" disabled>
                                         <option>Pilih Anggota Hadir Musyawarah</option>
-                                        <option th:each="anggota : ${anggotas}" th:value="${anggota.id}" th:text="${anggota.nama}">Pilih Hadir Musyawarah</option>
+                                        <option th:each="anggota : ${anggotas}" th:value="${anggota.id}" th:text="${anggota.nama}" selected>Pilih Hadir Musyawarah</option>
                                     </select>
                                 </div>
                             </div>
@@ -136,7 +144,7 @@
                         <h5> Catatan Tambahan </h5>
                         <div class="card-body">
                             <div class="form-group">
-                                <input type="text" onkeyup="tambahInfo()" id="catatanTbmhn" class="form-control col-md-12 col-sm-12 col-xs-12" placeholder="Catatan tambahan..">
+                                <input type="text" onkeyup="tambahInfo()" id="catatanTbmhn" class="form-control col-md-12 col-sm-12 col-xs-12" placeholder="Catatan tambahan.." th:field="${notulensi.catatan}">
                             </div>
                         </div>
                     </div>
@@ -149,6 +157,10 @@
                             <h6 id="conveying-meaning-to-assistive-technologiess">Keputusan </h6>
                             <p id="hasilkontendarimasukkan" th:classappend="${'hasilkontendarimasukkan'+progres.pekerjaan}">[[${progres.keputusan}]]</p>
                         </div>
+                    </div>
+                    <div id="cttn" class="bd-callout bd-callout-warning">
+                        <h6 >Catatan Tambahan</h6>
+                        <p>[[${notulensi.catatan}]]</p>
                     </div>
                     <button onclick="simpanNotulensi()" type="submit" class="btn btn-primary">Simpan</button>
 

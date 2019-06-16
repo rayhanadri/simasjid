@@ -29,6 +29,15 @@ public class RestNotulensi {
         return ""+modelNotulensi.getId();
     }
 
+    @RequestMapping(value = "/update", method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public String updateNotulensi(@RequestBody ModelNotulensi modelNotulensi){
+        System.out.println("body : "+modelNotulensi.getIdNotulen());
+        ModelNotulensi tempMn= serviceNotulensi.getOne(modelNotulensi.getId());
+        modelNotulensi.setCreated(tempMn.getCreated());
+        serviceNotulensi.save(modelNotulensi);
+        return ""+modelNotulensi.getId();
+    }
+
     @GetMapping("/hapus/{id}")
     public String getId(@PathVariable("id") final Integer id) {
         try{

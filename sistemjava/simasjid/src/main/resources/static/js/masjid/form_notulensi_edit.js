@@ -5,7 +5,7 @@ var setPekerjaanNew = rest+"/pekerjaan/simpan";
 
 var tempIdPekerjaan = 0;
 
-var setNotulensi = rest+"/notulensi/simpan";
+var setNotulensi = rest+"/notulensi/update";
 var setDetailProgres = rest+"/pekerjaan/simpanprogres";
 
 var getDetailProgres = rest+"/pekerjaan/cariProgresNotulensiBy/";
@@ -264,11 +264,18 @@ function hapusProgres(idPekerjaan) {
 
 function simpanNotulensi() {
     //kirim notulennya, ambil id notulen
+    var idNotulensi = document.getElementById("idNotulensi");
+    var namaMusyawarah = document.getElementById("namaMusyawarah");
     var notulen = document.getElementById("namaNotulen");
     var amir = document.getElementById("namaAmir");
+    var catatan = document.getElementById("catatanTbmhn");
+
     var notulensi = new Object();
+    notulensi.id = idNotulensi.value;
+    notulensi.namaMusyawarah = namaMusyawarah.value;
     notulensi.idAmir = amir.value;
     notulensi.idNotulen = notulen.value;
+    notulensi.catatan = catatan.value;
     notulensi.idStatus = 0;
     $.ajax({
         type : "POST",
@@ -277,7 +284,7 @@ function simpanNotulensi() {
         data : JSON.stringify(notulensi),
         success : function(result) {
             console.log("simpan notulensi ajax : "+result);
-            simpanProgres(result);
+            simpanProgres();
         },
         error: function(e){
             console.log("ERROR: ", e);

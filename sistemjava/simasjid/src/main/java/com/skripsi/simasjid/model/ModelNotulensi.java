@@ -23,6 +23,12 @@ public class ModelNotulensi {
     @Column(name = "id_status")
     private Integer idStatus;
 
+    @Column(name = "nama_musyawarah")
+    private String namaMusyawarah;
+
+    @Column(name = "catatan")
+    private String catatan;
+
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_notulensi", referencedColumnName = "id_notulensi")
     private List<ModelDetailProgres> detailProgres;
@@ -113,7 +119,21 @@ public class ModelNotulensi {
         }
     }
 
+    public String getCatatan() {
+        return catatan;
+    }
 
+    public void setCatatan(String catatan) {
+        this.catatan = catatan;
+    }
+
+    public String getNamaMusyawarah() {
+        return namaMusyawarah;
+    }
+
+    public void setNamaMusyawarah(String namaMusyawarah) {
+        this.namaMusyawarah = namaMusyawarah;
+    }
 
     public String getNamaNotulen() {
         return namaNotulen;
