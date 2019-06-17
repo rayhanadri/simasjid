@@ -32,15 +32,17 @@
                         <p>PIC : <b>[[*{pic}]]</b></p>
                         <hr>
                         <div>
-                            <span th:if="${statusPekerjaan} == 0" class="btn link m-b-10 m-l-5" style="color:#9e1317" >Pekerjaan Belum Diverifikasi Ketua Takmir</span>
-                            <span th:if="${statusPekerjaan} == 1" class="btn link m-b-10 m-l-5" style="color:#0d71bb" >Pekerjaan Sedang berjalan</span>
-                            <span th:if="${statusPekerjaan} == 2" class="btn link m-b-10 m-l-5" style="color:#1A531B" >Pekerjaan Selesai</span>
-
-                            |<a th:href="${'/pekerjaan/hapus/'+idPekerjaan}" th:if="${statusPekerjaan} == 0 or ${statusPekerjaan} == 2" class="btn btn-danger m-b-10 m-l-5">Hapus</a>
-                            <a th:href="${'/pekerjaan/edit/'+idPekerjaan}" th:if="${statusPekerjaan} == 0 or ${statusPekerjaan} == 1" class="btn btn-primary m-b-10 m-l-5">edit</a>
-                            <a th:href="${'/pekerjaan/setstatus/'+idPekerjaan+'/1'}" th:if="${statusPekerjaan} == 0" class="btn btn-success m-b-10 m-l-5">Verifikasi Pekerjaan</a>
-                            <a th:href="${'/pekerjaan/setstatus/'+idPekerjaan+'/2'}" th:if="${statusPekerjaan} == 1" class="btn btn-success m-b-10 m-l-5">Pekerjaan selesai</a>
-                            <a th:href="${'/pekerjaan/setstatus/'+idPekerjaan+'/1'}" th:if="${statusPekerjaan} == 2" class="btn btn-success m-b-10 m-l-5">Aktifkan pekerjaan</a>
+                            <span th:if="${statusaktif} == 0" class="btn link m-b-10 m-l-5" style="color:red" >Pekerjaan dihapus</span>
+                            <div th:if="${statusaktif} == 1">
+                                <span th:if="${statusPekerjaan} == 0" class="btn link m-b-10 m-l-5" style="color:#9e1317" >Pekerjaan Belum Diverifikasi Ketua Takmir</span>
+                                <span th:if="${statusPekerjaan} == 1" class="btn link m-b-10 m-l-5" style="color:#0d71bb" >Pekerjaan Sedang berjalan</span>
+                                <span th:if="${statusPekerjaan} == 2" class="btn link m-b-10 m-l-5" style="color:#1A531B" >Pekerjaan Selesai</span>
+                                |<a th:href="${'/pekerjaan/hapus/'+idPekerjaan}" th:if="${statusPekerjaan} == 0 or ${statusPekerjaan} == 2" class="btn btn-danger m-b-10 m-l-5">Hapus</a>
+                                <a th:href="${'/pekerjaan/edit/'+idPekerjaan}" th:if="${statusPekerjaan} == 0 or ${statusPekerjaan} == 1" class="btn btn-primary m-b-10 m-l-5">edit</a>
+                                <a th:href="${'/pekerjaan/setstatus/'+idPekerjaan+'/1'}" th:if="${statusPekerjaan} == 0" class="btn btn-success m-b-10 m-l-5">Verifikasi Pekerjaan</a>
+                                <a th:href="${'/pekerjaan/setstatus/'+idPekerjaan+'/2'}" th:if="${statusPekerjaan} == 1" class="btn btn-success m-b-10 m-l-5">Pekerjaan selesai</a>
+                                <a th:href="${'/pekerjaan/setstatus/'+idPekerjaan+'/1'}" th:if="${statusPekerjaan} == 2" class="btn btn-success m-b-10 m-l-5">Aktifkan pekerjaan</a>
+                            </div>
                         </div>
                         <hr>
                         <div th:if="${statusPekerjaan} == 1">

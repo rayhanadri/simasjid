@@ -55,6 +55,7 @@ public class ControllerPekerjaan {
         model.addAttribute("statusPekerjaan", modelPekerjaan.get().getIdStatus());
         model.addAttribute("pic", pic);
         model.addAttribute("idPekerjaan", id);
+        model.addAttribute("statusaktif", modelPekerjaan.get().getAktif());
         try{
             List<ModelDetailProgres> mdpList = serviceDetailProgres.findAll();
             List<ModelDetailProgres> mdpById = new ArrayList<>();
