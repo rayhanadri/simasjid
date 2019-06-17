@@ -12,7 +12,7 @@ $.get(getPekerjaanAll, function(respond){
         console.log(i+". "+respond[i]['namaPekerjaan']);
         var setHtml = '<tr>\n' +
             '<td>'+respond[i]['namaPekerjaan']+'</td>\n' +
-            '<td>'+respond[i]['deskripsi']+'</td>\n' +
+            // '<td>'+respond[i]['deskripsi']+'</td>\n' +
             '<td>Status Pekerjaan</td>\n' +
             '<td><a href="'+mappingDetailPekerjaan+respond[i]['id']+'"><button type="button" class="btn btn-info m-b-10 m-l-5">Lihat</button></a></td>\n' +
             '</tr>';

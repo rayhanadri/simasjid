@@ -99,4 +99,16 @@ public class RestPekerjaan {
         return listKirim;
     }
 
+    @GetMapping("/cariProgresPekerjaanBy/{id}")
+    public List<ModelDetailProgres> getProgresByIdPekerjaan(@PathVariable("id") final Integer id) {
+        List<ModelDetailProgres> listDetailProgres = serviceDetailProgres.findAll();
+        List<ModelDetailProgres> listKirim = new ArrayList<>();
+        for (ModelDetailProgres mdp: listDetailProgres) {
+            if (mdp.getPekerjaan() == id){
+                listKirim.add(mdp);
+            }
+        }
+        return listKirim;
+    }
+
 }

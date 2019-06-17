@@ -3,7 +3,7 @@
       xmlns:layout="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-
+    <script th:src="@{/js/masjid/detail_pekerjaan.js}"></script>
 </head>
 <body>
     <!-- KONTENT START -->
@@ -23,69 +23,54 @@
         <div class="container-fluid">
 
             <div class="row">
-                <p id="idPekerjaan" th:text="*{id}" hidden></p>
+                <input id="idPekerjaan" th:value="${idPekerjaan}" hidden/>
                 <!-- /# column -->
                 <div class="col-lg-12">
                     <div class="card">
+                        <h2>[[*{namaPekerjaan}]]</h2>
+                        <p>[[*{deskripsiPekerjaan}]]</p>
+                        <p>PIC : <b>[[*{pic}]]</b></p>
+                        <hr>
                         <div>
-                            <div class="col-lg-12">
-                                <!--End Title-->
-                                <div class="col-lg-6">
-                                    <h2>[[*{namaPekerjaan}]]</h2>
-                                    <p>[[*{deskripsiPekerjaan}]]</p>
-                                    <span class="badge badge-danger" >Belum verifikasi ketua takmir</span>
-                                    <span class="badge badge-light">Selesai</span>
-                                    <span class="badge badge-info" >Sedang berjalan</span>
-                                </div>
-                                <br>
-                                <div class="col-lg-5">
-                                    <button type="button" class="btn btn-danger m-b-10 m-l-5">Hapus</button>
-                                </div>
-                            </div>
-                            <!--End InvoiceTop-->
-                            <!--End Invoice Mid-->
+                            <span class="btn link m-b-10 m-l-5" style="color:#0d71bb" >Pekerjaan Sedang berjalan</span>
+                            |<button type="button" class="btn btn-danger m-b-10 m-l-5">Hapus</button>
+                            <button type="button" class="btn btn-primary m-b-10 m-l-5">edit</button>
+                            <button type="button" class="btn btn-success m-b-10 m-l-5">verifikasi</button>
+                        </div>
+                        <hr>
+                        <div>
+                            <input id="progres" type="text" class="form-control input-default " placeholder="Masukkan progres">
+                            <button onclick="simpanProgres()" type="button" class="btn btn-primary btn-block m-t-10">Kirim Progres</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Data Progres</h4>
+                            <div class="table-responsive m-t-5">
+                                <table id="myTable" class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Tanggal Progres</th>
+                                        <th>Keterangan</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="progres : ${progress}">
+                                        <td th:text="${progres.convertedDate}">2011/04/25</td>
+                                        <td th:text="${progres.keterangan}">Progres ku udah sampe sini</td>
+                                        <td>
+                                            <a th:href="${'/pekerjaan/hapusprogres/'+idPekerjaan+'/'+progres.id}" th:if="${progres.notulensi} == null"
+                                                class="btn btn-danger m-b-10 m-l-5">Hapus</a>
+                                            <a th:href="${'/notulensi/detail/'+progres.notulensi}" th:if="${progres.notulensi} != null" class="btn btn-info m-b-10 m-l-5">Buka Notulensi</a>
+                                        </td>
+                                    </tr>
 
-                            <div id="invoice-bot">
-
-                                <div id="invoice-table">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <tr class="tabletitle">
-                                                <td class="table-item">
-                                                    <h2>Deskripsi Progress</h2>
-                                                </td>
-                                                <td class="table-item">
-                                                    <h2>Tanggal</h2>
-                                                </td>
-                                                <td class="table-item">
-                                                    <h2>Status</h2>
-                                                </td>
-                                                <td class="table-item">
-                                                    <h2>Aksi</h2>
-                                                </td>
-                                            </tr>
-                                            <tr class="service">
-                                                <td class="tableitem">
-                                                    <p class="itemtext">keterangan</p>
-                                                </td>
-                                                <td class="tableitem">
-                                                    <p class="itemtext">waktu</p>
-                                                </td>
-                                                <td class="tableitem">
-                                                    <p class="itemtext"><span class="badge badge-warning">Belum terverifikasi</span></p>
-                                                    <p class="itemtext"><span class="badge badge-success">terverifikasi</span></p>
-                                                    <p class="itemtext"><span class="badge badge-secondary">tidak diverifikasi</span></p>
-                                                </td>
-                                                <td class="tableitem">
-                                                    <p class="itemtext"><button type="button" class="btn btn-info m-b-10 m-l-5">Buka Notulensi</button></p>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </div>
-                                <!--End Table-->
+                                    </tbody>
+                                </table>
                             </div>
-                            <!--End InvoiceBot-->
                         </div>
                     </div>
                 </div>

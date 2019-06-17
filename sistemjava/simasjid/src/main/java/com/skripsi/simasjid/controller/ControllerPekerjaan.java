@@ -1,8 +1,11 @@
 package com.skripsi.simasjid.controller;
 
 import com.skripsi.simasjid.model.ModelAnggota;
+import com.skripsi.simasjid.model.ModelDetailProgres;
 import com.skripsi.simasjid.model.ModelPekerjaan;
 import com.skripsi.simasjid.services.ServiceAnggota;
+import com.skripsi.simasjid.services.ServiceAnggota2;
+import com.skripsi.simasjid.services.ServiceDetailProgres;
 import com.skripsi.simasjid.services.ServicePekerjaan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +16,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -20,6 +25,12 @@ public class ControllerPekerjaan {
 
     @Autowired
     private ServicePekerjaan servicePekerjaan;
+
+    @Autowired
+    private ServiceDetailProgres serviceDetailProgres;
+
+    @Autowired
+    private ServiceAnggota2 serviceAnggota2;
 
     private ServiceAnggota serviceAnggota;
 
@@ -35,12 +46,32 @@ public class ControllerPekerjaan {
 
     @RequestMapping(value = "/pekerjaan/detail/{id}", method = RequestMethod.GET)
     public String lihatDetailPekerjaan(@PathVariable Integer id, Model model){
-        model.addAttribute("id", id);
+
         Optional <ModelPekerjaan> modelPekerjaan = servicePekerjaan.findById(id);
+        String pic = serviceAnggota2.getOne(modelPekerjaan.get().getAnggota()).getNama();
         System.out.println("nama pekerjaan : "+modelPekerjaan.get().getNamaPekerjaan());
         model.addAttribute("namaPekerjaan", modelPekerjaan.get().getNamaPekerjaan());
         model.addAttribute("deskripsiPekerjaan", modelPekerjaan.get().getDeskripsi());
         model.addAttribute("statusPekerjaan", modelPekerjaan.get().getIdStatus());
+        model.addAttribute("pic", pic);
+        model.addAttribute("idPekerjaan", id);
+        try{
+            List<ModelDetailProgres> mdpList = serviceDetailProgres.findAll();
+            List<ModelDetailProgres> mdpById = new ArrayList<>();
+            for (ModelDetailProgres mdp: mdpList) {
+                if (mdp.getPekerjaan() == id){
+                    mdp.setConvertedDate(mdp.getCreated());
+                    mdpById.add(mdp);
+                }
+            }
+            System.out.println("Berhasil memasukkan prores");
+            model.addAttribute("progress",mdpById);
+        } catch (Exception e){
+            System.out.println("ERROR : "+e);
+            List<ModelDetailProgres> mdpList = new ArrayList<>();
+            model.addAttribute("progress",mdpList);
+        }
+
         return "pekerjaan/detail_pekerjaan";
     }
 
@@ -50,9 +81,10 @@ public class ControllerPekerjaan {
         return "redirect:/pekerjaan";
     }
 
-    @RequestMapping("/pekerjaan/buatprogres")
-    public String tambahUpdateProgres(){
-        return "redirect:/pekerjaan/detail";
+    @RequestMapping(value = "/pekerjaan/hapusprogres/{idPekerjaan}/{idProgres}", method = RequestMethod.GET)
+    public String tambahUpdateProgres(@PathVariable Integer idPekerjaan,@PathVariable Integer idProgres){
+        serviceDetailProgres.deleteById(idProgres);
+        return "redirect:/pekerjaan/detail/"+idPekerjaan;
     }
 
     @RequestMapping("/pekerjaan/setselesai")
@@ -60,7 +92,7 @@ public class ControllerPekerjaan {
         return "redirect:/pekerjaan/detail";
     }
 
-    @RequestMapping(value = "/pekerjaan/update/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/pekerjaan/edit/{id}", method = RequestMethod.GET)
     public String updateDataPekerjaan(@PathVariable Integer id, Model model){
         model.addAttribute("pekerjaan", servicePekerjaan.findById(id));
         model.addAttribute("anggotas",serviceAnggota.listAnggota());

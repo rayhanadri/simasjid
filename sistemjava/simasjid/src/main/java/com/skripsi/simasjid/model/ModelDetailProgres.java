@@ -1,6 +1,8 @@
 package com.skripsi.simasjid.model;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Entity
 @Table(name="detail_progres")
@@ -26,8 +28,18 @@ public class ModelDetailProgres {
     @Column(name = "keputusan")
     private String keputusan;
 
+    private Date created;
+
     @Transient
     private String namaPekerjaan;
+
+    @Transient
+    private String convertedDate;
+
+    @PrePersist
+    protected void onCreate() {
+        created = new Date();
+    }
 
     public String getKeputusan() {
         return keputusan;
@@ -83,5 +95,27 @@ public class ModelDetailProgres {
 
     public void setMasukkan(String masukkan) {
         this.masukkan = masukkan;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public String getConvertedDate() {
+        return convertedDate;
+    }
+
+    public void setConvertedDate(Date date) {
+        System.out.println("date : "+ date);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        try{
+            this.convertedDate = format.format(date);
+        } catch (Exception e){
+            this.convertedDate = "-";
+        }
     }
 }

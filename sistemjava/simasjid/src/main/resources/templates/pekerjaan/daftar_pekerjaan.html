@@ -24,13 +24,12 @@
                 <div class="container-fluid">
                     <div class="row">
                         <!-- /# column -->
-                        <div class="col-lg-12">
+                        <div class="col-lg-9">
                             <div class="card">
                                 <div class="card-title">
                                     <h4>Daftar Pekerjaan</h4>
                                     <a th:href="${'/pekerjaan/cari'}"><button style="float:right" type="button" class="btn btn-primary m-b-10 m-l-5">Filter Pekerjaan</button></a>
                                     <a th:href="${'/pekerjaan/form'}"><button style="float:right" type="button" class="btn btn-success m-b-10 m-l-5">Tambah Pekerjaan</button></a>
-                                    <button onclick="hello()">tes</button>
                                 </div>
 
                                 <div class="card-body">
@@ -39,18 +38,11 @@
                                             <thead>
                                             <tr>
                                                 <th>Pekerjaan</th>
-                                                <th>Deskripsi Pekerjaan</th>
                                                 <th>Verifikasi</th>
                                                 <th>Aksi</th>
                                             </tr>
                                             </thead>
                                             <tbody id="list-pekerjaan">
-                                                <tr>
-                                                    <td>Nama Pekerjaan</td>
-                                                    <td>Deskripsi Pekerjaan</td>
-                                                    <td>Status Pekerjaan</td>
-                                                    <td>halo</td>
-                                                </tr>
                                                 <!--<tr th:each="pekerjaan : ${pekerjaans}">
                                                     <td th:text="${pekerjaan.namaPekerjaan}">Nama Pekerjaan</td>
                                                     <td th:text="${pekerjaan.deskripsi}">Deskripsi Progres</td>

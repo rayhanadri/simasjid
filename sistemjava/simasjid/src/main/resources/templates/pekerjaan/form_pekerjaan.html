@@ -33,7 +33,7 @@
                         <div class="card-body">
                             <div class="horizontal-form">
                                 <form method="post" class="form-horizontal" th:action="@{/pekerjaan/simpan}">
-                                    <input name="id" th:field="*{pekerjaan.id}" />
+                                    <input name="id" th:field="*{pekerjaan.id}" hidden />
                                     <div class="form-group">
                                         <label class="col-sm-12 control-label">Nama Pekerjaan</label>
                                         <div class="col-sm-12">
