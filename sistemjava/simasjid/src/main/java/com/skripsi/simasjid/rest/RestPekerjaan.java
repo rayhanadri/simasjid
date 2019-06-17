@@ -29,12 +29,21 @@ public class RestPekerjaan {
 
     @GetMapping("/all")
     public List<ModelPekerjaan> getAll() {
-        return servicePekerjaan.findAll();
+        List<ModelPekerjaan> modelPekerjaanList = servicePekerjaan.findAll();
+        List<ModelPekerjaan> data = new ArrayList<>();
+        for (ModelPekerjaan mp : modelPekerjaanList) {
+            if (mp.getAktif() == 1){
+                data.add(mp);
+            }
+        }
+        return data;
     }
 
     @RequestMapping(value = "/simpan", method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)
     public String simpanPekerjaan(@RequestBody ModelPekerjaan modelPekerjaan){
         System.out.println("body : "+modelPekerjaan.getNamaPekerjaan());
+        modelPekerjaan.setIdStatus("0");
+        modelPekerjaan.setAktif(1);
         servicePekerjaan.save(modelPekerjaan);
         return ""+modelPekerjaan.getId();
     }

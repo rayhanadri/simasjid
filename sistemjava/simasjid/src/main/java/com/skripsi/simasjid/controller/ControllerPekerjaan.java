@@ -77,6 +77,8 @@ public class ControllerPekerjaan {
 
     @RequestMapping(value = "/pekerjaan/simpan", method = RequestMethod.POST)
     public String simpanPekerjaan(@ModelAttribute("ModelPekerjaan") ModelPekerjaan modelPekerjaan, BindingResult result){
+        modelPekerjaan.setIdStatus("0");
+        modelPekerjaan.setAktif(1);
         servicePekerjaan.save(modelPekerjaan);
         return "redirect:/pekerjaan";
     }
@@ -101,13 +103,18 @@ public class ControllerPekerjaan {
 
     @RequestMapping(value = "/pekerjaan/hapus/{id}", method = RequestMethod.GET)
     public String hapusPekerjaan(@PathVariable Integer id){
-        servicePekerjaan.deleteById(id);
+        ModelPekerjaan mp = servicePekerjaan.getOne(id);
+        mp.setAktif(0);
+        servicePekerjaan.save(mp);
         return "redirect:/pekerjaan";
     }
 
-    @RequestMapping("/pekerjaan/setstatus")
-    public String setStatusPekerjaan(){
-        return "redirect:/pekerjaan/detail";
+    @RequestMapping(value = "/pekerjaan/setstatus/{idPekerjaan}/{idStatus}", method = RequestMethod.GET)
+    public String setStatusPekerjaan(@PathVariable Integer idPekerjaan, @PathVariable Integer idStatus){
+        ModelPekerjaan mp = servicePekerjaan.getOne(idPekerjaan);
+        mp.setIdStatus(idStatus.toString());
+        servicePekerjaan.save(mp);
+        return "redirect:/pekerjaan/detail/"+idPekerjaan;
     }
 
     @RequestMapping(value = "/pekerjaan/cari")
