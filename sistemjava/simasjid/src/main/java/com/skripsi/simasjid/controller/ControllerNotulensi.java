@@ -112,9 +112,12 @@ public class ControllerNotulensi {
         return "redirect:/notulensi";
     }
 
-    @RequestMapping("/notulensi/setStatus")
-    public String setStatusNotulensi(){
-        return "redirect:/notulensi";
+    @RequestMapping(value = "/notulensi/setStatus/{idNotulensi}/{idStatus}", method = RequestMethod.GET)
+    public String setStatusNotulensi(@PathVariable Integer idNotulensi, @PathVariable Integer idStatus){
+        ModelNotulensi mn = serviceNotulensi.getOne(idNotulensi);
+        mn.setIdStatus(idStatus);
+        serviceNotulensi.save(mn);
+        return "redirect:/notulensi/detail/"+idNotulensi;
     }
 
     @RequestMapping(value = "/notulensi/cari")

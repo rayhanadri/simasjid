@@ -199,7 +199,6 @@ function setMsg(){
     }
     $("#error-details").empty();
     $("#error-details").append(msg);
-
 }
 
 function resetKeterangan(idPekerjaan, keputusan){

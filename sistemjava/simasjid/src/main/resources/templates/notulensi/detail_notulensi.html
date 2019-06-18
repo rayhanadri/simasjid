@@ -3,7 +3,7 @@
       xmlns:layout="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-
+    <script th:src="@{/js/masjid/detail_notulensi.js}"></script>
 </head>
 <body>
     <!-- KONTENT START -->
@@ -40,34 +40,35 @@
                                 <!-- End Left sidebar -->
                                 <div class="inbox-rightbar">
                                     <div class="mt-4">
-                                        <h3>[[${notulensi.namaMusyawarah}]]</h3>
+                                        <h3>[[${notulensi.namaMusyawarah}]]  <span th:if="${notulensi.idStatus} == 1" class="badge badge-success">Terverifikasi</span></h3>
                                         <hr/>
                                         <div class="media mb-4 mt-1">
                                             <div class="media-body">
-                                                <span class="pull-right">[[${notulensi.convertedDate}]]</span>
+                                                <span id="tanggalNotulensi" class="pull-right">[[${notulensi.convertedDate}]]</span>
                                                 <h6 class="m-0">Amir Musyawarah: [[${notulensi.namaAmirMusyawarah}]]<br> Notulen : [[${notulensi.namaNotulen}]]</h6>
+                                                <input id="namaNotulensi" th:field="${notulensi.namaMusyawarah}">
+                                                <input id="namaAmir" th:field="${notulensi.namaAmirMusyawarah}" />
+                                                <input id="namaNotulen" th:field="${notulensi.namaNotulen}" />
                                             </div>
                                         </div>
                                         <div th:each="progres : ${progress}">
                                             <b><span class="fa fa-circle text-light
                                                 mr-2"></span>[[*{progres.namaPekerjaan}]]</b>
-                                            <p style="margin-bottom: 10px">[[*{progres.keterangan}]]<br><i class="fa fa-comment"></i> [[*{progres.keputusan}]]</p>
+                                            <p style="margin-bottom: 10px"><span id="progresCopy[]" class="progresCopy">[[*{progres.keterangan}]]</span><br><i class="fa fa-comment"></i> <span class="keputusanCopy" id="keputusanCopy[]" >[[*{progres.keputusan}]]</span></p>
                                         </div>
                                         <hr/>
                                         <div>
                                             <b><span class="fa fa-circle text-light
-                                                mr-2"></span>Catatan Tambahan</b>
+                                                mr-2"></span><span class="catatanCopy">Catatan Tambahan</span></b>
                                             <p style="margin-bottom: 10px">[[*{notulensi.catatan}]]<br></p>
                                         </div>
                                         <hr/>
                                     </div>
                                     <div class="text-right">
+                                        <button th:onclick="|setMsg()|" class="btn btn-link waves-effect waves-light w-md m-b-30">Bagikan ke WhatsApp</button>
                                         <a th:if="${notulensi.idStatus} == 0" th:href="${'/notulensi/hapus/'+notulensi.id}" class="btn btn-link waves-effect waves-light w-md m-b-30">hapus</a>
                                         <a th:if="${notulensi.idStatus} == 0" th:href="${'/notulensi/edit/'+notulensi.id}" class="btn btn-warning waves-effect waves-light w-md m-b-30">Edit</a>
-                                        <a th:if="${notulensi.idStatus} == 0" class="btn btn-success waves-effect waves-light w-md m-b-30">Verifikasi Notulensi</a>
-                                        <a th:if="${notulensi.idStatus} == 1" class="btn btn-success waves-effect waves-light w-md m-b-30" disabled>Terverifikasi</a>
-                                        <!--<button type="button" class="btn btn-default waves-effect waves-light w-md m-b-30">Verifikasi</button>-->
-
+                                        <a th:if="${notulensi.idStatus} == 0" th:href="${'/notulensi/setStatus/'+notulensi.id+'/1'}" class="btn btn-success waves-effect waves-light w-md m-b-30">Verifikasi Notulensi</a>
                                     </div>
 
                                 </div>
