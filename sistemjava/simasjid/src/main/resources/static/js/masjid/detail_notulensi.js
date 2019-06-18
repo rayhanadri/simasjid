@@ -1,14 +1,37 @@
 var server = "http://localhost:8080"
 var rest = server+"/rest";
-var getPekerjaanAll = rest+"/pekerjaan/all";
-var setPekerjaanNew = rest+"/pekerjaan/simpan";
 
-var tempIdPekerjaan = 0;
+var setKomentarBaru = rest+"/notulensi/simpanKomentar";
+var mappingDetailNotulensi = server+"/notulensi/detail/";
 
-var setNotulensi = rest+"/notulensi/simpan";
-var setDetailProgres = rest+"/pekerjaan/simpanprogres";
+function setKomentar() {
+    var idNotulensi = document.getElementById("notulensiKomentar").value;
+    var idAnggota = document.getElementById("anggotaKomentar").value;
+    var keterangan = document.getElementById("keteranganKomentar").value;
 
-var mappingDaftarNotulensi = server+"/notulensi/";
+    var komentar = new Object();
+    komentar.notulensi = idNotulensi;
+    komentar.anggota = idAnggota;
+    komentar.keterangan = keterangan;
+
+    $.ajax({
+        type : "POST",
+        contentType : 'application/json; charset=utf-8',
+        url : setKomentarBaru,
+        data : JSON.stringify(komentar),
+        success : function(result) {
+            console.log("simpan notulensi ajax : "+result);
+            window.location.href=mappingDetailNotulensi+idNotulensi;
+        },
+        error: function(e){
+            console.log("ERROR: ", e);
+        },
+        done : function(e) {
+            console.log("DONE");
+        }
+    });
+    //kirim detail progresnya, jangan lupa masukkin id notulen
+}
 
 function setMsg(){
     console.log("set msg");

@@ -1,7 +1,9 @@
 package com.skripsi.simasjid.rest;
 
+import com.skripsi.simasjid.model.ModelKomentarNotulensi;
 import com.skripsi.simasjid.model.ModelNotulensi;
 import com.skripsi.simasjid.model.ModelPekerjaan;
+import com.skripsi.simasjid.services.ServiceKomentarNotulensi;
 import com.skripsi.simasjid.services.ServiceNotulensi;
 import com.skripsi.simasjid.services.ServicePekerjaan;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,9 @@ public class RestNotulensi {
 
     @Autowired
     ServiceNotulensi serviceNotulensi;
+
+    @Autowired
+    ServiceKomentarNotulensi serviceKomentarNotulensi;
 
     @GetMapping("/all")
     public List<ModelNotulensi> getAll() {
@@ -46,6 +51,13 @@ public class RestNotulensi {
         } catch (Exception e){
             return "Gagal";
         }
+    }
+
+    @RequestMapping(value = "/simpanKomentar", method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public String simpanKomentarNotulensi(@RequestBody ModelKomentarNotulensi mk){
+        System.out.println("body : "+mk.getNotulensi());
+        serviceKomentarNotulensi.save(mk);
+        return "berhasil";
     }
 
 }

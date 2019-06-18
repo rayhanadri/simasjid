@@ -33,6 +33,10 @@ public class ModelNotulensi {
     @JoinColumn(name = "id_notulensi", referencedColumnName = "id_notulensi")
     private List<ModelDetailProgres> detailProgres;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_notulensi", referencedColumnName = "id_notulensi")
+    private List<ModelKomentarNotulensi> komentarNotulensi;
+
     @Transient
     private String namaAmirMusyawarah;
 
@@ -141,5 +145,13 @@ public class ModelNotulensi {
 
     public void setNamaNotulen(String namaNotulen) {
         this.namaNotulen = namaNotulen;
+    }
+
+    public List<ModelKomentarNotulensi> getKomentarNotulensi() {
+        return komentarNotulensi;
+    }
+
+    public void setKomentarNotulensi(List<ModelKomentarNotulensi> komentarNotulensi) {
+        this.komentarNotulensi = komentarNotulensi;
     }
 }

@@ -5,33 +5,27 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
-@Table(name="detail_progres")
-public class ModelDetailProgres {
+@Table(name="komentar_notulensi")
+public class ModelKomentarNotulensi {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_detail_progres")
+    @Column(name = "id_komentar_notulensi")
     private Integer id;
 
     @Column(name = "id_notulensi")
     private Integer notulensi;
 
-    @Column(name = "id_pekerjaan")
-    private Integer pekerjaan;
+    @Column(name = "id_anggota")
+    private Integer anggota;
 
     @Column(name = "keterangan")
     private String keterangan;
 
-    @Column(name = "masukkan")
-    private String masukkan;
-
-    @Column(name = "keputusan")
-    private String keputusan;
-
     private Date created;
 
     @Transient
-    private String namaPekerjaan;
+    private String namaAnggota;
 
     @Transient
     private String convertedDate;
@@ -39,14 +33,6 @@ public class ModelDetailProgres {
     @PrePersist
     protected void onCreate() {
         created = new Date();
-    }
-
-    public String getKeputusan() {
-        return keputusan;
-    }
-
-    public void setKeputusan(String keputusan) {
-        this.keputusan = keputusan;
     }
 
     public Integer getId() {
@@ -65,36 +51,12 @@ public class ModelDetailProgres {
         this.notulensi = notulensi;
     }
 
-    public Integer getPekerjaan() {
-        return pekerjaan;
-    }
-
-    public void setPekerjaan(Integer pekerjaan) {
-        this.pekerjaan = pekerjaan;
-    }
-
     public String getKeterangan() {
         return keterangan;
     }
 
     public void setKeterangan(String keterangan) {
         this.keterangan = keterangan;
-    }
-
-    public String getNamaPekerjaan() {
-        return namaPekerjaan;
-    }
-
-    public void setNamaPekerjaan(String namaPekerjaan) {
-        this.namaPekerjaan = namaPekerjaan;
-    }
-
-    public String getMasukkan() {
-        return masukkan;
-    }
-
-    public void setMasukkan(String masukkan) {
-        this.masukkan = masukkan;
     }
 
     public Date getCreated() {
@@ -117,5 +79,21 @@ public class ModelDetailProgres {
         } catch (Exception e){
             this.convertedDate = "-";
         }
+    }
+
+    public Integer getAnggota() {
+        return anggota;
+    }
+
+    public void setAnggota(Integer anggota) {
+        this.anggota = anggota;
+    }
+
+    public String getNamaAnggota() {
+        return namaAnggota;
+    }
+
+    public void setNamaAnggota(String namaAnggota) {
+        this.namaAnggota = namaAnggota;
     }
 }

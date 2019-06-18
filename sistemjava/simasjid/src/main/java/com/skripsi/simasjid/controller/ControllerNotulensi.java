@@ -1,16 +1,13 @@
 package com.skripsi.simasjid.controller;
 
-import com.skripsi.simasjid.model.ModelAnggota;
-import com.skripsi.simasjid.model.ModelDetailProgres;
-import com.skripsi.simasjid.model.ModelNotulensi;
+import com.skripsi.simasjid.model.*;
 import com.skripsi.simasjid.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -26,6 +23,9 @@ public class ControllerNotulensi {
 
     @Autowired
     private ServiceNotulensi serviceNotulensi;
+
+    @Autowired
+    private ServiceKomentarNotulensi serviceKomentarNotulensi;
 
     @Autowired
     private ServiceDetailProgres serviceDetailProgres;
@@ -95,14 +95,25 @@ public class ControllerNotulensi {
         model.addAttribute("notulensi", mn);
 
         List<ModelDetailProgres> listDetailProgres = serviceDetailProgres.findAll();
-        List<ModelDetailProgres> listUsed = new ArrayList<>();
+        List<ModelDetailProgres> listDpUsed = new ArrayList<>();
         for (ModelDetailProgres mdp: listDetailProgres) {
             if (mdp.getNotulensi() == id){
                 mdp.setNamaPekerjaan(servicePekerjaan.getOne(mdp.getPekerjaan()).getNamaPekerjaan());
-                listUsed.add(mdp);
+                listDpUsed.add(mdp);
             }
         }
-        model.addAttribute("progress", listUsed);
+        model.addAttribute("progress", listDpUsed);
+
+        List<ModelKomentarNotulensi> listKomentar = serviceKomentarNotulensi.findAll();
+        List<ModelKomentarNotulensi> listKomentarUsed = new ArrayList<>();
+        for (ModelKomentarNotulensi mk: listKomentar) {
+            if (mk.getNotulensi() == id){
+                mk.setNamaAnggota(serviceAnggota2.getOne(mk.getAnggota()).getNama());
+                mk.setConvertedDate(mk.getCreated());
+                listKomentarUsed.add(mk);
+            }
+        }
+        model.addAttribute("komentars", listKomentarUsed);
         return "notulensi/detail_notulensi";
     }
 
@@ -125,9 +136,12 @@ public class ControllerNotulensi {
         return "notulensi/form_cari_notulensi";
     }
 
-    @RequestMapping(value = "/notulensi/komentar")
-    public String komentarNotulensi(){
-        return "notulensi/form_cari_notulensi";
+    @RequestMapping(value = "/notulensi/simpankomentar" , method = RequestMethod.POST)
+    public String komentarNotulensi(@ModelAttribute("ModelKomentarNotulensi") ModelKomentarNotulensi mk, BindingResult result){
+        System.out.println("id notulensi "+mk.getNotulensi());
+        System.out.println("id anggota "+mk.getAnggota());
+        serviceKomentarNotulensi.save(mk);
+        return "notulensi/detail/"+mk.getNotulensi();
     }
 
 
