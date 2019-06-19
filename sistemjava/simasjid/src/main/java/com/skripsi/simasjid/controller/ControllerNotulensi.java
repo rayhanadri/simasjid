@@ -126,13 +126,13 @@ public class ControllerNotulensi {
         return "notulensi/form_cari_notulensi";
     }
 
-    @RequestMapping(value = "/notulensi/cari/{tanggal}/{pekerjaan}/{keyword}", method = RequestMethod.GET)
+    /*@RequestMapping(value = "/notulensi/cari/{tanggal}/{pekerjaan}/{keyword}", method = RequestMethod.GET)
     public String cariNotulensi(Model model, @PathVariable String tanggal, @PathVariable String pekerjaan, @PathVariable String keyword){
         model.addAttribute("pekerjaans",getPekerjaanAktif());
         System.out.println("Data "+getListingNotulensi(tanggal, pekerjaan, keyword));
         model.addAttribute("notulensis",getListingNotulensi(tanggal, pekerjaan, keyword));
         return "notulensi/form_cari_notulensi";
-    }
+    }*/
 
     /*GET LIST*/
 
@@ -171,7 +171,7 @@ public class ControllerNotulensi {
         return data;
     }
 
-    private List<ModelNotulensi> getListingNotulensi(String tanggal, String pekerjaan, String keywords){
+    /*private List<ModelNotulensi> getListingNotulensi(String tanggal, String pekerjaan, String keywords){
         Date awal = new Date();
         Date akhir= new Date();;
         String[] keyword = {""};
@@ -246,11 +246,11 @@ public class ControllerNotulensi {
                         keputusan = "";
                     }
                     for (String key: keyword) {
-                        /*System.out.println("\n==== Cek id progres : "+mdp.getId());
+                        *//*System.out.println("\n==== Cek id progres : "+mdp.getId());
                         System.out.println("Cek keyword : "+key);
                         System.out.println("Cek laporan : "+keterangan);
                         System.out.println("Cek masukkan : "+masukkan);
-                        System.out.println("Cek keputusan : "+keputusan);*/
+                        System.out.println("Cek keputusan : "+keputusan);*//*
                         if(keterangan.contains(key) || masukkan.contains(key) ||keputusan.contains(key)){
                             addNotulen = true;
                             if(nf.getKeyword() == null){
@@ -270,8 +270,8 @@ public class ControllerNotulensi {
 //                System.out.println("Cek pekerjaan");
                 tempDetaiProgres = nf.getDetailProgres();
                 for (ModelDetailProgres mdp: tempDetaiProgres) {
-                    /*System.out.println("Cek id pekerjaan : "+pekerjaan);
-                    System.out.println("Cek id pekerjaan notulen : "+mdp.getPekerjaan().toString());*/
+                    *//*System.out.println("Cek id pekerjaan : "+pekerjaan);
+                    System.out.println("Cek id pekerjaan notulen : "+mdp.getPekerjaan().toString());*//*
                     if (mdp.getPekerjaan().toString().equalsIgnoreCase(pekerjaan)){
                         addNotulen = true;
                     }
@@ -322,6 +322,6 @@ public class ControllerNotulensi {
             }
         }
         return notulensiFilter;
-    }
+    }*/
 
 }
