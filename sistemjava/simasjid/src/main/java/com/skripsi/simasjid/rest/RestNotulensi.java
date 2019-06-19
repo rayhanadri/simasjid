@@ -2,10 +2,8 @@ package com.skripsi.simasjid.rest;
 
 import com.skripsi.simasjid.model.ModelKomentarNotulensi;
 import com.skripsi.simasjid.model.ModelNotulensi;
-import com.skripsi.simasjid.model.ModelPekerjaan;
 import com.skripsi.simasjid.services.ServiceKomentarNotulensi;
 import com.skripsi.simasjid.services.ServiceNotulensi;
-import com.skripsi.simasjid.services.ServicePekerjaan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;

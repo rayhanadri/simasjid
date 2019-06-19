@@ -46,6 +46,9 @@ public class ModelNotulensi {
     @Transient
     private String convertedDate;
 
+    @Transient
+    private String keyword;
+
     private Date created;
 
     @PrePersist
@@ -123,6 +126,16 @@ public class ModelNotulensi {
         }
     }
 
+    public void setConvertedDateCari(Date date) {
+        System.out.println("date : "+ date);
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        try{
+            this.convertedDate = format.format(date);
+        } catch (Exception e){
+            this.convertedDate = "-";
+        }
+    }
+
     public String getCatatan() {
         return catatan;
     }
@@ -153,5 +166,13 @@ public class ModelNotulensi {
 
     public void setKomentarNotulensi(List<ModelKomentarNotulensi> komentarNotulensi) {
         this.komentarNotulensi = komentarNotulensi;
+    }
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
     }
 }

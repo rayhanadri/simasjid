@@ -32,12 +32,7 @@ public class ControllerPekerjaan {
     @Autowired
     private ServiceAnggota2 serviceAnggota2;
 
-    private ServiceAnggota serviceAnggota;
-
-    @Autowired
-    public void setServiceAnggota(ServiceAnggota mahasiswaService) {
-        this.serviceAnggota = mahasiswaService;
-    }
+    /*Iterasi Luar 1*/
 
     @RequestMapping("/pekerjaan")
     public String index(Model model){
@@ -98,7 +93,7 @@ public class ControllerPekerjaan {
     @RequestMapping(value = "/pekerjaan/edit/{id}", method = RequestMethod.GET)
     public String updateDataPekerjaan(@PathVariable Integer id, Model model){
         model.addAttribute("pekerjaan", servicePekerjaan.findById(id));
-        model.addAttribute("anggotas",serviceAnggota.listAnggota());
+        model.addAttribute("anggotas", getAnggotaAktif());
         return "pekerjaan/form_pekerjaan";
     }
 
@@ -110,6 +105,15 @@ public class ControllerPekerjaan {
         return "redirect:/pekerjaan";
     }
 
+    @RequestMapping(value = "/pekerjaan/form")
+    public String formAnggota(Model model){
+        model.addAttribute("anggotas", getAnggotaAktif());
+        model.addAttribute("pekerjaan", new ModelPekerjaan());
+        return "pekerjaan/form_pekerjaan";
+    }
+
+    /*Iterasi Luar 2*/
+
     @RequestMapping(value = "/pekerjaan/setstatus/{idPekerjaan}/{idStatus}", method = RequestMethod.GET)
     public String setStatusPekerjaan(@PathVariable Integer idPekerjaan, @PathVariable Integer idStatus){
         ModelPekerjaan mp = servicePekerjaan.getOne(idPekerjaan);
@@ -118,16 +122,16 @@ public class ControllerPekerjaan {
         return "redirect:/pekerjaan/detail/"+idPekerjaan;
     }
 
-    @RequestMapping(value = "/pekerjaan/cari")
-    public String cariPekerjaan(){
-        return "pekerjaan/form_cari_pekerjaan";
+    private List<ModelAnggota> getAnggotaAktif(){
+        List<ModelAnggota> maList = serviceAnggota2.findAll();
+        List<ModelAnggota> maUsed = new ArrayList<>();
+
+        for (ModelAnggota ma: maList) {
+            if (ma.getAktif() == 1){
+                maUsed.add(ma);
+            }
+        }
+        return maUsed;
     }
 
-
-    @RequestMapping(value = "/pekerjaan/form")
-    public String formAnggota(Model model){
-        model.addAttribute("anggotas",serviceAnggota.listAnggota());
-        model.addAttribute("pekerjaan", new ModelPekerjaan());
-        return "pekerjaan/form_pekerjaan";
-    }
 }

@@ -1,19 +1,13 @@
 package com.skripsi.simasjid.rest;
 
-import com.skripsi.simasjid.model.DetailProgresWrapper;
 import com.skripsi.simasjid.model.ModelDetailProgres;
 import com.skripsi.simasjid.model.ModelPekerjaan;
 import com.skripsi.simasjid.services.ServiceDetailProgres;
 import com.skripsi.simasjid.services.ServicePekerjaan;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
