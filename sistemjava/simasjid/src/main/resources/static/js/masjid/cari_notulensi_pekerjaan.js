@@ -75,6 +75,12 @@ function cari() {
         success : function(result) {
             console.log("result : "+result);
             $("#list-notulensi").empty();
+            if(result.length == 0){
+                var setHtml = '<tr>\n' +
+                    '<td colspan="4">Data tidak tersedia</td>\n' +
+                    '</tr>'
+                $("#list-notulensi").append(setHtml);
+            }
             for (var i = 0; i < result.length; i++) {
                 var idNotulensi = result[i]['id'];
                 var keyword = result[i]['keyword'];
