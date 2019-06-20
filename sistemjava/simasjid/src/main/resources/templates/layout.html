@@ -111,7 +111,12 @@
                                 <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img th:src="@{/images/img.jpg}" alt="user" class="profile-pic" /></a>
                                 <div class="dropdown-menu dropdown-menu-right animated zoomIn">
                                     <ul class="dropdown-user">
-                                        <li><a th:href="${'/login'}"><i class="fa fa-power-off"></i> Logout</a></li>
+                                        <li>
+                                            <form th:action="@{/logout}" method="post">
+                                                <i class="fa fa-power-off"></i><input class="btn-link btn" type="submit" value="Logout">
+                                            </form>
+                                        </li>
+
                                     </ul>
                                 </div>
                             </li>

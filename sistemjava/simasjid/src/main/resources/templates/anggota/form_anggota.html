@@ -56,12 +56,12 @@
                                     </div>
                                     <hr>
                                     <div class="form-group">
-                                        <label class="col-sm-12 control-label">Username</label>
+                                        <label class="col-sm-12 control-label" th:text="${formbaru}">Username</label>
                                         <div class="col-sm-10">
                                             <input type="text" name="username" class="form-control" placeholder="Username" th:field="*{username}">
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group"  th:classappend="${formbaru == 1} ? null : hidden">
                                         <label class="col-sm-12 control-label">Password</label>
                                         <div class="col-sm-10">
                                             <input type="password" name="password" class="form-control" placeholder="Password" th:value="*{password}">
@@ -70,6 +70,59 @@
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
                                             <button type="submit" class="btn btn-success m-b-10 m-l-5">simpan anggota</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6" th:classappend="${formbaru == 1} ? hidden : null">
+                    <!-- RESET -->
+                    <div class="card">
+                        <div class="card-title">
+                            <h4>Reset Password</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="horizontal-form">
+                                <form method="post" class="form-horizontal" th:object="${anggota}" th:action="@{/anggota/resetpassword}">
+                                    <input type="hidden" th:field="*{id}" />
+                                    <div class="form-group" hidden>
+                                        <label class="col-sm-12 control-label">Nama Lengkap</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="aktif" class="form-control" th:field="*{aktif}" hidden>
+                                            <input type="text" name="namaAnggota" class="form-control" placeholder="Nama Anggota" th:field="*{nama}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group" hidden>
+                                        <label class="col-sm-12 control-label">Jabatan</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control" name="idJabatan" th:field="*{idJabatan}">
+                                                <option value="0" th:selected="${idJabatan==0}">Pilih Jabatan</option>
+                                                <option value="1" th:selected="${idJabatan==1}">Ketua Takmir</option>
+                                                <option value="2" th:selected="${idJabatan==2}">Sekertaris Takmir</option>
+                                                <option value="3" th:selected="${idJabatan==3}">Kepala Rumah Tangga Takmir</option>
+                                                <option value="4" th:selected="${idJabatan==4}">Anggota Takmir</option>
+                                                <option value="5" th:selected="${idJabatan==5}">Anggota Remaja Masjid</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group" hidden>
+                                        <label class="col-sm-12 control-label">Username</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="username" class="form-control" placeholder="Username" th:field="*{username}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label">Password Baru</label>
+                                        <div class="col-sm-10">
+                                            <input type="password" name="password" class="form-control" placeholder="Password" th:value="*{password}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group" >
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <button type="submit" class="btn btn-warning m-b-10 m-l-5">Reset Password</button>
                                         </div>
                                     </div>
                                 </form>

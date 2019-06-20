@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html layout:decorate="~{layout.html}"
       xmlns:layout="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.w3.org/1999/xhtml">
+      xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
 
 </head>
@@ -26,6 +26,7 @@
                     <div class="card">
                         <div class="card-title">
                             <center><h4>Dashboard Masjid Ibnu Sina</h4></center>
+                            <center><h4 sec:authentication="name">Selamat Datang</h4></center>
                         </div>
                         <div class="card-body">
                             <center><img style="height: 200px" th:src="@{images/ibnusina.jpg}"></center>

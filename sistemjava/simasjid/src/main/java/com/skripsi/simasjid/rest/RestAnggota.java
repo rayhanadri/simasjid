@@ -5,9 +5,9 @@ import com.skripsi.simasjid.model.ModelAnggota;
 import com.skripsi.simasjid.services.ServiceAnggota2;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,6 +20,18 @@ public class RestAnggota {
 
     @GetMapping("/all")
     public List<ModelAnggota> getAll() {
+        return serviceAnggota.findAll();
+    }
+
+    @RequestMapping(value = "/insert/{username}/{password}", method = RequestMethod.GET)
+    public List<ModelAnggota> setNew(@PathVariable String username, @PathVariable String password) {
+        ModelAnggota anggotaBaru = new ModelAnggota();
+        anggotaBaru.setNama("baru masuk");
+        String encodedPassword = new BCryptPasswordEncoder().encode(password);
+        anggotaBaru.setPassword(encodedPassword);
+        anggotaBaru.setUsername(username);
+        anggotaBaru.setAktif(1);
+        serviceAnggota.save(anggotaBaru);
         return serviceAnggota.findAll();
     }
 }
