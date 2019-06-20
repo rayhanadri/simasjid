@@ -8,8 +8,11 @@ import java.util.List;
 public interface ServiceAnggota {
 
     List<ModelAnggota> listAnggota();
+
     ModelAnggota saveOrUpdate(ModelAnggota mahasiswa);
+
     void hapus(Integer id);
+
     ModelAnggota getIdAnggota(Integer id);
 
 }

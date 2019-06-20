@@ -1,12 +1,10 @@
 package com.skripsi.simasjid.model;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
-@Table(name="anggota")
+@Table(name = "anggota")
 public class ModelAnggota {
 
     @Id

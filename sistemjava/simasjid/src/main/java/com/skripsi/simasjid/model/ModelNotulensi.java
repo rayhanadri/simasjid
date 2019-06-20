@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name="master_notulensi")
+@Table(name = "master_notulensi")
 public class ModelNotulensi {
 
     @Id
@@ -123,21 +123,21 @@ public class ModelNotulensi {
     }
 
     public void setConvertedDate(Date date) {
-        System.out.println("date : "+ date);
+        System.out.println("date : " + date);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        try{
+        try {
             this.convertedDate = format.format(date);
-        } catch (Exception e){
+        } catch (Exception e) {
             this.convertedDate = "-";
         }
     }
 
     public void setConvertedDateCari(Date date) {
-        System.out.println("date : "+ date);
+        System.out.println("date : " + date);
         SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-        try{
+        try {
             this.convertedDate = format.format(date);
-        } catch (Exception e){
+        } catch (Exception e) {
             this.convertedDate = "-";
         }
     }

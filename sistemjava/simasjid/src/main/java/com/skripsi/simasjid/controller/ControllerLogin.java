@@ -13,7 +13,7 @@ public class ControllerLogin {
     }
 
     @RequestMapping(value = "/cekUser", method = RequestMethod.POST)
-    public String cekUser(){
+    public String cekUser() {
         return "redirect:/";
     }
 

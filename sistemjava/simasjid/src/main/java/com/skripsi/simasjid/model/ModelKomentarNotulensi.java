@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
-@Table(name="komentar_notulensi")
+@Table(name = "komentar_notulensi")
 public class ModelKomentarNotulensi {
 
     @Id
@@ -72,11 +72,11 @@ public class ModelKomentarNotulensi {
     }
 
     public void setConvertedDate(Date date) {
-        System.out.println("date : "+ date);
+        System.out.println("date : " + date);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        try{
+        try {
             this.convertedDate = format.format(date);
-        } catch (Exception e){
+        } catch (Exception e) {
             this.convertedDate = "-";
         }
     }

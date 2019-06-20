@@ -26,25 +26,25 @@ public class RestPekerjaan {
         List<ModelPekerjaan> modelPekerjaanList = servicePekerjaan.findAll();
         List<ModelPekerjaan> data = new ArrayList<>();
         for (ModelPekerjaan mp : modelPekerjaanList) {
-            if (mp.getAktif() == 1){
+            if (mp.getAktif() == 1) {
                 data.add(mp);
             }
         }
         return data;
     }
 
-    @RequestMapping(value = "/simpan", method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)
-    public String simpanPekerjaan(@RequestBody ModelPekerjaan modelPekerjaan){
-        System.out.println("body : "+modelPekerjaan.getNamaPekerjaan());
+    @RequestMapping(value = "/simpan", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public String simpanPekerjaan(@RequestBody ModelPekerjaan modelPekerjaan) {
+        System.out.println("body : " + modelPekerjaan.getNamaPekerjaan());
         modelPekerjaan.setIdStatus("0");
         modelPekerjaan.setAktif(1);
         servicePekerjaan.save(modelPekerjaan);
-        return ""+modelPekerjaan.getId();
+        return "" + modelPekerjaan.getId();
     }
 
     @RequestMapping(value = "/simpanprogres", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public String simpanProgres(@RequestBody List<ModelDetailProgres> detailProgres) {
-        for (ModelDetailProgres mdp : detailProgres){
+        for (ModelDetailProgres mdp : detailProgres) {
             serviceDetailProgres.save(mdp);
         }
         return "succeed";
@@ -52,7 +52,7 @@ public class RestPekerjaan {
 
     @RequestMapping(value = "/updateprogres", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public String updateProgres(@RequestBody List<ModelDetailProgres> detailProgres) {
-        for (ModelDetailProgres mdp : detailProgres){
+        for (ModelDetailProgres mdp : detailProgres) {
             serviceDetailProgres.save(mdp);
         }
         return "succeed";
@@ -60,15 +60,15 @@ public class RestPekerjaan {
 
     @GetMapping("/hapusProgresNotulensiBy/{id}")
     public String hapusProgresByIdNotulensi(@PathVariable("id") final Integer id) {
-        try{
+        try {
             List<ModelDetailProgres> listDetailProgres = serviceDetailProgres.findAll();
-            for (ModelDetailProgres mdp: listDetailProgres) {
-                if (mdp.getNotulensi() == id){
+            for (ModelDetailProgres mdp : listDetailProgres) {
+                if (mdp.getNotulensi() == id) {
                     serviceDetailProgres.delete(mdp);
                 }
             }
             return "Berhasil";
-        } catch (Exception e){
+        } catch (Exception e) {
             return "Gagal";
         }
     }
@@ -82,8 +82,8 @@ public class RestPekerjaan {
     @GetMapping("/hapusDetailNotulensi/{id}")
     public String hapusDetailNotulensi(@PathVariable("id") final Integer id) {
         List<ModelDetailProgres> listDetailProgres = serviceDetailProgres.findAll();
-        for (ModelDetailProgres mdp: listDetailProgres) {
-            if (mdp.getNotulensi() == id){
+        for (ModelDetailProgres mdp : listDetailProgres) {
+            if (mdp.getNotulensi() == id) {
                 serviceDetailProgres.delete(mdp);
             }
         }
@@ -94,8 +94,8 @@ public class RestPekerjaan {
     public List<ModelDetailProgres> getProgresByIdNotulensi(@PathVariable("id") final Integer id) {
         List<ModelDetailProgres> listDetailProgres = serviceDetailProgres.findAll();
         List<ModelDetailProgres> listKirim = new ArrayList<>();
-        for (ModelDetailProgres mdp: listDetailProgres) {
-            if (mdp.getNotulensi() == id){
+        for (ModelDetailProgres mdp : listDetailProgres) {
+            if (mdp.getNotulensi() == id) {
                 listKirim.add(mdp);
             }
         }
@@ -106,8 +106,8 @@ public class RestPekerjaan {
     public List<ModelDetailProgres> getProgresByIdPekerjaan(@PathVariable("id") final Integer id) {
         List<ModelDetailProgres> listDetailProgres = serviceDetailProgres.findAll();
         List<ModelDetailProgres> listKirim = new ArrayList<>();
-        for (ModelDetailProgres mdp: listDetailProgres) {
-            if (mdp.getPekerjaan() == id){
+        for (ModelDetailProgres mdp : listDetailProgres) {
+            if (mdp.getPekerjaan() == id) {
                 listKirim.add(mdp);
             }
         }

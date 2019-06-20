@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
-@Table(name="detail_progres")
+@Table(name = "detail_progres")
 public class ModelDetailProgres {
 
     @Id
@@ -110,11 +110,11 @@ public class ModelDetailProgres {
     }
 
     public void setConvertedDate(Date date) {
-        System.out.println("date : "+ date);
+        System.out.println("date : " + date);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        try{
+        try {
             this.convertedDate = format.format(date);
-        } catch (Exception e){
+        } catch (Exception e) {
             this.convertedDate = "-";
         }
     }

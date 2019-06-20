@@ -36,60 +36,61 @@ public class RestNotulensi {
         return serviceNotulensi.findAll();
     }
 
-    @RequestMapping(value = "/simpan", method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)
-    public String simpanNotulensi(@RequestBody ModelNotulensi modelNotulensi){
-        System.out.println("body : "+modelNotulensi.getIdNotulen());
+    @RequestMapping(value = "/simpan", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public String simpanNotulensi(@RequestBody ModelNotulensi modelNotulensi) {
+        System.out.println("body : " + modelNotulensi.getIdNotulen());
         serviceNotulensi.save(modelNotulensi);
-        return ""+modelNotulensi.getId();
+        return "" + modelNotulensi.getId();
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)
-    public String updateNotulensi(@RequestBody ModelNotulensi modelNotulensi){
-        System.out.println("body : "+modelNotulensi.getIdNotulen());
-        ModelNotulensi tempMn= serviceNotulensi.getOne(modelNotulensi.getId());
+    @RequestMapping(value = "/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public String updateNotulensi(@RequestBody ModelNotulensi modelNotulensi) {
+        System.out.println("body : " + modelNotulensi.getIdNotulen());
+        ModelNotulensi tempMn = serviceNotulensi.getOne(modelNotulensi.getId());
         modelNotulensi.setCreated(tempMn.getCreated());
         serviceNotulensi.save(modelNotulensi);
-        return ""+modelNotulensi.getId();
+        return "" + modelNotulensi.getId();
     }
 
     @GetMapping("/hapus/{id}")
     public String getId(@PathVariable("id") final Integer id) {
-        try{
+        try {
             serviceNotulensi.deleteById(id);
             return "Berhasil";
-        } catch (Exception e){
+        } catch (Exception e) {
             return "Gagal";
         }
     }
 
-    @RequestMapping(value = "/simpanKomentar", method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)
-    public String simpanKomentarNotulensi(@RequestBody ModelKomentarNotulensi mk){
-        System.out.println("body : "+mk.getNotulensi());
+    @RequestMapping(value = "/simpanKomentar", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public String simpanKomentarNotulensi(@RequestBody ModelKomentarNotulensi mk) {
+        System.out.println("body : " + mk.getNotulensi());
         serviceKomentarNotulensi.save(mk);
         return "berhasil";
     }
 
     @RequestMapping(value = "/cari/{tanggal}/{pekerjaan}/{keyword}", method = RequestMethod.GET)
-    public List<ModelNotulensi> cariNotulensi(Model model, @PathVariable String tanggal, @PathVariable String pekerjaan, @PathVariable String keyword){
+    public List<ModelNotulensi> cariNotulensi(Model model, @PathVariable String tanggal, @PathVariable String pekerjaan, @PathVariable String keyword) {
         return getListingNotulensi(tanggal, pekerjaan, keyword);
     }
 
-    private List<ModelNotulensi> getListingNotulensi(String tanggal, String pekerjaan, String keywords){
+    private List<ModelNotulensi> getListingNotulensi(String tanggal, String pekerjaan, String keywords) {
         Date awal = new Date();
-        Date akhir= new Date();;
+        Date akhir = new Date();
+        ;
         String[] keyword = {""};
         boolean issetDate = false;
         boolean issetDateAkhir = false;
         boolean issetPekerjaan = false;
         boolean issetKeywords = false;
 
-        System.out.println("Tanggal : "+tanggal);
-        System.out.println("Pekerjaan : "+pekerjaan);
-        System.out.println("Keyword : "+keywords);
+        System.out.println("Tanggal : " + tanggal);
+        System.out.println("Pekerjaan : " + pekerjaan);
+        System.out.println("Keyword : " + keywords);
 
-        if (!tanggal.equalsIgnoreCase("-")){
+        if (!tanggal.equalsIgnoreCase("-")) {
             System.out.println("Cek tanggal ");
-            if (tanggal.contains("-")){
+            if (tanggal.contains("-")) {
                 System.out.println("duo tanggal ");
                 String[] tanggals = tanggal.split("-");
                 try {
@@ -103,17 +104,17 @@ public class RestNotulensi {
                 System.out.println("single tanggal ");
                 try {
                     awal = new SimpleDateFormat("dd_MM_yyyy").parse(tanggal);
-                    System.out.println("Tanggal : "+awal.toString());
+                    System.out.println("Tanggal : " + awal.toString());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
             }
             issetDate = true;
         }
-        if(!pekerjaan.equalsIgnoreCase("-")){
+        if (!pekerjaan.equalsIgnoreCase("-")) {
             issetPekerjaan = true;
         }
-        if(!keywords.equalsIgnoreCase("-")){
+        if (!keywords.equalsIgnoreCase("-")) {
             keyword = keywords.split(" ");
             issetKeywords = true;
         }
@@ -122,53 +123,53 @@ public class RestNotulensi {
         List<ModelNotulensi> notulensiFilter = new ArrayList<ModelNotulensi>();
         List<ModelDetailProgres> tempDetaiProgres;
 
-        for (ModelNotulensi nf: modelNotulensiList) {
+        for (ModelNotulensi nf : modelNotulensiList) {
             boolean addNotulen = false;
 
-            if(issetKeywords){
+            if (issetKeywords) {
 
                 String tempCatatan = nf.getCatatan().toLowerCase();
-                for (String key: keyword) {
-                    if (tempCatatan.contains(key)){
+                for (String key : keyword) {
+                    if (tempCatatan.contains(key)) {
                         addNotulen = true;
                     }
                 }
 
                 tempDetaiProgres = nf.getDetailProgres();
-                for (ModelDetailProgres mdp: tempDetaiProgres) {
+                for (ModelDetailProgres mdp : tempDetaiProgres) {
                     String keterangan;
-                    try{
+                    try {
                         keterangan = mdp.getKeterangan().toLowerCase();
-                    } catch (Exception e){
+                    } catch (Exception e) {
                         keterangan = "";
                     }
                     String masukkan;
-                    try{
+                    try {
                         masukkan = mdp.getMasukkan().toLowerCase();
-                    } catch (Exception e){
+                    } catch (Exception e) {
                         masukkan = "";
                     }
                     String keputusan;
-                    try{
+                    try {
                         keputusan = mdp.getKeputusan().toLowerCase();
-                    } catch (Exception e){
+                    } catch (Exception e) {
                         keputusan = "";
                     }
                     String namaPekerjaan = servicePekerjaan.getOne(mdp.getPekerjaan()).getNamaPekerjaan();
-                    try{
+                    try {
                         namaPekerjaan = namaPekerjaan.toLowerCase();
-                    } catch (Exception e){
+                    } catch (Exception e) {
                         namaPekerjaan = "";
                     }
 
-                    for (String key: keyword) {
-                        if(keterangan.contains(key) || masukkan.contains(key) ||keputusan.contains(key) || namaPekerjaan.contains(key)){
+                    for (String key : keyword) {
+                        if (keterangan.contains(key) || masukkan.contains(key) || keputusan.contains(key) || namaPekerjaan.contains(key)) {
                             addNotulen = true;
-                            if(nf.getKeyword() == null){
+                            if (nf.getKeyword() == null) {
                                 nf.setKeyword(key);
                             } else {
-                                if(!nf.getKeyword().contains(key)){
-                                    nf.setKeyword(nf.getKeyword()+" "+key);
+                                if (!nf.getKeyword().contains(key)) {
+                                    nf.setKeyword(nf.getKeyword() + " " + key);
                                 }
                             }
                         }
@@ -176,23 +177,23 @@ public class RestNotulensi {
                 }
             }
 
-            if(issetPekerjaan){
+            if (issetPekerjaan) {
 //                System.out.println("Cek pekerjaan");
                 tempDetaiProgres = nf.getDetailProgres();
-                for (ModelDetailProgres mdp: tempDetaiProgres) {
+                for (ModelDetailProgres mdp : tempDetaiProgres) {
                     /*System.out.println("Cek id pekerjaan : "+pekerjaan);
                     System.out.println("Cek id pekerjaan notulen : "+mdp.getPekerjaan().toString());*/
-                    if (mdp.getPekerjaan().toString().equalsIgnoreCase(pekerjaan)){
+                    if (mdp.getPekerjaan().toString().equalsIgnoreCase(pekerjaan)) {
                         addNotulen = true;
                     }
                 }
             }
 
-            if(issetDate){
+            if (issetDate) {
                 Calendar calCreated = Calendar.getInstance();
                 Calendar calAwal = Calendar.getInstance();
                 Calendar calAkhir = Calendar.getInstance();
-                if(issetDateAkhir){
+                if (issetDateAkhir) {
                     calCreated.setTime(nf.getCreated());
                     calAwal.setTime(nf.getCreated());
                     calAkhir.setTime(nf.getCreated());
@@ -200,8 +201,8 @@ public class RestNotulensi {
                             calCreated.get(Calendar.YEAR) == calAwal.get(Calendar.YEAR);
                     boolean sameDayAkhir = calCreated.get(Calendar.DAY_OF_YEAR) == calAkhir.get(Calendar.DAY_OF_YEAR) &&
                             calCreated.get(Calendar.YEAR) == calAkhir.get(Calendar.YEAR);
-                    if(nf.getCreated().before(awal) || nf.getCreated().after(akhir)){
-                        if(sameDayAwal || sameDayAkhir){
+                    if (nf.getCreated().before(awal) || nf.getCreated().after(akhir)) {
+                        if (sameDayAwal || sameDayAkhir) {
                             addNotulen = true;
                         } else {
                             addNotulen = false;
@@ -209,12 +210,12 @@ public class RestNotulensi {
                     } else {
                         addNotulen = true;
                     }
-                } else{
+                } else {
                     calCreated.setTime(nf.getCreated());
                     calAwal.setTime(awal);
                     boolean sameDay = calCreated.get(Calendar.DAY_OF_YEAR) == calAwal.get(Calendar.DAY_OF_YEAR) &&
                             calCreated.get(Calendar.YEAR) == calAwal.get(Calendar.YEAR);
-                    if(sameDay){
+                    if (sameDay) {
                         addNotulen = true;
                     } else {
                         addNotulen = false;
@@ -222,10 +223,10 @@ public class RestNotulensi {
                 }
 
             }
-            if(addNotulen){
+            if (addNotulen) {
                 nf.setConvertedDateCari(nf.getCreated());
                 notulensiFilter.add(nf);
-                System.out.println("Add : "+nf.getNamaMusyawarah());
+                System.out.println("Add : " + nf.getNamaMusyawarah());
             }
         }
         return notulensiFilter;

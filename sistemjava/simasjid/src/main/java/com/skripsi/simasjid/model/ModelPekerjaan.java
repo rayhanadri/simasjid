@@ -1,12 +1,10 @@
 package com.skripsi.simasjid.model;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
-@Table(name="pekerjaan")
+@Table(name = "pekerjaan")
 public class ModelPekerjaan {
 
     @Id
@@ -17,7 +15,7 @@ public class ModelPekerjaan {
     @Column(name = "id_anggota")
     private Integer anggota;
 
-    @Column(name = "id_status",columnDefinition = "integer DEFAULT 0")
+    @Column(name = "id_status", columnDefinition = "integer DEFAULT 0")
     private String idStatus;
 
     @Column(name = "nama_pekerjaan")

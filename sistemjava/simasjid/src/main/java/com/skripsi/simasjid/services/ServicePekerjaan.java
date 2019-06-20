@@ -5,12 +5,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ServicePekerjaan extends JpaRepository<ModelPekerjaan, Integer> {
 
-//    List<ModelPekerjaan> listPekerjaan();
-//    List<ModelProgresPekerjaan> getProgresById(Integer id);
-//
-//    ModelPekerjaan saveOrUpdate(ModelPekerjaan pekerjaan);
-//    void hapus(Integer id);
-//    ModelPekerjaan getDetailById(Integer id);
-
-
 }
