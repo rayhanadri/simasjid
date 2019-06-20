@@ -43,7 +43,7 @@
                                 </label>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <select name="namaNotulen" id="namaNotulen" class="form-control">
-                                        <option>Pilih Notulen</option>
+                                        <option value="">Pilih Notulen</option>
                                         <option th:each="anggota : ${anggotas}" th:value="${anggota.id}" th:text="${anggota.nama}">Pilih Notulen</option>
                                     </select>
                                 </div>
@@ -53,7 +53,7 @@
                                 </label>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <select name="namaAmir" id="namaAmir" class="form-control">
-                                        <option>Pilih Amir Musyawarah</option>
+                                        <option value="">Pilih Amir Musyawarah</option>
                                         <option th:each="anggota : ${anggotas}" th:value="${anggota.id}" th:text="${anggota.nama}">Pilih Amir Musyawarah</option>
                                     </select>
                                 </div>
@@ -61,8 +61,8 @@
                             <div class="form-group">
                                 <label class="control-label col-md-9 col-sm-9 col-xs-12">Peserta musyawarah</label>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <select name="namaHadirin[]" id="namaHadirin[]" class="select2_multiple form-control" multiple="multiple">
-                                        <option>Pilih Anggota Hadir Musyawarah</option>
+                                    <select name="namaHadirin" id="namaHadirin" class="select2_multiple form-control" multiple="multiple">
+                                        <option value="">Pilih Anggota Hadir Musyawarah</option>
                                         <option th:each="anggota : ${anggotas}" th:value="${anggota.id}" th:text="${anggota.nama}">Pilih Hadir Musyawarah</option>
                                     </select>
                                 </div>

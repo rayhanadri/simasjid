@@ -269,6 +269,12 @@ function simpanNotulensi() {
     var notulen = document.getElementById("namaNotulen");
     var amir = document.getElementById("namaAmir");
     var catatan = document.getElementById("catatanTbmhn");
+    var namaHadirin = document.getElementById("namaHadirin");
+    var idHadirin = "";
+    for (var i = 0; i < namaHadirin.length; i++) {
+        console.log("id : "+namaHadirin[i].value);
+        idHadirin+=namaHadirin[i].value+",";
+    }
 
     var notulensi = new Object();
     notulensi.id = idNotulensi.value;
@@ -277,6 +283,8 @@ function simpanNotulensi() {
     notulensi.idNotulen = notulen.value;
     notulensi.catatan = catatan.value;
     notulensi.idStatus = 0;
+    notulensi.idHadirAnggota=idHadirin;
+
     $.ajax({
         type : "POST",
         contentType : 'application/json; charset=utf-8',

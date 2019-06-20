@@ -58,12 +58,26 @@ public class ControllerNotulensi {
 
     @RequestMapping("/notulensi/edit/{id}")
     public String editNotulensi(@PathVariable Integer id, Model model){
-        model.addAttribute("anggotas", getAnggotaAktif());
+        model.addAttribute("anggotas", serviceAnggota2.findAll());
         ModelNotulensi mn = serviceNotulensi.getOne(id);
         System.out.println("Cek id mn : "+mn.getId());
         model.addAttribute("notulensi", mn);
 
         model.addAttribute("progress", getProgres(id));
+
+        String [] idAnggotaHadir = mn.getIdHadirAnggota().split(",");
+        List<ModelAnggota> listAnggota = getAnggotaAktif();
+        List<ModelAnggota> listAnggotaUsed = new ArrayList<>();
+        for (ModelAnggota ma: listAnggota) {
+            for (String tempIdAnggota : idAnggotaHadir) {
+                if (ma.getId().toString().equalsIgnoreCase(tempIdAnggota)){
+                    listAnggotaUsed.add(ma);
+                }
+            }
+        }
+        mn.setListHadirAnggota(listAnggotaUsed);
+
+        model.addAttribute("listAnggotaHadir", listAnggotaUsed);
         return "notulensi/form_notulensi_edit";
     }
 
@@ -101,6 +115,20 @@ public class ControllerNotulensi {
             }
         }
         model.addAttribute("komentars", listKomentarUsed);
+
+        String [] idAnggotaHadir = mn.getIdHadirAnggota().split(",");
+        List<ModelAnggota> listAnggota = getAnggotaAktif();
+        List<ModelAnggota> listAnggotaUsed = new ArrayList<>();
+        for (ModelAnggota ma: listAnggota) {
+            for (String tempIdAnggota : idAnggotaHadir) {
+                if (ma.getId().toString().equalsIgnoreCase(tempIdAnggota)){
+                    listAnggotaUsed.add(ma);
+                }
+            }
+        }
+        mn.setListHadirAnggota(listAnggotaUsed);
+
+        model.addAttribute("listAnggotaHadir", listAnggotaUsed);
         return "notulensi/detail_notulensi";
     }
 

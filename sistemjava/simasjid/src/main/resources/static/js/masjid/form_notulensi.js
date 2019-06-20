@@ -8,7 +8,7 @@ var tempIdPekerjaan = 0;
 var setNotulensi = rest+"/notulensi/simpan";
 var setDetailProgres = rest+"/pekerjaan/simpanprogres";
 
-var mappingDaftarNotulensi = server+"/notulensi/";
+var mappingDaftarNotulensi = server+"/notulensi/detail/";
 
 //Autoload
 getPekerjaanList();
@@ -235,12 +235,21 @@ function simpanNotulensi() {
     var amir = document.getElementById("namaAmir");
     var catatan = document.getElementById("catatanTbmhn");
 
+    var namaHadirin = document.getElementById("namaHadirin");
+    var idHadirin = "";
+    for (var i = 0; i < namaHadirin.length; i++) {
+        console.log("id : "+namaHadirin[i].value);
+        idHadirin+=namaHadirin[i].value+",";
+    }
+
     var notulensi = new Object();
     notulensi.namaMusyawarah = namaMusyawarah.value;
     notulensi.idAmir = amir.value;
     notulensi.idNotulen = notulen.value;
     notulensi.catatan = catatan.value;
     notulensi.idStatus = 0;
+    notulensi.idHadirAnggota=idHadirin;
+
     $.ajax({
         type : "POST",
         contentType : 'application/json; charset=utf-8',

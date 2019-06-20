@@ -26,6 +26,9 @@ public class ModelNotulensi {
     @Column(name = "nama_musyawarah")
     private String namaMusyawarah;
 
+    @Column(name = "id_hadir_anggota")
+    private String idHadirAnggota;
+
     @Column(name = "catatan")
     private String catatan;
 
@@ -48,6 +51,9 @@ public class ModelNotulensi {
 
     @Transient
     private String keyword;
+
+    @Transient
+    private List<ModelAnggota> listHadirAnggota;
 
     private Date created;
 
@@ -174,5 +180,21 @@ public class ModelNotulensi {
 
     public void setKeyword(String keyword) {
         this.keyword = keyword;
+    }
+
+    public String getIdHadirAnggota() {
+        return idHadirAnggota;
+    }
+
+    public void setIdHadirAnggota(String idHadirAnggota) {
+        this.idHadirAnggota = idHadirAnggota;
+    }
+
+    public List<ModelAnggota> getListHadirAnggota() {
+        return listHadirAnggota;
+    }
+
+    public void setListHadirAnggota(List<ModelAnggota> listHadirAnggota) {
+        this.listHadirAnggota = listHadirAnggota;
     }
 }
