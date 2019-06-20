@@ -295,6 +295,7 @@ function simpanNotulensi() {
             simpanProgres();
         },
         error: function(e){
+            alert("Terjadi kesalahan.. harap kembali menyimpan");
             console.log("ERROR: ", e);
         },
         done : function(e) {
@@ -345,6 +346,7 @@ function simpanProgres() {
             window.location.href=redirectNotulensi;
         },
         error: function(e){
+            alert("Terjadi kesalahan.. harap kembali menyimpan");
             console.log("ERROR: ", e);
         },
         done : function(e) {
