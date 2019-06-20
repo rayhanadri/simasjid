@@ -281,6 +281,7 @@ function simpanProgres(idNotulensi) {
             var detailProgres = new Object();
             detailProgres.keterangan = contentProgress[index].value;
             detailProgres.keputusan = contentKeputusan[index].value;
+            detailProgres.masukkan = contentMasukkan[index].value;
             detailProgres.pekerjaan = idPekerjaan[index].value;
             detailProgres.notulensi = idNotulensi;
             data.push(detailProgres);
