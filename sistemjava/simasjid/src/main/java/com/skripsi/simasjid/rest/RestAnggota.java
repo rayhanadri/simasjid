@@ -23,6 +23,17 @@ public class RestAnggota {
         return serviceAnggota.findAll();
     }
 
+    @RequestMapping(value = "/cek/{username}", method = RequestMethod.GET)
+    public String cekUsernameIsAvailable(@PathVariable String username) {
+        List<ModelAnggota> modelAnggotaList = serviceAnggota.findAll();
+        for (ModelAnggota ma: modelAnggotaList) {
+            if (ma.getUsername().equalsIgnoreCase(username)){
+                return "0";
+            }
+        }
+        return "1";
+    }
+
     @RequestMapping(value = "/insert/{username}/{password}", method = RequestMethod.GET)
     public List<ModelAnggota> setNew(@PathVariable String username, @PathVariable String password) {
         ModelAnggota anggotaBaru = new ModelAnggota();

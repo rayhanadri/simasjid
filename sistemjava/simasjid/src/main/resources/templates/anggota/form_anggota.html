@@ -3,7 +3,7 @@
       xmlns:layout="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-
+    <script th:src="@{/js/masjid/form_anggota.js}"></script>
 </head>
 <body>
     <!-- KONTENT START -->
@@ -58,7 +58,10 @@
                                     <div class="form-group">
                                         <label class="col-sm-12 control-label">Username</label>
                                         <div class="col-sm-10">
-                                            <input type="text" name="username" class="form-control" placeholder="Username" th:field="*{username}" required>
+                                            <input type="text" onkeyup="cekUsernameAvailable()" id="username" th:classappend="${formbaru == 1} ? null : disabled" name="username" class="form-control" placeholder="Username" th:field="*{username}" required>
+                                            <div id="peringatan" class="alert alert-danger hidden">
+                                                Username tidak dapat digunakan
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group"  th:classappend="${formbaru == 1} ? null : hidden">
@@ -69,7 +72,7 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
-                                            <button type="submit" class="btn btn-success m-b-10 m-l-5">simpan anggota</button>
+                                            <button id="tombol-kirim" type="submit" class="btn btn-success m-b-10 m-l-5">simpan anggota</button>
                                         </div>
                                     </div>
                                 </form>

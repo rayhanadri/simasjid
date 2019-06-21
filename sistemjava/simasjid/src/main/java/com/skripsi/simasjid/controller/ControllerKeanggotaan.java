@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class ControllerKeanggotaan {
     private PasswordEncoder passwordEncoder;
 
     @RequestMapping(value = "/anggota")
-    public String index(Model model) {
+    public String index(Model model, Principal principal) {
         List<ModelAnggota> maList = serviceAnggota2.findAll();
         List<ModelAnggota> maUsed = new ArrayList<>();
 
@@ -33,8 +34,11 @@ public class ControllerKeanggotaan {
             }
         }
         model.addAttribute("anggotas", maUsed);
-
-        return "anggota/daftar_anggota";
+        int previlege = cekUsername(principal.getName());
+        if(previlege == 1 || previlege == 2){
+            return "anggota/daftar_anggota";
+        }
+        return "akses_terbatas";
     }
 
     @RequestMapping(value = "/anggota/simpan", method = RequestMethod.POST)
@@ -63,14 +67,23 @@ public class ControllerKeanggotaan {
     }
 
     @RequestMapping(value = "/anggota/update/{id}", method = RequestMethod.GET)
-    public String updateAnggota(@PathVariable Integer id, Model model) {
+    public String updateAnggota(@PathVariable Integer id, Model model, Principal principal) {
         model.addAttribute("formbaru", '0');
         model.addAttribute("anggota", serviceAnggota2.getOne(id));
-        return "anggota/form_anggota";
+        int previlege = cekUsername(principal.getName());
+        if(previlege == 1 || previlege == 2){
+            return "anggota/form_anggota";
+        }
+        return "akses_terbatas";
     }
 
     @RequestMapping(value = "/anggota/hapus/{id}", method = RequestMethod.GET)
-    public String hapusAnggota(@PathVariable Integer id) {
+    public String hapusAnggota(@PathVariable Integer id, Principal principal) {
+        int previlege = cekUsername(principal.getName());
+        if(previlege != 1 && previlege != 2){
+            return "akses_terbatas";
+        }
+
         System.out.println("Hapus " + id);
         ModelAnggota ma = serviceAnggota2.getOne(id);
         ma.setAktif(0);
@@ -79,9 +92,26 @@ public class ControllerKeanggotaan {
     }
 
     @RequestMapping(value = "/anggota/form")
-    public String formAnggota(Model model) {
+    public String formAnggota(Model model, Principal principal) {
         model.addAttribute("formbaru", 1);
         model.addAttribute("anggota", new ModelAnggota());
-        return "anggota/form_anggota";
+        int previlege = cekUsername(principal.getName());
+        if(previlege == 1 || previlege == 2){
+            return "anggota/form_anggota";
+        }
+        return "akses_terbatas";
+
+    }
+
+    private int cekUsername(String username){
+        try{
+            return getIdUsername(username);
+        } catch (Exception e){
+            return -1;
+        }
+    }
+
+    private int getIdUsername(String username) throws Exception{
+        return serviceAnggota2.findByUsername(username).getIdJabatan();
     }
 }
