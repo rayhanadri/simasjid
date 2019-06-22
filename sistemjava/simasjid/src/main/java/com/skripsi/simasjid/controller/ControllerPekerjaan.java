@@ -1,12 +1,7 @@
 package com.skripsi.simasjid.controller;
 
-import com.skripsi.simasjid.model.ModelAnggota;
 import com.skripsi.simasjid.model.ModelDetailProgres;
 import com.skripsi.simasjid.model.ModelPekerjaan;
-import com.skripsi.simasjid.services.ServiceAnggota2;
-import com.skripsi.simasjid.services.ServiceDetailProgres;
-import com.skripsi.simasjid.services.ServicePekerjaan;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,21 +10,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Controller
-public class ControllerPekerjaan {
-
-    @Autowired
-    private ServicePekerjaan servicePekerjaan;
-
-    @Autowired
-    private ServiceDetailProgres serviceDetailProgres;
-
-    @Autowired
-    private ServiceAnggota2 serviceAnggota2;
+public class ControllerPekerjaan extends BaseController {
 
     /*Iterasi Luar 1*/
 
@@ -39,11 +26,16 @@ public class ControllerPekerjaan {
     }
 
     @RequestMapping(value = "/pekerjaan/detail/{id}", method = RequestMethod.GET)
-    public String lihatDetailPekerjaan(@PathVariable Integer id, Model model) {
+    public String lihatDetailPekerjaan(@PathVariable Integer id, Model model, Principal principal) {
+        int idPengguna = idLogged(principal);
+        model.addAttribute("idPengguna", idPengguna);
+        String peran = role(principal);
+        if(peran.equalsIgnoreCase("sekertaris")|| peran.equalsIgnoreCase("ketua")){
+            model.addAttribute("isCan", 1);
+        }
 
         Optional<ModelPekerjaan> modelPekerjaan = servicePekerjaan.findById(id);
-        String pic = serviceAnggota2.getOne(modelPekerjaan.get().getAnggota()).getNama();
-        System.out.println("nama pekerjaan : " + modelPekerjaan.get().getNamaPekerjaan());
+        String pic = serviceAnggota.getOne(modelPekerjaan.get().getAnggota()).getNama();
         model.addAttribute("namaPekerjaan", modelPekerjaan.get().getNamaPekerjaan());
         model.addAttribute("deskripsiPekerjaan", modelPekerjaan.get().getDeskripsi());
         model.addAttribute("statusPekerjaan", modelPekerjaan.get().getIdStatus());
@@ -119,18 +111,6 @@ public class ControllerPekerjaan {
         mp.setIdStatus(idStatus.toString());
         servicePekerjaan.save(mp);
         return "redirect:/pekerjaan/detail/" + idPekerjaan;
-    }
-
-    private List<ModelAnggota> getAnggotaAktif() {
-        List<ModelAnggota> maList = serviceAnggota2.findAll();
-        List<ModelAnggota> maUsed = new ArrayList<>();
-
-        for (ModelAnggota ma : maList) {
-            if (ma.getAktif() == 1) {
-                maUsed.add(ma);
-            }
-        }
-        return maUsed;
     }
 
 }

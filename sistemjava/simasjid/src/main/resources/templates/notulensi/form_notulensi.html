@@ -42,7 +42,7 @@
                                 <label class="control-label col-md-9 col-sm-9 col-xs-12">Notulen <span class="required">*</span>
                                 </label>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <select name="namaNotulen" id="namaNotulen" class="form-control">
+                                    <select name="namaNotulen" id="namaNotulen" class="form-control" th:field="${idPengguna}">
                                         <option value="">Pilih Notulen</option>
                                         <option th:each="anggota : ${anggotas}" th:value="${anggota.id}" th:text="${anggota.nama}">Pilih Notulen</option>
                                     </select>

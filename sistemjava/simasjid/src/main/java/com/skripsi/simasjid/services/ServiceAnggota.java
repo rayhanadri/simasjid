@@ -1,18 +1,8 @@
 package com.skripsi.simasjid.services;
 
 import com.skripsi.simasjid.model.ModelAnggota;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-
-public interface ServiceAnggota {
-
-    List<ModelAnggota> listAnggota();
-
-    ModelAnggota saveOrUpdate(ModelAnggota mahasiswa);
-
-    void hapus(Integer id);
-
-    ModelAnggota getIdAnggota(Integer id);
-
+public interface ServiceAnggota extends JpaRepository<ModelAnggota, Integer> {
+    ModelAnggota findByUsername(String UserName);
 }

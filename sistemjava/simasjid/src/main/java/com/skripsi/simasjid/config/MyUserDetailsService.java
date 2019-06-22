@@ -1,7 +1,7 @@
 package com.skripsi.simasjid.config;
 
 import com.skripsi.simasjid.model.ModelAnggota;
-import com.skripsi.simasjid.services.ServiceAnggota2;
+import com.skripsi.simasjid.services.ServiceAnggota;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,14 +13,14 @@ import org.springframework.stereotype.Service;
 public class MyUserDetailsService implements UserDetailsService {
 
     @Autowired
-    ServiceAnggota2 serviceAnggota2;
+    ServiceAnggota serviceAnggota;
 
     public MyUserDetailsService() {
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        ModelAnggota user = serviceAnggota2.findByUsername(username);
+        ModelAnggota user = serviceAnggota.findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException("User not found by name: " + username);
         }

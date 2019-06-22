@@ -2,11 +2,10 @@ package com.skripsi.simasjid.rest;
 
 import com.skripsi.simasjid.model.ModelAnggota;
 
-import com.skripsi.simasjid.services.ServiceAnggota2;
+import com.skripsi.simasjid.services.ServiceAnggota;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +15,7 @@ import java.util.List;
 public class RestAnggota {
 
     @Autowired
-    ServiceAnggota2 serviceAnggota;
+    ServiceAnggota serviceAnggota;
 
     @GetMapping("/all")
     public List<ModelAnggota> getAll() {
@@ -32,6 +31,17 @@ public class RestAnggota {
             }
         }
         return "1";
+    }
+
+    @RequestMapping(value = "/cekActive/{username}", method = RequestMethod.GET)
+    public String cekUsernameIsActive(@PathVariable String username) {
+        List<ModelAnggota> modelAnggotaList = serviceAnggota.findAll();
+        for (ModelAnggota ma: modelAnggotaList) {
+            if (ma.getUsername().equalsIgnoreCase(username)){
+                return ma.getAktif()+"";
+            }
+        }
+        return "";
     }
 
     @RequestMapping(value = "/insert/{username}/{password}", method = RequestMethod.GET)
