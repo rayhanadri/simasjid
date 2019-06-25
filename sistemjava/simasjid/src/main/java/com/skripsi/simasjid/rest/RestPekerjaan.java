@@ -45,6 +45,7 @@ public class RestPekerjaan {
     @RequestMapping(value = "/simpanprogres", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public String simpanProgres(@RequestBody List<ModelDetailProgres> detailProgres) {
         for (ModelDetailProgres mdp : detailProgres) {
+            mdp.setCreated(serviceDetailProgres.getOne(mdp.getId()).getCreated());
             serviceDetailProgres.save(mdp);
         }
         return "succeed";
