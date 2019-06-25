@@ -44,13 +44,14 @@ public class RestAnggota {
         return "";
     }
 
-    @RequestMapping(value = "/insert/{username}/{password}", method = RequestMethod.GET)
-    public List<ModelAnggota> setNew(@PathVariable String username, @PathVariable String password) {
+    @RequestMapping(value = "/insert/{nama}/{username}/{password}/{jabatan}", method = RequestMethod.GET)
+    public List<ModelAnggota> setNew(@PathVariable String nama, @PathVariable String username, @PathVariable String password, @PathVariable int jabatan) {
         ModelAnggota anggotaBaru = new ModelAnggota();
-        anggotaBaru.setNama("baru masuk");
+        anggotaBaru.setNama(nama);
+        anggotaBaru.setIdJabatan(jabatan);
+        anggotaBaru.setUsername(username);
         String encodedPassword = new BCryptPasswordEncoder().encode(password);
         anggotaBaru.setPassword(encodedPassword);
-        anggotaBaru.setUsername(username);
         anggotaBaru.setAktif(1);
         serviceAnggota.save(anggotaBaru);
         return serviceAnggota.findAll();

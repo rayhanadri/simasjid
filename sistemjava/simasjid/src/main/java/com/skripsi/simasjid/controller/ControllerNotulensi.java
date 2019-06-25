@@ -65,11 +65,6 @@ public class ControllerNotulensi extends BaseController {
         return "notulensi/form_notulensi_edit";
     }
 
-    @RequestMapping("/notulensi/simpan")
-    public String simpanNotulensi() {
-        return "redirect:/notulensi";
-    }
-
     @RequestMapping(value = "/notulensi/simpankomentar", method = RequestMethod.POST)
     public String komentarNotulensi(@ModelAttribute("ModelKomentarNotulensi") ModelKomentarNotulensi mk, BindingResult result) {
         System.out.println("id notulensi " + mk.getNotulensi());
@@ -136,7 +131,7 @@ public class ControllerNotulensi extends BaseController {
     }
 
     @RequestMapping(value = "/notulensi/cari", method = RequestMethod.GET)
-    public String formNotulensi(Model model) {
+        public String formCariNotulensi(Model model) {
         model.addAttribute("pekerjaans", getPekerjaanAktif());
         return "notulensi/form_cari_notulensi";
     }

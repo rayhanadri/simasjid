@@ -77,10 +77,13 @@ public class BaseController {
         List<ModelDetailProgres> listDetailProgres = serviceDetailProgres.findAll();
         List<ModelDetailProgres> listDpUsed = new ArrayList<>();
         for (ModelDetailProgres mdp : listDetailProgres) {
-
-            if (mdp.getNotulensi() == id) {
-                mdp.setNamaPekerjaan(servicePekerjaan.getOne(mdp.getPekerjaan()).getNamaPekerjaan());
-                listDpUsed.add(mdp);
+            try{
+                if (mdp.getNotulensi() == id) {
+                    mdp.setNamaPekerjaan(servicePekerjaan.getOne(mdp.getPekerjaan()).getNamaPekerjaan());
+                    listDpUsed.add(mdp);
+                }
+            } catch (Exception e){
+                System.out.println("Notulensi Gagal Masuk : "+e);
             }
         }
         return listDpUsed;

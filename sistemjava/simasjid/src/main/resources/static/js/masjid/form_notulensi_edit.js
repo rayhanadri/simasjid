@@ -272,7 +272,7 @@ function simpanNotulensi() {
     var namaHadirin = document.getElementById("namaHadirin");
     var idHadirin = "";
     for (var i = 0; i < namaHadirin.length; i++) {
-        console.log("id : "+namaHadirin[i].value);
+        console.log("id hadirin : "+namaHadirin[i].value);
         idHadirin+=namaHadirin[i].value+",";
     }
 

@@ -48,6 +48,7 @@ public class RestNotulensi {
         System.out.println("body : " + modelNotulensi.getIdNotulen());
         ModelNotulensi tempMn = serviceNotulensi.getOne(modelNotulensi.getId());
         modelNotulensi.setCreated(tempMn.getCreated());
+        modelNotulensi.setKomentarNotulensi(tempMn.getKomentarNotulensi());
         serviceNotulensi.save(modelNotulensi);
         return "" + modelNotulensi.getId();
     }
@@ -63,9 +64,9 @@ public class RestNotulensi {
     }
 
     @RequestMapping(value = "/simpanKomentar", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public String simpanKomentarNotulensi(@RequestBody ModelKomentarNotulensi mk) {
-        System.out.println("body : " + mk.getNotulensi());
-        serviceKomentarNotulensi.save(mk);
+    public String simpanKomentarNotulensi(@RequestBody ModelKomentarNotulensi komentarNotulensi) {
+        System.out.println("body : " + komentarNotulensi.getNotulensi());
+        serviceKomentarNotulensi.save(komentarNotulensi);
         return "berhasil";
     }
 

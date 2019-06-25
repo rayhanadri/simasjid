@@ -163,7 +163,7 @@ function tambahKeterangan(nilai, keputusan){
         $(".hasilkontendarimasukkan"+nilai).empty();
         $(".hasilkontendarimasukkan"+nilai).append(sethtml);
     }
-    setMsg();
+    // setMsg();
 }
 
 function getName(text){
@@ -235,11 +235,11 @@ function simpanNotulensi() {
     var amir = document.getElementById("namaAmir");
     var catatan = document.getElementById("catatanTbmhn");
 
-    var namaHadirin = document.getElementById("namaHadirin");
+    var namaHadirin = $('#namaHadirin').val();
     var idHadirin = "";
     for (var i = 0; i < namaHadirin.length; i++) {
-        console.log("id : "+namaHadirin[i].value);
-        idHadirin+=namaHadirin[i].value+",";
+        console.log("id : "+namaHadirin[i]);
+        idHadirin+=namaHadirin[i]+",";
     }
 
     var notulensi = new Object();

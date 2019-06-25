@@ -23,7 +23,7 @@ $.get(getPekerjaanAll, function(respond){
             '<td>\n';
         if (respond[i]['idStatus'] == 0)    {
             setHtml+=status0;
-        } else if(respond[i]['idStatus'] == 2){
+        } else if(respond[i]['idStatus'] == 1){
             setHtml+=status1;
         } else {
             setHtml+=status2;

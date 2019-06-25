@@ -11,7 +11,7 @@ import java.security.Principal;
 public class ControllerHome {
 
     @RequestMapping(value = "/home")
-    public String home(Model model, Principal principal) {
+    public String home(Principal principal) {
         System.out.println("cek prinsip : "+principal.getName());
         return "home";
     }

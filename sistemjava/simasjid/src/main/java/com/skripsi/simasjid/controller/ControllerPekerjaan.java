@@ -39,6 +39,7 @@ public class ControllerPekerjaan extends BaseController {
         model.addAttribute("namaPekerjaan", modelPekerjaan.get().getNamaPekerjaan());
         model.addAttribute("deskripsiPekerjaan", modelPekerjaan.get().getDeskripsi());
         model.addAttribute("statusPekerjaan", modelPekerjaan.get().getIdStatus());
+        model.addAttribute("idAnggotaPekerjaan", modelPekerjaan.get().getAnggota());
         model.addAttribute("pic", pic);
         model.addAttribute("idPekerjaan", id);
         model.addAttribute("statusaktif", modelPekerjaan.get().getAktif());
@@ -71,14 +72,9 @@ public class ControllerPekerjaan extends BaseController {
     }
 
     @RequestMapping(value = "/pekerjaan/hapusprogres/{idPekerjaan}/{idProgres}", method = RequestMethod.GET)
-    public String tambahUpdateProgres(@PathVariable Integer idPekerjaan, @PathVariable Integer idProgres) {
+    public String hapusProgresPekerjaan(@PathVariable Integer idPekerjaan, @PathVariable Integer idProgres) {
         serviceDetailProgres.deleteById(idProgres);
         return "redirect:/pekerjaan/detail/" + idPekerjaan;
-    }
-
-    @RequestMapping("/pekerjaan/setselesai")
-    public String setPekerjaanSelesai() {
-        return "redirect:/pekerjaan/detail";
     }
 
     @RequestMapping(value = "/pekerjaan/edit/{id}", method = RequestMethod.GET)
@@ -97,7 +93,7 @@ public class ControllerPekerjaan extends BaseController {
     }
 
     @RequestMapping(value = "/pekerjaan/form")
-    public String formAnggota(Model model) {
+    public String formPekerjaan(Model model) {
         model.addAttribute("anggotas", getAnggotaAktif());
         model.addAttribute("pekerjaan", new ModelPekerjaan());
         return "pekerjaan/form_pekerjaan";
