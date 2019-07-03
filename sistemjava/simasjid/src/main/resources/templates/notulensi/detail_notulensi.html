@@ -39,7 +39,7 @@
                                     <h6 class="">Daftar Hadir</h6>
                                     <div class="list-group b-0 mail-list">
                                         <a th:each="anggotaListHadir : ${listAnggotaHadir}"  class="list-group-item border-0"><span class="fa fa-circle text-primary
-                                                mr-2"></span>[[*{anggotaListHadir.nama}]]</a>
+                                                mr-2"></span><span class="namaHadirin">[[*{anggotaListHadir.nama}]]</span></a>
                                     </div>
                                 </div>
                                 <!-- End Left sidebar -->
@@ -59,7 +59,12 @@
                                         <div th:each="progres : ${progress}">
                                             <b><span class="fa fa-circle text-light
                                                 mr-2"></span>[[*{progres.namaPekerjaan}]]</b>
-                                            <p style="margin-bottom: 10px"><span id="progresCopy[]" class="progresCopy">[[*{progres.keterangan}]]</span><br><i class="fa fa-comment"></i> <span class="keputusanCopy" id="keputusanCopy[]" >[[*{progres.keputusan}]]</span></p>
+                                            <p style="margin-bottom: 10px">
+                                                <span id="progresCopy[]" class="progresCopy">[[*{progres.keterangan}]]</span>
+                                                <br><i class="fa fa-comments-o"></i>
+                                                <span class="masukkanCopy">[[*{progres.masukkan}]]</span>
+                                                <br><i class="fa fa-comment"></i>
+                                                <span class="keputusanCopy" id="keputusanCopy[]" >[[*{progres.keputusan}]]</span></p>
                                         </div>
                                         <hr/>
                                         <div>

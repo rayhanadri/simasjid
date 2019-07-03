@@ -42,21 +42,36 @@ function setMsg(){
 
 
     var index, len, msg = '';
-    msg += '# '+namaNotulensi+" #";
-    msg += '<br>('+tanggal+")";
-    msg += '<br>Amir : '+notulen;
-    msg += '<br>Notulen : '+amir;
-    msg += '<br><br>Hasil Kegiatan Musyawarah';
+    var contentHadirin = document.getElementsByClassName("namaHadirin");
+
+    msg += '*'+namaNotulensi+"*";
+    msg += '<br>#('+tanggal+")";
+    msg += '<br>#Amir : '+amir;
+    msg += '<br>#Notulen : '+notulen;
+    msg += '<br>#Peserta :';
+    for (index = 0, len = contentHadirin.length; index < len; ++index) {
+        msg += '<br>- '+contentHadirin[index].innerHTML;
+
+    }
 
     var contentProgress = document.getElementsByClassName("progresCopy");
+    var contentMasukkan = document.getElementsByClassName("masukkanCopy");
     var contentKeputusan = document.getElementsByClassName("keputusanCopy");
     var contentCatatan = document.getElementsByClassName("catatanCopy");
-
+    msg += '<br><br>*laporan*';
     for (index = 0, len = contentProgress.length; index < len; ++index) {
-        msg += '<br>'+(index+1)+'. laporan : '+contentProgress[index].innerHTML;
-        msg += '<br><br>keputusan : '+contentKeputusan[index].innerHTML;
+        msg += '<br>- '+contentProgress[index].innerHTML;
     }
-    msg+='<br>catatan tambahan : '+contentCatatan[0].innerHTML;
+    msg += '<br><br>*usulan*';
+    for (index = 0, len = contentProgress.length; index < len; ++index) {
+        msg += '<br>- '+contentMasukkan[index].innerHTML;
+    }
+    msg += '<br><br>*pembahasan*';
+    for (index = 0, len = contentProgress.length; index < len; ++index) {
+        msg += '<br>- '+contentKeputusan[index].innerHTML;
+    }
+
+    msg+='<br><br>catatan tambahan : '+contentCatatan[0].innerHTML;
     console.log('setmsg : \n'+msg);
 
     var $temp = $("<textarea>");

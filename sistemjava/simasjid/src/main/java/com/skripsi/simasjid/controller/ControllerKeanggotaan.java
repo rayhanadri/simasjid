@@ -67,6 +67,7 @@ public class ControllerKeanggotaan extends BaseController{
         }
         ModelAnggota ma = serviceAnggota.getOne(id);
         ma.setAktif(0);
+        ma.setUsername("><");
         serviceAnggota.save(ma);
         return "redirect:/anggota";
     }

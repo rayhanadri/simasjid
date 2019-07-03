@@ -69,7 +69,7 @@
                                         <td th:text="${progres.convertedDate}">2011/04/25</td>
                                         <td th:text="${progres.keterangan}">Progres ku udah sampe sini</td>
                                         <td>
-                                            <a th:href="${'/pekerjaan/hapusprogres/'+idPekerjaan+'/'+progres.id}" th:if="${progres.notulensi} == null and ${progres.notulensi} == ${idPengguna}"
+                                            <a th:href="${'/pekerjaan/hapusprogres/'+idPekerjaan+'/'+progres.id}" th:if="${progres.notulensi} == null and ${idAnggotaPekerjaan} == ${idPengguna}"
                                                 class="btn btn-danger m-b-10 m-l-5">Hapus</a>
                                             <a th:href="${'/notulensi/detail/'+progres.notulensi}" th:if="${progres.notulensi} != null" class="btn btn-info m-b-10 m-l-5">Buka Notulensi</a>
                                         </td>

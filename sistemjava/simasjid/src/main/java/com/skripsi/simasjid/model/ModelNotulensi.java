@@ -1,9 +1,9 @@
 package com.skripsi.simasjid.model;
 
-import javax.persistence.*;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+        import javax.persistence.*;
+        import java.text.SimpleDateFormat;
+        import java.util.Date;
+        import java.util.List;
 
 @Entity
 @Table(name = "master_notulensi")

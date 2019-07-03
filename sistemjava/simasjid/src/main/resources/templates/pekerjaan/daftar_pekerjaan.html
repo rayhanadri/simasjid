@@ -42,25 +42,16 @@
                                             </tr>
                                             </thead>
                                             <tbody id="list-pekerjaan">
-                                                <!--<tr th:each="pekerjaan : ${pekerjaans}">
+                                                <tr th:each="pekerjaan : ${pekerjaans}" th:if="${pekerjaan.anggota} == ${idPengguna} or ${isCan} == '1'" >
                                                     <td th:text="${pekerjaan.namaPekerjaan}">Nama Pekerjaan</td>
-                                                    <td th:text="${pekerjaan.deskripsi}">Deskripsi Progres</td>
+                                                    <!--<td th:text="${pekerjaan.deskripsi}">Deskripsi Progres</td>-->
                                                     <td>
-                                                        <div th:if="${pekerjaan.idStatus == '0'}" class="alert alert-danger">
-                                                            Belum Verifikasi Ketua Takmir  <br><a href="#" class="alert-link"><i class="fa fa-check-square-o"></i>Verifikasi Sekarang</a>
-                                                        </div>
-                                                        <div th:if="${pekerjaan.idStatus == '1'}" class="alert alert-info">
-                                                            Sedang dikerjakan
-                                                            <a href="#" class="alert-link"></a>
-                                                        </div>
-
-                                                        <div th:if="${pekerjaan.idStatus == '2'}" class="alert alert-light">
-                                                            Selesai
-                                                            <a href="#" class="alert-link"></a>
-                                                        </div>
+                                                        <span th:if="${pekerjaan.idStatus == '0'}"  class="btn link m-b-10 m-l-5" style="color:#9e1317" >Pekerjaan Belum Diverifikasi</span>
+                                                        <span th:if="${pekerjaan.idStatus == '1'}" class="btn link m-b-10 m-l-5" style="color:#0d71bb" >Pekerjaan Sedang berjalan</span>
+                                                        <span th:if="${pekerjaan.idStatus == '2'}" class="btn link m-b-10 m-l-5" style="color:#1A531B" >Pekerjaan Selesai</span>
                                                     </td>
                                                     <td><a th:href="${'/pekerjaan/detail/'+pekerjaan.id}"><button type="button" class="btn btn-info m-b-10 m-l-5">Lihat</button></a></td>
-                                                </tr>-->
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>

@@ -21,7 +21,16 @@ public class ControllerPekerjaan extends BaseController {
     /*Iterasi Luar 1*/
 
     @RequestMapping("/pekerjaan")
-    public String index(Model model) {
+    public String index(Model model, Principal principal) {
+        int idPengguna = idLogged(principal);
+        model.addAttribute("idPengguna", idPengguna);
+        String peran = role(principal);
+        if(peran.equalsIgnoreCase("sekertaris")|| peran.equalsIgnoreCase("ketua")){
+            model.addAttribute("isCan", 1);
+        } else {
+            model.addAttribute("isCan", 0);
+        }
+        model.addAttribute("pekerjaans", servicePekerjaan.findAll());
         return "pekerjaan/daftar_pekerjaan";
     }
 

@@ -6,10 +6,10 @@ var mappingDetailPekerjaan = server+"/pekerjaan/detail/";
 var getPekerjaanAll = rest+"/pekerjaan/all";
 console.log("setup set! at "+rest);
 
-$.get(getPekerjaanAll, function(respond){
-    /*<span th:if="${statusPekerjaan} == 0" class="btn link m-b-10 m-l-5" style="color:#9e1317" >Pekerjaan Belum Diverifikasi Ketua Takmir</span>
+/*$.get(getPekerjaanAll, function(respond){
+    /!*<span th:if="${statusPekerjaan} == 0" class="btn link m-b-10 m-l-5" style="color:#9e1317" >Pekerjaan Belum Diverifikasi Ketua Takmir</span>
                             <span th:if="${statusPekerjaan} == 1" class="btn link m-b-10 m-l-5" style="color:#0d71bb" >Pekerjaan Sedang berjalan</span>
-                            <span th:if="${statusPekerjaan} == 2" class="btn link m-b-10 m-l-5" style="color:#1A531B" >Pekerjaan Selesai</span>*/
+                            <span th:if="${statusPekerjaan} == 2" class="btn link m-b-10 m-l-5" style="color:#1A531B" >Pekerjaan Selesai</span>*!/
     console.log("respond : "+respond[0]);
     $("#list-pekerjaan").empty();
     var status0 = '<span class="btn link m-b-10 m-l-5" style="color:#9e1317" >Pekerjaan Belum Diverifikasi</span>';
@@ -34,7 +34,7 @@ $.get(getPekerjaanAll, function(respond){
         // var setHtml = '<tr><td>a</td><td>b</td><td>c</td><td>d</td></tr>';
         $("#list-pekerjaan").append(setHtml);
     }
-});
+});*/
 
 function hello() {
 

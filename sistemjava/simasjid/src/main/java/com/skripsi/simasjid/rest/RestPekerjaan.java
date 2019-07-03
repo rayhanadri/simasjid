@@ -45,7 +45,11 @@ public class RestPekerjaan {
     @RequestMapping(value = "/simpanprogres", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public String simpanProgres(@RequestBody List<ModelDetailProgres> detailProgres) {
         for (ModelDetailProgres mdp : detailProgres) {
-            mdp.setCreated(serviceDetailProgres.getOne(mdp.getId()).getCreated());
+            try{
+                mdp.setCreated(serviceDetailProgres.getOne(mdp.getId()).getCreated());
+            } catch (Exception e){
+                System.out.println("Laporan baru");
+            }
             serviceDetailProgres.save(mdp);
         }
         return "succeed";
@@ -73,11 +77,6 @@ public class RestPekerjaan {
             return "Gagal";
         }
     }
-
-//    @GetMapping("/find/{id}")
-//    public ModelPekerjaan getId(@PathVariable("id") final Integer id) {
-//        return servicePekerjaan.findById(id);
-//    }
 
     //setiap notulensi ke hapus, ternyata detailnya juga ikut kehapus. jadi yang bawah gaperlu diakses
     @GetMapping("/hapusDetailNotulensi/{id}")

@@ -54,7 +54,7 @@ public class RestNotulensi {
     }
 
     @GetMapping("/hapus/{id}")
-    public String getId(@PathVariable("id") final Integer id) {
+    public String hapusId(@PathVariable("id") final Integer id) {
         try {
             serviceNotulensi.deleteById(id);
             return "Berhasil";
