@@ -21,7 +21,7 @@
                             <form th:action="@{/login-user}" method="post">
                                 <div class="form-group">
                                     <label>Username</label>
-                                    <input onkeyup="cekUsernameActive()" type="text" class="form-control" placeholder="Username" id="username" name="username" autofocus required>
+                                    <input onkeyup="cekUsernameActive()" type="text" class="form-control" placeholder="Username" id="username" name="username" autofocus required autocomplete="off">
                                     <div id="peringatan" class="alert alert-danger hidden">
                                         Username tidak dapat digunakan
                                     </div>

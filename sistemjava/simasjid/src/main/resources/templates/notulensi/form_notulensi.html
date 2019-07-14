@@ -35,33 +35,42 @@
                                 <label class="control-label col-md-9 col-sm-9 col-xs-12">Nama Musyawarah<span class="required">*</span>
                                 </label>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <input type="text" id="namaMusyawarah" class="form-control col-md-12 col-sm-12 col-xs-12" placeholder="Nama Musyawarah">
+                                    <input type="text" id="namaMusyawarah" onkeyup="inputNamaMusyawarah()" class="form-control col-md-12 col-sm-12 col-xs-12" placeholder="Nama Musyawarah" autocomplete="off" required>
+                                    <div id="peringatan" class="alert alert-danger hidden">
+                                        Nama musyawarah tidak boleh kosong
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-9 col-sm-9 col-xs-12">Notulen <span class="required">*</span>
                                 </label>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <select name="namaNotulen" id="namaNotulen" class="form-control" th:field="${idPengguna}">
+                                    <select name="namaNotulen" id="namaNotulen" class="form-control" th:field="${idPengguna}" required onchange="inputNotulen()">
                                         <option value="">Pilih Notulen</option>
                                         <option th:each="anggota : ${anggotas}" th:value="${anggota.id}" th:text="${anggota.nama}">Pilih Notulen</option>
                                     </select>
+                                    <div id="peringatan2" class="alert alert-danger hidden">
+                                        Mohon pilih Notulen
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-9 col-sm-9 col-xs-12" >Amir <span class="required">*</span>
                                 </label>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <select name="namaAmir" id="namaAmir" class="form-control">
+                                    <select name="namaAmir" id="namaAmir" class="form-control" required onchange="inputAmir()">
                                         <option value="">Pilih Amir Musyawarah</option>
                                         <option th:each="anggota : ${anggotas}" th:value="${anggota.id}" th:text="${anggota.nama}">Pilih Amir Musyawarah</option>
                                     </select>
+                                    <div id="peringatan3" class="alert alert-danger hidden">
+                                        Mohon pilih Amir Musyawarah
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-9 col-sm-9 col-xs-12">Peserta musyawarah</label>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <select name="namaHadirin" id="namaHadirin" class="select2_multiple form-control" multiple="multiple">
+                                    <select name="namaHadirin" id="namaHadirin" class="select2_multiple form-control" multiple="multiple" required>
                                         <option value="">Pilih Anggota Hadir Musyawarah</option>
                                         <option th:each="anggota : ${anggotas}" th:value="${anggota.id}" th:text="${anggota.nama}">Pilih Hadir Musyawarah</option>
                                     </select>

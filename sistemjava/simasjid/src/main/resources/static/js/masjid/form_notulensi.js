@@ -228,6 +228,16 @@ function hapusProgres(idPekerjaan) {
     contentKeputusan[idPekerjaan].value = "";
 }
 
+function inputNamaMusyawarah() {
+    $("#peringatan").addClass("hidden");
+}
+function inputNotulen() {
+    $("#peringatan2").addClass("hidden");
+}
+function inputAmir() {
+    $("#peringatan3").addClass("hidden");
+}
+
 function simpanNotulensi() {
     //kirim notulennya, ambil id notulen
     var namaMusyawarah = document.getElementById("namaMusyawarah");
@@ -249,23 +259,35 @@ function simpanNotulensi() {
     notulensi.catatan = catatan.value;
     notulensi.idStatus = 0;
     notulensi.idHadirAnggota=idHadirin;
-
-    $.ajax({
-        type : "POST",
-        contentType : 'application/json; charset=utf-8',
-        url : setNotulensi,
-        data : JSON.stringify(notulensi),
-        success : function(result) {
-            console.log("simpan notulensi ajax : "+result);
-            simpanProgres(result);
-        },
-        error: function(e){
-            console.log("ERROR: ", e);
-        },
-        done : function(e) {
-            console.log("DONE");
+    if(namaMusyawarah.length == 0 || notulen.value == "" || amir.value == ""){
+        if(namaMusyawarah.length == 0 ){
+            $("#peringatan").removeClass("hidden");
         }
-    });
+        if(notulen.value == ""){
+            $("#peringatan2").removeClass("hidden");
+        }
+        if(amir.value == ""){
+            $("#peringatan3").removeClass("hidden");
+        }
+    } else{
+        $.ajax({
+            type : "POST",
+            contentType : 'application/json; charset=utf-8',
+            url : setNotulensi,
+            data : JSON.stringify(notulensi),
+            success : function(result) {
+                console.log("simpan notulensi ajax : "+result);
+                simpanProgres(result);
+            },
+            error: function(e){
+                console.log("ERROR: ", e);
+            },
+            done : function(e) {
+                console.log("DONE");
+            }
+        });
+    }
+
     //kirim detail progresnya, jangan lupa masukkin id notulen
 }
 
