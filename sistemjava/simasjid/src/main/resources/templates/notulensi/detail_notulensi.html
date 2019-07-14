@@ -94,7 +94,10 @@
                             <div >
                                 <input id="notulensiKomentar" class="form-control input-default" th:value="${notulensi.id}" hidden>
                                 <input id="anggotaKomentar" type="text" class="form-control input-default" th:value="${idPengguna}" hidden>
-                                <input id="keteranganKomentar" type="text" class="form-control input-default" placeholder="Komentar">
+                                <input id="keteranganKomentar" type="text" class="form-control input-default" placeholder="Komentar" onkeyup="inputKomentar()">
+                                <div id="peringatan" class="alert alert-danger hidden">
+                                    Komentar tidak boleh kosong
+                                </div>
                                 <button th:onclick="|setKomentar()|" class="btn btn-primary btn-block m-t-10">Simpan Komentar</button>
                             </div>
                         </div>

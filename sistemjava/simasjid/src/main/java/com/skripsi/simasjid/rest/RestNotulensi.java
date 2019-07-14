@@ -95,8 +95,8 @@ public class RestNotulensi {
                 System.out.println("duo tanggal ");
                 String[] tanggals = tanggal.split("-");
                 try {
-                    awal = new SimpleDateFormat("dd_MM_yyyy").parse(tanggals[0]);
-                    akhir = new SimpleDateFormat("dd_MM_yyyy").parse(tanggals[1]);
+                    awal = new SimpleDateFormat("MM_dd_yyyy").parse(tanggals[0]);
+                    akhir = new SimpleDateFormat("MM_dd_yyyy").parse(tanggals[1]);
                     issetDateAkhir = true;
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -104,7 +104,7 @@ public class RestNotulensi {
             } else {
                 System.out.println("single tanggal ");
                 try {
-                    awal = new SimpleDateFormat("dd_MM_yyyy").parse(tanggal);
+                    awal = new SimpleDateFormat("MM_dd_yyyy").parse(tanggal);
                     System.out.println("Tanggal : " + awal.toString());
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -126,13 +126,14 @@ public class RestNotulensi {
 
         for (ModelNotulensi nf : modelNotulensiList) {
             boolean addNotulen = false;
-
+            boolean keywordPass = false, datePass = false, jobPass = false;
             if (issetKeywords) {
 
                 String tempCatatan = nf.getCatatan().toLowerCase();
                 for (String key : keyword) {
                     if (tempCatatan.contains(key)) {
                         addNotulen = true;
+                        keywordPass = true;
                     }
                 }
 
@@ -166,6 +167,7 @@ public class RestNotulensi {
                     for (String key : keyword) {
                         if (keterangan.contains(key) || masukkan.contains(key) || keputusan.contains(key) || namaPekerjaan.contains(key)) {
                             addNotulen = true;
+                            keywordPass = true;
                             if (nf.getKeyword() == null) {
                                 nf.setKeyword(key);
                             } else {
@@ -176,6 +178,46 @@ public class RestNotulensi {
                         }
                     }
                 }
+            } else{
+                keywordPass = true;
+            }
+
+            if (issetDate) {
+                Calendar calCreated = Calendar.getInstance();
+                Calendar calAwal = Calendar.getInstance();
+                Calendar calAkhir = Calendar.getInstance();
+                if (issetDateAkhir) {
+                    calCreated.setTime(nf.getCreated());
+                    calAwal.setTime(awal);
+                    calAkhir.setTime(akhir);
+                    boolean sameDayAwal =
+                            calCreated.get(Calendar.DAY_OF_YEAR) == calAwal.get(Calendar.DAY_OF_YEAR) &&
+                            calCreated.get(Calendar.YEAR) == calAwal.get(Calendar.YEAR);
+                    boolean sameDayAkhir =
+                            calCreated.get(Calendar.DAY_OF_YEAR) == calAkhir.get(Calendar.DAY_OF_YEAR) &&
+                            calCreated.get(Calendar.YEAR) == calAkhir.get(Calendar.YEAR);
+                    if (nf.getCreated().before(awal) || nf.getCreated().after(akhir)) {
+                        if (sameDayAwal || sameDayAkhir) {
+                            addNotulen = true;
+                            datePass = true;
+                        }
+                    } else {
+                        addNotulen = true;
+                        datePass = true;
+                    }
+                } else {
+                    calCreated.setTime(nf.getCreated());
+                    calAwal.setTime(awal);
+                    boolean sameDay = calCreated.get(Calendar.DAY_OF_YEAR) == calAwal.get(Calendar.DAY_OF_YEAR) &&
+                            calCreated.get(Calendar.YEAR) == calAwal.get(Calendar.YEAR);
+                    if (sameDay) {
+                        addNotulen = true;
+                        datePass = true;
+                    }
+                }
+
+            } else {
+                datePass = true;
             }
 
             if (issetPekerjaan) {
@@ -186,45 +228,15 @@ public class RestNotulensi {
                     System.out.println("Cek id pekerjaan notulen : "+mdp.getPekerjaan().toString());*/
                     if (mdp.getPekerjaan().toString().equalsIgnoreCase(pekerjaan)) {
                         addNotulen = true;
+                        jobPass = true;
                     }
                 }
+            } else {
+                jobPass = true;
             }
 
-            if (issetDate) {
-                Calendar calCreated = Calendar.getInstance();
-                Calendar calAwal = Calendar.getInstance();
-                Calendar calAkhir = Calendar.getInstance();
-                if (issetDateAkhir) {
-                    calCreated.setTime(nf.getCreated());
-                    calAwal.setTime(nf.getCreated());
-                    calAkhir.setTime(nf.getCreated());
-                    boolean sameDayAwal = calCreated.get(Calendar.DAY_OF_YEAR) == calAwal.get(Calendar.DAY_OF_YEAR) &&
-                            calCreated.get(Calendar.YEAR) == calAwal.get(Calendar.YEAR);
-                    boolean sameDayAkhir = calCreated.get(Calendar.DAY_OF_YEAR) == calAkhir.get(Calendar.DAY_OF_YEAR) &&
-                            calCreated.get(Calendar.YEAR) == calAkhir.get(Calendar.YEAR);
-                    if (nf.getCreated().before(awal) || nf.getCreated().after(akhir)) {
-                        if (sameDayAwal || sameDayAkhir) {
-                            addNotulen = true;
-                        } else {
-                            addNotulen = false;
-                        }
-                    } else {
-                        addNotulen = true;
-                    }
-                } else {
-                    calCreated.setTime(nf.getCreated());
-                    calAwal.setTime(awal);
-                    boolean sameDay = calCreated.get(Calendar.DAY_OF_YEAR) == calAwal.get(Calendar.DAY_OF_YEAR) &&
-                            calCreated.get(Calendar.YEAR) == calAwal.get(Calendar.YEAR);
-                    if (sameDay) {
-                        addNotulen = true;
-                    } else {
-                        addNotulen = false;
-                    }
-                }
-
-            }
-            if (addNotulen) {
+//            if (addNotulen) {
+            if (keywordPass && datePass && jobPass) {
                 nf.setConvertedDateCari(nf.getCreated());
                 notulensiFilter.add(nf);
                 System.out.println("Add : " + nf.getNamaMusyawarah());

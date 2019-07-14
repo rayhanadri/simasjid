@@ -4,32 +4,41 @@ var rest = server+"/rest";
 var setKomentarBaru = rest+"/notulensi/simpanKomentar";
 var mappingDetailNotulensi = server+"/notulensi/detail/";
 
+function inputKomentar() {
+    $("#peringatan").addClass("hidden");
+}
+
 function setKomentar() {
     var idNotulensi = document.getElementById("notulensiKomentar").value;
     var idAnggota = document.getElementById("anggotaKomentar").value;
     var keterangan = document.getElementById("keteranganKomentar").value;
 
-    var komentar = new Object();
-    komentar.notulensi = idNotulensi;
-    komentar.anggota = idAnggota;
-    komentar.keterangan = keterangan;
+    if (keterangan.length == 0){
+        $("#peringatan").removeClass("hidden");
+    } else{
+        var komentar = new Object();
+        komentar.notulensi = idNotulensi;
+        komentar.anggota = idAnggota;
+        komentar.keterangan = keterangan;
 
-    $.ajax({
-        type : "POST",
-        contentType : 'application/json; charset=utf-8',
-        url : setKomentarBaru,
-        data : JSON.stringify(komentar),
-        success : function(result) {
-            console.log("simpan notulensi ajax : "+result);
-            window.location.href=mappingDetailNotulensi+idNotulensi;
-        },
-        error: function(e){
-            console.log("ERROR: ", e);
-        },
-        done : function(e) {
-            console.log("DONE");
-        }
-    });
+        $.ajax({
+            type : "POST",
+            contentType : 'application/json; charset=utf-8',
+            url : setKomentarBaru,
+            data : JSON.stringify(komentar),
+            success : function(result) {
+                console.log("simpan notulensi ajax : "+result);
+                window.location.href=mappingDetailNotulensi+idNotulensi;
+            },
+            error: function(e){
+                console.log("ERROR: ", e);
+            },
+            done : function(e) {
+                console.log("DONE");
+            }
+        });
+    }
+
     //kirim detail progresnya, jangan lupa masukkin id notulen
 }
 
@@ -40,6 +49,7 @@ function setMsg(){
     var amir = document.getElementById("namaAmir").value;
     var tanggal = document.getElementById("tanggalNotulensi").innerHTML;
 
+    var listAbjad = ["a","b","c","d","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
 
     var index, len, msg = '';
     var contentHadirin = document.getElementsByClassName("namaHadirin");
@@ -60,15 +70,21 @@ function setMsg(){
     var contentCatatan = document.getElementsByClassName("catatanCopy");
     msg += '<br><br>*laporan*';
     for (index = 0, len = contentProgress.length; index < len; ++index) {
-        msg += '<br>- '+contentProgress[index].innerHTML;
+        if(contentProgress[index].innerHTML != ""){
+            msg += '<br>'+listAbjad[index]+'.'+contentProgress[index].innerHTML;
+        }
     }
     msg += '<br><br>*usulan*';
     for (index = 0, len = contentProgress.length; index < len; ++index) {
-        msg += '<br>- '+contentMasukkan[index].innerHTML;
+        if (contentMasukkan[index].innerHTML != ""){
+            msg += '<br>'+listAbjad[index]+'.'+contentMasukkan[index].innerHTML;
+        }
     }
     msg += '<br><br>*pembahasan*';
     for (index = 0, len = contentProgress.length; index < len; ++index) {
-        msg += '<br>- '+contentKeputusan[index].innerHTML;
+        if (contentKeputusan[index].innerHTML != ""){
+            msg += '<br>'+listAbjad[index]+'.'+contentKeputusan[index].innerHTML;
+        }
     }
 
     msg+='<br><br>catatan tambahan : '+contentCatatan[0].innerHTML;

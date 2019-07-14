@@ -62,12 +62,18 @@
                                             <div id="peringatan" class="alert alert-danger hidden">
                                                 Username tidak dapat digunakan
                                             </div>
+                                            <div id="peringatan2" class="alert alert-danger hidden">
+                                                Harap masukan 6 karakter username
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group"  th:classappend="${formbaru == 1} ? null : hidden">
                                         <label class="col-sm-12 control-label">Password</label>
                                         <div class="col-sm-10">
-                                            <input type="password" name="password" class="form-control" placeholder="Password" th:value="*{password}" required>
+                                            <input type="password" onkeyup="cekPassword()" id="password" name="password" class="form-control" placeholder="Password" th:value="*{password}" required>
+                                            <div id="peringatan3" class="alert alert-danger hidden">
+                                                Harap masukan 6 karakter password
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">

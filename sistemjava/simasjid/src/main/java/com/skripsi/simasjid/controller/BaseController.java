@@ -48,6 +48,9 @@ public class BaseController {
             case 2: {
                 return "sekertaris";
             }
+            case 3:{
+                return "ketua rumah tangga";
+            }
             default: {
                 return "anggota";
             }

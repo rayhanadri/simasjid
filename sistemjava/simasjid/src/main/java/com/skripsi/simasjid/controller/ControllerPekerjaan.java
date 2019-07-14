@@ -25,7 +25,8 @@ public class ControllerPekerjaan extends BaseController {
         int idPengguna = idLogged(principal);
         model.addAttribute("idPengguna", idPengguna);
         String peran = role(principal);
-        if(peran.equalsIgnoreCase("sekertaris")|| peran.equalsIgnoreCase("ketua")){
+        if(peran.equalsIgnoreCase("sekertaris")|| peran.equalsIgnoreCase("ketua")
+        || peran.equalsIgnoreCase("ketua rumah tangga")){
             model.addAttribute("isCan", 1);
         } else {
             model.addAttribute("isCan", 0);
