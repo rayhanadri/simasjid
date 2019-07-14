@@ -21,9 +21,13 @@ public class ControllerNotulensi extends BaseController {
     public String index(Model model) {
         List<ModelNotulensi> data = serviceNotulensi.findAll();
         for (ModelNotulensi mn : data) {
-            ModelAnggota ma = serviceAnggota.getOne(mn.getIdAmir());
-            mn.setNamaAmirMusyawarah(ma.getNama());
-            mn.setConvertedDate(mn.getCreated());
+            try{
+                ModelAnggota ma = serviceAnggota.getOne(mn.getIdAmir());
+                mn.setNamaAmirMusyawarah(ma.getNama());
+                mn.setConvertedDate(mn.getCreated());
+            } catch (Exception e){
+                System.out.println("ERROR "+e);
+            }
         }
 
         model.addAttribute("notulensis", data);

@@ -70,7 +70,7 @@
                                             <td th:text="${anggota.nama}"> nama </td>
                                             <td>
                                                 <a th:href="${'/anggota/update/'+anggota.id}"><button type="button" class="btn btn-warning m-b-10 m-l-5">Edit</button></a>
-                                                <a th:href="${'/anggota/hapus/'+anggota.id}" class="btn btn-danger m-b-10 m-l-5">Hapus</a>
+                                                <a th:classappend="${anggota.idJabatan == 1} ? hidden : null" th:href="${'/anggota/hapus/'+anggota.id}" class="btn btn-danger m-b-10 m-l-5">Hapus</a>
                                             </td>
                                         </tr>
                                     </tbody>

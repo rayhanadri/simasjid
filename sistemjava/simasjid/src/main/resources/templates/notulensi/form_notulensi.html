@@ -97,8 +97,8 @@
                                 <div class="tab-pane" id="profile2" role="tabpanel">
                                     <div class="p-20">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <input type="text" id="namaProgress" class="form-control col-md-12 col-sm-12 col-xs-12" placeholder="Laporan baru..">
-                                            <input type="text" id="deskripsiProgress" class="form-control col-md-12 col-sm-12 col-xs-12" placeholder="Deskripsi..">
+                                            <input type="text" id="namaProgress" class="form-control col-md-12 col-sm-12 col-xs-12" placeholder="Laporan baru.." autocomplete="off">
+                                            <input type="text" id="deskripsiProgress" class="form-control col-md-12 col-sm-12 col-xs-12" placeholder="Deskripsi.." autocomplete="off">
                                             <select name="namaPenanggungJawab" id="namaPenanggungJawab" class="form-control">
                                                 <option value="">Pilih Penanggung Jawab</option>
                                                 <option th:each="anggota : ${anggotas}" th:value="${anggota.id}" th:text="${anggota.nama}">Pilih Penanggung Jawab</option>
