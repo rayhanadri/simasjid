@@ -52,58 +52,70 @@ function cari() {
     var replacedSpace = tanggal.split(' ').join('');
     var replacedfinal = replacedSpace.split('/').join('_');
 
+    var tanggalKosong = false;
+    var pekerjaanKosong = false;
+    var keywordKosong = false;
+
     if(tanggal.length > 0){
         tanggal = replacedfinal;
     } else {
         tanggal = "-";
+        tanggalKosong = true;
     }
 
     if (pekerjaan == ""){
-       pekerjaan = "-"
+       pekerjaan = "-";
+       pekerjaanKosong = true;
     }
 
     if (keyword.length == 0){
         keyword = "-"
+        keywordKosong = true;
     }
 
     data = tanggal+"/"+pekerjaan+"/"+keyword;
     console.log("link : "+getNotulensi+data);
-    $.ajax({
-        type : "GET",
-        contentType : 'application/json; charset=utf-8',
-        url : getNotulensi+data,
-        success : function(result) {
-            console.log("result : "+result);
-            $("#list-notulensi").empty();
-            if(result.length == 0){
-                var setHtml = '<tr>\n' +
-                    '<td colspan="4">Data tidak tersedia</td>\n' +
-                    '</tr>'
-                $("#list-notulensi").append(setHtml);
-            }
-            for (var i = 0; i < result.length; i++) {
-                var idNotulensi = result[i]['id'];
-                var keyword = result[i]['keyword'];
-                if (keyword == null){
-                    keyword = "-";
+    if (tanggalKosong && pekerjaanKosong && keywordKosong){
+        console.log("parameter kosong");
+    } else{
+        $.ajax({
+            type : "GET",
+            contentType : 'application/json; charset=utf-8',
+            url : getNotulensi+data,
+            success : function(result) {
+                console.log("result : "+result);
+                $("#list-notulensi").empty();
+                if(result.length == 0){
+                    var setHtml = '<tr>\n' +
+                        '<td colspan="4">Data tidak tersedia</td>\n' +
+                        '</tr>'
+                    $("#list-notulensi").append(setHtml);
                 }
-                var setHtml = '<tr>\n' +
-                    '<td>'+result[i]['convertedDate']+'</td>\n' +
-                    '<td>'+result[i]['namaMusyawarah']+'</td>\n' +
-                    '<td>'+keyword+'</td>\n' +
-                    '<td>\n'+
-                    '<a href="'+mappingDetailNotulensi+idNotulensi+'" class="btn btn-info btn-block">Lihat</a>\n' +
-                    '</td>\n' +
-                    '</tr>'
-                $("#list-notulensi").append(setHtml);
+                for (var i = 0; i < result.length; i++) {
+                    var idNotulensi = result[i]['id'];
+                    var keyword = result[i]['keyword'];
+                    if (keyword == null){
+                        keyword = "-";
+                    }
+                    var setHtml = '<tr>\n' +
+                        '<td>'+result[i]['convertedDate']+'</td>\n' +
+                        '<td>'+result[i]['namaMusyawarah']+'</td>\n' +
+                        '<td>'+keyword+'</td>\n' +
+                        '<td>\n'+
+                        '<a href="'+mappingDetailNotulensi+idNotulensi+'" class="btn btn-info btn-block">Lihat</a>\n' +
+                        '</td>\n' +
+                        '</tr>'
+                    $("#list-notulensi").append(setHtml);
+                }
+            },
+            error: function(e){
+                console.log("ERROR: ", e);
+            },
+            done : function(e) {
+                console.log("DONE");
             }
-        },
-        error: function(e){
-            console.log("ERROR: ", e);
-        },
-        done : function(e) {
-            console.log("DONE");
-        }
-    });
+        });
+    }
+
 
 }

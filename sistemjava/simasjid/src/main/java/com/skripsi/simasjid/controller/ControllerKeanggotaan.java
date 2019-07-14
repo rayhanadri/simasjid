@@ -1,6 +1,7 @@
 package com.skripsi.simasjid.controller;
 
 import com.skripsi.simasjid.model.ModelAnggota;
+import com.skripsi.simasjid.model.ModelPekerjaan;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -40,7 +42,16 @@ public class ControllerKeanggotaan extends BaseController{
 
     @RequestMapping(value = "/anggota/resetpassword", method = RequestMethod.POST)
     public String resetPassword(Model model, ModelAnggota anggota) {
+
+        List<ModelPekerjaan> tempListPekerjaan = servicePekerjaan.findAll();
+        List<ModelPekerjaan> tempListPekerjaanAnggota = new ArrayList<>();
+        for (ModelPekerjaan mp: tempListPekerjaan) {
+            if (mp.getAnggota() == anggota.getId()){
+                tempListPekerjaanAnggota.add(mp);
+            }
+        }
         anggota.setAktif(1);
+        anggota.setPekerjaans(tempListPekerjaanAnggota);
         String password = anggota.getPassword();
         String encodedPassword = new BCryptPasswordEncoder().encode(password);
         anggota.setPassword(encodedPassword);
