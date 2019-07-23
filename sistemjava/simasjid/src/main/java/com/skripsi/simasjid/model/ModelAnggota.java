@@ -1,17 +1,23 @@
 package com.skripsi.simasjid.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name="anggota")
+@Table(name = "anggota")
 public class ModelAnggota {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_anggota")
     private Integer id;
 
     @Column(name = "id_jabatan")
     private Integer idJabatan;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_anggota", referencedColumnName = "id_anggota")
+    private List<ModelPekerjaan> pekerjaans;
 
     private String nama;
 
@@ -36,6 +42,14 @@ public class ModelAnggota {
 
     public void setIdJabatan(Integer idJabatan) {
         this.idJabatan = idJabatan;
+    }
+
+    public List<ModelPekerjaan> getPekerjaans() {
+        return pekerjaans;
+    }
+
+    public void setPekerjaans(List<ModelPekerjaan> pekerjaans) {
+        this.pekerjaans = pekerjaans;
     }
 
     public String getNama() {

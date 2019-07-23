@@ -12,11 +12,6 @@ public class ControllerLogin {
         return "login";
     }
 
-    @RequestMapping(value = "/cekUser", method = RequestMethod.POST)
-    public String cekUser(){
-        return "redirect:/";
-    }
-
     @RequestMapping("/logout")
     public String logout(){
         return "redirect:/login";

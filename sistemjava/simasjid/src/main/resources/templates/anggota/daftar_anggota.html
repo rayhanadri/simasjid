@@ -48,18 +48,29 @@
                                 <table id="myTable" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>id jabatan</th>
+                                            <th hidden>id jabatan</th>
+                                            <th>Jabatan</th>
                                             <th>Nama</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr th:each="anggota : ${anggotas}">
-                                            <td th:text="${anggota.idJabatan}"> id jabatan</td>
+                                            <td hidden>
+                                                <span>[[${anggota.idJabatan}]]</span>
+                                            </td>
+                                            <td >
+                                                <span th:if="${anggota.idJabatan == 0}">Belum ada jabatan</span>
+                                                <span th:if="${anggota.idJabatan == 1}">Ketua Takmir</span>
+                                                <span th:if="${anggota.idJabatan == 2}">Sekertaris Takmir</span>
+                                                <span th:if="${anggota.idJabatan == 3}">Kepala Rumah Tangga Takmir</span>
+                                                <span th:if="${anggota.idJabatan == 4}">Anggota Takmir</span>
+                                                <span th:if="${anggota.idJabatan == 5}">Anggota Remaja Masjid</span>
+                                            </td>
                                             <td th:text="${anggota.nama}"> nama </td>
                                             <td>
                                                 <a th:href="${'/anggota/update/'+anggota.id}"><button type="button" class="btn btn-warning m-b-10 m-l-5">Edit</button></a>
-                                                <a th:href="${'/anggota/hapus/'+anggota.id}"><button onclick="return confirm('Konfirmasi untuk hapus?')" type="button" class="btn btn-danger m-b-10 m-l-5">Hapus</button></a>
+                                                <a th:classappend="${anggota.idJabatan == 1} ? hidden : null" th:href="${'/anggota/hapus/'+anggota.id}" class="btn btn-danger m-b-10 m-l-5">Hapus</a>
                                             </td>
                                         </tr>
                                     </tbody>

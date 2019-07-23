@@ -3,7 +3,7 @@
       xmlns:layout="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-
+    <script th:src="@{/js/masjid/login.js}"></script>
 </head>
 <body>
 <!-- KONTENT START -->
@@ -15,14 +15,20 @@
                     <div class="login-content card">
                         <div class="login-form">
                             <h4>Login</h4>
-                            <form th:action="@{/cekUser}" method="post">
+                            <div th:if="${param.error}" class="alert alert-danger">
+                                Invalid username and password.
+                            </div>
+                            <form th:action="@{/login-user}" method="post">
                                 <div class="form-group">
                                     <label>Username</label>
-                                    <input type="text" class="form-control" placeholder="Username" name="username" autofocus required>
+                                    <input onkeyup="cekUsernameActive()" type="text" class="form-control" placeholder="Username" id="username" name="username" autofocus required autocomplete="off">
+                                    <div id="peringatan" class="alert alert-danger hidden">
+                                        Username tidak dapat digunakan
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Password</label>
-                                    <input type="password" class="form-control" placeholder="Password" name="password" required>
+                                    <input type="password" class="form-control" placeholder="Password" id="password" name="password" required>
                                 </div>
                                 <!-- <div class="checkbox">
                                     <label>
@@ -33,7 +39,7 @@
                                         </label>
 
                                 </div> -->
-                                <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Sign in</button>
+                                <button id="tombol-kirim" type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Sign in</button>
                                 <!-- <div class="register-link m-t-15 text-center">
                                     <p>Don't have account ? <a href="#"> Sign Up Here</a></p>
                                 </div> -->

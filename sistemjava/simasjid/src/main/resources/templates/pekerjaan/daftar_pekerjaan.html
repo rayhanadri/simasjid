@@ -3,7 +3,7 @@
       xmlns:layout="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-
+    <script th:src="@{/js/masjid/daftar_pekerjaan.js}"></script>
 </head>
 <body>
 
@@ -24,11 +24,11 @@
                 <div class="container-fluid">
                     <div class="row">
                         <!-- /# column -->
-                        <div class="col-lg-8">
+                        <div class="col-lg-9">
                             <div class="card">
                                 <div class="card-title">
                                     <h4>Daftar Pekerjaan</h4>
-                                    <a th:href="${'/pekerjaan/cari'}"><button style="float:right" type="button" class="btn btn-primary m-b-10 m-l-5">Filter Notulensi</button></a>
+                                    <a th:href="${'/pekerjaan/form'}"><button style="float:right" type="button" class="btn btn-success m-b-10 m-l-5">Tambah Pekerjaan</button></a>
                                 </div>
 
                                 <div class="card-body">
@@ -36,32 +36,22 @@
                                         <table id="myTable" class="table table-bordered table-striped">
                                             <thead>
                                             <tr>
-                                                <th>idNotulen</th>
                                                 <th>Pekerjaan</th>
-                                                <th>Penanggung Jawab</th>
-                                                <th hidden>Progres terakhir</th>
-                                                <th>Verifikasi</th>
+                                                <th>Status</th>
                                                 <th>Aksi</th>
                                             </tr>
                                             </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>a</td>
-                                                <td>pj</td>
-                                                <td hidden>Melakukan perbaikan tv </td>
-                                                <td>
-                                                    <div class="alert alert-danger">
-                                                        Belum Verifikasi Ketua Takmir  <br><a href="#" class="alert-link"><i class="fa fa-check-square-o"></i>Verifikasi Sekarang</a>
-                                                    </div>
-                                                    <div class="alert alert-info">
-                                                        Sudah diverifikasi
-                                                        <a href="#" class="alert-link"></a>
-                                                    </div>
-
-                                                </td>
-                                                <td><a th:href="${'/pekerjaan/detail'}"><button type="button" class="btn btn-info m-b-10 m-l-5">Lihat</button></a></td>
-                                            </tr>
+                                            <tbody id="list-pekerjaan">
+                                                <tr th:each="pekerjaan : ${pekerjaans}" th:if="${pekerjaan.anggota} == ${idPengguna} or ${isCan} == '1'" >
+                                                    <td th:text="${pekerjaan.namaPekerjaan}">Nama Pekerjaan</td>
+                                                    <!--<td th:text="${pekerjaan.deskripsi}">Deskripsi Progres</td>-->
+                                                    <td>
+                                                        <span th:if="${pekerjaan.idStatus == '0'}"  class="btn link m-b-10 m-l-5" style="color:#9e1317" >Pekerjaan Belum Diverifikasi</span>
+                                                        <span th:if="${pekerjaan.idStatus == '1'}" class="btn link m-b-10 m-l-5" style="color:#0d71bb" >Pekerjaan Sedang berjalan</span>
+                                                        <span th:if="${pekerjaan.idStatus == '2'}" class="btn link m-b-10 m-l-5" style="color:#1A531B" >Pekerjaan Selesai</span>
+                                                    </td>
+                                                    <td><a th:href="${'/pekerjaan/detail/'+pekerjaan.id}"><button type="button" class="btn btn-info m-b-10 m-l-5">Lihat</button></a></td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -70,52 +60,9 @@
                             </div>
                         </div>
                         <!-- /# column -->
-                        <!-- /# column -->
-                        <div class="col-lg-4">
-                            <!-- TAMBAH -->
-                            <div class="card">
-                                <div class="card-title">
-                                    <h4>Tambah Pekerjaan</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="horizontal-form">
-                                        <form method="post" action="" class="form-horizontal">
-                                            <div class="form-group">
-                                                <label class="col-sm-12 control-label">Nama Pekerjaan</label>
-                                                <div class="col-sm-10">
-                                                    <input type="text" name="namaProyek" class="form-control" placeholder="Nama Pekerjaan">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-12 control-label">Deskripsi singkat pekerjaan</label>
-                                                <div class="col-sm-10">
-                                                    <input type="text" name="deskripsiProyek" class="form-control" placeholder="Deskripsi singkat">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-12 control-label">Penanggung Jawab</label>
-                                                <div class="col-sm-10">
-                                                    <select class="form-control" name="idAnggota">
-                                                        <option>Pilih Penanggung Jawab</option>
-                                                        <option value="">1</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-sm-offset-2 col-sm-10">
-                                                    <button type="submit" class="btn btn-success m-b-10 m-l-5">Buat pekerjaan</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /# column -->
                     </div>
                 </div>
         <!-- END KONTENT -->
     </div>
-
 </body>
 </html>

@@ -18,13 +18,14 @@
     <link th:href="@{/css/style.css}" rel="stylesheet"/>
 
     <script src="https://rawgit.com/jackmoore/autosize/master/dist/autosize.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 </head>
 <body>
     <div class="fix-header fix-sidebar">
 
         <div class="preloader">
-            <svg class="circular" viewBox="25 25 50 50">
+            <!--<svg class="circular" viewBox="25 25 50 50">-->
                 <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
         </div>
 
@@ -110,7 +111,12 @@
                                 <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img th:src="@{/images/img.jpg}" alt="user" class="profile-pic" /></a>
                                 <div class="dropdown-menu dropdown-menu-right animated zoomIn">
                                     <ul class="dropdown-user">
-                                        <li><a th:href="${'/login'}"><i class="fa fa-power-off"></i> Logout</a></li>
+                                        <li>
+                                            <form th:action="@{/logout}" method="post">
+                                                <i class="fa fa-power-off"></i><input class="btn-link btn" type="submit" value="Logout">
+                                            </form>
+                                        </li>
+
                                     </ul>
                                 </div>
                             </li>
