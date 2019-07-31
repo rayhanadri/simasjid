@@ -27,7 +27,7 @@
         <div class="container-fluid">
             <div class="row">
                 <!-- /# column -->
-                <div class="col-lg-8">
+                <div class="col-md-12">
                     <div class="card">
                         <h5> Deskripsi Musyawarah </h5>
                         <div class="card-body">
@@ -79,61 +79,56 @@
                         </div>
                     </div>
                 </div>
-
-                <!--Tambah Laporan-->
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body p-b-0">
-                            <h4 class="card-title">Tambah Laporan</h4>
-                            <!-- Nav tabs -->
-                            <ul class="nav nav-tabs customtab" role="tablist">
-                                <li class="nav-item"> <a id="tabPekerjaan" class="nav-link active" data-toggle="tab" href="#home2" role="tab"><span class="hidden-sm-up"><i class="ti-pencil-alt2"></i></span> <span class="hidden-xs-down">Progres</span></a> </li>
-                                <li class="nav-item"> <a id="tabTambah" class="nav-link" data-toggle="tab" href="#profile2" role="tab"><span class="hidden-sm-up"><i class="ti-plus"></i></span> <span class="hidden-xs-down">Baru</span></a> </li>
-                            </ul>
-                            <!-- Tab panes -->
-                            <div class="tab-content">
-                                <div class="tab-pane active" id="home2" role="tabpanel">
-                                    <div class="p-20">
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <select id="optionProgress" class="form-control col-md-12 col-sm-12 col-xs-12">
-                                                <option value="">Pilih Laporan</option>
-                                            </select>
-                                            <br>
-                                            <a onclick="tambahProgres()" class="btn btn-primary">Buat</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane" id="profile2" role="tabpanel">
-                                    <div class="p-20">
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <input type="text" id="namaProgress" class="form-control col-md-12 col-sm-12 col-xs-12" placeholder="Laporan baru.." autocomplete="off">
-                                            <input type="text" id="deskripsiProgress" class="form-control col-md-12 col-sm-12 col-xs-12" placeholder="Deskripsi.." autocomplete="off">
-                                            <select name="namaPenanggungJawab" id="namaPenanggungJawab" class="form-control">
-                                                <option value="">Pilih Penanggung Jawab</option>
-                                                <option th:each="anggota : ${anggotas}" th:value="${anggota.id}" th:text="${anggota.nama}">Pilih Penanggung Jawab</option>
-                                            </select>
-                                            <br>
-                                            <a onclick="tambahPekerjaanBaru()" class="btn btn-primary">Tambah</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane p-20" id="messages2" role="tabpanel">3</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <!--Laporan-->
-                <div class="col-lg-4">
+                <div class="col-md-12">
                     <div class="card">
                         <div id="kolomProgres" class="card-body">
                             <label class="control-label col-md-12 col-sm-12 col-xs-12" >Detail Laporan<span class="required">*</span>
                             </label>
                         </div>
+                        <div class="card">
+                            <div class="card-body p-b-0">
+                                <h4 class="card-title">Tambah Laporan</h4>
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs customtab" role="tablist">
+                                    <li class="nav-item"> <a id="tabPekerjaan" class="nav-link active" data-toggle="tab" href="#home2" role="tab"><span class="hidden-sm-up"><i class="ti-pencil-alt2"></i></span> <span class="hidden-xs-down">Progres</span></a> </li>
+                                    <li class="nav-item"> <a id="tabTambah" class="nav-link" data-toggle="tab" href="#profile2" role="tab"><span class="hidden-sm-up"><i class="ti-plus"></i></span> <span class="hidden-xs-down">Baru</span></a> </li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="home2" role="tabpanel">
+                                        <div class="p-20">
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                <select id="optionProgress" class="form-control col-md-12 col-sm-12 col-xs-12">
+                                                    <option value="">Pilih Laporan</option>
+                                                </select>
+                                                <br>
+                                                <a onclick="tambahProgres()" class="btn btn-primary">Buat</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="profile2" role="tabpanel">
+                                        <div class="p-20">
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                <input type="text" id="namaProgress" class="form-control col-md-12 col-sm-12 col-xs-12" placeholder="Laporan baru.." autocomplete="off">
+                                                <input type="text" id="deskripsiProgress" class="form-control col-md-12 col-sm-12 col-xs-12" placeholder="Deskripsi.." autocomplete="off">
+                                                <select name="namaPenanggungJawab" id="namaPenanggungJawab" class="form-control">
+                                                    <option value="">Pilih Penanggung Jawab</option>
+                                                    <option th:each="anggota : ${anggotas}" th:value="${anggota.id}" th:text="${anggota.nama}">Pilih Penanggung Jawab</option>
+                                                </select>
+                                                <br>
+                                                <a onclick="tambahPekerjaanBaru()" class="btn btn-primary">Tambah</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane p-20" id="messages2" role="tabpanel">3</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!--Masukkan-->
-                <div class="col-lg-4">
+                <div class="col-md-12">
                     <div class="card">
                         <div id="kolomMasukkan" class="card-body">
                             <label class="control-label col-md-12 col-sm-12 col-xs-12">Tanggapan pekerjaan lain<span class="required">*</span>
@@ -142,7 +137,7 @@
                     </div>
                 </div>
                 <!--Keputusan-->
-                <div class="col-lg-4">
+                <div class="col-md-12">
                     <div class="card">
                         <div id="kolomKeputusan" class="card-body">
                             <label class="control-label col-md-12 col-sm-12 col-xs-12">Keputusan<span class="required">*</span>
@@ -151,7 +146,7 @@
                     </div>
                 </div>
                 <!--Catatan tambahan-->
-                <div class="col-lg-12">
+                <div class="col-md-12">
                     <div class="card">
                         <h5> Catatan Tambahan </h5>
                         <div class="card-body">
@@ -161,7 +156,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card col-lg-12">
+                <div class="card col-md-12">
                     <div id="hasil">
                     </div>
                     <button onclick="simpanNotulensi()" type="submit" class="btn btn-primary">Simpan</button>
