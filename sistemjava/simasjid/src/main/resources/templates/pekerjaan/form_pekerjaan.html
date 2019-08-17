@@ -35,20 +35,20 @@
                                 <form method="post" class="form-horizontal" th:action="@{/pekerjaan/simpan}">
                                     <input name="id" th:field="*{pekerjaan.id}" hidden />
                                     <div class="form-group">
-                                        <label class="col-sm-12 control-label">Nama Pekerjaan</label>
-                                        <div class="col-sm-12">
+                                        <label class="col-md-12 control-label">Nama Pekerjaan</label>
+                                        <div class="col-md-12">
                                             <input type="text" th:field="*{pekerjaan.namaPekerjaan}" name="namaPekerjaan" class="form-control" placeholder="Nama Pekerjaan" required autocomplete="off">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-12 control-label">Deskripsi singkat pekerjaan</label>
-                                        <div class="col-sm-12">
+                                        <label class="col-md-12 control-label">Deskripsi singkat pekerjaan</label>
+                                        <div class="col-md-12">
                                             <input type="text" th:field="*{pekerjaan.deskripsi}" name="deskripsi" class="form-control" placeholder="Deskripsi singkat" required autocomplete="off">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-12 control-label">Penanggung Jawab</label>
-                                        <div class="col-sm-12">
+                                        <label class="col-md-12 control-label">Penanggung Jawab</label>
+                                        <div class="col-md-12">
                                             <select class="form-control" name="anggota" th:field="*{pekerjaan.anggota}" required>
                                                 <option value="">Pilih Penanggung Jawab</option>
                                                 <option th:each="anggota : ${anggotas}" th:value="${anggota.id}" th:text="${anggota.nama}">Pilih Penanggung Jawab</option>
@@ -57,7 +57,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <div class="col-sm-offset-2 col-sm-12">
+                                        <div class="col-md-offset-2 col-md-12">
                                             <button type="submit" class="btn btn-success m-b-12 m-l-5">Simpan pekerjaan</button>
                                         </div>
                                     </div>
