@@ -26,7 +26,7 @@
   <script src="{{ asset('public/dist/cleave.js/dist/addons/cleave-phone.us.js') }}"></script>
   <script src="{{ asset('public/dist/jquery-pwstrength/jquery.pwstrength.min.js') }}"></script>
   <script src="{{ asset('public/dist/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
-  <script src="{{ asset('public/dist/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js') }}"></script>
+  <!-- <script src="{{ asset('public/dist/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js') }}"></script> -->
   <script src="{{ asset('public/dist/bootstrap-timepicker/js/bootstrap-timepicker.min.js') }}"></script>
   <script src="{{ asset('public/dist/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js') }}"></script>
   <script src="{{ asset('public/dist/select2/dist/js/select2.full.min.js') }}"></script>
