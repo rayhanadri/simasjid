@@ -1,0 +1,18 @@
+<?php
+echo 'ini Home' . '<br>';
+echo $token;
+echo '<br>';
+echo '<br>';
+echo 'detail pengguna';
+echo '<br>';
+//data anggota dari array result
+echo $idAnggota = $result['data_anggota']['idAnggota'];
+echo $idJabatanAnggota = $result['data_anggota']['idJabatanAnggota'];
+echo $namaAnggota = $result['data_anggota']['namaAnggota'];
+echo $username = $result['data_anggota']['username'];
+?>
+
+<form method="POST" enctype="multipart/form-data" action="{{ route('logout') }}">
+    @csrf
+    <input type="submit" value="Logout">
+</form>

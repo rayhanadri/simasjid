@@ -11,20 +11,27 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+// Route::get('/', function () {
+//     return view('index');
+// });
 
-Route::get('/auth', 'UserController@login')->name('login');
+// Route::get('/login', function () {
+//     return view('login');
+// });
+// Auth::routes();
 
-Auth::routes();
+Route::get('login', 'AuthController@login')->name('login');
+Route::post('login', 'AuthController@auth')->name('auth');
+Route::get('logout', 'AuthController@logout')->name('logout');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('homePage');
+
+
 
 // Mutasi action
-Route::group(['prefix' => '/mutasi', 'as' => 'mutasi.'], function(){
-    Route::put('/store', ['as' => 'store', 'uses' => 'MutasiController@Store_Mutasi']);
-    Route::get('/{mutasi}/edit', ['as' => 'edit', 'uses' => 'MutasiController@StockView_EditMutasi']);
-    Route::put('/{mutasi}/penerimaan', ['as' => 'diterima', 'uses' => 'MutasiController@Update_PenerimaanStock']);
-    Route::delete('/{mutasi}', ['as' => 'destroy', 'uses' => 'MutasiController@Destroy_Mutasi']);
-});
+// Route::group(['prefix' => '/mutasi', 'as' => 'mutasi.'], function(){
+//     Route::put('/store', ['as' => 'store', 'uses' => 'MutasiController@Store_Mutasi']);
+//     Route::get('/{mutasi}/edit', ['as' => 'edit', 'uses' => 'MutasiController@StockView_EditMutasi']);
+//     Route::put('/{mutasi}/penerimaan', ['as' => 'diterima', 'uses' => 'MutasiController@Update_PenerimaanStock']);
+//     Route::delete('/{mutasi}', ['as' => 'destroy', 'uses' => 'MutasiController@Destroy_Mutasi']);
+// });

@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="{{ asset('public/dist/select2/dist/css/select2.min.css') }}">
   <link rel="stylesheet" href="{{ asset('public/dist/selectric/public/selectric.css') }}">
   <link rel="stylesheet" href="{{ asset('public/dist/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('public/dist/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}">\
+  <link rel="stylesheet" href="{{ asset('public/dist/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}">
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="{{ asset('public/dist/summernote/dist/summernote-bs4.css') }}">
 

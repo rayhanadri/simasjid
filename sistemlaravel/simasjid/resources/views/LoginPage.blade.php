@@ -31,6 +31,7 @@
               </div>
               <div class="card-body">
                 <form method="POST" action="#" class="needs-validation" novalidate="">
+                  @csrf
                   <div class="form-group">
                     <!--<label for="username">Username</label>-->
                     <input id="username" type="text" class="form-control" name="username" tabindex="1" required autofocus placeholder="Username">
@@ -38,7 +39,6 @@
                       Please fill in your email
                     </div>
                   </div>
-
                   <div class="form-group">
                     <div class="d-block">
                     	<!--<label for="password" class="control-label">Password</label>-->

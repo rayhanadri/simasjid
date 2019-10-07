@@ -22,7 +22,7 @@
   <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 
-  <script src="{{ asset('public/dist/cleave.js/dist/cleave.min.js') }}"></script>
+  <!-- <script src="{{ asset('public/dist/cleave.js/dist/cleave.min.js') }}"></script> -->
   <script src="{{ asset('public/dist/cleave.js/dist/addons/cleave-phone.us.js') }}"></script>
   <script src="{{ asset('public/dist/jquery-pwstrength/jquery.pwstrength.min.js') }}"></script>
   <script src="{{ asset('public/dist/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
