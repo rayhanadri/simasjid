@@ -12,19 +12,19 @@
 */
 
 // Route::get('/', function () {
-//     return view('index');
+//     return view('welcome');
 // });
 
 // Route::get('/login', function () {
 //     return view('login');
 // });
-// Auth::routes();
+Auth::routes();
 
-Route::get('login', 'AuthController@login')->name('login');
-Route::post('login', 'AuthController@auth')->name('auth');
-Route::get('logout', 'AuthController@logout')->name('logout');
+// Route::get('login', 'AuthController@login')->name('login');
+// Route::post('login', 'AuthController@auth')->name('auth');
+// Route::get('logout', 'AuthController@logout')->name('logout');
 
-Route::get('/', 'HomeController@index')->name('homePage');
+// Route::get('/', 'HomeController@index')->name('homePage');
 
 
 
@@ -35,3 +35,7 @@ Route::get('/', 'HomeController@index')->name('homePage');
 //     Route::put('/{mutasi}/penerimaan', ['as' => 'diterima', 'uses' => 'MutasiController@Update_PenerimaanStock']);
 //     Route::delete('/{mutasi}', ['as' => 'destroy', 'uses' => 'MutasiController@Destroy_Mutasi']);
 // });
+
+Auth::routes();
+
+Route::get('/', 'HomeController@index')->name('home');
