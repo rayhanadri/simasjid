@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Anggota;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -28,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -59,18 +61,28 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\User
+     * @return \App\Anggota
      */
     protected function create(array $data)
     {
         return Anggota::create([
             'id_jabatan' => $data['id_jabatan'],
-            'username' => $data['username'], 
+            'username' => $data['username'],
             'password' => Hash::make($data['password']),
             'nama' => $data['nama'],
             'email' => $data['email'],
             'alamat' => $data['alamat'],
             'telp' => $data['telp'],
         ]);
+    }
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+        // $this->guard()->login($user);
+        return $this->registered($request, $user)
+            ?: redirect($this->redirectPath(''));
     }
 }
