@@ -14,6 +14,27 @@ class ProfileController extends Controller
         $this->middleware('auth');
     }
 
+    public function uploadFoto(Request $request)
+    {
+        $this->validate($request, [
+            'file' => 'required'
+        ]);
+
+        // menyimpan data file yang diupload ke variabel $file
+        $file = $request->file('file');
+
+        // isi dengan nama folder tempat kemana file diupload
+        $tujuan_upload = 'foto_profil';
+
+        $user = Auth::user();
+        $filebaru = $user->username . '.' . $file->getClientOriginalExtension();
+        $file->move($tujuan_upload, $filebaru);
+        $user->link_foto = $tujuan_upload.'/'.$filebaru;
+        $user->save();
+
+        return redirect('profile');
+    }
+
     public function index()
     {
         //buka index. Ambil data user terotentikasi, kemudian passing ke view home

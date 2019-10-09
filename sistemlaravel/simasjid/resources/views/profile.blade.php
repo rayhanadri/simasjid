@@ -45,10 +45,11 @@
         <div class="section-body" style="min-height: 300px">
           <img src="<?php echo $user->link_foto ?>" id="blah" class="img-thumbnail rounded mx-auto d-block" alt="..." style="width:200px; height:200px;overflow: hidden;"><br>
           <br>
-          <form>
+          <form action="{{ route('uploadFotoProfil') }}" method="POST" enctype="multipart/form-data">
+            @csrf
             <div class="form-group">
               <label>Ganti Foto</label>
-              <input type="file" id="fileChooser" accept="image/*" class="form-control" onchange="return ValidateFileUpload()">
+              <input type="file" name="file" id="fileChooser" accept="image/*" class="form-control" onchange="return ValidateFileUpload()">
               <button type="submit" class="btn btn-primary">Upload Foto</button>
             </div>
           </form>
