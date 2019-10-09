@@ -5,11 +5,12 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Notifications\PasswordReset;
 
 class Anggota extends Authenticatable
 {
     use Notifiable;
-    
+
     protected $table = 'anggota';
 
     protected $fillable = [
@@ -19,12 +20,10 @@ class Anggota extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-    // function hello(){
-    //     echo "helloooo";
-    // }
 
-    // function getDataAnggota(){
-    //     // echo "helloooo";
-    //     return $this->where('username', 'ketua')->where('password', 'password')->first();
-    // }
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new PasswordReset($token));
+    }
+
 }

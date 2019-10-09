@@ -24,4 +24,22 @@ class Transformer
                 break;
         }
     }
+
+    public static function status($aktif)
+    {
+        switch ($aktif) {
+            case 0:
+                return '<font color="red"><strong>Non-Aktif</strong></font>';
+                break;
+            case 1:
+                return '<font color="green"><strong>Aktif</strong></font>';
+                break;
+            case 2:
+                return '<font color="grey"><strong>Aktif</strong></font>';
+                break;
+            default:
+                return '<font color="FFC433"><strong>Aktif</strong></font>';
+                break;
+        }
+    }
 }

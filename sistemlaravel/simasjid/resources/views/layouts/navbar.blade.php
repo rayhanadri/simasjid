@@ -12,7 +12,7 @@
           <!-- <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle beep"><i class="far fa-envelope"></i></a></li>
           <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg beep"><i class="far fa-bell"></i></a></li> -->
           <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-              <img alt="image" src="<?php echo $user->link_foto?>" class="rounded-circle mr-1">
+              <img alt="image" src="<?php echo $user->link_foto ?>" class="rounded-circle mr-1">
               <div class="d-sm-none d-lg-inline-block"><?php echo Auth::user()->nama; ?></div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
@@ -67,8 +67,9 @@
             <li class="nav-item dropdown">
               <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-users"></i> <span>Keanggotaan</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="layout-default.html"><i class="fas fa-cog"></i>Pengaturan</a></li>
-                <li><a class="nav-link" href="layout-transparent.html"><i class="fas fa-address-book"></i>Daftar</a></a></li>
+                <li><a class="nav-link" href="layout-transparent.html"><i class="fas fa-address-book"></i>Terdaftar</a></a></li>
+                <li><a class="nav-link" href="layout-transparent.html"><i class="fas fa-check-square"></i>Verifikasi</a></a></li>
+                <li><a class="nav-link" href="layout-default.html"><i class="fas fa-user-edit"></i>Edit</a></li>
               </ul>
             </li>
             <li id='link-drop-aset' class="nav-item dropdown">
@@ -76,8 +77,7 @@
               <ul class="dropdown-menu">
                 <li id='link-master-aset'><a class="nav-link" href="#"><i class="fas fa-boxes"></i>Master Aset</a></li>
                 <li><a class="nav-link" href="#"><i class="fas fa-lightbulb"></i>Perencanaan</a></li>
-                <li><a class="nav-link" href="#"><i class="fas fa-cogs"></i>Perawatan</a></li>
-                <li><a class="nav-link" href="#"><i class="fas fa-trash"></i>Tidak Terpakai</a></li>
+                <li><a class="nav-link" href="#"><i class="fas fa-sync"></i>Update</a></li>
                 <li><a class="nav-link" href="#"><i class="fas fa-chart-pie"></i>Laporan</a></li>
               </ul>
             </li>
@@ -88,4 +88,3 @@
             </div>
         </aside>
       </div>
-      

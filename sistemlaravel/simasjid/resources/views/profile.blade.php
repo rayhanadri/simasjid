@@ -22,6 +22,10 @@
                 <td><?php echo $user->jabatan ?></td>
               </tr>
               <tr>
+                <th scope="row">Status</th>
+                <td><?php echo $user->status ?></td>
+              </tr>
+              <tr>
                 <th scope="row">Email</th>
                 <td><?php echo $user->email ?></td>
               </tr>
@@ -31,7 +35,7 @@
               </tr>
               <tr>
                 <th scope="row">Telp/HP</th>
-                <td><?php echo $user->nama ?></td>
+                <td><?php echo $user->telp ?></td>
               </tr>
             </tbody>
           </table>
