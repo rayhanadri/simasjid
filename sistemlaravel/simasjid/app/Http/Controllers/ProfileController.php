@@ -1,14 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Anggota;
-use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Transformer\Transformer;
 
-class HomeController extends Controller
+class ProfileController extends Controller
 {
-
+    //
     public function __construct()
     {
         $this->middleware('auth');
@@ -18,7 +17,8 @@ class HomeController extends Controller
     {
         //buka index. Ambil data user terotentikasi, kemudian passing ke view home
         $user = Auth::user();
-        $user->jabatan = Transformer::jabatan($user->id_jabatan);
-        return view('home',['user' => $user]);
+        // return view('home');
+        $user->id_jabatan = Transformer::jabatan($user->id_jabatan);
+        return view('profile',['user' => $user]);
     }
 }

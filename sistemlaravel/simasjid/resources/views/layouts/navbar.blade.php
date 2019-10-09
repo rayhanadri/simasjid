@@ -16,12 +16,12 @@
               <div class="d-sm-none d-lg-inline-block"><?php echo Auth::user()->nama; ?></div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-              <a href="features-profile.html" class="dropdown-item has-icon">
+              <a href="{{ route('profile') }}" class="dropdown-item has-icon">
                 <i class="far fa-user"></i> Profile
               </a>
-              <a href="features-activities.html" class="dropdown-item has-icon">
+              <!-- <a href="features-activities.html" class="dropdown-item has-icon">
                 <i class="fas fa-bolt"></i> Activities
-              </a>
+              </a> -->
               <a href="features-settings.html" class="dropdown-item has-icon">
                 <i class="fas fa-cog"></i> Settings
               </a>
@@ -58,7 +58,7 @@
             <a href="{{ route('home') }}">SI MASJID IBNU SINA</a>
           </div>
           <div class="sidebar-brand sidebar-brand-sm">
-            <a href="{{ route('home') }}">LS</a>
+            <a href="{{ route('home') }}">SIM</a>
           </div>
           <ul class="sidebar-menu">
             <!-- <li class="menu-header">Dashboard</li> -->
@@ -71,7 +71,7 @@
                 <li><a class="nav-link" href="layout-transparent.html"><i class="fas fa-address-book"></i>Daftar</a></a></li>
               </ul>
             </li>
-            <li id='link-drop-aset' class="nav-item dropdown active">
+            <li id='link-drop-aset' class="nav-item dropdown">
               <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-warehouse"></i> <span>Aset</span></a>
               <ul class="dropdown-menu">
                 <li id='link-master-aset'><a class="nav-link" href="#"><i class="fas fa-boxes"></i>Master Aset</a></li>
@@ -88,4 +88,4 @@
             </div>
         </aside>
       </div>
-      <script>document.getElementById("home-link").classList.add("active");</script>
+      
