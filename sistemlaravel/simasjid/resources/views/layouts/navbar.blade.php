@@ -12,7 +12,7 @@
           <!-- <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle beep"><i class="far fa-envelope"></i></a></li>
           <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg beep"><i class="far fa-bell"></i></a></li> -->
           <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-              <img alt="image" src="public/dist/assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
+              <img alt="image" src="<?php echo $user->link_foto?>" class="rounded-circle mr-1">
               <div class="d-sm-none d-lg-inline-block"><?php echo Auth::user()->nama; ?></div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">

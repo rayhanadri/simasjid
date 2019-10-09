@@ -17,8 +17,7 @@ class ProfileController extends Controller
     {
         //buka index. Ambil data user terotentikasi, kemudian passing ke view home
         $user = Auth::user();
-        // return view('home');
-        $user->id_jabatan = Transformer::jabatan($user->id_jabatan);
+        $user->jabatan = Transformer::jabatan($user->id_jabatan);
         return view('profile',['user' => $user]);
     }
 }

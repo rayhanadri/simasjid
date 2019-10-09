@@ -8,7 +8,7 @@ class Transformer
     {
         switch ($id_jabatan) {
             case 1:
-                return "Ketua";
+                return "Ketua Takmir";
                 break;
             case 2:
                 return "Sekretaris";
@@ -20,7 +20,7 @@ class Transformer
                 return "Takmir";
                 break;
             default:
-                return "lain-lain";
+                return "Lain-lain";
                 break;
         }
     }
