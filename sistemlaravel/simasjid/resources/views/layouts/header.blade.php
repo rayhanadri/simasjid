@@ -19,7 +19,6 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="{{ asset('public/dist/summernote/dist/summernote-bs4.css') }}">
 
-
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{ asset('public/dist/assets/css/style.css') }}">
   <link rel="stylesheet" href="{{ asset('public/dist/assets/css/components.css') }}">

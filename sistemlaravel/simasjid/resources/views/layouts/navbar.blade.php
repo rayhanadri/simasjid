@@ -70,10 +70,10 @@
             <!-- <li class="menu-header">Dashboard</li> -->
             <li id='home-link'><a class="nav-link" href="{{ route('home') }}"><i class="fas fa-mosque"></i> <span>Home</span></a></li>
             <!-- <li class="menu-header">Starter</li> -->
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown active" id="dropdown-keanggotaan" >
               <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-users"></i> <span>Keanggotaan</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="layout-transparent.html"><i class="fas fa-address-book"></i>Terdaftar</a></a></li>
+                <li id="terdaftar-link" ><a class="nav-link" href="{{ route('anggotaTerdaftar') }}"><i class="fas fa-address-book"></i>Terdaftar</a></a></li>
                 <li><a class="nav-link" href="layout-transparent.html"><i class="fas fa-check-square"></i>Verifikasi</a></a></li>
                 <li><a class="nav-link" href="layout-default.html"><i class="fas fa-user-edit"></i>Edit</a></li>
               </ul>
