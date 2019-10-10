@@ -1,5 +1,42 @@
 @include('layouts.header')
 @include('layouts.navbar')
+<script type="text/javascript">
+  function ValidateFileUpload() {
+    var fuData = document.getElementById('fileChooser');
+    var FileUploadPath = fuData.value;
+
+    //To check if user upload any file
+    if (FileUploadPath == '') {
+      alert("Silakan pilih dan upload gambar");
+
+    } else {
+      var Extension = FileUploadPath.substring(
+        FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
+
+      //The file uploaded is an image
+
+      if (Extension == "gif" || Extension == "png" || Extension == "bmp" ||
+        Extension == "jpeg" || Extension == "jpg") {
+
+        // To Display
+        if (fuData.files && fuData.files[0]) {
+          var reader = new FileReader();
+
+          reader.onload = function(e) {
+            $('#blah').attr('src', e.target.result);
+          }
+
+          reader.readAsDataURL(fuData.files[0]);
+        }
+      }
+
+      //The file upload is NOT an image
+      else {
+        alert("Format foto yang diperbolehkan hanya GIF, PNG, JPG, JPEG dan BMP. ");
+      }
+    }
+  }
+</script>
 <style>
 table {table-layout: fixed; width: 100%;}
 table {padding: 0 15px; width: 100%;}
@@ -57,13 +94,13 @@ table {padding: 0 15px; width: 100%;}
       </div>
       <div class="col-lg-4 col-md-6 col-sm-12">
         <div class="section-body" style="min-height: 300px">
-          <img src="<?php echo $user->link_foto ?>" id="blah" class="img-thumbnail rounded mx-auto d-block" alt="..." style="width:200px; height:200px;overflow: hidden;"><br>
+        <img src="<?php echo $user->link_foto ?>" id="blah" class="img-thumbnail rounded mx-auto d-block" alt="foto profil" style="width:250px; height:250px;overflow: hidden;"><br>
           <br>
-          <form action="{{ route('uploadFotoProfil') }}" method="POST" enctype="multipart/form-data">
+          <form action="{{ route('uploadFotoProfile') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
               <label>Ganti Foto</label>
-              <input type="file" name="file" id="fileChooser" accept="image/*" class="form-control" onchange="return ValidateFileUpload()">
+              <input type="file" required name="file" id="fileChooser" accept="image/*" class="form-control" onchange="return ValidateFileUpload()">
               <button type="submit" class="btn btn-primary">Upload Foto</button>
             </div>
           </form>
@@ -72,43 +109,4 @@ table {padding: 0 15px; width: 100%;}
     </div>
   </section>
 </div>
-<script type="text/javascript">
-  function ValidateFileUpload() {
-    var fuData = document.getElementById('fileChooser');
-    var FileUploadPath = fuData.value;
-
-    //To check if user upload any file
-    if (FileUploadPath == '') {
-      alert("Silakan pilih dan upload gambar");
-
-    } else {
-      var Extension = FileUploadPath.substring(
-        FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
-
-      //The file uploaded is an image
-
-      if (Extension == "gif" || Extension == "png" || Extension == "bmp" ||
-        Extension == "jpeg" || Extension == "jpg") {
-
-        // To Display
-        if (fuData.files && fuData.files[0]) {
-          var reader = new FileReader();
-
-          reader.onload = function(e) {
-            $('#blah').attr('src', e.target.result);
-          }
-
-          reader.readAsDataURL(fuData.files[0]);
-        }
-
-      }
-
-      //The file upload is NOT an image
-      else {
-        alert("Format foto yang diperbolehkan hanya GIF, PNG, JPG, JPEG dan BMP. ");
-      }
-    }
-  }
-</script>
-
 @include('layouts.footer')

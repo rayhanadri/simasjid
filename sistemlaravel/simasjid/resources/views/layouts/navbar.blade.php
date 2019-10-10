@@ -1,4 +1,10 @@
 <body>
+  <?php
+  // use Illuminate\Support\Facades\Auth;
+
+  // $user = Auth::user();
+  ?>
+
   <div id="app">
     <div class="main-wrapper">
       <div class="navbar-bg"></div>
@@ -12,8 +18,8 @@
           <!-- <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle beep"><i class="far fa-envelope"></i></a></li>
           <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg beep"><i class="far fa-bell"></i></a></li> -->
           <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-              <img alt="image" src="<?php echo $user->link_foto ?>" class="rounded-circle mr-1">
-              <div class="d-sm-none d-lg-inline-block"><?php echo Auth::user()->nama; ?></div>
+              <img alt="image" src="<?php echo URL::to('/').'/'.$user->link_foto ?>" class="rounded-circle mr-1">
+              <div class="d-sm-none d-lg-inline-block"><?php echo $user->nama; ?></div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
               <a href="{{ route('profile') }}" class="dropdown-item has-icon">
@@ -77,7 +83,7 @@
               <ul class="dropdown-menu">
                 <li id='link-master-aset'><a class="nav-link" href="#"><i class="fas fa-boxes"></i>Master Aset</a></li>
                 <li><a class="nav-link" href="#"><i class="fas fa-lightbulb"></i>Perencanaan</a></li>
-                <li><a class="nav-link" href="#"><i class="fas fa-sync"></i>Update</a></li>
+                <li><a class="nav-link" href="#"><i class="fas fa-clipboard-check"></i>Pengecekan</a></li>
                 <li><a class="nav-link" href="#"><i class="fas fa-chart-pie"></i>Laporan</a></li>
               </ul>
             </li>

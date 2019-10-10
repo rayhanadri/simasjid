@@ -36,8 +36,18 @@ Auth::routes();
 //     Route::delete('/{mutasi}', ['as' => 'destroy', 'uses' => 'MutasiController@Destroy_Mutasi']);
 // });
 
+//basic route login,register,reset-password
 Auth::routes();
 
+//route home
 Route::get('/', 'HomeController@index')->name('home');
+
+//route profil dan upload foto profil
 Route::get('/profile', 'ProfileController@index')->name('profile');
-Route::post('/profile', 'ProfileController@uploadFoto')->name('uploadFotoProfil');
+Route::post('/profile', 'ProfileController@uploadFoto')->name('uploadFotoProfile');
+
+//route keanggotaan
+Route::get('anggota/terdaftar', 'AnggotaController@index')->name('anggotaTerdaftar');
+Route::get('anggota/verifikasi', 'AnggotaController@verifikasi')->name('anggotaVerifikasi');
+Route::get('anggota/edit', 'AnggotaController@edit')->name('anggotaEdit');
+Route::get('terdaftar2', 'AnggotaController@index')->name('anggotaTerdaftar');

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Auth;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Transformer\Transformer;
+use App\Transformer;
 
 class ProfileController extends Controller
 {

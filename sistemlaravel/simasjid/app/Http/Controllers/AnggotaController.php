@@ -4,22 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Anggota;
+use Auth;
+use App\Transformer;
 
 class AnggotaController extends Controller
 {
-    
-    // public function login()
-    // {
-    //     $anggota = new Anggota();
-    //     // $anggota->hello();
-    //     $dataAnggota = $anggota->getDataAnggota();
-    //     // // $anggota = Anggota::where('username', 'ketua')->where('password', 'password')->first();
-    //     dd($dataAnggota->namaAnggota);
-    //     //return view('LoginPage', compact('dataAnggota'));
-    // }
-
     public function index()
     {
-        return view('LoginPage');
+        $list_anggota = Anggota::all();
+        $user = Auth::user();
+        $list_anggota->put('jabatan', 'ketua');
+        $list_anggota->put('status', 'aktif');
+        return view('anggotaTerdaftar', ['list_anggota' => $list_anggota, 'user' => $user]);
     }
 }

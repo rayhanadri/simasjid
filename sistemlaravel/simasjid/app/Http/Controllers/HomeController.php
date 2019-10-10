@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Anggota;
-use Illuminate\Http\Request;
+// use App\Anggota;
+// use Illuminate\Http\Request;
 use Auth;
-use App\Http\Controllers\Transformer\Transformer;
+use App\Transformer;
 
 class HomeController extends Controller
 {
