@@ -1,5 +1,19 @@
 @include('layouts.header')
 @include('layouts.navbar')
+<style>
+table {table-layout: fixed; width: 100%;}
+table {padding: 0 15px; width: 100%;}
+.table:not(.table-sm):not(.table-md):not(.dataTable) th {
+    padding: 0 15px;
+    height: 60px;
+    vertical-align: middle;
+}
+.table:not(.table-sm):not(.table-md):not(.dataTable) td, .table:not(.table-sm):not(.table-md):not(.dataTable) th {
+    padding: 0 15px;
+    height: 60px;
+    vertical-align: middle;
+}
+</style>
 
 <!-- Main Content -->
 <div class="main-content">
@@ -10,7 +24,7 @@
     </div>
     <div class="row">
       <div class="col-lg-8 col-md-6 col-sm-12">
-        <div class="section-body" style="min-height: 300px; padding:40px;">
+        <div class="section-body" style="min-height: 300px; padding:0px;">
           <table class="table table-borderless">
             <tbody>
               <tr>
