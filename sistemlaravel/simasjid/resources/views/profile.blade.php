@@ -62,7 +62,7 @@ table {padding: 0 15px; width: 100%;}
     <div class="row">
       <div class="col-lg-8 col-md-6 col-sm-12">
         <div class="section-body" style="min-height: 300px; padding:0px;">
-          <table class="table table-borderless">
+          <table class="table table-borderless" style="width:70%; margin: auto;">
             <tbody>
               <tr>
                 <th scope="row">Nama</th>

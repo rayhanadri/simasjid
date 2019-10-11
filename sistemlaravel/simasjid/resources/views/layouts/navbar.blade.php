@@ -32,16 +32,6 @@
                 <i class="fas fa-cog"></i> Settings
               </a>
               <div class="dropdown-divider"></div>
-              <!-- <a href="#" class="dropdown-item has-icon text-danger">
-                <i class="fas fa-sign-out-alt"></i>
-                <form method="POST" enctype="multipart/form-data" action="{{ route('logout') }}">
-                  @csrf
-                  <input type="submit" value="Logout">
-                </form>
-              </a> -->
-              <!-- <form method="POST" enctype="multipart/form-data" action="{{ route('logout') }}">
-                <input type="submit" value="Logout">
-              </form> -->
               <a class="dropdown-item has-icon text-danger" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                 <i class="fas fa-sign-out-alt"></i> Logout

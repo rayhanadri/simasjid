@@ -1,8 +1,5 @@
 @include('layouts.header')
 @include('layouts.navbar')
-<style>
-
-</style>
 <!-- Main Content -->
 <div class="main-content">
     <section class="section">
@@ -32,7 +29,7 @@
                                 <td>{{ $anggota->jabatan }}</td>
                                 <!-- <td>{{ $anggota->username }}</td> -->
                                 <td class="font-status">{!!$anggota->status!!}</td>
-                                <td><button type="submit" class="btn btn-primary">Detail</button></td>
+                                <td><button type="submit" class="btn btn-primary">Detail</button> | <button class="btn btn-primary" id="modal-1">Launch Modal</button></td>
                                 <!-- <td>{{ $anggota->email }}</td>
                                     <td>{{ $anggota->alamat }}</td>
                                     <td>{{ $anggota->telp }}</td> -->
@@ -52,11 +49,7 @@
         </div>
     </section>
 </div>
-<!-- jQuery -->
-<script src="<?php echo URL::to('/') . '/' . 'public/plugins/jquery/jquery.min.js'; ?>"></script>
-<!-- DataTables -->
-<script src="<?php echo URL::to('/') . '/' . 'public/plugins/datatables/jquery.dataTables.js'; ?>"></script>
-<script src="<?php echo URL::to('/') . '/' . 'public/plugins/datatables-bs4/js/dataTables.bootstrap4.js'; ?>"></script>
+
 
 <!-- page script -->
 <script>
