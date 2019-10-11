@@ -18,8 +18,8 @@
           <!-- <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle beep"><i class="far fa-envelope"></i></a></li>
           <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg beep"><i class="far fa-bell"></i></a></li> -->
           <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-              <img alt="image" src="<?php echo URL::to('/').'/'.$user->link_foto ?>" class="rounded-circle mr-1">
-              <div class="d-sm-none d-lg-inline-block"><?php echo $user->nama; ?></div>
+              <img alt="image" src="{{ route('home') }}/{{ $anggota->link_foto }}?=<?php echo filemtime($anggota->link_foto)?>" class="rounded-circle mr-1">
+              <div class="d-sm-none d-lg-inline-block"> {{$anggota->nama}}</div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
               <a href="{{ route('profile') }}" class="dropdown-item has-icon">
@@ -28,7 +28,7 @@
               <!-- <a href="features-activities.html" class="dropdown-item has-icon">
                 <i class="fas fa-bolt"></i> Activities
               </a> -->
-              <a href="features-settings.html" class="dropdown-item has-icon">
+              <a href="#" class="dropdown-item has-icon">
                 <i class="fas fa-cog"></i> Settings
               </a>
               <div class="dropdown-divider"></div>
@@ -60,12 +60,13 @@
             <!-- <li class="menu-header">Dashboard</li> -->
             <li id='home-link'><a class="nav-link" href="{{ route('home') }}"><i class="fas fa-mosque"></i> <span>Home</span></a></li>
             <!-- <li class="menu-header">Starter</li> -->
-            <li class="nav-item dropdown" id="dropdown-keanggotaan" >
+            @if($anggota->id_status == 1)
+            <li class="nav-item dropdown" id="dropdown-keanggotaan">
               <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-users"></i> <span>Keanggotaan</span></a>
               <ul class="dropdown-menu">
-                <li id="terdaftar-link" ><a class="nav-link" href="{{ route('anggotaTerdaftar') }}"><i class="fas fa-address-book"></i>Terdaftar</a></a></li>
-                <li><a class="nav-link" href="layout-transparent.html"><i class="fas fa-check-square"></i>Verifikasi</a></a></li>
-                <li><a class="nav-link" href="layout-default.html"><i class="fas fa-user-edit"></i>Edit</a></li>
+                <li id="terdaftar-link"><a class="nav-link" href="{{ route('anggotaTerdaftar') }}"><i class="fas fa-address-book"></i>Terdaftar</a></a></li>
+                <li><a class="nav-link" href="#"><i class="fas fa-check-square"></i>Verifikasi</a></a></li>
+                <li><a class="nav-link" href="#"><i class="fas fa-user-edit"></i>Edit</a></li>
               </ul>
             </li>
             <li id='link-drop-aset' class="nav-item dropdown">
@@ -77,6 +78,7 @@
                 <li><a class="nav-link" href="#"><i class="fas fa-chart-pie"></i>Laporan</a></li>
               </ul>
             </li>
+            @endif
             <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
               <a href="https://getstisla.com/docs" class="btn btn-primary btn-lg btn-block btn-icon-split">
                 <i class="fas fa-rocket"></i> Documentation

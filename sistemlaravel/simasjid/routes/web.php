@@ -39,14 +39,21 @@ Auth::routes();
 //basic route login,register,reset-password
 Auth::routes();
 
+
+//pakai middleware auth
+Route::middleware(['auth', 'CheckStatus'])->group(function () {
+    //route keanggotaan
+    Route::get('anggota', 'AnggotaController@index')->name('anggotaTerdaftar');
+    Route::get('anggota/detail/{id}', 'AnggotaController@getDetail')->name('detailTerdaftar');
+    Route::get('anggota/verifikasi', 'AnggotaController@verifikasi')->name('anggotaVerifikasi');
+    Route::get('anggota/edit', 'AnggotaController@edit')->name('anggotaEdit');
+
+    //route upload foto profile
+    Route::post('/profile', 'ProfileController@uploadFoto')->name('uploadFotoProfile');
+});
+
+//route profil
+Route::get('/profile', 'ProfileController@index')->name('profile');
+
 //route home
 Route::get('/', 'HomeController@index')->name('home');
-
-//route profil dan upload foto profil
-Route::get('/profile', 'ProfileController@index')->name('profile');
-Route::post('/profile', 'ProfileController@uploadFoto')->name('uploadFotoProfile');
-
-//route keanggotaan
-Route::get('anggota', 'AnggotaController@index')->name('anggotaTerdaftar');
-Route::get('anggota/verifikasi', 'AnggotaController@verifikasi')->name('anggotaVerifikasi');
-Route::get('anggota/edit', 'AnggotaController@edit')->name('anggotaEdit');

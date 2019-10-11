@@ -10,20 +10,21 @@ use App\Notifications\PasswordReset;
 class Anggota extends Authenticatable
 {
     use Notifiable;
-
     protected $table = 'anggota';
 
     protected $fillable = [
-        'id_jabatan', 'username', 'password', 'nama', 'alamat', 'telp', 'email', 'link_foto',
+        'id_jabatan', 'username', 'password', 'nama', 'alamat', 'telp', 'email', 'link_foto'
     ];
 
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'created_at', 'updated_at'
     ];
 
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new PasswordReset($token));
     }
+
+
 
 }

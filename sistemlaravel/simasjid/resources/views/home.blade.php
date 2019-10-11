@@ -15,8 +15,8 @@
             <h3>
               <?php
               echo 'Selamat datang di Sistem Informasi Masjid Ibnu Sina!<br>';
-              echo '<h5>Anda masuk dengan sebagai '.  $user->nama .'.</h5>';
-              echo '<h5>Hak akses Anda adalah '. $user->jabatan . '.</h5>';
+              echo '<h5>Anda masuk dengan sebagai '.  $anggota->nama .'.</h5>';
+              echo '<h5>Hak akses Anda adalah '. $anggota->jabatan . '.</h5>';
               ?>
             </h3>
             <img src="public/dist/assets/img/ibnusina.jpg" class="rounded mx-auto d-block" alt="...">

@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Auth;
 use Illuminate\Http\Request;
-use App\Transformer;
+use App\Anggota_Status;
+use App\Anggota_Jabatan;
 
 class ProfileController extends Controller
 {
@@ -25,7 +26,6 @@ class ProfileController extends Controller
 
         // isi dengan nama folder tempat kemana file diupload
         $tujuan_upload = 'foto_profil';
-
         $user = Auth::user();
         $filebaru = $user->username . '.' . $file->getClientOriginalExtension();
         $file->move($tujuan_upload, $filebaru);
@@ -38,11 +38,10 @@ class ProfileController extends Controller
     public function index()
     {
         //buka index. Ambil data user terotentikasi, kemudian passing ke view home
-        $user = Auth::user();
+        $anggota = Auth::user();
         //transform dari db id_jabatan (angka) ke string, misal 1 jadi Ketua Takmir
-        $user->jabatan = Transformer::jabatan($user->id_jabatan);
-        //transform dari db aktif (angka) ke string status, misal 0 jadi Non-Aktif
-        $user->status = Transformer::status($user->aktif);
-        return view('profile', ['user' => $user]);
+        $anggota->status = Anggota_Status::find($anggota->id_status)->status;
+        $anggota->jabatan = Anggota_Jabatan::find($anggota->id_jabatan)->jabatan;
+        return view('profile', ['anggota' => $anggota]);
     }
 }
