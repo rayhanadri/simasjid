@@ -70,7 +70,7 @@
             <!-- <li class="menu-header">Dashboard</li> -->
             <li id='home-link'><a class="nav-link" href="{{ route('home') }}"><i class="fas fa-mosque"></i> <span>Home</span></a></li>
             <!-- <li class="menu-header">Starter</li> -->
-            <li class="nav-item dropdown active" id="dropdown-keanggotaan" >
+            <li class="nav-item dropdown" id="dropdown-keanggotaan" >
               <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-users"></i> <span>Keanggotaan</span></a>
               <ul class="dropdown-menu">
                 <li id="terdaftar-link" ><a class="nav-link" href="{{ route('anggotaTerdaftar') }}"><i class="fas fa-address-book"></i>Terdaftar</a></a></li>

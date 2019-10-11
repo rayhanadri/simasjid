@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+  <!-- <meta content="initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport"> -->
   <title>Laravel - Stisla</title>
 
   <!-- General CSS Files -->
@@ -27,5 +27,7 @@
   <link rel="stylesheet" href="<?php echo URL::to('/').'/';?>public/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
 
 </head>

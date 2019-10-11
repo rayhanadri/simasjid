@@ -1,30 +1,8 @@
 @include('layouts.header')
 @include('layouts.navbar')
 <style>
-    table {
-        table-layout: fixed;
-        width: 100%;
-    }
 
-    table {
-        padding: 0 15px;
-        width: 100%;
-    }
-
-    .table:not(.table-sm):not(.table-md):not(.dataTable) th {
-        padding: 0 15px;
-        height: 60px;
-        vertical-align: middle;
-    }
-
-    .table:not(.table-sm):not(.table-md):not(.dataTable) td,
-    .table:not(.table-sm):not(.table-md):not(.dataTable) th {
-        padding: 0 15px;
-        height: 60px;
-        vertical-align: middle;
-    }
 </style>
-
 <!-- Main Content -->
 <div class="main-content">
     <section class="section">
@@ -32,44 +10,46 @@
             <h1>Anggota Terdaftar</h1>
             <div></div>
         </div>
-        <div class="row" style="
-    margin-left: 0px;
-    margin-right: 0px;
-">
-            <div class="col-lg-12 col-md-12 col-sm-12" style="padding-left: 0px; padding-right: 0px;">
-                <div class="section-body" style="min-height: 300px; padding:0px;">
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-                        <div class="section-body" style="min-height: 300px; padding:10px;">
-                            <table id="example1" class="table table-bordered table-striped" style="padding-left: 0px; padding-right: 0px; style=" overflow-x:hidden;"">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Username</th>
-                                        <th>Jabatan</th>
-                                        <th>Status</th>
-                                        <th>Nama</th>
-                                        <th>Email</th>
-                                        <th>Alamat</th>
-                                        <th>Telp/HP</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php  foreach ($list_anggota as $anggota) { ?>
-                                    <tr>
-                                        <td>{{ $anggota->id }}</td>
-                                        <td>{{ $anggota->username }}</td>
-                                        <td>{{ $anggota->jabatan }}</td>
-                                        <td>{!! $anggota->status !!}</td>
-                                        <td>{{ $anggota->nama }}</td>
-                                        <td>{{ $anggota->email }}</td>
-                                        <td>{{ $anggota->alamat }}</td>
-                                        <td>{{ $anggota->telp }}</td>
-                                    </tr>
-                                    <?php } ?>
-                            </table>
-                        </div>
-                    </div>
+        <div class="row" style="padding-top: 10px;">
+            <div class="col-lg-8">
+                <div class="section-body" style="min-height: 300px; padding:20px;">
+                    <table id="table_id" class="table table-striped table-bordered" style="padding-bottom:20px;">
+                        <thead>
+                            <tr>
+                                <th>Nama</th>
+                                <th>Jabatan</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                                <!-- <th>Email</th>
+                                <th>Alamat</th>
+                                <th>Telp/HP</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($list_anggota as $anggota)
+                            <tr>
+                                <td>{{ $anggota->nama }}</td>
+                                <td>{{ $anggota->jabatan }}</td>
+                                <!-- <td>{{ $anggota->username }}</td> -->
+                                <td class="font-status">{!!$anggota->status!!}</td>
+                                <td><button type="submit" class="btn btn-primary">Detail</button></td>
+                                <!-- <td>{{ $anggota->email }}</td>
+                                    <td>{{ $anggota->alamat }}</td>
+                                    <td>{{ $anggota->telp }}</td> -->
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="section-body" style="min-height: 300px; padding:20px;">
+                    <h6>Cari Berdasarkan Kriteria</h6>
+                    <!-- Pakai JQuery -->
+                    <div class="column-search"></div>
+                </div>
+            </div>
+        </div>
     </section>
 </div>
 <!-- jQuery -->
@@ -80,20 +60,86 @@
 
 <!-- page script -->
 <script>
-    $(function() {
-        $("#example1").DataTable();
-        $('#example2').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false,
+    //JS halaman aktif
+    document.getElementById("terdaftar-link").classList.add("active");
+    document.getElementById("dropdown-keanggotaan").classList.add("active");
+</script>
+
+<script>
+    //JQuery Pencarian Berdasarkan Kriteria
+    $(document).ready(function() {
+        $('#table_id').DataTable({
+            //kriteria column 0 nama tipe input
+            initComplete: function() {
+                this.api().columns([0]).every(function() {
+                    var column = this;
+                    var input = $('<input class="form-control select" placeholder="Nama..." style="margin-bottom:10px;"></input>')
+                        .appendTo($(".column-search"))
+                        .on('keyup change clear', function() {
+                            if (column.search() !== this.value) {
+                                column
+                                    .search(this.value)
+                                    .draw();
+                            }
+                        });
+                });
+                //kriteria column 0 nama tipe select
+                this.api().columns([1]).every(function() {
+                    var column = this;
+                    var select = $('<select class="form-control select" style="margin-bottom:10px;"><option value="">Jabatan...</option></select>')
+                        // .appendTo($(column.header()).empty())
+                        .appendTo($(".column-search"))
+                        .on('change', function() {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+                            column
+                                .search(val ? '^' + val + '$' : '', true, false)
+                                .draw();
+                        });
+                    column.data().unique().sort().each(function(d, j) {
+                        select.append('<option value="' + d + '">' + d + '</option>')
+                    });
+                });
+                this.api().columns([2]).every(function() {
+                    var column = this;
+                    var select = $('<select class="form-control select" style="margin-bottom:10px;"><option value="">Status...</option></select>')
+                        // .appendTo($(column.header()).empty())
+                        .appendTo($(".column-search"))
+                        .on('change', function() {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+                            column
+                                .search(val ? '^' + val + '$' : '', true, false)
+                                .draw();
+                        });
+                    column.data().unique().sort().each(function(d, j) {
+                        select.append('<option value="' + d + '">' + d + '</option>')
+                    });
+                });
+            }
         });
     });
 </script>
 <script>
-  document.getElementById("terdaftar-link").classList.add("active");
-  document.getElementById("dropdown-keanggotaan").classList.add("active");
+    $(document).ready(function() {
+        //perlebar kotak show entries
+        $(".custom-select").css('width', '82px');
+        //status aktif bold
+        $(".font-status").css('font-weight', 'bold');
+        //status aktif ubah warna hijau
+        $(".font-status").filter(function() {
+            return $(this).text() === 'Aktif';
+        }).css('color', 'green');
+        //status non-aktif ubah warna merah
+        $(".font-status").filter(function() {
+            return $(this).text() === 'Non-Aktif';
+        }).css('color', 'red');
+        //status belum verifikasi ubah warna abu2
+        $(".font-status").filter(function() {
+            return $(this).text() === 'Belum Verifikasi';
+        }).css('color', 'grey');
+    });
 </script>
 @include('layouts.footer')
