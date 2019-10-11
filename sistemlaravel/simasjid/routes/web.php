@@ -47,6 +47,6 @@ Route::get('/profile', 'ProfileController@index')->name('profile');
 Route::post('/profile', 'ProfileController@uploadFoto')->name('uploadFotoProfile');
 
 //route keanggotaan
-Route::get('anggota/terdaftar', 'AnggotaController@index')->name('anggotaTerdaftar');
+Route::get('anggota', 'AnggotaController@index')->name('anggotaTerdaftar');
 Route::get('anggota/verifikasi', 'AnggotaController@verifikasi')->name('anggotaVerifikasi');
 Route::get('anggota/edit', 'AnggotaController@edit')->name('anggotaEdit');
