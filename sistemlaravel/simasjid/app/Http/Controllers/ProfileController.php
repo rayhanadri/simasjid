@@ -6,14 +6,10 @@ use Auth;
 use Illuminate\Http\Request;
 use App\Anggota_Status;
 use App\Anggota_Jabatan;
+use Validator;
 
 class ProfileController extends Controller
 {
-    //
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     public function uploadFoto(Request $request)
     {
@@ -24,12 +20,21 @@ class ProfileController extends Controller
         // menyimpan data file yang diupload ke variabel $file
         $file = $request->file('file');
 
+        // $file = $request->file('file');
+        // $validate = Validator::make($file, [
+        //     'image' => 'image|mimes:gif,jpeg,png,jpg,bmp|max:2048',
+        // ]);
+
+        $request->validate([
+            'file' => 'image|mimes:gif,jpeg,png,jpg,bmp|max:2048'
+        ]);
+        
         // isi dengan nama folder tempat kemana file diupload
         $tujuan_upload = 'foto_profil';
         $user = Auth::user();
         $filebaru = $user->username . '.' . $file->getClientOriginalExtension();
         $file->move($tujuan_upload, $filebaru);
-        $user->link_foto = $tujuan_upload.'/'.$filebaru;
+        $user->link_foto = $tujuan_upload . '/' . $filebaru;
         $user->save();
 
         return redirect('profile');

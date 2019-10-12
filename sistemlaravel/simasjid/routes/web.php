@@ -11,32 +11,7 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-// Route::get('/login', function () {
-//     return view('login');
-// });
-Auth::routes();
-
-// Route::get('login', 'AuthController@login')->name('login');
-// Route::post('login', 'AuthController@auth')->name('auth');
-// Route::get('logout', 'AuthController@logout')->name('logout');
-
-// Route::get('/', 'HomeController@index')->name('homePage');
-
-
-
-// Mutasi action
-// Route::group(['prefix' => '/mutasi', 'as' => 'mutasi.'], function(){
-//     Route::put('/store', ['as' => 'store', 'uses' => 'MutasiController@Store_Mutasi']);
-//     Route::get('/{mutasi}/edit', ['as' => 'edit', 'uses' => 'MutasiController@StockView_EditMutasi']);
-//     Route::put('/{mutasi}/penerimaan', ['as' => 'diterima', 'uses' => 'MutasiController@Update_PenerimaanStock']);
-//     Route::delete('/{mutasi}', ['as' => 'destroy', 'uses' => 'MutasiController@Destroy_Mutasi']);
-// });
-
-//basic route login,register,reset-password
+// basic route login,register,reset-password
 Auth::routes();
 
 
@@ -44,16 +19,20 @@ Auth::routes();
 Route::middleware(['auth', 'CheckStatus'])->group(function () {
     //route keanggotaan
     Route::get('anggota', 'AnggotaController@index')->name('anggotaTerdaftar');
-    Route::get('anggota/detail/{id}', 'AnggotaController@getDetail')->name('detailTerdaftar');
-    Route::get('anggota/verifikasi', 'AnggotaController@verifikasi')->name('anggotaVerifikasi');
-    Route::get('anggota/edit', 'AnggotaController@edit')->name('anggotaEdit');
+    Route::get('anggota/all', 'AnggotaController@getAllUn');
+    Route::get('anggota/detail/{id}', 'AnggotaController@getDetail')->name('anggotaDetail');
+    Route::get('anggota/verifikasi', 'AnggotaController@getUnverifiedList')->name('anggotaBlmVerifikasi');
+    // Route::get('anggota/verifikasi/{id}', 'AnggotaController@verify')->name('anggotaSetujuVerif');
+    Route::post('anggota/verifikasi/tolak', 'AnggotaController@tolak')->name('anggotaTolakVerif');
+    Route::post('anggota/verifikasi/terima', 'AnggotaController@verif')->name('anggotaAccVerif');
+    Route::get('anggota/edit/{id}', 'AnggotaController@edit')->name('anggotaDelete');
 
-    //route upload foto profile
-    Route::post('/profile', 'ProfileController@uploadFoto')->name('uploadFotoProfile');
 });
 
 //route profil
 Route::get('/profile', 'ProfileController@index')->name('profile');
+//route upload foto profil
+Route::post('/profile', 'ProfileController@uploadFoto')->name('uploadFotoProfile');
 
 //route home
 Route::get('/', 'HomeController@index')->name('home');

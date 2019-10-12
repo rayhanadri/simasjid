@@ -14,11 +14,9 @@
                             <label for="username" class="col-md-4 col-form-label text-md-right">{{ __('Hak Akses') }}</label>
 
                             <div class="col-md-6">
-                                <select class="form-control"  id="id_jabatan" name="id_jabatan" required>
-                                    <option value=1>Ketua</option>
-                                    <option value=2>Sekretaris</option>
-                                    <option value=3>Bendahara</option>
-                                    <option value=4>Takmir</option>
+                                <select class="form-control" id="id_jabatan" name="id_jabatan" required>
+                                    <option value=8>Takmir Masjid</option>
+                                    <option value=9>Remaja Masjid</option>
                                 </select>
                             </div>
                         </div>
@@ -111,7 +109,7 @@
 
                             <div class="col-md-6">
                                 <input id="telp" type="text" class="form-control @error('telp') is-invalid @enderror" name="telp" value="{{ old('telp') }}" required autocomplete="alamat">
-
+                                
                                 @error('telp')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -119,7 +117,6 @@
                                 @enderror
                             </div>
                         </div>
-
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

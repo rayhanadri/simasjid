@@ -5,7 +5,7 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Anggota Terdaftar</h1>
+            <h1>Verifikasi Anggota</h1>
             <div></div>
         </div>
         <div class="row" style="padding-top: 10px;">
@@ -14,13 +14,10 @@
                     <table id="table_id" class="table table-striped table-bordered" style="padding-bottom:20px;">
                         <thead>
                             <tr>
-                                <th>Nama</th>
-                                <th>Jabatan</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                                <!-- <th>Email</th>
-                                <th>Alamat</th>
-                                <th>Telp/HP</th> -->
+                                <th class="dt-center">Nama</th>
+                                <th class="dt-center">Jabatan</th>
+                                <th class="dt-center">Status</th>
+                                <th class="dt-center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -28,12 +25,17 @@
                             <tr>
                                 <td>{{ $anggota_dalam_list->nama }}</td>
                                 <td>{{ $anggota_dalam_list->jabatan }}</td>
-                                <!-- <td>{{ $anggota->username }}</td> -->
                                 <td class="font-status">{!!$anggota_dalam_list->status!!}</td>
-                                <td><button class="open-detail btn btn-icon btn-sm btn-info" data-toggle="modal" data-id="{{ $anggota_dalam_list->id }}" data-target="#detailModal"> <i class="fas fa-user-circle"></i> Detail</button></td>
-                                <!-- <td>{{ $anggota->email }}</td>
-                                    <td>{{ $anggota->alamat }}</td>
-                                    <td>{{ $anggota->telp }}</td> -->
+                                <td class="dt-center">
+
+                                    <!-- <button class="open-detail btn btn-sm" data-toggle="modal" data-id="{{ $anggota_dalam_list->id }}" data-target="#detailModal">Detail</button>
+                                    | <button class="open-detail btn btn-sm" data-toggle="modal" data-id="{{ $anggota_dalam_list->id }}" data-target="#detailModal">Detail</button> -->
+                                    <div class="btn-group mb-3" role="group" aria-label="Basic example" style="padding-left: 20px;">
+                                        <a href="#" class="open-detail btn btn-icon btn-sm btn-info" data-toggle="modal" data-id="{{ $anggota_dalam_list->id }}" data-target="#detailModal"><i class="fas fa-id-badge"></i> Detail</a>
+                                        <a href="#" class="open-tolak btn btn-icon btn-sm btn-danger" data-toggle="modal" data-id="{{ $anggota_dalam_list->id }}" data-target="#tolakModal"><i class="fas fa-times"></i></i> Tolak</a>
+                                        <a href="#" class="open-verif btn btn-icon btn-sm btn-primary" data-toggle="modal" data-id="{{ $anggota_dalam_list->id }}" data-target="#verifModal"><i class="fas fa-check"></i> Verifikasi</a>
+                                    </div>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -97,13 +99,64 @@
             </div>
         </div>
     </div>
-</div>
+    <!-- Modal Tolak -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="tolakModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Tolak Verifikasi Anggota</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <img src="{{ route('home') }}/public/dist/assets/img/svg/cancel.svg" id="detailFoto" class="img-thumbnail rounded mx-auto d-block" alt="tolak image" style="width:150px; height:150px;overflow: hidden;">
+
+                    <h5 align="center">Apakah Anda yakin ingin menolak verifikasi anggota ini?</h5>
+                </div>
+                <div class="modal-footer bg-whitesmoke br">
+                    <form action="{{ route('anggotaTolakVerif') }}" method="post">
+                        @csrf
+                        <input type="text" id="anggotaId" name="anggotaId" value="" hidden/>
+                        <button type="button" class="btn btn-info" data-dismiss="modal">Tidak, Batalkan.</button>
+                        <input type="submit" value="Ya, Tolak." class="btn btn-danger" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Tolak -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="verifModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Verifikasi Anggota</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <img src="{{ route('home') }}/public/dist/assets/img/svg/checked.svg" id="detailFoto" class="img-thumbnail rounded mx-auto d-block" alt="tolak image" style="width:150px; height:150px;overflow: hidden;">
+                    <input type="text" id="anggotaId" name="anggotaId" value="" hidden />
+                    <h5 align="center">Apakah Anda yakin ingin verifikasi anggota ini?</h5>
+                </div>
+                <div class="modal-footer bg-whitesmoke br">
+                    <form action="{{ route('anggotaAccVerif') }}" method="post">
+                        @csrf
+                        <input type="text" id="anggotaId" name="anggotaId" value="" hidden/>
+                        <button type="button" class="btn btn-info" data-dismiss="modal">Tidak, Batalkan.</button>
+                        <input type="submit" value="Ya, Verifikasi." class="btn btn-primary" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- SCRIPT -->
 <script type="text/javascript">
     //JS halaman aktif
-    document.getElementById("terdaftar-link").classList.add("active");
+    document.getElementById("verifikasi-link").classList.add("active");
     document.getElementById("dropdown-keanggotaan").classList.add("active");
 </script>
 
@@ -165,25 +218,40 @@
     });
 </script>
 <script type="text/javascript">
+    // onclick tolak, show modal
+    $(document).on("click", ".open-tolak", function() {
+        /* passing data dari view button detail ke modal */
+        var thisDataAnggota = $(this).data('id');
+        $(".modal-footer #anggotaId").val(thisDataAnggota);
+    });
+    // onclick verif, show modal
+    $(document).on("click", ".open-verif", function() {
+        /* passing data dari view button detail ke modal */
+        var thisDataAnggota = $(this).data('id');
+        $(".modal-footer #anggotaId").val(thisDataAnggota);
+    });
     // onclick pada detail, show modal
     $(document).on("click", ".open-detail", function() {
         /* passing data dari view button detail ke modal */
         var thisDataAnggota = $(this).data('id');
+        console.log('helloworld');
         // $(".modal-body #anggotaId").val(thisDataAnggota);
         var linkDetail = "{{ route('home') }}/anggota/detail/" + thisDataAnggota;
         $.get(linkDetail, function(data) {
+            //deklarasi var obj JSON data detail anggota
             var obj = data;
-            // $(".modal-body p").append(JSON.stringify(data));
+            // ganti elemen pada dokumen html dengan hasil data json dari jquery
             document.getElementById("detailNama").innerHTML = obj.nama;
             document.getElementById("detailJabatan").innerHTML = obj.jabatan;
             document.getElementById("detailStatus").innerHTML = obj.status;
             document.getElementById("detailEmail").innerHTML = obj.email;
             document.getElementById("detailAlamat").innerHTML = obj.alamat;
             document.getElementById("detailTelp").innerHTML = obj.telp;
-            document.getElementById("detailFoto").src = obj.link_foto;
-            //ganti warna status 
-            /* ganti warna sesuai status */
-            //status aktif ubah warna hijau
+            //base root project url + url dari db
+            var link_foto = "{{ route('home') }}/" + obj.link_foto;
+            document.getElementById("detailFoto").src = link_foto;
+            // console.log(link_foto);
+            //ganti warna status
             $(".font-status").filter(function() {
                 return $(this).text() === 'Aktif';
             }).css('color', 'green');
@@ -195,7 +263,6 @@
             $(".font-status").filter(function() {
                 return $(this).text() === 'Belum Verifikasi';
             }).css('color', '#dbcb18');
-            // console.log(data);
         });
     });
     $(document).ready(function() {

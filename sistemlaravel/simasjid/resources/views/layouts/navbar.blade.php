@@ -65,7 +65,7 @@
               <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-users"></i> <span>Keanggotaan</span></a>
               <ul class="dropdown-menu">
                 <li id="terdaftar-link"><a class="nav-link" href="{{ route('anggotaTerdaftar') }}"><i class="fas fa-address-book"></i>Terdaftar</a></a></li>
-                <li><a class="nav-link" href="#"><i class="fas fa-check-square"></i>Verifikasi</a></a></li>
+                <li id="verifikasi-link"><a class="nav-link" href="{{ route('anggotaBlmVerifikasi') }}"><i class="fas fa-check-square"></i>Verifikasi</a></a></li>
                 <li><a class="nav-link" href="#"><i class="fas fa-user-edit"></i>Edit</a></li>
               </ul>
             </li>
