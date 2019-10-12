@@ -66,7 +66,7 @@
               <ul class="dropdown-menu">
                 <li id="terdaftar-link"><a class="nav-link" href="{{ route('anggotaTerdaftar') }}"><i class="fas fa-address-book"></i>Terdaftar</a></a></li>
                 <li id="verifikasi-link"><a class="nav-link" href="{{ route('anggotaBlmVerifikasi') }}"><i class="fas fa-check-square"></i>Verifikasi</a></a></li>
-                <li><a class="nav-link" href="#"><i class="fas fa-user-edit"></i>Edit</a></li>
+                <li id="anggotaedit-link"><a class="nav-link" href="{{ route('anggotaEditList') }}"><i class="fas fa-user-edit"></i>Edit</a></li>
               </ul>
             </li>
             <li id='link-drop-aset' class="nav-item dropdown">

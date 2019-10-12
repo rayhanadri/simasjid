@@ -125,7 +125,7 @@
             </div>
         </div>
     </div>
-    <!-- Modal Tolak -->
+    <!-- Modal Verif -->
     <div class="modal fade" tabindex="-1" role="dialog" id="verifModal">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -234,7 +234,6 @@
     $(document).on("click", ".open-detail", function() {
         /* passing data dari view button detail ke modal */
         var thisDataAnggota = $(this).data('id');
-        console.log('helloworld');
         // $(".modal-body #anggotaId").val(thisDataAnggota);
         var linkDetail = "{{ route('home') }}/anggota/detail/" + thisDataAnggota;
         $.get(linkDetail, function(data) {

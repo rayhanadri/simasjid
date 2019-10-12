@@ -25,7 +25,8 @@ Route::middleware(['auth', 'CheckStatus'])->group(function () {
     // Route::get('anggota/verifikasi/{id}', 'AnggotaController@verify')->name('anggotaSetujuVerif');
     Route::post('anggota/verifikasi/tolak', 'AnggotaController@tolak')->name('anggotaTolakVerif');
     Route::post('anggota/verifikasi/terima', 'AnggotaController@verif')->name('anggotaAccVerif');
-    Route::get('anggota/edit/{id}', 'AnggotaController@edit')->name('anggotaDelete');
+    Route::get('anggota/edit/', 'AnggotaController@editList')->name('anggotaEditList');
+    Route::post('anggota/edit/delete', 'AnggotaController@edit')->name('anggotaDelete');
 
 });
 
