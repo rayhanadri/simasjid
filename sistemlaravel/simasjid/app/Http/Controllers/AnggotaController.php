@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-// use Illuminate\Http\Request;
 use App\Anggota;
 use Auth;
 use App\Anggota_Jabatan;
@@ -23,7 +22,7 @@ class AnggotaController extends Controller
             $anggota_dalam_list->jabatan = Anggota_Jabatan::find($anggota_dalam_list->id_jabatan)->jabatan;
         }
         //retval
-        return view('anggotaTerdaftar', ['list_anggota' => $list_anggota, 'anggota' => $anggota]);
+        return view('anggota.anggotaTerdaftar', ['list_anggota' => $list_anggota, 'anggota' => $anggota]);
     }
 
     public function getDetail($id)
@@ -52,7 +51,7 @@ class AnggotaController extends Controller
             $anggota_dalam_list->jabatan = Anggota_Jabatan::find($anggota_dalam_list->id_jabatan)->jabatan;
         }
         //retval
-        return view('anggotaBlmVerifikasi', ['list_anggota' => $list_anggota, 'anggota' => $anggota]);
+        return view('anggota.anggotaBlmVerifikasi', ['list_anggota' => $list_anggota, 'anggota' => $anggota]);
     }
 
     public function tolak(Request $request)

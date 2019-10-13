@@ -10,7 +10,7 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Edit Anggota</h1>
+            <h1>Anggota Terdaftar</h1>
             <div></div>
         </div>
         <div class="row" style="padding-top: 10px;">
@@ -52,9 +52,9 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
                     <!-- Pakai JQuery -->
                     <div class="column-search"></div>
                     @if($inside_sekretaris)
-                    <div class="wrapper" style="text-align: center;">
+                    <!-- <div class="wrapper" style="text-align: center;">
                         <button class="btn btn-lg btn-info btn-primary" style="margin: auto;"><i class="fas fa-user-plus"></i> Tambah Anggota</button>
-                    </div>
+                    </div> -->
                     @endif
                 </div>
             </div>

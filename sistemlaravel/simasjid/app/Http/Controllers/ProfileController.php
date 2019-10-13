@@ -47,6 +47,6 @@ class ProfileController extends Controller
         //transform dari db id_jabatan (angka) ke string, misal 1 jadi Ketua Takmir
         $anggota->status = Anggota_Status::find($anggota->id_status)->status;
         $anggota->jabatan = Anggota_Jabatan::find($anggota->id_jabatan)->jabatan;
-        return view('profile', ['anggota' => $anggota]);
+        return view('profile.profile', ['anggota' => $anggota]);
     }
 }
