@@ -18,7 +18,7 @@
           <!-- <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle beep"><i class="far fa-envelope"></i></a></li>
           <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg beep"><i class="far fa-bell"></i></a></li> -->
           <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-              <img alt="image" src="{{ route('home') }}/{{ $anggota->link_foto }}?=<?php echo filemtime($anggota->link_foto)?>" class="rounded-circle mr-1">
+              <img alt="image" src="{{ route('home') }}/{{ $anggota->link_foto }}?=<?php echo filemtime($anggota->link_foto) ?>" class="rounded-circle mr-1">
               <div class="d-sm-none d-lg-inline-block"> {{$anggota->nama}}</div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
@@ -65,8 +65,14 @@
               <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-users"></i> <span>Keanggotaan</span></a>
               <ul class="dropdown-menu">
                 <li id="terdaftar-link"><a class="nav-link" href="{{ route('anggotaTerdaftar') }}"><i class="fas fa-address-book"></i>Terdaftar</a></a></li>
+                <?php
+                //hide untuk selain sekretaris dan ketua
+                $sekretaris = array(1, 3);
+                $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
+                ?>
+                @if($inside_sekretaris)
                 <li id="verifikasi-link"><a class="nav-link" href="{{ route('anggotaBlmVerifikasi') }}"><i class="fas fa-check-square"></i>Verifikasi</a></a></li>
-                <li id="anggotaedit-link"><a class="nav-link" href="{{ route('anggotaEditList') }}"><i class="fas fa-user-edit"></i>Edit</a></li>
+                @endif
               </ul>
             </li>
             <li id='link-drop-aset' class="nav-item dropdown">

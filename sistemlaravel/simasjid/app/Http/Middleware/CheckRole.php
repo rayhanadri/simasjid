@@ -13,14 +13,23 @@ class CheckRole
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    use Auth;
+
+    public function handle($request, Closure $next, $roles)
     {
-        $role = array("1", "2", "3", "4"); 
-        if (in_array("100", $role)) {
+        $anggota = Auth::user();
+
+        if ($anggota->id_jabatan == 1) {
             return $next($request);
-        } else {
-            return redirect('/');
         }
-        return $next($request);
+
+        foreach ($roles as $role) {
+            // Check if user has the role This check will depend on how your roles are set up
+            if ($anggota->hasRole($role)) {
+                return $next($request);
+            }
+        }
+
+        return redirect(route('home'));
     }
 }

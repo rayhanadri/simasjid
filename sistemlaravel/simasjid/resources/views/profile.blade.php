@@ -104,7 +104,7 @@
       </div>
       <div class="col-lg-4 col-md-6 col-sm-12">
         <div class="section-body" style="min-height: 300px">
-          <img src="{{$anggota->link_foto}}?=<?php echo filemtime($anggota->link_foto)?>" id="blah" class="img-thumbnail rounded mx-auto d-block" alt="foto profil" style="width:250px; height:250px;overflow: hidden;"><br>
+          <img src="{{$anggota->link_foto}}?=<?php echo filemtime($anggota->link_foto) ?>" id="blah" class="img-thumbnail rounded mx-auto d-block" alt="foto profil" style="width:250px; height:250px;overflow: hidden;"><br>
           <br>
           <form action="{{ route('uploadFotoProfile') }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -112,7 +112,6 @@
               <label>Ganti Foto</label>
               <input type="file" required name="file" id="fileChooser" accept="image/*" class="form-control" onchange="return ValidateFileUpload()">
               <button type="submit" class="btn btn-primary">Upload Foto</button>
-              <br><br>Jika foto belum terganti setelah klik upload foto, silakan tunggu beberapa menit untuk browser melakukan refresh.
             </div>
           </form>
         </div>
