@@ -13,17 +13,17 @@ class ProfileController extends Controller
 
     public function uploadFoto(Request $request)
     {
-        $this->validate($request, [
-            'file' => 'required'
-        ]);
+        // $this->validate($request, [
+        //     'file' => 'required'
+        // ]);
 
         // menyimpan data file yang diupload ke variabel $file
         $file = $request->file('file');
 
         // validasi jenis file
-        $request->validate([
-            'file' => 'image|mimes:gif,jpeg,png,jpg,bmp|max:2048'
-        ]);
+        // $request->validate([
+        //     'file' => 'image|mimes:gif,jpeg,png,jpg,bmp|max:2048'
+        // ]);
         
         // tujuan folder upload
         $tujuan_upload = 'foto_profil';
