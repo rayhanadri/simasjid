@@ -1,5 +1,5 @@
-
 @extends('layouts.header')
+
 <body>
   <div id="app">
     <section class="section">
@@ -102,14 +102,28 @@
                       @enderror
                     </div>
                   </div>
-                  <div class="form-group row mb-0">
-                    <div class="col-md-6 offset-md-4">
-                      <button type="submit" class="btn btn-primary">
+                  <div class="form-group">
+                    <div class="col-lg-6 offset-lg-4" style="text-align:center;">
+                      <button type="submit" class="btn btn-primary" style="width: 100%">
                         {{ __('Register') }}
                       </button>
                     </div>
                   </div>
                 </form>
+                <br><br>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <a class="btn btn-sm btn-outline-info" href="{{ route('login') }}" style="width:100%; margin-top: 5px;">
+                      {{ __('Sudah punya akun? Login di sini.') }}
+                    </a>
+                  </div>
+                  <div class="col-lg-6">
+                    <a class="btn btn-sm btn-outline-success" href="{{ route('password.request') }}" style="width:100%; margin-top: 5px;">
+                      {{ __('Lupa Password? Klik di sini.') }}
+                    </a>
+                  </div>
+                </div>
+
               </div>
             </div>
             <div class="simple-footer">

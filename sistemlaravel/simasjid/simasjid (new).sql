@@ -309,20 +309,6 @@ INSERT INTO `password_resets` (`email`, `token`, `created_at`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure for view `aset_view`
---
-DROP TABLE IF EXISTS `aset_view`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `aset_view`  AS  select `aset`.`id_register` AS `id_register`,`aset`.`id_master` AS `id_master`,`aset`.`id_jenis` AS `id_jenis`,`aset`.`id_kondisi` AS `id_kondisi`,`aset`.`id_lokasi` AS `id_lokasi`,`aset`.`nama` AS `nama`,`aset`.`nilai` AS `nilai`,`aset`.`tgl_terima` AS `tgl_terima`,`aset`.`last_id_check` AS `last_id_check`,`aset`.`keterangan` AS `keterangan`,`aset`.`batas_pakai` AS `batas_pakai`,timestampdiff(YEAR,`aset`.`tgl_terima`,current_timestamp()) AS `masa_pakai`,if(timestampdiff(YEAR,`aset`.`tgl_terima`,current_timestamp()) < `aset`.`batas_pakai`,'Tidak','Ya') AS `lewat_masa`,`aset`.`link_foto` AS `link_foto` from `aset` ;
-
--- --------------------------------------------------------
-
---
--- Structure for view `aset_view_2`
---
-DROP TABLE IF EXISTS `aset_view_2`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `aset_view_2`  AS  select `aset`.`id_register` AS `id_register`,`aset`.`id_master` AS `id_master`,(select `aset_master`.`master` from `aset_master` where `aset`.`id_master` = `aset_master`.`id_master`) AS `master`,`aset`.`id_jenis` AS `id_jenis`,(select `aset_jenis`.`jenis` from `aset_jenis` where `aset`.`id_jenis` = `aset_jenis`.`id_jenis`) AS `jenis`,`aset`.`id_kondisi` AS `id_kondisi`,(select `aset_kondisi`.`kondisi` from `aset_kondisi` where `aset`.`id_kondisi` = `aset_kondisi`.`id_kondisi`) AS `kondisi`,`aset`.`id_lokasi` AS `id_lokasi`,(select `aset_lokasi`.`lokasi` from `aset_lokasi` where `aset`.`id_lokasi` = `aset_lokasi`.`id_lokasi`) AS `lokasi`,`aset`.`nilai` AS `nilai`,`aset`.`tgl_terima` AS `tgl_terima`,`aset`.`last_id_check` AS `last_id_check`,`aset`.`batas_pakai` AS `batas_pakai`,timestampdiff(YEAR,`aset`.`tgl_terima`,curdate()) AS `masa_pakai`,if(timestampdiff(YEAR,`aset`.`tgl_terima`,curdate()) > `aset`.`batas_pakai`,'Ya','Tidak') AS `lewat_batas`,`aset`.`link_foto` AS `link_foto`,`aset`.`qr_code` AS `qr_code`,`aset`.`keterangan` AS `keterangan` from `aset` ;
 
 --
 -- Indexes for dumped tables
