@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 
 class AnggotaController extends Controller
 {
+    //mendapatkan anggota terdaftar aktif dan non-aktif
     public function index()
     {
         //semua user, composite object
@@ -25,6 +26,7 @@ class AnggotaController extends Controller
         return view('anggota.anggotaTerdaftar', ['list_anggota' => $list_anggota, 'anggota' => $anggota]);
     }
 
+    //mendapatkan detail anggota berdasarkan id
     public function getDetail($id)
     {
         $detail_anggota = Anggota::get()->where('id', $id)->first();
@@ -33,15 +35,18 @@ class AnggotaController extends Controller
         return $detail_anggota;
     }
 
+    //mendapatkan semua pendaftar yg belum diverifikasi
     public function getUnverifiedList()
     {
         //user terotentikasi
         $anggota = Auth::user();
+        
         //controlRole hanya 1,3 ketua dan sekretaris
         $authorized = array(1, 3);
         if (!in_array($anggota->id_jabatan, $authorized)) {
             return redirect(route('home'));
         }
+
         //semua user blm verifikasi, composite object
         $list_anggota = Anggota::get()->where('id_status', '=', 3);
 
@@ -54,6 +59,7 @@ class AnggotaController extends Controller
         return view('anggota.anggotaBlmVerifikasi', ['list_anggota' => $list_anggota, 'anggota' => $anggota]);
     }
 
+    //menolak verifikasi pendaftaran
     public function tolak(Request $request)
     {
         $deleted_anggota = Anggota::get()->where('id', $request->anggotaId)->first();
@@ -62,6 +68,7 @@ class AnggotaController extends Controller
         return redirect(route('anggotaBlmVerifikasi'));
     }
 
+    //terima verifikasi pendaftaran
     public function verif(Request $request)
     {
         $detail_anggota = Anggota::get()->where('id', $request->anggotaId)->first();
@@ -70,48 +77,21 @@ class AnggotaController extends Controller
         return redirect(route('anggotaBlmVerifikasi'));
     }
 
+    //menghapus akun anggota
     public function delete(Request $request)
     {
         $deleted_anggota = Anggota::get()->where('id', $request->anggotaId)->first();
         $deleted_anggota->delete();
 
-        return redirect(route('anggotaEditList'));
+        return redirect(route('anggotaTerdaftar'));
     }
 
+    //mengedit data akun anggota
     public function edit(Request $request)
     {
-        //edied user
+        //edited user
         $edited_anggota = Anggota::get()->where('id', $request->anggotaId)->first();
 
-        // dd($edited_anggota);
-        //validasi email kalau berubah
-        // if (!$request->email == $edited_anggota->email) {
-        //     $validator = Validator::make(request()->all(), [
-        //         'email' => 'email|unique:anggota',
-        //     ]);
-
-        //     if ($validator->fails()) {
-        //         redirect()
-        //             ->back()
-        //             ->withErrors($validator->errors());
-        //     }
-        //     $edited_anggota->email = $request->email;
-        //     echo "Xxx";
-        //     exit();
-        // }
-        // //validasi username kalau berubah
-        // if (!$request->username == $edited_anggota->username) {
-        //     $validator = Validator::make(request()->all(), [
-        //         'username' => 'unique:anggota',
-        //     ]);
-
-        //     if ($validator->fails()) {
-        //         redirect()
-        //             ->back()
-        //             ->withErrors($validator->errors());
-        //     }
-        //     $edited_anggota->username = $request->username;
-        // }
         if (!$request->username == $edited_anggota->username) {
             $edited_anggota->username = $request->username;
             $edited_anggota->save();

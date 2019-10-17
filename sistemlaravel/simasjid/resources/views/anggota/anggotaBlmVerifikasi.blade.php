@@ -57,7 +57,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Detail Anggota</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Tutup.">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -94,7 +94,7 @@
                     <!-- <input type="text" id="anggotaId" name="anggotaId" value="" hidden/> -->
                 </div>
                 <div class="modal-footer bg-whitesmoke br">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup.</button>
                 </div>
             </div>
         </div>
@@ -105,12 +105,12 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Tolak Verifikasi Anggota</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Tutup.">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <img src="{{ route('home') }}/public/dist/assets/img/svg/cancel.svg" id="detailFoto" class="img-thumbnail rounded mx-auto d-block" alt="tolak image" style="width:150px; height:150px;overflow: hidden;">
+                    <img src="{{ route('home') }}/public/dist/assets/img/svg/cancel.svg" id="detailFoto" class="mx-auto d-block" alt="tolak image" style="width:150px; height:150px;overflow: hidden;">
 
                     <h5 align="center">Apakah Anda yakin ingin menolak verifikasi anggota ini?</h5>
                 </div>
@@ -118,7 +118,7 @@
                     <form action="{{ route('anggotaTolakVerif') }}" method="post">
                         @csrf
                         <input type="text" id="anggotaId" name="anggotaId" value="" hidden />
-                        <button type="button" class="btn btn-info" data-dismiss="modal">Tidak, Batalkan.</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak, Batalkan.</button>
                         <input type="submit" value="Ya, Tolak." class="btn btn-danger" />
                     </form>
                 </div>
@@ -131,12 +131,12 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Verifikasi Anggota</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Tutup.">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <img src="{{ route('home') }}/public/dist/assets/img/svg/checked.svg" id="detailFoto" class="img-thumbnail rounded mx-auto d-block" alt="tolak image" style="width:150px; height:150px;overflow: hidden;">
+                    <img src="{{ route('home') }}/public/dist/assets/img/svg/checked.svg" id="detailFoto" class="mx-auto d-block" alt="verif image" style="width:150px; height:150px;overflow: hidden;">
                     <input type="text" id="anggotaId" name="anggotaId" value="" hidden />
                     <h5 align="center">Apakah Anda yakin ingin verifikasi anggota ini?</h5>
                 </div>
@@ -144,7 +144,7 @@
                     <form action="{{ route('anggotaAccVerif') }}" method="post">
                         @csrf
                         <input type="text" id="anggotaId" name="anggotaId" value="" hidden />
-                        <button type="button" class="btn btn-info" data-dismiss="modal">Tidak, Batalkan.</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak, Batalkan.</button>
                         <input type="submit" value="Ya, Verifikasi." class="btn btn-primary" />
                     </form>
                 </div>

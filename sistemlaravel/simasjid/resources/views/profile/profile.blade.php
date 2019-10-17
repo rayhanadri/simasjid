@@ -1,67 +1,5 @@
 @include('layouts.header')
 @include('layouts.navbar')
-<script type="text/javascript">
-  function ValidateFileUpload() {
-    var fuData = document.getElementById('fileChooser');
-    var FileUploadPath = fuData.value;
-
-    //To check if user upload any file
-    if (FileUploadPath == '') {
-      alert("Silakan pilih dan upload gambar");
-
-    } else {
-      var Extension = FileUploadPath.substring(
-        FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
-
-      //The file uploaded is an image
-
-      if (Extension == "gif" || Extension == "png" || Extension == "bmp" ||
-        Extension == "jpeg" || Extension == "jpg") {
-
-        // To Display
-        if (fuData.files && fuData.files[0]) {
-          var reader = new FileReader();
-
-          reader.onload = function(e) {
-            $('#blah').attr('src', e.target.result);
-          }
-
-          reader.readAsDataURL(fuData.files[0]);
-        }
-      }
-
-      //The file upload is NOT an image
-      else {
-        alert("Format foto yang diperbolehkan hanya GIF, PNG, JPG, JPEG dan BMP. ");
-      }
-    }
-  }
-</script>
-<style>
-  table {
-    table-layout: fixed;
-    width: 100%;
-  }
-
-  table {
-    padding: 0 15px;
-    width: 100%;
-  }
-
-  .table:not(.table-sm):not(.table-md):not(.dataTable) th {
-    padding: 0 15px;
-    height: 60px;
-    vertical-align: middle;
-  }
-
-  .table:not(.table-sm):not(.table-md):not(.dataTable) td,
-  .table:not(.table-sm):not(.table-md):not(.dataTable) th {
-    padding: 0 15px;
-    height: 60px;
-    vertical-align: middle;
-  }
-</style>
-
 <!-- Main Content -->
 <div class="main-content">
   <section class="section">
@@ -121,6 +59,7 @@
     </div>
   </section>
 </div>
+<!-- JS Styler Warna Status -->
 <script type="text/javascript">
   $(document).ready(function() {
     //status aktif bold
@@ -140,5 +79,43 @@
       return $(this).text() === 'Belum Verifikasi';
     }).css('color', '#dbcb18');
   });
+</script>
+<!-- JS pencegah format tidak sesuai -->
+<script type="text/javascript">
+  function ValidateFileUpload() {
+    var fuData = document.getElementById('fileChooser');
+    var FileUploadPath = fuData.value;
+
+    //To check if user upload any file
+    if (FileUploadPath == '') {
+      alert("Silakan pilih dan upload gambar");
+
+    } else {
+      var Extension = FileUploadPath.substring(
+        FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
+
+      //The file uploaded is an image
+
+      if (Extension == "gif" || Extension == "png" || Extension == "bmp" ||
+        Extension == "jpeg" || Extension == "jpg") {
+
+        // To Display
+        if (fuData.files && fuData.files[0]) {
+          var reader = new FileReader();
+
+          reader.onload = function(e) {
+            $('#blah').attr('src', e.target.result);
+          }
+
+          reader.readAsDataURL(fuData.files[0]);
+        }
+      }
+
+      //The file upload is NOT an image
+      else {
+        alert("Format foto yang diperbolehkan hanya GIF, PNG, JPG, JPEG dan BMP. ");
+      }
+    }
+  }
 </script>
 @include('layouts.footer')

@@ -73,7 +73,7 @@
                     @if (Route::has('register'))
                     <div class="col-lg-12">
                       <a class="btn btn-sm btn-outline-success" href="{{ route('register') }}" style="width:100%; margin-top: 5px;">
-                        {{ __('Pendaftaran') }}
+                        {{ __('Belum punya akun? Daftar di sini.') }}
                       </a>
                     </div>
                     @endif

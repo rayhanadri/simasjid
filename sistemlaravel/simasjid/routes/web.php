@@ -42,3 +42,4 @@ Route::middleware('auth')->group(function () {
 
 //route home
 Route::get('/', 'HomeController@index')->name('home');
+// Route::get('/home', '')->redirect(route('home'));

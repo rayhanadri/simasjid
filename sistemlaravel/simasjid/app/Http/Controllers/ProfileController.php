@@ -20,23 +20,23 @@ class ProfileController extends Controller
         // menyimpan data file yang diupload ke variabel $file
         $file = $request->file('file');
 
-        // $file = $request->file('file');
-        // $validate = Validator::make($file, [
-        //     'image' => 'image|mimes:gif,jpeg,png,jpg,bmp|max:2048',
-        // ]);
-
+        // validasi jenis file
         $request->validate([
             'file' => 'image|mimes:gif,jpeg,png,jpg,bmp|max:2048'
         ]);
         
-        // isi dengan nama folder tempat kemana file diupload
+        // tujuan folder upload
         $tujuan_upload = 'foto_profil';
-        $user = Auth::user();
-        $filebaru = $user->username . '.' . $file->getClientOriginalExtension();
-        $file->move($tujuan_upload, $filebaru);
-        $user->link_foto = $tujuan_upload . '/' . $filebaru;
-        $user->save();
 
+        //format nama file sesuai dengan username anggota
+        //kemudian simpan linknya
+        $anggota = Auth::user();
+        $filebaru = $anggota->username . '.' . $file->getClientOriginalExtension();
+        $file->move($tujuan_upload, $filebaru);
+        $anggota->link_foto = $tujuan_upload . '/' . $filebaru;
+        $anggota->save();
+
+        //kembalikan ke halaman profile
         return redirect('profile');
     }
 
@@ -47,6 +47,8 @@ class ProfileController extends Controller
         //transform dari db id_jabatan (angka) ke string, misal 1 jadi Ketua Takmir
         $anggota->status = Anggota_Status::find($anggota->id_status)->status;
         $anggota->jabatan = Anggota_Jabatan::find($anggota->id_jabatan)->jabatan;
+
+        //tampilkan view profile dengan data anggota
         return view('profile.profile', ['anggota' => $anggota]);
     }
 }

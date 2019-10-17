@@ -36,7 +36,7 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
                                         <a href="#" class="open-detail btn btn-icon btn-sm btn-info" data-toggle="modal" data-id="{{ $anggota_dalam_list->id }}" data-target="#detailModal"><i class="fas fa-id-badge"></i> Detail</a>
                                         @if($inside_sekretaris)
                                         <a href="#" class="open-edit btn btn-icon btn-sm btn-warning" data-toggle="modal" data-id="{{ $anggota_dalam_list->id }}" data-target="#editModal"><i class="fas fa-edit"></i></i> Edit</a>
-                                        <a href="#" class="open-verif btn btn-icon btn-sm btn-danger" data-toggle="modal" data-id="{{ $anggota_dalam_list->id }}" data-target="#tolakModal"><i class="fas fa-trash"></i> Hapus</a>
+                                        <a href="#" class="open-delete btn btn-icon btn-sm btn-danger" data-toggle="modal" data-id="{{ $anggota_dalam_list->id }}" data-target="#deleteModal"><i class="fas fa-trash"></i> Hapus</a>
                                         @endif
                                     </div>
                                 </td>
@@ -66,7 +66,7 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Detail Anggota</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Tutup.">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -103,32 +103,33 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
                     <!-- <input type="text" id="anggotaId" name="anggotaId" value="" hidden/> -->
                 </div>
                 <div class="modal-footer bg-whitesmoke br">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup.</button>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Modal Tolak -->
-    <div class="modal fade" tabindex="-1" role="dialog" id="tolakModal">
+
+    <!-- Modal Delete -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="deleteModal">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Tolak Verifikasi Anggota</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <h5 class="modal-title">Hapus Akun Anggota</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Tutup.">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <img src="{{ route('home') }}/public/dist/assets/img/svg/cancel.svg" id="detailFoto" class="img-thumbnail rounded mx-auto d-block" alt="tolak image" style="width:150px; height:150px;overflow: hidden;">
+                    <img src="{{ route('home') }}/public/dist/assets/img/svg/trash.svg" id="detailFoto" class="mx-auto d-block" alt="hapus image" style="width:150px; height:150px;overflow: hidden;">
 
-                    <h5 align="center">Apakah Anda yakin ingin menolak verifikasi anggota ini?</h5>
+                    <h5 align="center">Apakah Anda yakin ingin menghapus akun anggota ini?</h5>
                 </div>
                 <div class="modal-footer bg-whitesmoke br">
-                    <form action="{{ route('anggotaTolakVerif') }}" method="post">
+                    <form action="{{ route('anggotaDelete') }}" method="post">
                         @csrf
-                        <input type="text" id="anggotaId" name="anggotaId" value="" hidden />
-                        <button type="button" class="btn btn-info" data-dismiss="modal">Tidak, Batalkan.</button>
-                        <input type="submit" value="Ya, Tolak." class="btn btn-danger" />
+                        <input type="text" id="anggotaId" name="anggotaId" value="" hidden/>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak, Batalkan.</button>
+                        <input type="submit" value="Ya, Hapus." class="btn btn-danger" />
                     </form>
                 </div>
             </div>
@@ -142,7 +143,7 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Detail Anggota</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Tutup.">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -195,8 +196,7 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
                         </table>
                     </div>
                     <div class="modal-footer bg-whitesmoke br">
-
-                        <input type="text" id="anggotaId" name="anggotaId" value="" hidden/>
+                        <input type="text" id="anggotaId" name="anggotaId" value="" hidden />
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Batalkan.</button>
                         <input type="submit" value="Konfirmasi Edit." class="btn btn-warning" />
                     </div>
@@ -270,13 +270,13 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
         });
     </script>
     <script type="text/javascript">
-        // onclick tolak, show modal
-        $(document).on("click", ".open-tolak", function() {
+        // onclick btn delete, show modal
+        $(document).on("click", ".open-delete", function() {
             /* passing data dari view button detail ke modal */
             var thisDataAnggota = $(this).data('id');
             $(".modal-footer #anggotaId").val(thisDataAnggota);
         });
-        // onclick verif, show modal
+        // onclick btn edit, show modal
         $(document).on("click", ".open-edit", function() {
             /* passing data dari view button detail ke modal */
             var thisDataAnggota = $(this).data('id');
@@ -311,7 +311,7 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
                 }).css('color', '#dbcb18');
             });
         });
-        // onclick pada detail, show modal
+        // onclick btn detail, show modal
         $(document).on("click", ".open-detail", function() {
             /* passing data dari view button detail ke modal */
             var thisDataAnggota = $(this).data('id');
@@ -327,7 +327,7 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
                 $("#detailEmail").html(obj.email);
                 $("#detailAlamat").html(obj.alamat);
                 $("#detailTelp").html(obj.telp);
-                
+
                 //base root project url + url dari db
                 var link_foto = "{{ route('home') }}/" + obj.link_foto;
                 $("#detailFoto").attr('src', link_foto);

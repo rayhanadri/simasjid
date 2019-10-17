@@ -8,27 +8,67 @@
       <h1>Home</h1>
       <div></div>
     </div>
-    <section class="section" style="margin-top: 10px;">
-      <div class="col-lg-12 col-md-12 col-sm-12" style="padding: 0px;">
-        <div class="card">
-          <div style="padding:30px;">
-            <h3>
-              <?php
-              echo 'Selamat datang di Sistem Informasi Masjid Ibnu Sina!<br>';
-              echo '<h5>Anda masuk dengan sebagai ' .  $anggota->nama . '.</h5>';
-              echo '<h5>Hak akses Anda adalah ' . $anggota->jabatan . '.</h5>';
-              echo '<h5> Status: '.'<span class="font-status">'.$anggota->status.'</span>'.'</h5>';
-              ?>
-            </h3>
-            <img src="public/dist/assets/img/ibnusina.jpg" class="rounded mx-auto d-block" alt="...">
+    <div class="col-lg-12 col-md-12 col-sm-12" style="padding: 0px;">
+      <div class="card" style="margin-bottom: 10px;">
+        <div style="text-align:center; padding:20px;">
+          <h3>Selamat datang di Sistem Informasi Masjid Ibnu Sina!</h3>
+        </div>
+      </div>
+    </div>
+    <!-- row 1 -->
+    <div class="row col-lg-12">
+      <div class="row col-lg-12">
+        <div class="col-lg-4 col-md-4 col-sm-4" style="margin:auto;">
+          <div class="card" style="height:200px;">
+            <div style="padding:30px; text-align:center;">
+              <a href="#"><i class="fa fa-users fa-7x"></i>
+                <br><br>
+                <h4>Keanggotaan</h4>
+              </a>
+              <br>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="col-lg-4 col-md-4 col-sm-4" style="margin:auto;">
+          <div class="card" style="height:200px;">
+            <div style="padding:30px; text-align:center;">
+              <a href="#"><i class="fa fa-edit fa-7x"></i>
+                <br><br>
+                <h4>Notulensi</h4>
+              </a>
+              <br>
+            </div>
+          </div>
+        </div> -->
+        <div class="col-lg-4 col-md-4 col-sm-4" style="margin:auto;">
+          <div class="card" style="height:200px;">
+            <div style="padding:30px; text-align:center;">
+              <a href="#"><i class="fa fa-warehouse fa-7x"></i>
+                <br><br>
+                <h4>Manajemen Aset</h4>
+              </a>
+              <br>
+            </div>
           </div>
         </div>
       </div>
+      <!-- row 2 -->
+      <!-- <div class="row col-lg-12">
+      <div class="col-lg-4 col-md-4 col-sm-4" style="margin:auto;">
+        <div class="card" style="height:200px;">
+          <div style="text-align:center;">
+            <a href="#"><i class="icofont-cow" style="font-size: 150px;"></i>
+              <h4>Qurban</h4>
+            </a>
+            <br>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  </section>
 
-    </section>
 
-
-    <br>
+  <br>
 </div>
 <script type="text/javascript">
   document.getElementById("home-link").classList.add("active");
