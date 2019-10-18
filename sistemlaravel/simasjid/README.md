@@ -21,6 +21,7 @@ jadi
 `return 'username';`
 
 **Error DB SQLSTATE[HY000] [1045] Access denied for user**
+
 **Import DB**
 1.	Import DB, db simasjid.sql. Buka di browser localhost/phpmyadmin
 2.	New Database name: simasjid
