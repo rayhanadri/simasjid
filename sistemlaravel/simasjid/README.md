@@ -30,11 +30,15 @@ Import DB
 1.	Buka file `.env` di direktori project laravel
 2.	Ubah line 12-14 sesuaikan dgn default password laravel
     
-    ```DB_DATABASE=homestead
+    ```
+    DB_DATABASE=homestead
     DB_USERNAME=homestead
-    DB_PASSWORD=secret```
+    DB_PASSWORD=secret
+    ```
     
 Jadi
-    ```DB_DATABASE=simasjid
+    ```
+    DB_DATABASE=simasjid
     DB_USERNAME=root
-    DB_PASSWORD=```
+    DB_PASSWORD=
+    ```
