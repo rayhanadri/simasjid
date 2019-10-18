@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 09, 2019 at 11:48 PM
+-- Generation Time: Oct 18, 2019 at 01:31 PM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.1.31
 
@@ -29,16 +29,16 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `anggota` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL,
   `id_jabatan` int(11) NOT NULL,
-  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `username` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nama` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `alamat` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `telp` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `alamat` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `telp` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `link_foto` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT 'public/dist/assets/img/avatar/avatar-1.png',
-  `aktif` int(11) NOT NULL DEFAULT 1,
+  `id_status` int(11) NOT NULL DEFAULT 1,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -48,14 +48,64 @@ CREATE TABLE `anggota` (
 -- Dumping data for table `anggota`
 --
 
-INSERT INTO `anggota` (`id`, `id_jabatan`, `username`, `password`, `nama`, `alamat`, `telp`, `email`, `link_foto`, `aktif`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 1, 'sadmin', '$2y$10$QD6YPDdJvZy4UOKYu6QjsuH.tfDfV7smCwvU.WXZ4VH5orXRvaLhO', 'super admin', 'malang', '123', 'sadmin@gmail.com', 'public/dist/assets/img/avatar/avatar-1.png	', 1, NULL, '2019-10-08 16:00:10', '2019-10-08 16:00:10'),
-(2, 1, 'sadmin2', '$2y$10$FqeTxYOYDID6faInKn1YwO2Collj1IGHijewFadof6rSAuIOnlxr.', 'sadmin2', 'malang', '12345', 'sadmin2@gmail.com', NULL, 1, NULL, '2019-10-08 16:26:36', '2019-10-08 16:26:36'),
-(3, 1, 'sadmin3', '$2y$10$bMvGvq8PKPfqdiz4tC/WPeyI4Ds3Rl16gwdLnj81SyVu4aRpPwKPO', 'sadmin3', 'malang', '123', 'sadmin3@gmail.com', NULL, 1, NULL, '2019-10-08 16:28:09', '2019-10-08 16:28:09'),
-(4, 1, 'sadmin4', '$2y$10$KQcljajNWwWPTj.0CtNupeoOHa7f.vZtE4ACA6YK4vaFQt2m4Ju0q', 'asdf', 'asdf', '1234', 'asd@asd.as', NULL, 1, NULL, '2019-10-08 16:30:58', '2019-10-08 16:30:58'),
-(5, 1, 'sadmin5', '$2y$10$TOIReEdsSD503bHo8TzUEeoKTZ2pLkW54/2XZglMaHRtdi73gLZ1a', 'sadmin5', 'malang', '123', 'sadmin5@gmail.com', NULL, 1, NULL, '2019-10-08 16:32:50', '2019-10-08 16:32:50'),
-(6, 1, 'admin', '$2y$10$OE6L.FJaN0XLIRJpaaOW7ursZD3PIBqUMpEFuTchWsPuXviUr.eH2', 'Pak Ketua', 'Jl. Veteran Malang', '123', 'simasjid.ibnusina@gmail.com', 'public/dist/assets/img/avatar/avatar-1.png', 1, NULL, '2019-10-09 10:49:40', '2019-10-09 10:49:40'),
-(7, 1, 'rayhanadri', '$2y$10$eMBywVg4pajzE9EBpR2/Eu/hbBrXeUVW8cT.7fTkXntHTtqm67XMe', 'Rayhan Adri', 'Malang', '085966556997', 'rayerzz99@gmail.com', 'foto_profil/rayhanadri.jpg', 1, 'wxYE6dvz4jr35pV7CBLtIrLRL8ETrqhWnqJx2XgrI5kajQChefTcZPbaYgqF', '2019-10-09 12:31:28', '2019-10-09 14:45:20');
+INSERT INTO `anggota` (`id`, `id_jabatan`, `username`, `password`, `nama`, `alamat`, `telp`, `email`, `link_foto`, `id_status`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 1, 'rayhanadri', '$2y$10$ADywxAPNm/U6INB9R4yfY.3UPCpf/W9/2sLAtLGU12/6EPPIK/MGm', 'Rayhan Adri', 'Malang', '085966556997', 'rayerzz99@gmail.com', 'foto_profil/rayhanadri.jpg', 1, 'PhLryR7ZSuNgCh2wPexVE4jAUOu1xfoBtoWw22mgNKbMfAAtEVjKj9A7rL7p', '2019-10-11 10:16:23', '2019-10-18 04:22:36'),
+(5, 4, 'testdaftar', '$2y$10$cM1SjEsoLmytdCv7EAEmv.Gdqy42m6xKl97soWy.U7C4DfQtVPAUu', 'asdwqwer', 'malang', '12312312', 'tester@gmail.com', 'public/dist/assets/img/avatar/avatar-1.png', 1, NULL, '2019-10-11 12:50:09', '2019-10-12 19:15:21'),
+(6, 9, 'tester123', '$2y$10$iX83T.ktB3WCk.G0Mb9j7.JypszjsQSDDL.ll.BoEUlft4p4BGxim', 'testerr', 'asdas', '123123', 'qwe@qwe.co', 'public/dist/assets/img/avatar/avatar-1.png', 2, NULL, '2019-10-11 12:50:54', '2019-10-12 08:38:56'),
+(8, 6, 'budi', '$2y$10$vW9R2iU/tobHcoM7brlLveRYaS0CJMLo/7VuuX72WMKcVFDN844hW', 'Budi Budiman', 'asdasd asdas', '09819023890123', 'budi@gmail.com', 'foto_profil/budi.jpg', 1, NULL, '2019-10-11 14:30:26', '2019-10-13 14:36:32'),
+(21, 8, 'zxcv', '$2y$10$rnvPXRt9A3YBlN0oCuw9AuinxEQ/jZOARaMN8OV21di8GSzSM7nIm', 'zxcv', 'zxcv', 'zxc', 'zxcv2@s.c', 'public/dist/assets/img/avatar/avatar-1.png', 3, NULL, '2019-10-11 18:51:10', '2019-10-11 18:51:10'),
+(22, 9, 'calontakmir1', '$2y$10$Ap9N4vZ9C.4CzATBPBMQ0.sErqIc7Oklljdk2HlKGktSwBRQs/N1e', 'calon takmir 123', 'calon', '0801293', 'calon@c.com', 'public/dist/assets/img/avatar/avatar-1.png', 1, NULL, '2019-10-12 08:41:06', '2019-10-12 08:58:30'),
+(23, 1, 'ketua', '$2y$10$JsCcNL37GUm/E9EREuMd2.J/.QkaKfJqx8M17gUn70LSmDVGdJ3gq', 'ketua', 'ketua', '123123123123', 'ketua@gmail.com', 'foto_profil/ketua.jpg', 1, NULL, '2019-10-12 09:27:12', '2019-10-17 00:36:43'),
+(24, 8, 'nahyarirda', '$2y$10$qVRtiZSCUV.b0cKoCbNbP.D7/W7mXIhYRzX9Rp5gP05mbA1K.B5dG', 'Nahyar Irda', 'Jl. Bunga Coklat no.20, Kecamatan Jatimulyo, Kelurahan Lowokwaru, Kota Malang, Jawa Timur.', '08123456789', 'nahyarirda@gmail.com', 'public/dist/assets/img/avatar/avatar-1.png', 3, NULL, '2019-10-13 14:33:11', '2019-10-13 14:33:11'),
+(25, 8, 'qwerty', '$2y$10$4LJG4l0itCxBZT4F586SLOJWemq5Cok/gh7ie25/HDTMhWtPjdTK2', 'qwerty', 'qwerty', '12312313', 'qwerty@gmail.com', 'public/dist/assets/img/avatar/avatar-1.png', 3, NULL, '2019-10-13 16:53:17', '2019-10-13 16:53:17'),
+(26, 8, 'belumaktif', '$2y$10$yr2Q0JEl9In5PyQOlA6psu6rqCUSbw9y400kNwBbrGsEJbETvLzy2', 'belum aktif', 'qweqweqwe', '098787987', 'qwerty123@gmail.com', 'public/dist/assets/img/avatar/avatar-1.png', 3, NULL, '2019-10-14 10:26:05', '2019-10-14 10:26:05'),
+(27, 8, 'baru', '$2y$10$M180SE0zbCsrJASgIgdwGOesmV.GGzdsaA8XqOsMU1rMeR8vA16p6', 'baru', 'malang', '098098', 'baru@mail.co', 'public/dist/assets/img/avatar/avatar-1.png', 3, NULL, '2019-10-17 00:40:51', '2019-10-17 00:40:51');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `anggota_jabatan`
+--
+
+CREATE TABLE `anggota_jabatan` (
+  `id_jabatan` int(11) NOT NULL,
+  `jabatan` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `anggota_jabatan`
+--
+
+INSERT INTO `anggota_jabatan` (`id_jabatan`, `jabatan`) VALUES
+(1, 'Ketua Takmir'),
+(2, 'Bendahara'),
+(3, 'Sekretaris'),
+(4, 'Kerohanian'),
+(5, 'Kepala Rumah Tangga'),
+(6, 'Humas'),
+(7, 'Keamanan'),
+(8, 'Takmir'),
+(9, 'Remaja Masjid');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `anggota_status`
+--
+
+CREATE TABLE `anggota_status` (
+  `id_status` int(11) NOT NULL,
+  `status` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `anggota_status`
+--
+
+INSERT INTO `anggota_status` (`id_status`, `status`) VALUES
+(1, 'Aktif'),
+(2, 'Non-Aktif'),
+(3, 'Belum Verifikasi');
 
 -- --------------------------------------------------------
 
@@ -110,6 +160,18 @@ ALTER TABLE `anggota`
   ADD UNIQUE KEY `anggota_email_unique` (`email`);
 
 --
+-- Indexes for table `anggota_jabatan`
+--
+ALTER TABLE `anggota_jabatan`
+  ADD PRIMARY KEY (`id_jabatan`);
+
+--
+-- Indexes for table `anggota_status`
+--
+ALTER TABLE `anggota_status`
+  ADD PRIMARY KEY (`id_status`);
+
+--
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
@@ -129,7 +191,19 @@ ALTER TABLE `password_resets`
 -- AUTO_INCREMENT for table `anggota`
 --
 ALTER TABLE `anggota`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
+--
+-- AUTO_INCREMENT for table `anggota_jabatan`
+--
+ALTER TABLE `anggota_jabatan`
+  MODIFY `id_jabatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `anggota_status`
+--
+ALTER TABLE `anggota_status`
+  MODIFY `id_status` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `migrations`
