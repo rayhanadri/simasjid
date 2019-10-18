@@ -34,7 +34,7 @@ Import DB
     DB_DATABASE=homestead
     DB_USERNAME=homestead
     DB_PASSWORD=secret
-    ```
+    
     
 Jadi
 
@@ -42,4 +42,4 @@ Jadi
     DB_DATABASE=simasjid
     DB_USERNAME=root
     DB_PASSWORD=
-    ```
+    
