@@ -37,7 +37,8 @@ Import DB
     ```
     
 Jadi
-    ```
+
+  ```
     DB_DATABASE=simasjid
     DB_USERNAME=root
     DB_PASSWORD=
