@@ -32,15 +32,18 @@ jadi
 2.	Ubah line 12-14 sesuaikan dgn default password laravel
     
     ```
-    DB_DATABASE=homestead
-    DB_USERNAME=homestead
-    DB_PASSWORD=secret
-    
-    
-Jadi
-
-  ```
     DB_DATABASE=simasjid
     DB_USERNAME=root
     DB_PASSWORD=
     
+**Reset Password Via Email Error**
+1.	Buka file .env di direktori project laravel
+2.	Ubah line 26-31 jadi seperti berikut
+    ```
+    MAIL_DRIVER=smtp
+    MAIL_HOST=smtp.gmail.com
+    MAIL_PORT=465
+    MAIL_USERNAME=simasjid.ibnusina@gmail.com
+    MAIL_PASSWORD=emzbwvjgjstdyuqx
+    MAIL_ENCRYPTION=ssl
+
