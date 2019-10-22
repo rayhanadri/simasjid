@@ -1,10 +1,4 @@
 <body>
-  <?php
-  // use Illuminate\Support\Facades\Auth;
-
-  // $user = Auth::user();
-  ?>
-
   <div id="app">
     <div class="main-wrapper">
       <div class="navbar-bg"></div>
@@ -43,7 +37,6 @@
               <!-- @csrf
               <i class="fas fa-sign-out-alt"></i> Logout
               </a> -->
-
             </div>
           </li>
         </ul>
@@ -75,13 +68,18 @@
                 @endif
               </ul>
             </li>
-            <li id='link-drop-aset' class="nav-item dropdown">
-              <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-warehouse"></i> <span>Aset</span></a>
+            <li id='dropdown-aset' class="nav-item dropdown">
+              <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-box"></i> <span>Aset</span></a>
               <ul class="dropdown-menu">
-                <li id='link-master-aset'><a class="nav-link" href="#"><i class="fas fa-boxes"></i>Master Aset</a></li>
-                <li><a class="nav-link" href="#"><i class="fas fa-lightbulb"></i>Perencanaan</a></li>
-                <li><a class="nav-link" href="#"><i class="fas fa-clipboard-check"></i>Pengecekan</a></li>
-                <li><a class="nav-link" href="#"><i class="fas fa-chart-pie"></i>Laporan</a></li>
+                <li id='master-aset-link'><a class="nav-link" href="{{ route('asetMaster') }}"><i class="fas fa-boxes"></i>Aset Terdaftar</a></li>
+                <li><a class="nav-link" href="#"><i class="fas fa-tools"></i>Dalam Perbaikan</a></li>
+                <!-- <li><a class="nav-link" href="#"><i class="fas fa-question-circle"></i>Hilang</a></li> -->
+                <li><a class="nav-link" href="#"><i class="fas fa-trash"></i>Tidak Terpakai</a></li>
+                <hr/>
+                <li><a class="nav-link" href="#"><i class="fas fa-lightbulb"></i>Usulan</a></li>
+                <li><a class="nav-link" href="#"><i class="fas fa-truck-loading"></i>Pengadaan</a></li>
+                <li><a class="nav-link" href="#"><i class="fas fa-clipboard-list"></i>Pendaftaran</a></li>
+                <li><a class="nav-link" href="#"><i class="fas fa-exclamation-triangle"></i>Pelaporan</a></li>
               </ul>
             </li>
             @endif
