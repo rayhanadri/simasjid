@@ -182,7 +182,7 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
                                 </tr>
                                 <tr>
                                     <th scope="row">Email</th>
-                                    <td><input name="email" id="editEmail" class="form-control" /></td>
+                                    <td><input type="email" name="email" id="editEmail" class="form-control" /></td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Alamat</th>

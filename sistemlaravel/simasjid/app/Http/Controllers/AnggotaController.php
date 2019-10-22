@@ -40,7 +40,7 @@ class AnggotaController extends Controller
     {
         //user terotentikasi
         $anggota = Auth::user();
-        
+
         //controlRole hanya 1,3 ketua dan sekretaris
         $authorized = array(1, 3);
         if (!in_array($anggota->id_jabatan, $authorized)) {
@@ -92,12 +92,18 @@ class AnggotaController extends Controller
         //edited user
         $edited_anggota = Anggota::get()->where('id', $request->anggotaId)->first();
 
-        if (!$request->username == $edited_anggota->username) {
+        if ($request->username != $edited_anggota->username) {
             $edited_anggota->username = $request->username;
+            $request->validate([
+                'username' => 'unique:anggota'
+            ]);
             $edited_anggota->save();
         }
-        if (!$request->email == $edited_anggota->email) {
+        if ($request->email != $edited_anggota->email) {
             $edited_anggota->email = $request->email;
+            $request->validate([
+                'email' => 'unique:anggota|email'
+            ]);
             $edited_anggota->save();
         }
         $edited_anggota->nama = $request->nama;
