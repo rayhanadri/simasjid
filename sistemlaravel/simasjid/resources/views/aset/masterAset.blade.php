@@ -17,7 +17,7 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Master Aset</h1>
+            <h1>Aset Terdaftar</h1>
             <div></div>
         </div>
         <div class="row">
@@ -30,7 +30,7 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
                         </button>
                         <div id="collapseOne" class="collapse" aria-labelledby="headingOne">
                             <div class="card-body" style="padding: 10px auto;">
-                                <h6 style="text-align: center;">Pencarian</h6>
+                                <!-- <h6 style="text-align: center;">Pencarian</h6> -->
                                 <!-- Pencarian Pakai JQuery -->
                                 <div class="column-search"></div>
                             </div>
@@ -68,19 +68,22 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
                 <div class="section-body" style="padding:20px;">
                     <h6 style="text-align: center;">Kategori Aset</h6>
                     <div class="wrapper" style="margin-top:20px;">
-                        <select class="form-control select2">
-                            <option value="" selected>Semua Kategori</option>
-                            <option value="1">Tanah dan Bangunan</option>
-                            <option value="2">Kendaraan</option>
-                            <option value="3">Elektronik</option>
-                            <option value="4">Alat Dapur</option>
-                            <option value="4">Alat Pertukangan</option>
-                            <option value="5">Perlengkapan Ibadah</option>
-                            <option value="6">Buku</option>
-                            <option value="7">Perabotan</option>
-                            <option value="8">Lain-lain</option>
-                        </select>
-                        <button class="btn btn-lg btn-primary" style="margin-top: 10px; width:100%;"><i class="fas fa-desktop"></i> Tampilkan Aset</button>
+                        <form action="{{ route('home') }}/aset/kategori" method="get">
+                            <select name="id" class="form-control select2">
+                                <option value="0" selected>Semua Kategori</option>
+                                <option value="1">Tanah dan Bangunan</option>
+                                <option value="2">Kendaraan</option>
+                                <option value="3">Elektronik IT</option>
+                                <option value="3">Elektronik Non-IT</option>
+                                <option value="4">Alat Dapur</option>
+                                <option value="4">Alat Pertukangan</option>
+                                <option value="5">Perlengkapan Ibadah</option>
+                                <option value="6">Buku</option>
+                                <option value="7">Perabotan</option>
+                                <option value="8">Lain-lain</option>
+                            </select>
+                            <button type="submit" class="btn btn-lg btn-primary" style="margin-top: 10px; width:100%;"><i class="fas fa-desktop"></i> Tampilkan Aset</button>
+                        </form>
                         <!-- <button class="btn btn-lg btn-info" style="margin: 5px; width:100%;">Tampilkan Semua</button>
                         <button class="btn btn-lg btn-info" style="margin: 5px; width:100%;">Alat Dapur</button>
                         <button class="btn btn-lg btn-info" style="margin: 5px; width:100%;">Alat Sholat</button>

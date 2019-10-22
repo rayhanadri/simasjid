@@ -7,23 +7,29 @@ use Auth;
 use App\Anggota_Jabatan;
 use App\Anggota_Status;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 
 class AsetController extends Controller
 {
     //mendapatkan anggota terdaftar aktif dan non-aktif
     public function index()
     {
-        //semua user, composite object
-        $list_anggota = Anggota::get()->where('id_status', '!=', 3);
-        //user terotentikasi
-        $anggota = Auth::user();
-        //id ke nilai
-        foreach ($list_anggota as $anggota_dalam_list) {
-            $anggota_dalam_list->status = Anggota_Status::find($anggota_dalam_list->id_status)->status;
-            $anggota_dalam_list->jabatan = Anggota_Jabatan::find($anggota_dalam_list->id_jabatan)->jabatan;
+        $id = Input::get('id');
+        if ($id != 0) {
+            echo $id;
+        } else {
+            //semua user, composite object
+            $list_anggota = Anggota::get()->where('id_status', '!=', 3);
+            //user terotentikasi
+            $anggota = Auth::user();
+            //id ke nilai
+            foreach ($list_anggota as $anggota_dalam_list) {
+                $anggota_dalam_list->status = Anggota_Status::find($anggota_dalam_list->id_status)->status;
+                $anggota_dalam_list->jabatan = Anggota_Jabatan::find($anggota_dalam_list->id_jabatan)->jabatan;
+            }
+            //retval
+            return view('aset.masterAset', ['list_anggota' => $list_anggota, 'anggota' => $anggota]);
         }
-        //retval
-        return view('aset.masterAset', ['list_anggota' => $list_anggota, 'anggota' => $anggota]);
     }
 
     //mendapatkan detail anggota berdasarkan id
@@ -35,47 +41,10 @@ class AsetController extends Controller
         return $detail_anggota;
     }
 
-    //mendapatkan semua pendaftar yg belum diverifikasi
-    public function getUnverifiedList()
-    {
-        //user terotentikasi
-        $anggota = Auth::user();
+    //mendapatkan detail anggota berdasarkan id
+    public function kategori()
+    { }
 
-        //controlRole hanya 1,3 ketua dan sekretaris
-        $authorized = array(1, 3);
-        if (!in_array($anggota->id_jabatan, $authorized)) {
-            return redirect(route('home'));
-        }
-
-        //semua user blm verifikasi, composite object
-        $list_anggota = Anggota::get()->where('id_status', '=', 3);
-
-        //id ke nilai
-        foreach ($list_anggota as $anggota_dalam_list) {
-            $anggota_dalam_list->status = Anggota_Status::find($anggota_dalam_list->id_status)->status;
-            $anggota_dalam_list->jabatan = Anggota_Jabatan::find($anggota_dalam_list->id_jabatan)->jabatan;
-        }
-        //retval
-        return view('anggota.anggotaBlmVerifikasi', ['list_anggota' => $list_anggota, 'anggota' => $anggota]);
-    }
-
-    //menolak verifikasi pendaftaran
-    public function tolak(Request $request)
-    {
-        $deleted_anggota = Anggota::get()->where('id', $request->anggotaId)->first();
-        $deleted_anggota->delete();
-
-        return redirect(route('anggotaBlmVerifikasi'));
-    }
-
-    //terima verifikasi pendaftaran
-    public function verif(Request $request)
-    {
-        $detail_anggota = Anggota::get()->where('id', $request->anggotaId)->first();
-        $detail_anggota->id_status = 1;
-        $detail_anggota->save();
-        return redirect(route('anggotaBlmVerifikasi'));
-    }
 
     //menghapus akun anggota
     public function delete(Request $request)

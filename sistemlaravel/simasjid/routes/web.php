@@ -32,8 +32,8 @@ Route::middleware('auth')->group(function () {
         Route::post('anggota/verifikasi/tolak', 'AnggotaController@tolak')->name('anggotaTolakVerif');
         Route::post('anggota/verifikasi/terima', 'AnggotaController@verif')->name('anggotaAccVerif');
 
-        Route::get('aset', 'AsetController@index')->name('asetMaster');
-
+        Route::get('aset/kategori', 'AsetController@index')->name('asetMaster');
+        // Route::get('aset/kategori','AsetController@kategori')->name('asetKategori');
     });
 
     //route profil
