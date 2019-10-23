@@ -71,15 +71,22 @@
             <li id='dropdown-aset' class="nav-item dropdown">
               <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-box"></i> <span>Aset</span></a>
               <ul class="dropdown-menu">
-                <li id='master-aset-link'><a class="nav-link" href="{{ route('asetMaster') }}"><i class="fas fa-boxes"></i>Aset Terdaftar</a></li>
-                <li><a class="nav-link" href="#"><i class="fas fa-tools"></i>Dalam Perbaikan</a></li>
+                <li><a class="nav-link" style="pointer-events: none; cursor: default;">Aset Terdaftar</a></li>
+                <li id='terdaftar-aset-link'><a class="nav-link" href="{{ route('asetMaster') }}"><i class="fas fa-boxes"></i>Tersedia</a></li>
+                <li id='perbaikan-aset-link'><a class="nav-link" href="#"><i class="fas fa-tools"></i>Dalam Perbaikan</a></li>
                 <!-- <li><a class="nav-link" href="#"><i class="fas fa-question-circle"></i>Hilang</a></li> -->
-                <li><a class="nav-link" href="#"><i class="fas fa-trash"></i>Tidak Terpakai</a></li>
-                <hr/>
-                <li><a class="nav-link" href="#"><i class="fas fa-lightbulb"></i>Usulan</a></li>
+                <li id='dilepas-aset-link'><a class="nav-link" href="#"><i class="fas fa-ban"></i>Dilepas</a></li>
+                <hr />
+                <li><a class="nav-link" style="pointer-events: none; cursor: default;">Kelola Aset</a></li>
+                <li><a class="nav-link" href="#"><i class="fas fa-lightbulb"></i>Usulan Tambah</a></li>
                 <li><a class="nav-link" href="#"><i class="fas fa-truck-loading"></i>Pengadaan</a></li>
                 <li><a class="nav-link" href="#"><i class="fas fa-clipboard-list"></i>Pendaftaran</a></li>
                 <li><a class="nav-link" href="#"><i class="fas fa-exclamation-triangle"></i>Pelaporan</a></li>
+                <hr />
+                <li><a class="nav-link" style="pointer-events: none; cursor: default;">Pengaturan</a></li>
+                <li id='kategori-aset-link'><a class="nav-link" href="{{ route('asetMaster') }}"><i class="fas fa-th-large"></i>Kategori</a></li>
+                <li id='jenis-link'><a class="nav-link" href="{{ route('asetMaster') }}"><i class="fas fa-layer-group"></i>Jenis</a></li>
+                <li id='pengurus-aset-link'><a class="nav-link" href="{{ route('asetMaster') }}"><i class="fas fa-users-cog"></i>Pengurus</a></li>
               </ul>
             </li>
             @endif

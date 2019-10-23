@@ -15,10 +15,15 @@ class AsetController extends Controller
     public function index()
     {
         $id = Input::get('id');
-        if ($id != 0) {
-            echo $id;
+        if ($id != 0 && $id <= 9) {
+            echo "true " . $id;
+            $anggota = Auth::user();
+            // Create image
+            
         } else {
-            //semua user, composite object
+            // echo "false";
+
+            // semua user, composite object
             $list_anggota = Anggota::get()->where('id_status', '!=', 3);
             //user terotentikasi
             $anggota = Auth::user();
@@ -40,11 +45,6 @@ class AsetController extends Controller
         $detail_anggota->jabatan = Anggota_Jabatan::find($detail_anggota->id_jabatan)->jabatan;
         return $detail_anggota;
     }
-
-    //mendapatkan detail anggota berdasarkan id
-    public function kategori()
-    { }
-
 
     //menghapus akun anggota
     public function delete(Request $request)

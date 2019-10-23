@@ -14,7 +14,7 @@
 $sekretaris = array(1, 3);
 $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
 ?>
-<div class="main-content">
+<div class="main-content" style="overflow:scroll;">
     <section class="section">
         <div class="section-header">
             <h1>Aset Terdaftar</h1>
@@ -54,21 +54,37 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-3"></div>
-            <div class="col-lg-9">
-                <div class="wrapper" style="text-align: right; margin-bottom:10px; ">
-                    <h6 style="text-align: center; display:inline-block;">Export Dokumen </h6>
+        <div class="row" style="padding: 10px;">
+            <div class="col-4">
+                <h6 style="text-align: left;">Kategori Aset </h6>
+                <form action="{{ route('home') }}/aset" method="GET" style="margin-bottom: 5px;">
+                    <select name="id" class="form-control select2" onchange="this.form.submit()">
+                        <option value="0" selected>Semua Kategori</option>
+                        <option value="1">Alat Dapur</option>
+                        <option value="2">Alat Pertukangan</option>
+                        <option value="3">Buku</option>
+                        <option value="4">Elektronik IT</option>
+                        <option value="5">Elektronik Non-IT</option>
+                        <option value="6">Kendaraan</option>
+                        <option value="7">Perlengkapan Ibadah</option>
+                        <option value="8">Perabotan</option>
+                        <option value="9">Lainnya</option>
+                    </select>
+                </form>
+            </div>
+            <div class="col-8">
+                <div class="wrapper" style="text-align: right; margin:10px; width:100%">
+                    <h6 style="text-align: right;">Export Dokumen </h6>
                     <div class="export-table" style="display:inline-block;"></div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-3">
+            <!-- <div class="col-lg-3">
                 <div class="section-body" style="padding:20px;">
                     <h6 style="text-align: center;">Kategori Aset</h6>
                     <div class="wrapper" style="margin-top:20px;">
-                        <form action="{{ route('home') }}/aset/kategori" method="get">
+                        <form action="{{ route('home') }}/aset" method="get">
                             <select name="id" class="form-control select2">
                                 <option value="0" selected>Semua Kategori</option>
                                 <option value="1">Tanah dan Bangunan</option>
@@ -83,8 +99,8 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
                                 <option value="8">Lain-lain</option>
                             </select>
                             <button type="submit" class="btn btn-lg btn-primary" style="margin-top: 10px; width:100%;"><i class="fas fa-desktop"></i> Tampilkan Aset</button>
-                        </form>
-                        <!-- <button class="btn btn-lg btn-info" style="margin: 5px; width:100%;">Tampilkan Semua</button>
+                        </form> -->
+            <!-- <button class="btn btn-lg btn-info" style="margin: 5px; width:100%;">Tampilkan Semua</button>
                         <button class="btn btn-lg btn-info" style="margin: 5px; width:100%;">Alat Dapur</button>
                         <button class="btn btn-lg btn-info" style="margin: 5px; width:100%;">Alat Sholat</button>
                         <button class="btn btn-lg btn-info" style="margin: 5px; width:100%;">Elektronik IT</button>
@@ -93,57 +109,63 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
                         <button class="btn btn-lg btn-info" style="margin: 5px; width:100%;">Lain-lain</button>
                         <button class="btn btn-lg btn-info" style="margin: 5px; width:100%;">Perabotan</button>
                         <button class="btn btn-lg btn-info" style="margin: 5px; width:100%;">Tanah dan Bangunan</button><br> -->
-                    </div>
-                </div>
-                <!-- <div class="section-body">
+            <!-- </div>
+                </div> -->
+            <!-- <div class="section-body">
                     <div class="wrapper" style="text-align: center;">
                         <h6 style="text-align: center;">Aset Tidak Aktif</h6>
                         <button class="btn btn-lg btn-danger" style="margin: 5px; width:100%;"><i class="fas fa-trash"></i> Aset Tidak Aktif </button>
                     </div>
                 </div> -->
-                <!-- <div class="section-body">
+            <!-- <div class="section-body">
                     <div class="wrapper" style="text-align: center;">
                         <h6 style="text-align: center;">Pengelolaan Aset</h6>
                         <button class="btn btn-lg btn-secondary" style="margin: 5px; width:100%;"><i class="fas fa-clipboard-list"></i> Registrasi Aset </button>
                         <button class="btn btn-lg btn-secondary" aria-pressed="true" style="margin: 5px; width:100%;"><i class="fas fa-warehouse"></i> Lokasi Penyimpanan </button>
                     </div>
                 </div> -->
+        </div>
+        <div class="col-12">
+            <div class="section-body" style="min-height: 300px; padding-left:10px; padding:10px; width: 100%; overflow:scroll;">
+                <table id="table_id" class="table table-striped table-bordered" style="padding:0px; table-layout:auto; overflow:scroll;">
+                    <thead>
+                        <tr>
+                            <th class="dt-center">No Urut</th>
+                            <th class="dt-center">Kategori</th>
+                            <th class="dt-center">Jenis Barang</th>
+                            <th class="dt-center">Merek</th>
+                            <th class="dt-center">Model</th>
+                            <th class="dt-center">Kondisi</th>
+                            <th class="dt-center">Keterangan</th>
+                            <th class="dt-center">Tgl. Daftar</th>
+                            <th class="dt-center">Batas Pakai (Tahun)</th>
+                            <th class="dt-center">Masa Pakai (Tahun)</th>
+                            <th class="dt-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($list_anggota as $anggota_dalam_list)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>Kendaraan</td>
+                            <td>Mobil</td>
+                            <td>Toyota</td>
+                            <td>Avanza</td>
+                            <td>Baik</td>
+                            <td>NOPOL:N1234OP, STNK:12312312313</td>
+                            <td>20/10/2019</td>
+                            <td>5</td>
+                            <td>2</td>
+                            <td class="dt-center">
 
-
+                                <a href="#" class="open-detail btn btn-icon btn-sm btn-info" data-toggle="modal" data-id="{{ $anggota_dalam_list->id }}" data-target="#detailModal"><i class="fas fa-info-circle"></i> Lihat</a>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
-
-            <div class="col-lg-9">
-                <div class="section-body" style="min-height: 300px; padding:20px;">
-                    <table id="table_id" class="table table-striped table-bordered" style="padding-bottom:20px;">
-                        <thead>
-                            <tr>
-                                <th class="dt-center">Nama</th>
-                                <th class="dt-center">Jabatan</th>
-                                <th class="dt-center">Status</th>
-                                <th class="dt-center">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($list_anggota as $anggota_dalam_list)
-                            <tr>
-                                <td>{{ $anggota_dalam_list->nama }}</td>
-                                <td>{{ $anggota_dalam_list->jabatan }}</td>
-                                <td class="font-status">{!!$anggota_dalam_list->status!!}</td>
-                                <td class="dt-center">
-                                    <div class="btn-group mb-3" role="group" aria-label="Basic example" style="padding-left: 20px;">
-                                        <a href="#" class="open-detail btn btn-icon btn-sm btn-info" data-toggle="modal" data-id="{{ $anggota_dalam_list->id }}" data-target="#detailModal"><i class="fas fa-id-badge"></i> Detail</a>
-                                        @if($inside_sekretaris)
-                                        <a href="#" class="open-edit btn btn-icon btn-sm btn-warning" data-toggle="modal" data-id="{{ $anggota_dalam_list->id }}" data-target="#editModal"><i class="fas fa-edit"></i></i> Edit</a>
-                                        <a href="#" class="open-delete btn btn-icon btn-sm btn-danger" data-toggle="modal" data-id="{{ $anggota_dalam_list->id }}" data-target="#deleteModal"><i class="fas fa-trash"></i> Hapus</a>
-                                        @endif
-                                    </div>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+        </div>
 
     </section>
     <!-- Modal Detail -->
@@ -294,12 +316,12 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
     <!-- SCRIPT -->
     <script type="text/javascript">
         //JS halaman aktif
-        document.getElementById("master-aset-link").classList.add("active");
+        document.getElementById("terdaftar-aset-link").classList.add("active");
         document.getElementById("dropdown-aset").classList.add("active");
     </script>
 
     <script type="text/javascript">
-        //JQuery Pencarian Berdasarkan Kriteria
+        //JQuery Pencarian Berdasarkan Kriteria       
         $(document).ready(function() {
             var table = $('#table_id').DataTable({
                 "paging": true,
@@ -360,39 +382,39 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
             new $.fn.dataTable.Buttons(table, {
                 buttons: [{
                         extend: 'pdf',
-                        title: 'SI MASJID IBNU SINA - DAFTAR ASET',
+                        title: 'SI MASJID IBNU SINA - ASET TERDAFTAR',
                         text: '<i class="fas fa-file-pdf"></i> PDF',
                         className: 'btn btn-sm btn-secondary',
                         exportOptions: {
-                            columns: [0, 1, 2] // indexes of the columns that should be printed,
+                            columns: [0, 1, 2, 3, 4, 5, 6] // indexes of the columns that should be printed,
                         } // Exclude indexes that you don't want to print.
                     },
                     {
                         extend: 'csv',
-                        title: 'SI MASJID IBNU SINA - DAFTAR ASET',
+                        title: 'SI MASJID IBNU SINA - ASET TERDAFTAR',
                         className: 'btn btn-sm btn-secondary',
                         text: '<i class="fas fa-file-csv"></i> CSV',
                         exportOptions: {
-                            columns: [0, 1, 2]
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7]
                         }
 
                     },
                     {
                         extend: 'excel',
-                        title: 'SI MASJID IBNU SINA - DAFTAR ASET',
+                        title: 'SI MASJID IBNU SINA - ASET TERDAFTAR',
                         text: '<i class="fas fa-file-excel"></i> Excel',
                         className: 'btn btn-sm btn-secondary',
                         exportOptions: {
-                            columns: [0, 1, 2]
+                            columns: [0, 1, 2, 3, 4, 5, 6]
                         }
                     },
                     {
                         extend: 'print',
-                        title: 'SI MASJID IBNU SINA - DAFTAR ASET',
+                        title: 'SI MASJID IBNU SINA - ASET TERDAFTAR',
                         text: '<i class="fas fa-print"></i> Print',
                         className: 'btn btn-sm btn-secondary',
                         exportOptions: {
-                            columns: [0, 1, 2]
+                            columns: [0, 1, 2, 3, 4, 5, 6]
                         }
                     }
                 ]
