@@ -62,19 +62,18 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
                         <option value="0" selected>Semua Kategori</option>
                         <option value="1">Alat Dapur</option>
                         <option value="2">Alat Pertukangan</option>
-                        <option value="3">Buku</option>
-                        <option value="4">Elektronik IT</option>
-                        <option value="5">Elektronik Non-IT</option>
-                        <option value="6">Kendaraan</option>
-                        <option value="7">Perlengkapan Ibadah</option>
-                        <option value="8">Perabotan</option>
-                        <option value="9">Lainnya</option>
+                        <option value="3">Elektronik</option>
+                        <option value="4">Elektronik IT/Multimedia</option>
+                        <option value="5">Kendaraan</option>
+                        <option value="6">Perlengkapan Ibadah</option>
+                        <option value="7">Furniture/ Rumah Tangga</option>
+                        <option value="8">Lainnya</option>
                     </select>
                 </form>
             </div>
             <div class="col-8">
                 <div class="wrapper" style="text-align: right; margin:10px; width:100%">
-                    <h6 style="text-align: right;">Export Dokumen </h6>
+                    <h6 style="text-align: right;">Cetak Dokumen </h6>
                     <div class="export-table" style="display:inline-block;"></div>
                 </div>
             </div>
@@ -89,8 +88,8 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
                                 <option value="0" selected>Semua Kategori</option>
                                 <option value="1">Tanah dan Bangunan</option>
                                 <option value="2">Kendaraan</option>
-                                <option value="3">Elektronik IT</option>
-                                <option value="3">Elektronik Non-IT</option>
+                                <option value="3">Elektronik IT/Multimedia</option>
+                                <option value="3">Elektronik</option>
                                 <option value="4">Alat Dapur</option>
                                 <option value="4">Alat Pertukangan</option>
                                 <option value="5">Perlengkapan Ibadah</option>
@@ -103,8 +102,8 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
             <!-- <button class="btn btn-lg btn-info" style="margin: 5px; width:100%;">Tampilkan Semua</button>
                         <button class="btn btn-lg btn-info" style="margin: 5px; width:100%;">Alat Dapur</button>
                         <button class="btn btn-lg btn-info" style="margin: 5px; width:100%;">Alat Sholat</button>
-                        <button class="btn btn-lg btn-info" style="margin: 5px; width:100%;">Elektronik IT</button>
-                        <button class="btn btn-lg btn-info" style="margin: 5px; width:100%;">Elektronik Non-IT</button>
+                        <button class="btn btn-lg btn-info" style="margin: 5px; width:100%;">Elektronik IT/Multimedia</button>
+                        <button class="btn btn-lg btn-info" style="margin: 5px; width:100%;">Elektronik</button>
                         <button class="btn btn-lg btn-info" style="margin: 5px; width:100%;">Kendaraan</button>
                         <button class="btn btn-lg btn-info" style="margin: 5px; width:100%;">Lain-lain</button>
                         <button class="btn btn-lg btn-info" style="margin: 5px; width:100%;">Perabotan</button>
@@ -130,38 +129,252 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
                 <table id="table_id" class="table table-striped table-bordered" style="padding:0px; table-layout:auto; overflow:scroll;">
                     <thead>
                         <tr>
-                            <th class="dt-center">No Urut</th>
+                            <th class="dt-center">No. Registrasi</th>
                             <th class="dt-center">Kategori</th>
                             <th class="dt-center">Jenis Barang</th>
                             <th class="dt-center">Merek</th>
                             <th class="dt-center">Model</th>
                             <th class="dt-center">Kondisi</th>
+                            <th class="dt-center">No. Seri</th>
+                            <th class="dt-center">Lokasi</th>
                             <th class="dt-center">Keterangan</th>
-                            <th class="dt-center">Tgl. Daftar</th>
+                            <th class="dt-center">Penanggung Jawab</th>
+                            <th class="dt-center">Tgl. Registrasi</th>
                             <th class="dt-center">Batas Pakai (Tahun)</th>
                             <th class="dt-center">Masa Pakai (Tahun)</th>
+                            <th class="dt-center">Nilai Perolehan (Rp)</th>
                             <th class="dt-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($list_anggota as $anggota_dalam_list)
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
+                            <td>1</td>
                             <td>Kendaraan</td>
-                            <td>Mobil</td>
-                            <td>Toyota</td>
-                            <td>Avanza</td>
+                            <td>Sepeda Motor</td>
+                            <td>Honda</td>
+                            <td>Beat 125cc</td>
                             <td>Baik</td>
-                            <td>NOPOL:N1234OP, STNK:12312312313</td>
+                            <td>N 1234 AB</td>
+                            <td>Parkiran</td>
+                            <td>Warna Merah</td>
+                            <td>Pak Adi</td>
                             <td>20/10/2019</td>
                             <td>5</td>
                             <td>2</td>
+                            <td class="dt-right"><?php echo number_format(15000000, 0, ',', '.'); ?></td>
                             <td class="dt-center">
-
-                                <a href="#" class="open-detail btn btn-icon btn-sm btn-info" data-toggle="modal" data-id="{{ $anggota_dalam_list->id }}" data-target="#detailModal"><i class="fas fa-info-circle"></i> Lihat</a>
+                                <a href="#" class="open-detail btn btn-icon btn-sm btn-info" data-toggle="modal" data-id="#" data-target="#detailModal"><i class="fas fa-info-circle"></i> Lihat</a>
                             </td>
                         </tr>
-                        @endforeach
+                        <tr>
+                            <td>2</td>
+                            <td>Kendaraan</td>
+                            <td>Mobil</td>
+                            <td>Toyota</td>
+                            <td>Avanza 1000cc</td>
+                            <td>Baik</td>
+                            <td>N 5678 AB</td>
+                            <td>Parkiran</td>
+                            <td>Warna Hitam</td>
+                            <td>Pak Adi</td>
+                            <td>20/10/2019</td>
+                            <td>5</td>
+                            <td>2</td>
+                            <td class="dt-right"><?php echo number_format(200000000, 0, ',', '.'); ?></td>
+                            <td class="dt-center">
+                                <a href="#" class="open-detail btn btn-icon btn-sm btn-info" data-toggle="modal" data-id="#" data-target="#detailModal"><i class="fas fa-info-circle"></i> Lihat</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Elektronik</td>
+                            <td>AC</td>
+                            <td>Sharp</td>
+                            <td>Split 1PK</td>
+                            <td>Baik</td>
+                            <td>34534131231</td>
+                            <td>Ruang Utama</td>
+                            <td>-</td>
+                            <td>Pak Mega</td>
+                            <td>20/10/2019</td>
+                            <td>5</td>
+                            <td>2</td>
+                            <td class="dt-right"><?php echo number_format(2000000, 0, ',', '.'); ?></td>
+                            <td class="dt-center">
+                                <a href="#" class="open-detail btn btn-icon btn-sm btn-info" data-toggle="modal" data-id="#" data-target="#detailModal"><i class="fas fa-info-circle"></i> Lihat</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Elektronik IT/Multimedia</td>
+                            <td>Proyektor</td>
+                            <td>HP</td>
+                            <td>BF 1080P</td>
+                            <td>Baik</td>
+                            <td>N123213</td>
+                            <td>Gudang 1</td>
+                            <td>-</td>
+                            <td>Pak Mega</td>
+                            <td>20/10/2019</td>
+                            <td>5</td>
+                            <td>2</td>
+                            <td class="dt-right"><?php echo number_format(1500000, 0, ',', '.'); ?></td>
+                            <td class="dt-center">
+                                <a href="#" class="open-detail btn btn-icon btn-sm btn-info" data-toggle="modal" data-id="#" data-target="#detailModal"><i class="fas fa-info-circle"></i> Lihat</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Elektronik IT/Multimedia</td>
+                            <td>Layar Proyektor</td>
+                            <td>Microvision</td>
+                            <td>Mwsmv1515L</td>
+                            <td>Baik</td>
+                            <td>-</td>
+                            <td>Gudang 1</td>
+                            <td>-</td>
+                            <td>Pak Mega</td>
+                            <td>20/10/2019</td>
+                            <td>5</td>
+                            <td>2</td>
+                            <td class="dt-right"><?php echo number_format(7000000, 0, ',', '.'); ?></td>
+                            <td class="dt-center">
+                                <a href="#" class="open-detail btn btn-icon btn-sm btn-info" data-toggle="modal" data-id="#" data-target="#detailModal"><i class="fas fa-info-circle"></i> Lihat</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>Elektronik</td>
+                            <td>Pompa Air</td>
+                            <td>Sanyo</td>
+                            <td>PDH 250 B</td>
+                            <td>Baik</td>
+                            <td>32141123</td>
+                            <td>Tempat Wudhu</td>
+                            <td>-</td>
+                            <td>Pak Mega</td>
+                            <td>20/10/2019</td>
+                            <td>5</td>
+                            <td>2</td>
+                            <td class="dt-right"><?php echo number_format(1250000, 0, ',', '.'); ?></td>
+                            <td class="dt-center">
+                                <a href="#" class="open-detail btn btn-icon btn-sm btn-info" data-toggle="modal" data-id="#" data-target="#detailModal"><i class="fas fa-info-circle"></i> Lihat</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>Elektronik IT/Multimedia</td>
+                            <td>Monitor</td>
+                            <td>Samsung</td>
+                            <td>LCD 24 Inch</td>
+                            <td>Baik</td>
+                            <td>234234122</td>
+                            <td>Ruang Utama</td>
+                            <td>-</td>
+                            <td>Pak Mega</td>
+                            <td>20/10/2019</td>
+                            <td>5</td>
+                            <td>2</td>
+                            <td class="dt-right"><?php echo number_format(2100000, 0, ',', '.'); ?></td>
+                            <td class="dt-center">
+                                <a href="#" class="open-detail btn btn-icon btn-sm btn-info" data-toggle="modal" data-id="#" data-target="#detailModal"><i class="fas fa-info-circle"></i> Lihat</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>Elektronik IT/Multimedia</td>
+                            <td>Monitor</td>
+                            <td>Samsung</td>
+                            <td>LCD 24 Inch</td>
+                            <td>Baik</td>
+                            <td>234234124</td>
+                            <td>Ruang Utama</td>
+                            <td>-</td>
+                            <td>Pak Mega</td>
+                            <td>20/10/2019</td>
+                            <td>5</td>
+                            <td>2</td>
+                            <td class="dt-right"><?php echo number_format(2100000, 0, ',', '.'); ?></td>
+                            <td class="dt-center">
+                                <a href="#" class="open-detail btn btn-icon btn-sm btn-info" data-toggle="modal" data-id="#" data-target="#detailModal"><i class="fas fa-info-circle"></i> Lihat</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>Elektronik IT/Multimedia</td>
+                            <td>Monitor</td>
+                            <td>BenQ</td>
+                            <td>LCD 21 Inch</td>
+                            <td>Baik</td>
+                            <td>-</td>
+                            <td>Ruang Utama</td>
+                            <td>-</td>
+                            <td>Pak Mega</td>
+                            <td>20/10/2019</td>
+                            <td>5</td>
+                            <td>2</td>
+                            <td class="dt-right"><?php echo number_format(1200000, 0, ',', '.'); ?></td>
+                            <td class="dt-center">
+                                <a href="#" class="open-detail btn btn-icon btn-sm btn-info" data-toggle="modal" data-id="#" data-target="#detailModal"><i class="fas fa-info-circle"></i> Lihat</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>Furniture/Rumah Tangga</td>
+                            <td>Meja</td>
+                            <td>-</td>
+                            <td>Kayu</td>
+                            <td>Baik</td>
+                            <td>-</td>
+                            <td>Ruang Utama</td>
+                            <td>-</td>
+                            <td>Pak Mega</td>
+                            <td>20/10/2019</td>
+                            <td>5</td>
+                            <td>2</td>
+                            <td class="dt-right"><?php echo number_format(2500000, 0, ',', '.'); ?></td>
+                            <td class="dt-center">
+                                <a href="#" class="open-detail btn btn-icon btn-sm btn-info" data-toggle="modal" data-id="#" data-target="#detailModal"><i class="fas fa-info-circle"></i> Lihat</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>11</td>
+                            <td>Furniture/Rumah Tangga</td>
+                            <td>Kursi</td>
+                            <td>Chitose</td>
+                            <td>Lipat Besi</td>
+                            <td>Baik</td>
+                            <td>-</td>
+                            <td>Ruang Utama</td>
+                            <td>-</td>
+                            <td>Pak Mega</td>
+                            <td>20/10/2019</td>
+                            <td>5</td>
+                            <td>2</td>
+                            <td class="dt-right"><?php echo number_format(300000, 0, ',', '.'); ?></td>
+                            <td class="dt-center">
+                                <a href="#" class="open-detail btn btn-icon btn-sm btn-info" data-toggle="modal" data-id="#" data-target="#detailModal"><i class="fas fa-info-circle"></i> Lihat</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>12</td>
+                            <td>Furniture/Rumah Tangga</td>
+                            <td>Meja</td>
+                            <td>Olympic</td>
+                            <td>Kayu</td>
+                            <td>Baik</td>
+                            <td>-</td>
+                            <td>Ruang Utama</td>
+                            <td>-</td>
+                            <td>Pak Mega</td>
+                            <td>20/10/2019</td>
+                            <td>5</td>
+                            <td>2</td>
+                            <td class="dt-right"><?php echo number_format(800000, 0, ',', '.'); ?></td>
+                            <td class="dt-center">
+                                <a href="#" class="open-detail btn btn-icon btn-sm btn-info" data-toggle="modal" data-id="#" data-target="#detailModal"><i class="fas fa-info-circle"></i> Lihat</a>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -326,17 +539,17 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
             var table = $('#table_id').DataTable({
                 "paging": true,
                 "searching": true,
-                dom: 'lrtip',
+                dom: 'lfrtip',
                 //kriteria column 0 nama tipe input
                 initComplete: function() {
 
                     this.api().columns([0]).every(function() {
-                        var column = this;
-                        var input = $('<input class="form-control select" placeholder="Nama..." style="margin-bottom:10px;"></input>')
+                        var that = this;
+                        var input = $('<input class="form-control select" placeholder="No Registrasi..." style="margin-bottom:10px;"></input>')
                             .appendTo($(".column-search"))
                             .on('keyup change clear', function() {
-                                if (column.search() !== this.value) {
-                                    column
+                                if (that.search() !== this.value) {
+                                    that
                                         .search(this.value)
                                         .draw();
                                 }
@@ -345,7 +558,7 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
                     //kriteria column 0 nama tipe select
                     this.api().columns([1]).every(function() {
                         var column = this;
-                        var select = $('<select class="form-control select" style="margin-bottom:10px;"><option value="">Jabatan...</option></select>')
+                        var select = $('<select class="form-control select2" style="margin-bottom:10px; width:100%;"><option value="">Kategori...</option></select>')
                             // .appendTo($(column.header()).empty())
                             .appendTo($(".column-search"))
                             .on('change', function() {
@@ -362,7 +575,24 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
                     });
                     this.api().columns([2]).every(function() {
                         var column = this;
-                        var select = $('<select class="form-control select" style="margin-bottom:10px;"><option value="">Status...</option></select>')
+                        var select = $('<select class="form-control select2" style="margin-bottom:10px; width:100%;"><option value="">Jenis...</option></select>')
+                            // .appendTo($(column.header()).empty())
+                            .appendTo($(".column-search"))
+                            .on('change', function() {
+                                var val = $.fn.dataTable.util.escapeRegex(
+                                    $(this).val()
+                                );
+                                column
+                                    .search(val ? '^' + val + '$' : '', true, false)
+                                    .draw();
+                            });
+                        column.data().unique().sort().each(function(d, j) {
+                            select.append('<option value="' + d + '">' + d + '</option>')
+                        });
+                    });
+                    this.api().columns([3]).every(function() {
+                        var column = this;
+                        var select = $('<select class="form-control select2" style="margin-bottom:10px; width:100%"><option value="">Merk...</option></select>')
                             // .appendTo($(column.header()).empty())
                             .appendTo($(".column-search"))
                             .on('change', function() {
@@ -379,42 +609,79 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
                     });
                 }
             });
+
+
+            var today = new Date();
+            var date = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
             new $.fn.dataTable.Buttons(table, {
                 buttons: [{
                         extend: 'pdf',
+                        orientation: 'landscape',
                         title: 'SI MASJID IBNU SINA - ASET TERDAFTAR',
+                        messageTop: 'Dokumen ini dibuat pada tanggal ' + date,
+                        pageSize: 'A4',
+                        customize: function(doc) {
+                            doc.pageMargins = [10, 20, 10, 10];
+                        },
                         text: '<i class="fas fa-file-pdf"></i> PDF',
                         className: 'btn btn-sm btn-secondary',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6] // indexes of the columns that should be printed,
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] // indexes of the columns that should be printed,
                         } // Exclude indexes that you don't want to print.
                     },
-                    {
-                        extend: 'csv',
-                        title: 'SI MASJID IBNU SINA - ASET TERDAFTAR',
-                        className: 'btn btn-sm btn-secondary',
-                        text: '<i class="fas fa-file-csv"></i> CSV',
-                        exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6, 7]
-                        }
+                    // {
+                    //     extend: 'csv',
+                    //     title: 'SI MASJID IBNU SINA - ASET TERDAFTAR',
+                    //     className: 'btn btn-sm btn-secondary',
+                    //     text: '<i class="fas fa-file-csv"></i> CSV',
+                    //     exportOptions: {
+                    //         columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+                    //     }
 
-                    },
-                    {
-                        extend: 'excel',
-                        title: 'SI MASJID IBNU SINA - ASET TERDAFTAR',
-                        text: '<i class="fas fa-file-excel"></i> Excel',
-                        className: 'btn btn-sm btn-secondary',
-                        exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6]
-                        }
-                    },
+                    // },
+                    // {
+                    //     extend: 'excel',
+                    //     title: 'SI MASJID IBNU SINA - ASET TERDAFTAR',
+                    //     text: '<i class="fas fa-file-excel"></i> Excel',
+                    //     className: 'btn btn-sm btn-secondary',
+                    //     exportOptions: {
+                    //         columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+                    //     },
+                    //     customize: function(xlsx) {
+                    //         var sheet = xlsx.xl.worksheets['sheet1.xml'];
+
+                    //         $('row n', sheet).attr('s', '50');
+                    //     }
+                    // },
                     {
                         extend: 'print',
                         title: 'SI MASJID IBNU SINA - ASET TERDAFTAR',
+                        messageTop: 'Dokumen ini dibuat pada tanggal ' + date,
                         text: '<i class="fas fa-print"></i> Print',
                         className: 'btn btn-sm btn-secondary',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6]
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+                        },
+                        customize: function(win) {
+
+                            var last = null;
+                            var current = null;
+                            var bod = [];
+
+                            var css = '@page { size: landscape; }',
+                                head = win.document.head || win.document.getElementsByTagName('head')[0],
+                                style = win.document.createElement('style');
+
+                            style.type = 'text/css';
+                            style.media = 'print';
+
+                            if (style.styleSheet) {
+                                style.styleSheet.cssText = css;
+                            } else {
+                                style.appendChild(win.document.createTextNode(css));
+                            }
+
+                            head.appendChild(style);
                         }
                     }
                 ]

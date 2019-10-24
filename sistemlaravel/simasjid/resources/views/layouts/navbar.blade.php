@@ -85,7 +85,8 @@
                 <hr />
                 <li><a class="nav-link" style="pointer-events: none; cursor: default;">Pengaturan</a></li>
                 <li id='kategori-aset-link'><a class="nav-link" href="{{ route('asetMaster') }}"><i class="fas fa-th-large"></i>Kategori</a></li>
-                <li id='jenis-link'><a class="nav-link" href="{{ route('asetMaster') }}"><i class="fas fa-layer-group"></i>Jenis</a></li>
+                <li id='jenis-link'><a class="nav-link" href="{{ route('asetMaster') }}"><i class="fas fa-layer-group"></i>Jenis Barang</a></li>
+                <li id='Lokasi-link'><a class="nav-link" href="{{ route('asetMaster') }}"><i class="fas fa-map-marker-alt"></i>Lokasi</a></li>
                 <li id='pengurus-aset-link'><a class="nav-link" href="{{ route('asetMaster') }}"><i class="fas fa-users-cog"></i>Pengurus</a></li>
               </ul>
             </li>
