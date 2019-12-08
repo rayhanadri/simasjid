@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Transformer\Transformer;
 use Auth;
 use Illuminate\Http\Request;
-use App\Anggota_Status;
-use App\Anggota_Jabatan;
+// use App\Anggota_Status;
+// use App\Anggota_Jabatan;
 use Validator;
 
 class ProfileController extends Controller
@@ -21,9 +22,9 @@ class ProfileController extends Controller
         $file = $request->file('file');
 
         // validasi jenis file
-        // $request->validate([
-        //     'file' => 'image|mimes:gif,jpeg,png,jpg,bmp|max:2048'
-        // ]);
+        $request->validate([
+            'file' => 'image|mimes:gif,jpeg,png,jpg,bmp|max:2048'
+        ]);
         
         // tujuan folder upload
         $tujuan_upload = 'foto_profil';
@@ -37,7 +38,7 @@ class ProfileController extends Controller
         $anggota->save();
 
         //kembalikan ke halaman profile
-        return redirect('profile');
+        return view('profile.profile', ['anggota' => $anggota]);
     }
 
     public function index()
@@ -45,8 +46,10 @@ class ProfileController extends Controller
         //buka index. Ambil data user terotentikasi, kemudian passing ke view home
         $anggota = Auth::user();
         //transform dari db id_jabatan (angka) ke string, misal 1 jadi Ketua Takmir
-        $anggota->status = Anggota_Status::find($anggota->id_status)->status;
-        $anggota->jabatan = Anggota_Jabatan::find($anggota->id_jabatan)->jabatan;
+        $anggota->jabatan = Transformer::t_jabatan($anggota->id_jabatan);
+        $anggota->status = Transformer::t_status($anggota->id_status);
+        // $anggota->status = Anggota_Status::find($anggota->id_status)->status;
+        // $anggota->jabatan = Anggota_Jabatan::find($anggota->id_jabatan)->jabatan;
 
         //tampilkan view profile dengan data anggota
         return view('profile.profile', ['anggota' => $anggota]);

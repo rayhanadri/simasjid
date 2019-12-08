@@ -10,7 +10,7 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Anggota Terdaftar</h1>
+            <h1>Pengelola Aset</h1>
             <div></div>
         </div>
         <div class="row" style="padding-top: 10px;">
@@ -26,22 +26,23 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($list_anggota as $anggota_dalam_list)
+                            @if (isset($list_pengelola))
+                            @foreach ($list_pengelola as $pengelola_dalam_list)
                             <tr>
-                                <td>{{ $anggota_dalam_list->nama }}</td>
-                                <td>{{ $anggota_dalam_list->jabatan }}</td>
-                                <td class="font-status">{!!$anggota_dalam_list->status!!}</td>
+                                <td>{{ $pengelola_dalam_list->nama }}</td>
+                                <td>{{ $pengelola_dalam_list->jabatan }}</td>
+                                <td class="font-status">{!!$pengelola_dalam_list->status!!}</td>
                                 <td class="dt-center">
                                     <div class="btn-group mb-3" role="group" aria-label="Basic example" style="padding-left: 20px;">
-                                        <a href="#" class="open-detail btn btn-icon btn-sm btn-info" data-toggle="modal" data-id="{{ $anggota_dalam_list->id }}" data-target="#detailModal"><i class="fas fa-id-badge"></i> Detail</a>
+                                        <a href="#" class="open-detail btn btn-icon btn-sm btn-info" data-toggle="modal" data-id="{{ $pengelola_dalam_list->id }}" data-target="#detailModal"><i class="fas fa-id-badge"></i> Detail</a>
                                         @if($inside_sekretaris)
-                                        <a href="#" class="open-edit btn btn-icon btn-sm btn-warning" data-toggle="modal" data-id="{{ $anggota_dalam_list->id }}" data-target="#editModal"><i class="fas fa-edit"></i></i> Edit</a>
-                                        <a href="#" class="open-delete btn btn-icon btn-sm btn-danger" data-toggle="modal" data-id="{{ $anggota_dalam_list->id }}" data-target="#deleteModal"><i class="fas fa-trash"></i> Hapus</a>
+                                        <a href="#" class="open-delete btn btn-icon btn-sm btn-danger" data-toggle="modal" data-id="{{ $pengelola_dalam_list->id }}" data-target="#deleteModal"><i class="fas fa-trash"></i> Hapus</a>
                                         @endif
                                     </div>
                                 </td>
                             </tr>
                             @endforeach
+                            @endif
                         </tbody>
                     </table>
                 </div>
@@ -52,9 +53,10 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
                     <!-- Pakai JQuery -->
                     <div class="column-search"></div>
                     @if($inside_sekretaris)
-                    <!-- <div class="wrapper" style="text-align: center;">
-                        <button class="btn btn-lg btn-info btn-primary" style="margin: auto;"><i class="fas fa-user-plus"></i> Tambah Anggota</button>
-                    </div> -->
+                    <div class="wrapper" style="text-align: center;">
+                        <a href="#" class="btn btn-lg btn-info btn-primary" data-toggle="modal" data-target="#tambahModal"><i class="fas fas fa-user-plus"></i> Tambah Pengelola Aset</a>
+                        <!-- <button class="btn btn-lg btn-info btn-primary" style="margin: auto;"><i class="fas fa-user-plus"></i> Tambah Pengelola Aset</button> -->
+                    </div>
                     @endif
                 </div>
             </div>
@@ -122,12 +124,12 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
                 <div class="modal-body">
                     <img src="{{ route('home') }}/public/dist/assets/img/svg/trash.svg" id="detailFoto" class="mx-auto d-block" alt="hapus image" style="width:150px; height:150px;overflow: hidden;">
 
-                    <h5 align="center">Apakah Anda yakin ingin menghapus akun anggota ini?</h5>
+                    <h5 align="center">Apakah Anda yakin ingin menghapus pengguna ini dari daftar Pengelola Aset?</h5>
                 </div>
                 <div class="modal-footer bg-whitesmoke br">
-                    <form action="{{ route('anggotaDelete') }}" method="post">
+                    <form action="{{ route('anggotaPengelolaAsetDelete') }}" method="post">
                         @csrf
-                        <input type="text" id="anggotaId" name="anggotaId" value="" hidden/>
+                        <input type="text" id="anggotaId" name="anggotaId" value="" hidden />
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak, Batalkan</button>
                         <input type="submit" value="Ya, Hapus" class="btn btn-danger" />
                     </form>
@@ -136,56 +138,27 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
         </div>
     </div>
     <!-- Modal Edit -->
-    <div class="modal fade" tabindex="-1" role="dialog" id="editModal">
+    <div class="modal fade" tabindex="-1" role="dialog" id="tambahModal">
         <div class="modal-dialog" role="document">
-            <form action="{{ route('anggotaEdit') }}" method="post">
+            <form action="{{ route('anggotaPengelolaAsetAdd') }}" method="post">
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Edit Data Anggota</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
+                        <h5 class="modal-title">Tambah Pengelola Aset</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Tutup.">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <table class="table table-borderless" style="width:90%; margin: auto;">
+                        <table style="width:100%; margin: auto;">
                             <tbody>
+                                <th>Pilih Anggota Takmir atau Remas</th>
                                 <tr>
-                                    <th scope="row">Nama</th>
-                                    <td><input name="nama" id="editNama" class="form-control" /></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Jabatan</th>
-                                    <td><select id="editJabatan" name="id_jabatan" class="form-control select">
-                                            <option value=5>Remaja Masjid</option>
-                                            <option value=4>Takmir Masjid</option>
-                                            <option value=3>Bendahara Takmir</option>
-                                            <option value=2>Sekretaris Takmir</option>
-                                            <option value=1>Ketua Takmir</option>
+                                    <td><select id="editJabatan" name="id_anggota" class="form-control select2" style="width:100%; margin: auto;">
+                                            <?php foreach ($list_bukan_pengelola as $bukan_pengelola_dalam_list) {
+                                                echo '<option value="' . $bukan_pengelola_dalam_list->id . '">' . $bukan_pengelola_dalam_list->nama . '</option>';
+                                            } ?>
                                     </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Status</th>
-                                    <td><select id="editStatus" name="id_status" class="form-control select">
-                                            <option value=1>Aktif</option>
-                                            <option value=2>Non-Aktif</option>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Username</th>
-                                    <td><input name="username" id="editUsername" class="form-control" /></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Email</th>
-                                    <td><input type="email" name="email" id="editEmail" class="form-control" /></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Alamat</th>
-                                    <td><input name="alamat" id="editAlamat" class="form-control" /></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Telp/HP</th>
-                                    <td><input name="telp" id="editTelp" class="form-control" /></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -193,7 +166,7 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
                     <div class="modal-footer bg-whitesmoke br">
                         <input type="text" id="anggotaId" name="anggotaId" value="" hidden />
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Batalkan</button>
-                        <input type="submit" value="Konfirmasi Edit" class="btn btn-warning" />
+                        <input type="submit" value="Pilih Pengelola Aset" class="btn btn-warning" />
                     </div>
                 </div>
             </form>
@@ -203,7 +176,7 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
     <!-- SCRIPT -->
     <script type="text/javascript">
         //JS halaman aktif
-        document.getElementById("terdaftar-link").classList.add("active");
+        document.getElementById("pengelola-aset-link").classList.add("active");
         document.getElementById("dropdown-keanggotaan").classList.add("active");
     </script>
 

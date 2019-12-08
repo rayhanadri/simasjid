@@ -33,7 +33,7 @@
                                     <div class="btn-group mb-3" role="group" aria-label="Basic example" style="padding-left: 20px;">
                                         <a href="#" class="open-detail btn btn-icon btn-sm btn-info" data-toggle="modal" data-id="{{ $anggota_dalam_list->id }}" data-target="#detailModal"><i class="fas fa-id-badge"></i> Detail</a>
                                         <a href="#" class="open-tolak btn btn-icon btn-sm btn-danger" data-toggle="modal" data-id="{{ $anggota_dalam_list->id }}" data-target="#tolakModal"><i class="fas fa-times"></i></i> Tolak</a>
-                                        <a href="#" class="open-verif btn btn-icon btn-sm btn-primary" data-toggle="modal" data-id="{{ $anggota_dalam_list->id }}" data-target="#verifModal"><i class="fas fa-check"></i> Verifikasi</a>
+                                        <a href="#" class="open-terima btn btn-icon btn-sm btn-primary" data-toggle="modal" data-id="{{ $anggota_dalam_list->id }}" data-target="#terimaModal"><i class="fas fa-check"></i> Terima</a>
                                     </div>
                                 </td>
                             </tr>
@@ -126,7 +126,7 @@
         </div>
     </div>
     <!-- Modal Verif -->
-    <div class="modal fade" tabindex="-1" role="dialog" id="verifModal">
+    <div class="modal fade" tabindex="-1" role="dialog" id="terimaModal">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -141,7 +141,7 @@
                     <h5 align="center">Apakah Anda yakin ingin verifikasi anggota ini?</h5>
                 </div>
                 <div class="modal-footer bg-whitesmoke br">
-                    <form action="{{ route('anggotaAccVerif') }}" method="post">
+                    <form action="{{ route('anggotaTerimaVerif') }}" method="post">
                         @csrf
                         <input type="text" id="anggotaId" name="anggotaId" value="" hidden />
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak, Batalkan.</button>
@@ -225,7 +225,7 @@
         $(".modal-footer #anggotaId").val(thisDataAnggota);
     });
     // onclick verif, show modal
-    $(document).on("click", ".open-verif", function() {
+    $(document).on("click", ".open-terima", function() {
         /* passing data dari view button detail ke modal */
         var thisDataAnggota = $(this).data('id');
         $(".modal-footer #anggotaId").val(thisDataAnggota);

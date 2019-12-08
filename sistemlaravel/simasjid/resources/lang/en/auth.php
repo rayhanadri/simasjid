@@ -15,6 +15,7 @@ return [
 
     // 'failed' => 'These credentials do not match our records.',
     'failed' => 'Sistem tidak dapat menemukan data pengguna',
+    'not_activated' => 'Akun belum diaktivasi, silakan hubungi ketua atau sekretaris Masjid',
     // 'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
     'throttle' => 'Terlalu banyak percobaan masuk. Cobalah beberapa detik lagi.',
 

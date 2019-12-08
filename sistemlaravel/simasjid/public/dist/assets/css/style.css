@@ -2559,7 +2559,7 @@ a.dropdown-item.active {
     color: #fff;
 }
 .dropdown-list .dropdown-item.dropdown-item-unread {
-    background-color: #fbfbfb;
+    background-color: #ebe8e8;
     border-bottom-color: #f2f2f2;
 }
 .dropdown-list .dropdown-item.dropdown-item-unread:focus .dropdown-item-desc {

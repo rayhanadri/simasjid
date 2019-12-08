@@ -1,4 +1,4 @@
-@extends('layouts.header')
+@include('layouts.header')
 
 <body>
     <div id="app">

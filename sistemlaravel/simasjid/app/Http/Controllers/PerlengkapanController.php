@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Anggota;
 use Auth;
+use App\Anggota_Jabatan;
+use App\Anggota_Status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 
@@ -12,31 +14,34 @@ class AsetController extends Controller
     //mendapatkan anggota terdaftar aktif dan non-aktif
     public function index()
     {
+
         // semua user, composite object
-        // $list_anggota = Anggota::get()->where('id_status', '!=', 3);
+        $list_anggota = Anggota::get()->where('id_status', '!=', 3);
         //user terotentikasi
-        $SelectId = 0;
         $anggota = Auth::user();
         // $list = [];
         //id ke nilai
-        // foreach ($list_anggota as $anggota_dalam_list) {
-        //     $anggota_dalam_list->status = Anggota_Status::find($anggota_dalam_list->id_status)->status;
-        //     $anggota_dalam_list->jabatan = Anggota_Jabatan::find($anggota_dalam_list->id_jabatan)->jabatan;
-        //     // array_push($list, $anggota_dalam_list);
-        // }
+        foreach ($list_anggota as $anggota_dalam_list) {
+            $anggota_dalam_list->status = Anggota_Status::find($anggota_dalam_list->id_status)->status;
+            $anggota_dalam_list->jabatan = Anggota_Jabatan::find($anggota_dalam_list->id_jabatan)->jabatan;
+            // array_push($list, $anggota_dalam_list);
+        }
         // $resp = [
         //     'data' => $list
         // ];
         // echo json_encode($resp);
         //retval
-        return view('aset.masterAset', ['anggota' => $anggota, 'SelectId' => $SelectId]);
+        return view('aset.masterAset', ['list_anggota' => $list_anggota, 'anggota' => $anggota]);
     }
 
     public function selectKategori(Request $request)
     {
-        $SelectId = $request->id;
+        $id = $request->id;
+        if ($id == 0) {
+            return redirect(route('asetMaster'));
+        }
         $anggota = Auth::user();
-        return view('aset.masterAset', ['anggota' => $anggota, 'SelectId' => $SelectId]);
+        return view('aset.masterAset', ['anggota' => $anggota]);
         // echo "true " . $id;
     }
 
@@ -44,8 +49,8 @@ class AsetController extends Controller
     public function getDetail($id)
     {
         $detail_anggota = Anggota::get()->where('id', $id)->first();
-        // $detail_anggota->status = Anggota_Status::find($detail_anggota->id_status)->status;
-        // $detail_anggota->jabatan = Anggota_Jabatan::find($detail_anggota->id_jabatan)->jabatan;
+        $detail_anggota->status = Anggota_Status::find($detail_anggota->id_status)->status;
+        $detail_anggota->jabatan = Anggota_Jabatan::find($detail_anggota->id_jabatan)->jabatan;
         return $detail_anggota;
     }
 

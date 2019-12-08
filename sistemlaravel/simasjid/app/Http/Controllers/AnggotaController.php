@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Anggota;
+use App\Pengelola_aset;
 use Auth;
-use App\Anggota_Jabatan;
-use App\Anggota_Status;
+use App\Transformer\Transformer;
+// use App\Anggota_Jabatan;
+// use App\Anggota_Status;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AnggotaController extends Controller
 {
@@ -19,8 +22,8 @@ class AnggotaController extends Controller
         $anggota = Auth::user();
         //id ke nilai
         foreach ($list_anggota as $anggota_dalam_list) {
-            $anggota_dalam_list->status = Anggota_Status::find($anggota_dalam_list->id_status)->status;
-            $anggota_dalam_list->jabatan = Anggota_Jabatan::find($anggota_dalam_list->id_jabatan)->jabatan;
+            $anggota_dalam_list->status = Transformer::t_status($anggota_dalam_list->id_status);
+            $anggota_dalam_list->jabatan = Transformer::t_jabatan($anggota_dalam_list->id_jabatan);
         }
         //retval
         return view('anggota.anggotaTerdaftar', ['list_anggota' => $list_anggota, 'anggota' => $anggota]);
@@ -30,8 +33,11 @@ class AnggotaController extends Controller
     public function getDetail($id)
     {
         $detail_anggota = Anggota::get()->where('id', $id)->first();
-        $detail_anggota->status = Anggota_Status::find($detail_anggota->id_status)->status;
-        $detail_anggota->jabatan = Anggota_Jabatan::find($detail_anggota->id_jabatan)->jabatan;
+
+        $detail_anggota->jabatan = Transformer::t_jabatan($detail_anggota->id_jabatan);
+        $detail_anggota->status = Transformer::t_status($detail_anggota->id_status);
+        // $detail_anggota->status = Anggota_Status::find($detail_anggota->id_status)->status;
+        // $detail_anggota->jabatan = Anggota_Jabatan::find($detail_anggota->id_jabatan)->jabatan;
         return $detail_anggota;
     }
 
@@ -42,18 +48,18 @@ class AnggotaController extends Controller
         $anggota = Auth::user();
 
         //controlRole hanya 1,3 ketua dan sekretaris
-        $authorized = array(1, 3);
-        if (!in_array($anggota->id_jabatan, $authorized)) {
-            return redirect(route('home'));
-        }
+        // $authorized = array(1, 3);
+        // if (!in_array($anggota->id_jabatan, $authorized)) {
+        //     return redirect(route('home'));
+        // }
 
         //semua user blm verifikasi, composite object
         $list_anggota = Anggota::get()->where('id_status', '=', 3);
 
-        //id ke nilai
+        // id ke nilai
         foreach ($list_anggota as $anggota_dalam_list) {
-            $anggota_dalam_list->status = Anggota_Status::find($anggota_dalam_list->id_status)->status;
-            $anggota_dalam_list->jabatan = Anggota_Jabatan::find($anggota_dalam_list->id_jabatan)->jabatan;
+            $anggota_dalam_list->status = Transformer::t_status($anggota_dalam_list->id_status);
+            $anggota_dalam_list->jabatan = Transformer::t_jabatan($anggota_dalam_list->id_jabatan);
         }
         //retval
         return view('anggota.anggotaBlmVerifikasi', ['list_anggota' => $list_anggota, 'anggota' => $anggota]);
@@ -69,7 +75,7 @@ class AnggotaController extends Controller
     }
 
     //terima verifikasi pendaftaran
-    public function verif(Request $request)
+    public function terima(Request $request)
     {
         $detail_anggota = Anggota::get()->where('id', $request->anggotaId)->first();
         $detail_anggota->id_status = 1;
@@ -114,5 +120,54 @@ class AnggotaController extends Controller
         $edited_anggota->save();
 
         return redirect(route('anggotaTerdaftar'));
+    }
+
+    //mendapatkan anggota pengelola aset
+    public function pengelola_aset_index()
+    {
+        //get all id pengelola
+        $list_pengelola = DB::table('Pengelola_aset')
+            ->join('anggota', 'Pengelola_aset.id_anggota', '=', 'anggota.id')
+            ->select('Pengelola_aset.id_anggota as id', 'anggota.id_status', 'anggota.id_jabatan', 'anggota.nama')
+            ->get();
+
+        //default, semuanya bukan pengelola
+        // $list_bukan_pengelola = Anggota::get()->where('id_status', '=', 1);
+
+        //jika ada pengelola, inilah list bukan pengelolanya (untuk pilihan pengelola)
+        $list_bukan_pengelola = DB::table('anggota')->select('*')
+                                                    ->where('anggota.id_status', '=', 1)
+                                                    ->whereNotIn('id',function($query) {
+                                                            $query->select('id_anggota')->from('Pengelola_aset');
+                                                    })
+                                                    ->get();
+        //user terotentikasi
+        $anggota = Auth::user();
+        //id ke nilai
+        foreach ($list_pengelola as $pengelola_dalam_list) {
+            $pengelola_dalam_list->status = Transformer::t_status($pengelola_dalam_list->id_status);
+            $pengelola_dalam_list->jabatan = Transformer::t_jabatan($pengelola_dalam_list->id_jabatan);
+        }
+
+        foreach ($list_bukan_pengelola as $bukan_pengelola_dalam_list) {
+            $bukan_pengelola_dalam_list->status = Transformer::t_status($bukan_pengelola_dalam_list->id_status);
+            $bukan_pengelola_dalam_list->jabatan = Transformer::t_jabatan($bukan_pengelola_dalam_list->id_jabatan);
+        }
+        //retval
+        return view('anggota.anggotaPengelolaAset', ['list_pengelola' => $list_pengelola, 'list_bukan_pengelola' => $list_bukan_pengelola, 'anggota' => $anggota]);
+    }
+
+    //menambah pengelola aset
+    public function pengelola_aset_add(Request $request)
+    {
+        DB::table('Pengelola_aset')->insert(['id_anggota' => $request->id_anggota]);
+        return redirect(route('anggotaPengelolaAset'));
+    }
+
+    //menghapus hak pengelola aset
+    public function pengelola_aset_delete(Request $request)
+    {
+        DB::table('Pengelola_aset')->where('id_anggota', '=', $request->anggotaId)->delete();
+        return redirect(route('anggotaPengelolaAset'));
     }
 }

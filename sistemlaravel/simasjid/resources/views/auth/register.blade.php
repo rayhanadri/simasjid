@@ -1,4 +1,4 @@
-@extends('layouts.header')
+@include('layouts.header')
 
 <body>
   <div id="app">
@@ -17,11 +17,11 @@
                 <form method="POST" action="{{ route('register') }}">
                   @csrf
                   <div class="form-group row">
-                    <label for="username" class="col-md-4 col-form-label text-md-right">{{ __('Akses Akun') }}</label>
+                    <label for="id_jabatan" class="col-md-4 col-form-label text-md-right">{{ __('Akses Akun') }}</label>
                     <div class="col-md-6">
                       <select class="form-control" id="id_jabatan" name="id_jabatan" required>
-                        <option value=8>Takmir Masjid</option>
-                        <option value=9>Remaja Masjid</option>
+                        <option value=4>Takmir Masjid</option>
+                        <option value=5>Remaja Masjid</option>
                       </select>
                     </div>
                   </div>

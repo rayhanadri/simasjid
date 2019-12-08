@@ -48,7 +48,16 @@
             @csrf
             <div class="form-group">
               <label>Ganti Foto</label>
-              <input type="file" required name="file" id="fileChooser" accept="image/*" class="form-control" onchange="return ValidateFileUpload()">
+              @if ($errors->any())
+              <div class="alert alert-danger">
+                <ul>
+                  @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+                  @endforeach
+                </ul>
+              </div>
+              @endif
+              <input type="file" required name="file" id="fileChooser" accept="image/.gif, .png, .jpg, .jpeg, .bmp" class="form-control" onchange="return ValidateFileUpload()">
               <div class="wrapper" style="text-align: center; margin-top:7px">
                 <button type="submit" class="btn btn-primary">Upload Foto</button>
               </div>

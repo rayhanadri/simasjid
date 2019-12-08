@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Transformer\Transformer;
 // use App\Anggota;
 // use Illuminate\Http\Request;
 use Auth;
@@ -19,8 +20,8 @@ class HomeController extends Controller
     {
         //buka index. Ambil data user terotentikasi, kemudian passing ke view home
         $anggota = Auth::user();
-        $anggota->status = Anggota_Status::find($anggota->id_status)->status;
-        $anggota->jabatan = Anggota_Jabatan::find($anggota->id_jabatan)->jabatan;
+        $anggota->jabatan = Transformer::t_jabatan($anggota->id_jabatan);
+        $anggota->status = Transformer::t_status($anggota->id_status);
         return view('home', ['anggota' => $anggota]);
     }
 }

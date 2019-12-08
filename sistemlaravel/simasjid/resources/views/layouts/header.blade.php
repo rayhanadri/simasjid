@@ -15,6 +15,10 @@
   <!-- fontawesome integrity integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" -->
   <!-- bootstrap integrity integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" -->
 
+  <!-- JS Bootstrap -->
+  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> -->
+
+  
   <!-- CSS Libraries -->
   <link rel="stylesheet" href="{{ asset('public/dist/bootstrap-daterangepicker/daterangepicker.css') }}">
   <link rel="stylesheet" href="{{ asset('public/dist/select2/dist/css/select2.min.css') }}">
@@ -33,6 +37,12 @@
 
   <!-- Icofont -->
   <link rel="stylesheet" href="{{ asset('public/plugins/icofont/icofont.min.css') }}">
+
+  <!-- Autonumeric JQuery -->
+  <script src="http://www.decorplanit.com/plugin/autoNumeric-1.9.27.js" type=text/javascript> </script>
+
+
+
 
   <!-- DataTables -->
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
