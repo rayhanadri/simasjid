@@ -33,7 +33,7 @@ jadi
 
 **Setting File env**
 1.	Buka file `.env` di direktori project laravel
-2.	Ubah line 12-14 sesuaikan dgn default password laravel
+2.	Ubah line 12-14 sesuaikan dengan database mysql
     
     ```
     DB_DATABASE=simasjid
