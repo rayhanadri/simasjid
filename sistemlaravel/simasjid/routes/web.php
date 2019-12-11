@@ -41,7 +41,7 @@ Route::middleware('auth')->group(function () {
         Route::post('aset/usulan/delete', 'UsulanController@delete')->name('usulanDelete');
         Route::post('aset/usulan/edit', 'UsulanController@edit')->name('usulanEdit');
         Route::get('aset/usulan/detail/{id}', 'UsulanController@getDetail')->name('usulanDetail');
-        Route::get('aset/usulan/show/{id}', 'UsulanController@getDetail')->name('usulanDetail');
+        Route::get('aset/usulan/view/{id}', 'UsulanController@getView')->name('usulanView');
         Route::post('aset/usulan/verifikasi/tolak', 'UsulanController@tolak')->name('usulanTolak');
         Route::post('aset/usulan/verifikasi/terima', 'UsulanController@verif')->name('usulanAcc');
 
@@ -59,11 +59,17 @@ Route::middleware('auth')->group(function () {
 
 
 
-        //route kategori_aset
-        Route::get('aset/kategori', 'Kategori_asetController@index')->name('kategoriTerdaftar');
-        Route::get('aset/kategori/get/{jenis_aset}', 'Kategori_asetController@get')->name('kategoriGetByJenis');
-        Route::post('aset/kategori/create', 'Kategori_asetController@create')->name('kategoriCreate');
-        Route::get('aset/kategori/delete', 'Kategori_asetController@delete')->name('kategoriDelete');
+        //route kategori
+        Route::get('aset/kategori', 'KategoriController@index')->name('kategoriTerdaftar');
+        Route::post('aset/kategori/create', 'KategoriController@create')->name('kategoriCreate');
+        Route::get('aset/kategori/delete', 'KategoriController@delete')->name('kategoriDelete');
+
+        //route katalog
+        Route::get('aset/katalog', 'KatalogController@index')->name('katalogTerdaftar');
+        Route::post('aset/katalog', 'KatalogController@indexSelected')->name('katalogSelected');
+
+        //route katalog
+        Route::get('aset/lokasi', 'LokasiController@index')->name('lokasiTerdaftar');
 
         Route::get('aset', 'AsetController@index')->name('asetMaster');
         Route::post('aset', 'AsetController@selectKategori')->name('asetMasterSelectKategori');

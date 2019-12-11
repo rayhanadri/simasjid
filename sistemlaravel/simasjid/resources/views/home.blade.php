@@ -4,10 +4,17 @@
 <!-- Main Content -->
 <div class="main-content">
   <section class="section">
-    <div class="section-header" style="margin-bottom: 17px;">
-      <h1>Home</h1>
-      <div></div>
+    <div class="row">
+      <div>
+        <ol class="breadcrumb float-sm-left" style="margin-bottom: 10px; margin-left: 15px;">
+          <li class="breadcrumb-item active"><a href="{{ route('home') }}"><i class="fas fa-mosque"></i> Home</a></li>
+        </ol>
+      </div>
     </div>
+    <div class="section-header">
+      <h1>Home</h1>
+    </div>
+
     <div class="col-lg-12 col-md-12 col-sm-12" style="padding: 0px;">
       <div class="card" style="margin-bottom: 10px;">
         <div style="text-align:center; padding:20px;">

@@ -49,24 +49,6 @@ class Transformer
         }
     }
 
-    public static function t_jenis_aset($id_jenis_aset)
-    {
-        switch ($id_jenis_aset) {
-            case 1:
-                return 'Aset Tetap';
-                break;
-            case 2:
-                return 'Persediaan';
-                break;
-            case 3:
-                return 'Buku';
-                break;
-            default:
-                return 'Aset Lainnya';
-                break;
-        }
-    }
-
     public static function t_kategori_aset($id_kategori)
     {
         $kategori_aset = Kategori_aset::get()->where('id_kategori', '=', $id_kategori)->first();

@@ -13,19 +13,19 @@ class Usulan extends Model
     protected $table = 'usulan';
 
     protected $fillable = [
-        'nama', 'id_jenis', 'id_pengusul', 'id_pengelola', 'id_kategori', 'harga', 'status_usulan',
+        'id', 'nama', 'jenis_usulan', 'id_pengusul', 'id_pengelola', 'id_katalog', 'harga_usulan', 'status_usulan', 'jumlah', 'keterangan', 'status_usulan', 'created_at', 'updated_at'
     ];
 
-    //usulan terdapat jenis aset
-    public function jenis_aset()
+    //usulan terdapat kategori aset
+    public function katalog()
     {
-        return $this->hasOne('App\Jenis_aset', 'id', 'id_jenis');
+        return $this->hasOne('App\Katalog', 'id', 'id_katalog');
     }
 
-    //usulan terdapat kategori aset
-    public function kategori()
+    //jika usulan disetujui, maka akan dibeli
+    public function pembelian()
     {
-        return $this->hasOne('App\Kategori_aset', 'id', 'id_kategori');
+        return $this->hasOne('App\Pembelian', 'id_usulan', 'id');
     }
 
     //usulan terdapat anggota pembuat usul

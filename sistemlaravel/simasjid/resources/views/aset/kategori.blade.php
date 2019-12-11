@@ -17,107 +17,67 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
                 <ol class="breadcrumb float-sm-left" style="margin-bottom: 10px; margin-left: 15px;">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}"><i class="fas fa-mosque"></i> Home</a></li>
                     <li class="breadcrumb-item"><a href="#">Manajemen Aset</a></li>
-                    <li class="breadcrumb-item active">Usulan</li>
+                    <li class="breadcrumb-item active">Kategori</li>
                 </ol>
             </div>
         </div>
         <div class="section-header">
-            <div>
-                <h1><i class="fa fa-lightbulb"></i> Usulan Barang</h1>
-                <div>
-                    <p style="padding: 10px; margin-bottom: 0px;">Usulan Barang berisi kumpulan usulan untuk barang aset yang telah dibuat oleh Takmir dan Remas. Usulan dapat dibuat dengan memilih dari katalog yang tersedia atau dengan membuat usulan non-katalog.</p>
-                </div>
-            </div>
+            <h1><i class="fa fa-tags"></i> Kategori</h1>
         </div>
         <div class="row">
-            <div class="col-12">
-                <div class="section-body" style="margin-bottom: 10px;">
-                    <!-- pencarian -->
-                    <div class="card" style="margin-bottom: 0px;">
-                        <button class="btn btn-info" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" style="margin: 5px; width:100%;">
-                            <i class="fa fa-filter"></i> Filter Data
-                        </button>
-                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne">
-                            <div class="card-body" style="padding: 10px auto;">
-                                <!-- Pakai JQuery -->
-                                <div class="column-search"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
+            <div class="col-8">
                 <div class="section-body" style="min-height: 300px;">
                     <div class="col-12" style="margin-left: 0px; margin-top: 0px; margin-bottom:20px; padding: 0px;">
-                        <a href="#" class="btn btn-lg btn-info btn-primary" data-toggle="modal" data-target="#tambahModal"><i class="fas fas fa-plus"></i> Buat Usulan dari Katalog</a>
-                        <a href="#" class="btn btn-lg btn-info btn-primary" data-toggle="modal" data-target="#tambahModal"><i class="fas fas fa-plus"></i> Buat Usulan Non-Katalog</a>
+                        <a href="#" class="btn btn-lg btn-info btn-primary" data-toggle="modal" data-target="#tambahModal"><i class="fas fas fa-plus"></i> Tambah Kategori</a>
+                        <a href="#" class="btn btn-lg btn-info btn-primary" data-toggle="modal" data-target="#tambahModal"><i class="fas fas fa-plus"></i> Tambah Penanggung Jawab</a>
                     </div>
-                    <table id="table_id" class="table table-striped table-bordered">
+                    <table id="table_id" class="table table-striped table-bordered cell-border">
                         <thead>
                             <tr>
-                                <th class="dt-center">ID</th>
-                                <th class="dt-center">Jenis Usulan</th>
-                                <th class="dt-center">Nama Barang</th>
-                                <th class="dt-center">Kategori</th>
-                                <th class="dt-center" style="width: 50px;padding-right: 5px;padding-left: 5px;height: 50px;">Jumlah</th>
-                                <th class="dt-center">Harga Satuan</th>
-                                <th class="dt-center">Harga Total</th>
-                                <th class="dt-center">Status Usulan</th>
-                                <th class="dt-center">Status Pembelian</th>
-                                <th class="dt-center" style="min-width: 5em;">Action</th>
+                                <th>No</th>
+                                <th>Nama Kategori</th>
+                                <th>Penanggung Jawab</th>
+                                <!-- <th class="dt-center">Katalog</th> -->
+                                <!-- <th class="dt-center" style="width: 50px;padding-right: 5px;padding-left: 5px;height: 50px;">Jumlah</th> -->
+                                <!-- <th class="dt-center">Harga Satuan</th>
+                                <th class="dt-center">Total Harga</th> -->
+                                <!-- <th class="dt-center">Dibuat</th>
+                                <th class="dt-center">Diperbarui</th>
+                                <th class="dt-center">Status</th>
+                                <th class="dt-center">Action</th> -->
                                 @if($inside_pengelola)
+                                <!-- <th class="dt-center" style="width: 11em">Buat Keputusan</th> -->
                                 @endif
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($list_usulan as $usulan)
+                            @foreach ($list_kategori as $kategori)
                             <tr>
-                                <td>{{ $usulan->id }}</td>
-                                <td> {{ $usulan->jenis_usulan }} </td>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $kategori->nama}}</td>
                                 <td>
-                                    @if($usulan->jenis_usulan == "Katalog")
-                                    {{ $usulan->katalog->nama }}
-                                    @else
-                                    {{ $usulan->nama }}
-                                    @endif
-                                </td>
-                                <td>
-                                    @if($usulan->jenis_usulan == "Katalog")
-                                    {{ $usulan->katalog->kategori->nama }}
-                                    @else
-                                    -
-                                    @endif
-                                </td>
-                                <td class="dt-center" style="width: 50px;padding-right: 5px;padding-left: 5px;height: 50px;">{{ $usulan->jumlah }}</td>
-                                <!-- <td>{{ $usulan->harga }}</td>
-                                <td>{{ $usulan->harga * $usulan->jumlah }}</td> -->
-                                <td style="min-width: 7em;" class="harga" data-a-sign="Rp. " data-a-dec="," data-a-sep=".">{{ $usulan->harga_usulan }}</td>
-                                <td style="min-width: 7em;" class="harga" data-a-sign="Rp. " data-a-dec="," data-a-sep=".">{{ $usulan->harga_usulan * $usulan->jumlah }}</td>
-                                <!-- <td>{{ $usulan->updated_at->diffForHumans() }}</td> -->
-                                <td class="font-status">{{ $usulan->status_usulan }}</td>
-                                @if(!empty($usulan->pembelian))
-                                <td class="font-status">{{ $usulan->pembelian->status_pembelian }}</td>
-                                @else
-                                <td class="font-status">Tidak Terdaftar</td>
-                                @endif
-                                <td class="dt-center">
-                                    <!-- <div class="btn-group mb-3" role="group" aria-label="Basic example" style="padding-left: 20px;"> -->
-                                    <a href="#" class="open-detail btn btn-icon btn-sm btn-info" data-toggle="modal" data-id="{{ $usulan->id }}" data-target="#detailModal" style="margin-bottom: 2px; width:100%"><i class="fas fa-glasses"></i> Detail</a>
-                                    @if( ( $inside_pengelola || $usulan->id_pengusul == $anggota->id ) && ( $usulan->status_usulan == "Menunggu Keputusan" ) )
-                                    <a href="#" class="open-edit btn btn-icon btn-sm btn-warning" data-toggle="modal" data-id="{{ $usulan->id }}" data-target="#editModal" style="margin-bottom: 2px; width:100%"><i class="fas fa-edit"></i></i> Edit</a>
-                                    <a href="#" class="open-delete btn btn-icon btn-sm btn-danger" data-toggle="modal" data-id="{{ $usulan->id }}" data-target="#deleteModal" style="margin-bottom: 2px; width:100%"><i class="fas fa-trash"></i> Hapus</a>
-                                    @endif
-                                    @if( !empty($usulan->pembelian) )
-                                    <a href="{{ route('home').'/aset/pembelian/detail/'.$usulan->pembelian->id }}" class="btn-icon btn btn-sm btn-secondary" style="margin-bottom: 2px; width:100%"><i class="fas fa-shopping-bag"></i> Pembelian</a>
-                                    @endif
-                                    <!-- </div> -->
+                                    <table style="border: none;">
+                                        @foreach( $kategori->list_pj_kategori as $pj_kategori )
+                                        <tr>
+                                            <td>{{ $pj_kategori->anggota_pj_kategori->nama }}</td>
+                                            @if($inside_pengelola)
+                                            <td><a href="#" class="open-delete btn btn-icon btn-sm btn-danger" data-toggle="modal" data-id="#" data-target="#deleteModal" style="margin-bottom: 2px; width:100%"><i class="fas fa-trash"></i> Hapus</a></td>
+                                            @endif
+                                        </tr>
+                                        @endforeach
+                                    </table>
                                 </td>
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="section-body" style="margin-bottom: 10px;">
+                    <h6><i class="fa fa-filter"></i> Filter Data</h6>
+                    <!-- pencarian  Pakai JQuery -->
+                    <div class="column-search"></div>
                 </div>
             </div>
         </div>
@@ -204,7 +164,7 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
             <div class="modal-body">
                 <img src="{{ route('home') }}/public/dist/assets/img/svg/trash.svg" id="detailFoto" class="mx-auto d-block" alt="hapus image" style="width:150px; height:150px;overflow: hidden;">
 
-                <h5 align="center">Apakah Anda yakin ingin menghapus usulan ini?</h5>
+                <h5 align="center">Apakah Anda yakin ingin anggota ini dari daftar Penanggung Jawab?</h5>
             </div>
             <div class="modal-footer bg-whitesmoke br">
                 <form action="{{ route('usulanDelete') }}" method="post">
@@ -318,15 +278,15 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
                 <table style="width:90%; margin: auto;">
                     <tbody>
                         <tr>
-                            <th scope="row">Jenis Usulan</th>
-                            <td id="detailJenis"></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Nama Barang</th>
+                            <th scope="row">Nama Usulan Aset</th>
                             <td id="detailNama"></td>
                         </tr>
                         <tr>
-                            <th scope="row">Kategori</th>
+                            <th scope="row">Jenis Aset</th>
+                            <td id="detailJenis"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Kategori Aset</th>
                             <td id="detailKategori"></td>
                         </tr>
                         <tr>
@@ -358,18 +318,8 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
                             <td id="diperbaruiOleh"></td>
                         </tr>
                         <tr>
-                            <th scope="row">Keterangan</th>
-                            <td id="detailKeterangan"></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Status Usulan</th>
-                            <td id="detailStatusUsulan" class="font-status"></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Status Pembelian</th>
-                            <td id="detailStatusPembelian" class="font-status">
-
-                            </td>
+                            <th scope="row">Status</th>
+                            <td id="detailStatus" class="font-status"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -388,59 +338,15 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
 <!-- SCRIPT -->
 <script type="text/javascript">
     //JS halaman aktif
-    document.getElementById("usulan-link").classList.add("active");
+    document.getElementById("kategori-link").classList.add("active");
     document.getElementById("dropdown-aset").classList.add("active");
 </script>
 
 <script type="text/javascript">
-    function status_colorized() {
-        //status aktif bold
-        $(".font-status").css('font-weight', 'bold');
-        //ganti warna status
-        $(".font-status").filter(function() {
-            return $(this).text() === 'Pembelian Gagal';
-        }).css('color', 'red');
-        $(".font-status").filter(function() {
-            return $(this).text() === 'Tidak Terdaftar';
-        }).css('color', 'red');
-
-        //warna biru
-        $(".font-status").filter(function() {
-            return $(this).text() === 'Dalam Proses';
-        }).css('color', 'blue');
-
-        //warna hijau
-        $(".font-status").filter(function() {
-            return $(this).text() === 'Disetujui';
-        }).css('color', 'green');
-        $(".font-status").filter(function() {
-            return $(this).text() === 'Selesai';
-        }).css('color', 'green');
-
-        //warna merah
-        $(".font-status").filter(function() {
-            return $(this).text() === 'Ditolak';
-        }).css('color', 'red');
-        $(".font-status").filter(function() {
-            return $(this).text() === 'Gagal';
-        }).css('color', 'red');
-
-        //status kuning
-        $(".font-status").filter(function() {
-            return $(this).text() === 'Menunggu Keputusan';
-        }).css('color', '#FFC300');
-        $(".font-status").filter(function() {
-            return $(this).text() === 'Menunggu Barang Diterima';
-        }).css('color', '#FFC300');
-
-    }
-
     //document function
     $(document).ready(function() {
-        $(".custom-select").css('width', '82px');
-        status_colorized();
         //autonumeric 
-        $('.harga').autoNumeric('init'); //harga
+        // $('#harga').autoNumeric('init');
         $('#detailHarga').autoNumeric('init'); //autonumeric detailharga
         $('#detailTotal').autoNumeric('init'); //autonumeric detailtotal
         //onchange select jenis aset, show opsi kategori
@@ -464,17 +370,11 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
         });
         //JQuery Pencarian Berdasarkan Kriteria
         $('#table_id').DataTable({
-            "scrollX": true,
-            language: {
-                search: "Cari di tabel:",
-                zeroRecords: "Data tidak tersedia",
-            },
             //kriteria column 0 nama tipe input
             initComplete: function() {
-                //kriteria column 0 nama tipe select
                 this.api().columns([1]).every(function() {
                     var column = this;
-                    var select = $('<select class="form-control select" style="margin-bottom:10px;"><option value="">Filter Jenis Usulan</option></select>')
+                    var select = $('<select class="form-control select2" style="margin-bottom:10px; width:100%;"><option value="">Filter Nama Kategori</option></select>')
                         // .appendTo($(column.header()).empty())
                         .appendTo($(".column-search"))
                         .on('change', function() {
@@ -491,7 +391,7 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
                 });
                 this.api().columns([2]).every(function() {
                     var column = this;
-                    var input = $('<input class="form-control" placeholder="Filter Nama Barang" style="margin-bottom:10px;"></input>')
+                    var input = $('<input class="form-control select" placeholder="Filter Nama Penanggung Jawab" style="margin-bottom: 10px; margin-top: 10px;"></input>')
                         .appendTo($(".column-search"))
                         .on('keyup change clear', function() {
                             if (column.search() !== this.value) {
@@ -501,61 +401,12 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
                             }
                         });
                 });
-                this.api().columns([3]).every(function() {
-                    var column = this;
-                    var select = $('<select class="form-control select2" style="margin-bottom:10px; width:100%;"><option value="">Filter Kategori</option></select>')
-                        // .appendTo($(column.header()).empty())
-                        .appendTo($(".column-search"))
-                        .on('change', function() {
-                            var val = $.fn.dataTable.util.escapeRegex(
-                                $(this).val()
-                            );
-                            column
-                                .search(val ? '^' + val + '$' : '', true, false)
-                                .draw();
-                        });
-                    column.data().unique().sort().each(function(d, j) {
-                        select.append('<option value="' + d + '">' + d + '</option>')
-                    });
-                });
-                this.api().columns([7]).every(function() {
-                    var column = this;
-                    var select = $('<select class="form-control select" style="margin-top:10px; width:100%;"><option value="">Filter Status Usulan</option></select>')
-                        // .appendTo($(column.header()).empty())
-                        .appendTo($(".column-search"))
-                        .on('change', function() {
-                            var val = $.fn.dataTable.util.escapeRegex(
-                                $(this).val()
-                            );
-                            column
-                                .search(val ? '^' + val + '$' : '', true, false)
-                                .draw();
-                        });
-                    column.data().unique().sort().each(function(d, j) {
-                        select.append('<option value="' + d + '">' + d + '</option>')
-                    });
-                });
-                this.api().columns([8]).every(function() {
-                    var column = this;
-                    var select = $('<select class="form-control select" style="margin-top:10px; width:100%;"><option value="">Filter Status Pembelian</option></select>')
-                        // .appendTo($(column.header()).empty())
-                        .appendTo($(".column-search"))
-                        .on('change', function() {
-                            var val = $.fn.dataTable.util.escapeRegex(
-                                $(this).val()
-                            );
-                            column
-                                .search(val ? '^' + val + '$' : '', true, false)
-                                .draw();
-                        });
-                    column.data().unique().sort().each(function(d, j) {
-                        select.append('<option value="' + d + '">' + d + '</option>')
-                    });
-                });
             }
         });
     });
-
+</script>
+<script type="text/javascript">
+    // onclick btn delete, show modal
     $(document).on("click", ".open-delete", function() {
         /* passing data dari view button detail ke modal */
         var thisDataUsulan = $(this).data('id');
@@ -567,7 +418,7 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
         /* passing data dari view button detail ke modal */
         var thisDataUsulan = $(this).data('id');
         $(".modal-footer #usulanId").val(thisDataUsulan);
-        var linkDetail = "{{ route('home') }}/aset/usulan/view/" + thisDataUsulan;
+        var linkDetail = "{{ route('home') }}/aset/usulan/detail/" + thisDataUsulan;
         $.get(linkDetail, function(data) {
             //deklarasi var obj JSON data detail anggota
             var obj = data;
@@ -628,6 +479,25 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
             // var link_foto = "{{ route('home') }}/" + obj.link_foto;
             // $("#detailFoto").attr('src', link_foto);
             // console.log(link_foto);
+
+            //ganti warna status
+            $(".font-status").filter(function() {
+                return $(this).text() === 'Pembelian Gagal';
+            }).css('color', 'red');
+            $(".font-status").filter(function() {
+                return $(this).text() === 'Pembelian';
+            }).css('color', 'black');
+            $(".font-status").filter(function() {
+                return $(this).text() === 'Diterima';
+            }).css('color', 'green');
+            //status non-aktif ubah warna merah
+            $(".font-status").filter(function() {
+                return $(this).text() === 'Ditolak';
+            }).css('color', 'red');
+            //status belum verifikasi ubah warna abu2
+            $(".font-status").filter(function() {
+                return $(this).text() === 'Menunggu Keputusan';
+            }).css('color', '#FFC300');
         });
     });
 
@@ -642,53 +512,47 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
         $.get(linkDetail, function(data) {
             //deklarasi var obj JSON data detail anggota
             var obj = data;
-            if (obj.jenis_usulan == "Katalog") {
-                var katalog = obj.katalog;
-                var kategori = katalog.kategori;
-            }
             //deklarasi variabel yang ada dalam objek
+            var kategori = obj.kategori;
+            var jenis_aset = obj.jenis_aset;
             var pengelola = obj.pengelola;
             var pengusul = obj.pengusul;
             // ganti elemen pada dokumen html dengan hasil data json dari jquery
-            $("#detailJenis").html(obj.jenis_usulan);
-            if (obj.jenis_usulan == "Katalog") {
-                $("#detailNama").html(katalog.nama);
-                $("#detailKategori").html(kategori.nama);
-            } else {
-                $("#detailNama").html(obj.nama);
-                $("#detailKategori").html('-');
-            }
+            $("#detailNama").html(obj.nama);
+            $("#detailJenis").html(jenis_aset.nama);
+            $("#detailKategori").html(kategori.nama);
+
+            $("#detailStatus").html(obj.status_usulan);
+            //ganti warna status
+            $(".font-status").filter(function() {
+                return $(this).text() === 'Diterima';
+            }).css('color', 'green');
+            //status non-aktif ubah warna merah
+            $(".font-status").filter(function() {
+                return $(this).text() === 'Ditolak';
+            }).css('color', 'red');
+            //status belum verifikasi ubah warna abu2
+            $(".font-status").filter(function() {
+                return $(this).text() === 'Menunggu Keputusan';
+            }).css('color', '#FFC300');
+
             $("#detailJumlah").html(obj.jumlah);
-            $("#detailHarga").html(obj.harga_usulan);
-            $("#detailTotal").html(obj.harga_usulan * obj.jumlah);
-            $("#dibuat").html(obj.dibuat);
-            $("#diperbarui").html(obj.diperbarui);
+            $("#detailHarga").html(obj.harga);
+            $("#detailTotal").html(obj.harga * obj.jumlah);
+            $("#dibuat").html(obj.created_at);
+            $("#diperbarui").html(obj.updated_at);
             $("#dibuatOleh").html(pengusul.nama);
             if (pengelola == null) {
                 $("#diperbaruiOleh").html('-');
             } else {
                 $("#diperbaruiOleh").html(pengelola.nama);
             }
-            if (obj.keterangan == null) {
-                $("#detailKeterangan").html('-');
-            } else {
-                $("#detailKeterangan").html(obj.keterangan);
-            }
             $('#detailHarga').autoNumeric('update', {
                 aSign: 'Rp. '
             }); //autonumeric detailharga
             $('#detailTotal').autoNumeric('update', {
                 aSign: 'Rp. '
-            });
-            $("#detailStatusUsulan").html(obj.status_usulan);
-            if (obj.pembelian != null) {
-                var pembelian = obj.pembelian;
-                $("#detailStatusPembelian").html(pembelian.status_pembelian);
-            } else {
-                $("#detailStatusPembelian").html("Tidak Terdaftar");
-            }
-            status_colorized();
-            //autonumeric detailtotal
+            }); //autonumeric detailtotal
             //base root project url + url dari db
             // var link_foto = "{{ route('home') }}/" + obj.link_foto;
             // $("#detailFoto").attr('src', link_foto);
@@ -696,6 +560,29 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
 
 
         });
+    });
+
+    // $('#detailTotal').autoNumeric('init');
+    $(document).ready(function() {
+        //ganti ukuran show entry
+        $(".custom-select").css('width', '82px');
+
+        //status aktif bold
+        $(".font-status").css('font-weight', 'bold');
+
+        /* ganti warna sesuai status */
+        //status aktif ubah warna hijau
+        $(".font-status").filter(function() {
+            return $(this).text() === 'Diterima';
+        }).css('color', 'green');
+        //status non-aktif ubah warna merah
+        $(".font-status").filter(function() {
+            return $(this).text() === 'Ditolak';
+        }).css('color', 'red');
+        //status belum verifikasi ubah warna abu2
+        $(".font-status").filter(function() {
+            return $(this).text() === 'Menunggu Keputusan';
+        }).css('color', '#FFC300');
     });
 </script>
 @include('layouts.footer')

@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Pembelian;
-use App\Pengelola_aset;
+use App\Pengelola_Aset;
 use App\Anggota;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class PembelianController extends Controller
@@ -14,7 +15,7 @@ class PembelianController extends Controller
     public function index()
     {
         //list pengelola
-        $obj_list_pengelola = Pengelola_aset::get();
+        $obj_list_pengelola = Pengelola_Aset::get();
         $arr_list_pengelola = [];
         foreach ($obj_list_pengelola as $pengelola) {
             $arr_list_pengelola[] = $pengelola->id_anggota;
@@ -27,15 +28,21 @@ class PembelianController extends Controller
         $list_pembelian = Pembelian::get()->sortByDesc('created_at');
 
         //transform kode jenis aset ke string
-        foreach ($list_pembelian as $pembelian_dalam_list) {
-            $pembelian_dalam_list->jenis_aset;
-            $pembelian_dalam_list->kategori;
+        foreach ($list_pembelian as $pembelian) {
+            $pembelian->usulan;
+            $pembelian->petugas;
+            $pembelian->pengelola;
+            $pembelian->usulan;
+            if ($pembelian->usulan->jenis_usulan == "Katalog") {
+                $pembelian->usulan->katalog;
+                $pembelian->usulan->katalog->kategori;
+            }
         }
 
         //user terotentikasi
         $anggota = Auth::user();
 
-        // return $list_anggota;
+        // return $list_pembelian;
         //retval
         return view('aset.pembelian', ['list_anggota' => $list_anggota, 'list_pembelian' => $list_pembelian, 'list_pengelola' => $arr_list_pengelola, 'anggota' => $anggota]);
     }
@@ -70,9 +77,16 @@ class PembelianController extends Controller
             // menyimpan data file yang diupload ke variabel $file
             $file = $request->file('file');
             // validasi jenis file
-            $request->validate([
-                'file' => 'image|mimes:gif,jpeg,png,jpg,bmp|max:2048'
-            ]);
+            $allowed_files = ['jpeg', 'gif', 'png', 'jpg', 'bmp'];
+            $inside_allowed = in_array($file->getClientOriginalExtension(), $allowed_files);
+            if (!$inside_allowed) {
+                throw ValidationException::withMessages([
+                    'file' => "Format file gambar yang diperbolehkan yaitu JPEG, JPG, GIF, PNG, dan BMP",
+                ]);
+            }
+            // $request->validate([
+            //     'file' => 'image|mimes:gif,jpeg,png,jpg,bmp|max:2048'
+            // ]);
             // tujuan folder upload
             $tujuan_upload = 'foto_nota';
             //format nama file sesuai dengan id pembelian
@@ -108,7 +122,7 @@ class PembelianController extends Controller
 
         //jika nota diisi
         if (!empty($request->file('file'))) {
-            
+
             // menyimpan data file yang diupload ke variabel $file
             $file = $request->file('file');
             // validasi jenis file
@@ -136,37 +150,57 @@ class PembelianController extends Controller
         return redirect(route('pembelianTerdaftar'));
     }
 
-    public function sudahDibeli(Request $request)
-    {
-        $pembelian = Pembelian::get()->where("id", '=', $request->pembelianId)->first();
-
-        //foto nota belum diupload
-        if ($pembelian->link_foto_nota == null) {
-            return back()->withError('Gagal menyelesaikan pembelian barang ' . $pembelian->nama . '. Nota pembelian belum diupload.');
-        } else {
-            $pembelian->status_pembelian = "Sudah Dibeli";
-            $pembelian->save();
-        }
-        return redirect(route('pembelianTerdaftar'));
-    }
-
-    public function sudahDiterima(Request $request)
-    {
-        $pembelian = Pembelian::get()->where("id", '=', $request->pembelianId)->first();
-        $pembelian->status_pembelian = "Sudah Diterima";
-        $pembelian->save();
-
-        return redirect(route('pembelianTerdaftar'));
-    }
-
     public function getDetail($id)
     {
         $detail_pembelian = Pembelian::get()->where('id', '=', $id)->first();
-        $detail_pembelian->jenis_aset;
-        $detail_pembelian->kategori;
         $detail_pembelian->petugas;
         $detail_pembelian->pengelola;
+        $detail_pembelian->usulan;
+        $detail_pembelian->inventaris;
+        if ($detail_pembelian->usulan->jenis_usulan == "Katalog") {
+            $detail_pembelian->usulan->katalog;
+            $detail_pembelian->usulan->katalog->kategori;
+        }
+        if ($detail_pembelian->link_foto_nota == null) {
+            $detail_pembelian->upload_nota = "Belum Upload";
+            $detail_pembelian->link_foto_nota = "foto_nota/belum_upload.jpg";
+        } else {
+            $detail_pembelian->upload_nota = "Sudah Upload";
+            //tambahkan mtime ke link file untuk display ke view
+            $mtime = filemtime($detail_pembelian->link_foto_nota);
+            $detail_pembelian->link_foto_nota = $detail_pembelian->link_foto_nota . '?=' . $mtime;
+        }
+        Carbon::setLocale('id');
+        // $hari_dibuat = $detail_pembelian->created_at->dayName;
+        // $tgl_dibuat = $detail_pembelian->created_at->format('d');
+        // $bulan_dibuat = $detail_pembelian->created_at->monthName;
+        // $thn_dibuat = $detail_pembelian->created_at->format('Y');
+        // $pukul_dibuat = $detail_pembelian->created_at->format('H:i');
+        // $hari_diperbarui = $detail_pembelian->created_at->dayName;
+        // $tgl_diperbarui = $detail_pembelian->created_at->format('d');
+        // $bulan_diperbarui = $detail_pembelian->created_at->monthName;
+        // $thn_diperbarui = $detail_pembelian->created_at->format('Y');
+        // $pukul_diperbarui = $detail_pembelian->created_at->format('H:i');
+        // $detail_pembelian->dibuat = $hari_dibuat . ', ' . $tgl_dibuat . ' ' . $bulan_dibuat . ' ' . $thn_dibuat . ' pukul ' . $pukul_dibuat;
+        // $detail_pembelian->diperbarui = $hari_diperbarui . ', ' . $tgl_diperbarui . ' ' . $bulan_diperbarui . ' ' . $thn_diperbarui . ' pukul ' . $pukul_diperbarui;
+        $detail_pembelian->dibuat = $detail_pembelian->created_at->isoFormat('LLLL');
+        $detail_pembelian->diperbarui = $detail_pembelian->created_at->isoFormat('LLLL');
 
+
+
+        return $detail_pembelian;
+    }
+
+    public function getView($id)
+    {
+        $detail_pembelian = Pembelian::get()->where('id', '=', $id)->first();
+        $detail_pembelian->petugas;
+        $detail_pembelian->pengelola;
+        $detail_pembelian->usulan;
+        if ($detail_pembelian->usulan->jenis_usulan == "Katalog") {
+            $detail_pembelian->usulan->katalog;
+            $detail_pembelian->usulan->katalog->kategori;
+        }
         if ($detail_pembelian->link_foto_nota == null) {
             $detail_pembelian->upload_nota = "Belum Upload";
             $detail_pembelian->link_foto_nota = "foto_nota/belum_upload.jpg";
@@ -175,6 +209,12 @@ class PembelianController extends Controller
             $mtime = filemtime($detail_pembelian->link_foto_nota);
             $detail_pembelian->link_foto_nota = $detail_pembelian->link_foto_nota . '?=' . $mtime;
         }
+        $tglDibuat = $detail_pembelian->created_at->format('d/M/Y');
+        $pukulDibuat = $detail_pembelian->created_at->format('H:i');
+        $tglDiperbarui = $detail_pembelian->updated_at->format('d/M/Y');
+        $pukulDiperbarui = $detail_pembelian->updated_at->format('H:i');
+        $detail_pembelian->dibuat = $tglDibuat . ' pukul ' . $pukulDibuat;
+        $detail_pembelian->diperbarui = $tglDiperbarui . ' pukul ' . $pukulDiperbarui;
         //tambahkan mtime ke link file untuk display ke view
         return $detail_pembelian;
     }

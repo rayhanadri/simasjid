@@ -12,17 +12,23 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
 ?>
 <div class="main-content">
     <section class="section">
-        <div class="section-header">
-            <h1><i class="fa fa-shopping-bang"></i> Pembelian Aset</h1>
-        </div>
-        @if($inside_pengelola)
-        <div class="row" style="padding: 10px;">
-            <div class="col-12">
-                <a href="#" class="btn btn-lg btn-info btn-primary" data-toggle="modal" data-target="#tambahModal"><i class="fas fas fa-plus"></i> Tambah Pembelian Baru</a>
-                <!-- <a href="#" class="btn btn-lg btn-info btn-primary" data-toggle="modal" data-target="#tambahModal"><i class="fas fas fa-plus"></i> Tambah Pembelian dari Usulan</a> -->
+        <div class="row">
+            <div>
+                <ol class="breadcrumb float-sm-left" style="margin-bottom: 10px; margin-left: 15px;">
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}"><i class="fas fa-mosque"></i> Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Manajemen Aset</a></li>
+                    <li class="breadcrumb-item active">Pembelian</li>
+                </ol>
             </div>
         </div>
-        @endif
+        <div class="section-header">
+            <div>
+                <h1><i class="fa fa-shopping-bag"></i> Pembelian Barang</h1>
+                <div>
+                    <p style="padding: 0px 10px; margin-bottom: 0px;">Pembelian Barang berisi pembelian dari usulan barang yang sebelumnya telah disetujui dan dibuat pembeliannya. Pembelian dilakukan oleh Takmir atau Remas yang bertugas membeli barang.</p>
+                </div>
+            </div>
+        </div>
         @if ($errors->any())
         <div class="alert alert-danger">
             Error
@@ -65,62 +71,67 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
                     <table id="table_id" class="table table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th class="dt-center">No</th>
+                                <th class="dt-center">ID</th>
+                                <th class="dt-center">Jenis Pembelian</th>
                                 <th class="dt-center">Nama Barang</th>
-                                <th class="dt-center">Jenis Aset</th>
-                                <th class="dt-center">Kategori Aset</th>
-                                <th class="dt-center" style="width: 2em; padding-right: 5px;padding-left: 5px;height: 50px;">Jumlah</th>
+                                <th class="dt-center">Kategori</th>
+                                <th class="dt-center" style="width: 50px;padding-right: 5px;padding-left: 5px;height: 50px;">Jumlah</th>
                                 <!-- <th class="dt-center">Harga Satuan</th>
                                 <th class="dt-center">Total Harga</th> -->
                                 <th class="dt-center">Dibuat</th>
                                 <th class="dt-center">Diperbarui</th>
-                                <th class="dt-center">Status</th>
+                                <th class="dt-center">Status Pembelian</th>
+                                <th class="dt-center">Status Inventaris</th>
                                 <th class="dt-center" style="width: 5em">Action</th>
-                                <th class="dt-center">Pelaksanaan</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($list_pembelian as $pembelian_dalam_list)
+                            @foreach ($list_pembelian as $pembelian)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $pembelian_dalam_list->nama }}</td>
-                                <td>{{ $pembelian_dalam_list->jenis_aset->nama }}</td>
-                                <td>{{ $pembelian_dalam_list->kategori->nama }}</td>
-                                <td class="dt-center" style="width: 2em; padding-right: 5px;padding-left: 5px;height: 50px;">{{ $pembelian_dalam_list->jumlah }}</td>
-                                <!-- <td>{{ $pembelian_dalam_list->harga }}</td>
-                                <td>{{ $pembelian_dalam_list->harga * $pembelian_dalam_list->jumlah }}</td> -->
-                                <td class="dt-center">{{ $pembelian_dalam_list->created_at->format('d-M-Y H:i:s') }}</td>
-                                <td class="dt-center">{{ $pembelian_dalam_list->updated_at->format('d-M-Y H:i:s') }}</td>
-                                <!-- <td>{{ $pembelian_dalam_list->updated_at->diffForHumans() }}</td> -->
-                                <td class="font-status">{!!$pembelian_dalam_list->status_pembelian!!}</td>
+                                <td>{{ $pembelian->id }}</td>
+                                <td>{{ $pembelian->usulan->jenis_usulan }}</td>
+                                <td>
+                                    @if($pembelian->usulan->jenis_usulan == "Katalog")
+                                    {{ $pembelian->usulan->katalog->nama }}
+                                    @else
+                                    {{ $pembelian->usulan->nama }}
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($pembelian->usulan->jenis_usulan == "Katalog")
+                                    {{ $pembelian->usulan->katalog->kategori->nama }}
+                                    @else
+                                    -
+                                    @endif
+                                </td>
+                                <td>{{ $pembelian->usulan->jumlah }}</td>
+                                <!-- <td>{{ $pembelian->harga }}</td>
+                                <td>{{ $pembelian->harga * $pembelian->jumlah }}</td> -->
+                                <td style="min-width: 7em;" class="harga" data-a-sign="Rp. " data-a-dec="," data-a-sep=".">{{ $pembelian->harga_pembelian }}</td>
+                                <td style="min-width: 7em;" class="harga" data-a-sign="Rp. " data-a-dec="," data-a-sep=".">{{ $pembelian->harga_pembelian * $pembelian->usulan->jumlah }}</td>
+                                <!-- <td>{{ $pembelian->updated_at->diffForHumans() }}</td> -->
+                                <td class="font-status">{{ $pembelian->status_pembelian }}</td>
+                                @if( !empty($pembelian->inventaris) )
+                                <td class="font-status">Terdaftar</td>
+                                @else
+                                <td class="font-status">Tidak Terdaftar</td>
+                                @endif
                                 <td class="dt-center" style="width: 5em">
                                     <!-- <div class="btn-group mb-3" role="group" aria-label="Basic example" style="padding-left: 20px;"> -->
-                                    <a href="#" class="open-detail btn btn-icon btn-sm btn-info" data-toggle="modal" data-id="{{ $pembelian_dalam_list->id }}" data-target="#detailModal" style="margin: 2px; width:100%;"><i class="fas fa-glasses"></i> Detail</a>
-                                    @if( ($pembelian_dalam_list->id_petugas == $anggota->id) && ($pembelian_dalam_list->status_pembelian == "Belum Dibeli") )
-                                    <a href="#" class="open-update btn btn-icon btn-sm btn-primary" data-toggle="modal" data-id="{{ $pembelian_dalam_list->id }}" data-target="#updateModal" style="margin: 2px; width:100%;"><i class="fa fa-sync-alt"></i> Update</a>
+                                    <a href="#" class="open-detail btn btn-icon btn-sm btn-info" data-toggle="modal" data-id="{{ $pembelian->id }}" data-target="#detailModal" style="margin-bottom: 2px; width:100%;"><i class="fas fa-glasses"></i> Detail</a>
+                                    @if( ($pembelian->id_petugas == $anggota->id) && ($pembelian->status_pembelian == "Belum Dibeli") )
+                                    <a href="#" class="open-update btn btn-icon btn-sm btn-primary" data-toggle="modal" data-id="{{ $pembelian->id }}" data-target="#updateModal" style="margin-bottom: 2px; width:100%;"><i class="fa fa-sync-alt"></i> Update</a>
                                     @endif
                                     @if($inside_pengelola)
-                                    <a href="#" class="open-edit btn btn-icon btn-sm btn-warning" data-toggle="modal" data-id="{{ $pembelian_dalam_list->id }}" data-target="#editModal" style="margin: 2px; width:100%"><i class="fas fa-edit"></i> Edit</a>
-                                    <a href="#" class="open-delete btn btn-icon btn-sm btn-danger" data-toggle="modal" data-id="{{ $pembelian_dalam_list->id }}" data-target="#deleteModal" style="margin: 2px; width:100%"><i class="fas fa-trash"></i> Hapus</a>
+                                    <a href="#" class="open-edit btn btn-icon btn-sm btn-warning" data-toggle="modal" data-id="{{ $pembelian->id }}" data-target="#editModal" style="margin-bottom: 2px; width:100%"><i class="fas fa-edit"></i> Edit</a>
+                                    <a href="#" class="open-delete btn btn-icon btn-sm btn-danger" data-toggle="modal" data-id="{{ $pembelian->id }}" data-target="#deleteModal" style="margin-bottom: 2px; width:100%"><i class="fas fa-trash"></i> Hapus</a>
                                     @endif
+                                    @if( !empty($pembelian->inventaris) )
+                                    <a href="{{ route('home').'/aset/pembelian/detail/'.$pembelian->inventaris->id }}" class="btn-icon btn btn-sm btn-secondary" style="margin-bottom: 2px; width:100%"><i class="fas fa-boxes"></i> Inventaris</a>
+                                    @endif
+
                                     <!-- </div> -->
                                 </td>
-
-                                <td class="dt-center">
-                                    @if( ($pembelian_dalam_list->id_petugas == $anggota->id) && ($pembelian_dalam_list->status_pembelian == "Belum Dibeli") )
-                                    <form class="form-inline" role="form" action="{{ route('pembelianSudahBeli') }}" method="post">
-                                        @csrf
-                                        <input id="id" type="text" class="form-control" name="pembelianId" value="{{ $pembelian_dalam_list->id }}" readonly hidden>
-                                        <!-- <button type="submit" class="btn btn-primary" style="margin: 5px; width:12em;"><i class="fas fas fa-check-square"></i> Sudah Dibeli</button> -->
-                                        <a href="#" class="open-sudahDibeli btn btn-icon btn btn-primary" data-toggle="modal" data-id="{{ $pembelian_dalam_list->id }}" data-target="#sudahDibeliModal" style="margin: 5px; width: 12em;"><i class="fas fa-check-square"></i> Sudah Dibeli</a>
-                                    </form>
-                                    @endif
-                                    @if($inside_pengelola && ($pembelian_dalam_list->status_pembelian == "Sudah Dibeli"))
-                                    <a href="#" class="open-sudahDiterima btn btn-icon btn btn-primary" data-toggle="modal" data-id="{{ $pembelian_dalam_list->id }}" data-target="#sudahDiterimaModal" style="margin: 5px; width: 12em;"><i class="fas fa-people-carry"></i> Sudah Diterima</a>
-                                    <!-- <button type="submit" class="btn btn-primary" style="margin: 5px; width: 12em;"><i class="fas fas fa-people-carry"></i> Sudah Diterima</button> -->
-                                    @endif
-                                </td>
-
                             </tr>
                             @endforeach
                         </tbody>
@@ -558,10 +569,6 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
                             <td id="detailNama"></td>
                         </tr>
                         <tr>
-                            <th scope="row">Jenis Aset</th>
-                            <td id="detailJenis"></td>
-                        </tr>
-                        <tr>
                             <th scope="row">Kategori Aset</th>
                             <td id="detailKategori"></td>
                         </tr>
@@ -587,11 +594,11 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
                         </tr>
                         <tr>
                             <th scope="row">Pembuat Pembelian</th>
-                            <td id="dibuatOleh"></td>
+                            <td id="detailPengelola"></td>
                         </tr>
                         <tr>
                             <th scope="row">Petugas Pembelian</th>
-                            <td id="diperbaruiOleh"></td>
+                            <td id="detailPetugas"></td>
                         </tr>
                         <tr>
                             <th scope="row">Toko/Penjual</th>
@@ -607,7 +614,7 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
                         </tr>
                         <tr>
                             <th scope="row">Nota</th>
-                            <td id="detailUploadNota"></td>
+                            <td id="detailUploadNota" class="font-status"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -645,7 +652,7 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
     //document function
     $(document).ready(function() {
         //autonumeric 
-        // $('#harga').autoNumeric('init');
+        $('.harga').autoNumeric('init');
         $('#detailHarga').autoNumeric('init'); //autonumeric detailharga
         $('#detailTotal').autoNumeric('init'); //autonumeric detailtotal
         $('#updateTotalHarga').autoNumeric('init'); //autonumeric detailtotal
@@ -671,6 +678,10 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
         //JQuery Pencarian Berdasarkan Kriteria
         $('#table_id').DataTable({
             "scrollX": true,
+            language: {
+                search: "Cari di tabel:",
+                zeroRecords: "Data tidak tersedia",
+            },
             //kriteria column 0 nama tipe input
             initComplete: function() {
                 this.api().columns([1]).every(function() {
@@ -737,6 +748,23 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
                         select.append('<option value="' + d + '">' + d + '</option>')
                     });
                 });
+                this.api().columns([8]).every(function() {
+                    var column = this;
+                    var select = $('<select class="form-control select" style="margin-top:10px; width:100%;"><option value="">Filter Status Inventaris</option></select>')
+                        // .appendTo($(column.header()).empty())
+                        .appendTo($(".column-search"))
+                        .on('change', function() {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+                            column
+                                .search(val ? '^' + val + '$' : '', true, false)
+                                .draw();
+                        });
+                    column.data().unique().sort().each(function(d, j) {
+                        select.append('<option value="' + d + '">' + d + '</option>')
+                    });
+                });
             }
         });
     });
@@ -769,18 +797,39 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
     function status_colorized() {
         //status aktif bold
         $(".font-status").css('font-weight', 'bold');
+
         //ganti warna status
         $(".font-status").filter(function() {
             return $(this).text() === 'Sudah Diterima';
         }).css('color', 'green');
-        //status non-aktif ubah warna merah
         $(".font-status").filter(function() {
-            return $(this).text() === 'Belum Dibeli';
+            return $(this).text() === 'Terdaftar';
+        }).css('color', 'green');
+        $(".font-status").filter(function() {
+            return $(this).text() === 'Selesai';
+        }).css('color', 'green');
+
+        //status ubah warna merah
+        $(".font-status").filter(function() {
+            return $(this).text() === 'Gagal';
         }).css('color', 'red');
-        //status belum verifikasi ubah warna abu2
         $(".font-status").filter(function() {
-            return $(this).text() === 'Sudah Dibeli';
+            return $(this).text() === 'Tidak Terdaftar';
+        }).css('color', 'red');
+        $(".font-status").filter(function() {
+            return $(this).text() === 'Belum Upload';
+        }).css('color', 'red');
+
+        //status ubah warna  kuning
+        $(".font-status").filter(function() {
+            return $(this).text() === 'Menunggu Barang Diterima';
+        }).css('color', '#FFC300');
+
+        //status ubah warna biru
+        $(".font-status").filter(function() {
+            return $(this).text() === 'Dalam Proses';
         }).css('color', 'blue');
+
     }
 
     function ValidateFileUpload2() {
@@ -963,21 +1012,30 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
             //deklarasi var obj JSON data detail anggota
             var obj = data;
             //deklarasi variabel yang ada dalam objek
-            var kategori = obj.kategori;
-            var jenis_aset = obj.jenis_aset;
+            var usulan = obj.usulan;
+            if (usulan.jenis_usulan == "Katalog") {
+                var katalog = usulan.katalog;
+                var kategori = katalog.kategori;
+            }
             var pengelola = obj.pengelola;
             var petugas = obj.petugas;
             // ganti elemen pada dokumen html dengan hasil data json dari jquery
+            if (usulan.jenis_usulan == "Katalog") {
+                $("#detailNama").html(katalog.nama);
+                $("#detailKategori").html(kategori.nama);
+            } else {
+                $("#detailNama").html(usulan.nama);
+                $("#detailKategori").html('-');
+            }
             $("#detailNama").html(obj.nama);
-            $("#detailJenis").html(jenis_aset.nama);
             $("#detailKategori").html(kategori.nama);
-            $("#detailJumlah").html(obj.jumlah);
-            $("#detailHarga").html(obj.harga);
-            $("#detailTotal").html(obj.harga * obj.jumlah);
-            $("#dibuat").html(obj.created_at);
-            $("#diperbarui").html(obj.updated_at);
-            $("#dibuatOleh").html(pengelola.nama);
-            $("#diperbaruiOleh").html(petugas.nama);
+            $("#detailJumlah").html(usulan.jumlah);
+            $("#detailHarga").html(obj.harga_pembelian);
+            $("#detailTotal").html(obj.harga_pembelian * usulan.jumlah);
+            $("#dibuat").html(obj.dibuat);
+            $("#diperbarui").html(obj.diperbarui);
+            $("#detailPengelola").html(pengelola.nama);
+            $("#detailPetugas").html(petugas.nama);
             $('#detailHarga').autoNumeric('update', {
                 aSign: 'Rp. '
             }); //autonumeric detailharga
@@ -998,7 +1056,6 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
             }
             $("#detailStatus").html(obj.status_pembelian);
             $("#detailUploadNota").html(obj.upload_nota);
-            upload_nota_colorized();
             status_colorized();
             var link_foto_nota = "{{ route('home') }}/" + obj.link_foto_nota;
             $('#detailNotaDetail').attr('src', link_foto_nota);

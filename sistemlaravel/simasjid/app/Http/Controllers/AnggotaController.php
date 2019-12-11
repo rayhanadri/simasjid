@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Anggota;
-use App\Pengelola_aset;
+use App\Pengelola_Aset;
 use Auth;
 use App\Transformer\Transformer;
 // use App\Anggota_Jabatan;
@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 
 class AnggotaController extends Controller
 {
-    //mendapatkan anggota terdaftar aktif dan non-aktif
+    //mendapatkan semua anggota terdaftar aktif dan non-aktif
     public function index()
     {
         //semua user, composite object
@@ -29,7 +29,7 @@ class AnggotaController extends Controller
         return view('anggota.anggotaTerdaftar', ['list_anggota' => $list_anggota, 'anggota' => $anggota]);
     }
 
-    //mendapatkan detail anggota berdasarkan id
+    //mendapatkan detail anggota berdasarkan id, return JSON
     public function getDetail($id)
     {
         $detail_anggota = Anggota::get()->where('id', $id)->first();
@@ -41,17 +41,11 @@ class AnggotaController extends Controller
         return $detail_anggota;
     }
 
-    //mendapatkan semua pendaftar yg belum diverifikasi
+    //mendapatkan semua pendaftar yg belum diverifikasi, return ke view
     public function getUnverifiedList()
     {
         //user terotentikasi
         $anggota = Auth::user();
-
-        //controlRole hanya 1,3 ketua dan sekretaris
-        // $authorized = array(1, 3);
-        // if (!in_array($anggota->id_jabatan, $authorized)) {
-        //     return redirect(route('home'));
-        // }
 
         //semua user blm verifikasi, composite object
         $list_anggota = Anggota::get()->where('id_status', '=', 3);
@@ -65,7 +59,7 @@ class AnggotaController extends Controller
         return view('anggota.anggotaBlmVerifikasi', ['list_anggota' => $list_anggota, 'anggota' => $anggota]);
     }
 
-    //menolak verifikasi pendaftaran
+    //menolak verifikasi pendaftaran, return list anggota blm verifikasi
     public function tolak(Request $request)
     {
         $deleted_anggota = Anggota::get()->where('id', $request->anggotaId)->first();
@@ -74,7 +68,7 @@ class AnggotaController extends Controller
         return redirect(route('anggotaBlmVerifikasi'));
     }
 
-    //terima verifikasi pendaftaran
+    //terima verifikasi pendaftaran, return list anggota blm verifikasi
     public function terima(Request $request)
     {
         $detail_anggota = Anggota::get()->where('id', $request->anggotaId)->first();
@@ -83,7 +77,7 @@ class AnggotaController extends Controller
         return redirect(route('anggotaBlmVerifikasi'));
     }
 
-    //menghapus akun anggota
+    //menghapus akun anggota, return list anggota terdaftar
     public function delete(Request $request)
     {
         $deleted_anggota = Anggota::get()->where('id', $request->anggotaId)->first();
@@ -92,7 +86,7 @@ class AnggotaController extends Controller
         return redirect(route('anggotaTerdaftar'));
     }
 
-    //mengedit data akun anggota
+    //mengedit data akun anggota, return list anggota terdaftar
     public function edit(Request $request)
     {
         //edited user
@@ -122,25 +116,26 @@ class AnggotaController extends Controller
         return redirect(route('anggotaTerdaftar'));
     }
 
-    //mendapatkan anggota pengelola aset
+    //mendapatkan list anggota pengelola aset, return list anggota pengelola aset
     public function pengelola_aset_index()
     {
         //get all id pengelola
-        $list_pengelola = DB::table('Pengelola_aset')
-            ->join('anggota', 'Pengelola_aset.id_anggota', '=', 'anggota.id')
-            ->select('Pengelola_aset.id_anggota as id', 'anggota.id_status', 'anggota.id_jabatan', 'anggota.nama')
+        $list_pengelola = DB::table('pengelola_aset')
+            ->join('anggota', 'pengelola_aset.id_anggota', '=', 'anggota.id')
+            ->select('pengelola_aset.id_anggota as id', 'anggota.id_status', 'anggota.id_jabatan', 'anggota.nama')
             ->get();
 
         //default, semuanya bukan pengelola
         // $list_bukan_pengelola = Anggota::get()->where('id_status', '=', 1);
 
         //jika ada pengelola, inilah list bukan pengelolanya (untuk pilihan pengelola)
-        $list_bukan_pengelola = DB::table('anggota')->select('*')
-                                                    ->where('anggota.id_status', '=', 1)
-                                                    ->whereNotIn('id',function($query) {
-                                                            $query->select('id_anggota')->from('Pengelola_aset');
-                                                    })
-                                                    ->get();
+        $list_bukan_pengelola =
+            Anggota::where('anggota.id_status', '=', 1)
+            ->whereNotIn('id', function ($query) {
+                $query->select('id_anggota')->from('pengelola_aset');
+            })
+            ->get();
+
         //user terotentikasi
         $anggota = Auth::user();
         //id ke nilai
@@ -157,17 +152,19 @@ class AnggotaController extends Controller
         return view('anggota.anggotaPengelolaAset', ['list_pengelola' => $list_pengelola, 'list_bukan_pengelola' => $list_bukan_pengelola, 'anggota' => $anggota]);
     }
 
-    //menambah pengelola aset
+    //menambah pengelola aset, return list anggota pengelola aset
     public function pengelola_aset_add(Request $request)
     {
-        DB::table('Pengelola_aset')->insert(['id_anggota' => $request->id_anggota]);
+        $Pengelola_Aset = new Pengelola_Aset();
+        $Pengelola_Aset->id_anggota = $request->id_anggota;
+        $Pengelola_Aset->save();
         return redirect(route('anggotaPengelolaAset'));
     }
 
-    //menghapus hak pengelola aset
+    //menghapus hak pengelola aset, return list anggota pengelola aset
     public function pengelola_aset_delete(Request $request)
     {
-        DB::table('Pengelola_aset')->where('id_anggota', '=', $request->anggotaId)->delete();
+        Pengelola_Aset::get()->where('id_anggota', '=', $request->anggotaId)->first()->delete();
         return redirect(route('anggotaPengelolaAset'));
     }
 }

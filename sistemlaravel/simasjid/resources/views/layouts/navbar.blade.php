@@ -9,7 +9,7 @@
           </ul>
         </div>
         <ul class="navbar-nav navbar-right">
-          <!-- <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle beep"><i class="far fa-envelope"></i></a></li> -->
+          <!-- <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle"><i class="fas fa-tasks"></i></a></li> -->
           <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg beep"><i class="far fa-bell"></i></a>
             <div class="dropdown-menu dropdown-list dropdown-menu-right">
               <div class="dropdown-header">Notifications
@@ -123,9 +123,9 @@
                 ?>
                 @if($inside_sekretaris)
                 <li id="verifikasi-link"><a class="nav-link" href="{{ route('anggotaBlmVerifikasi') }}"><i class="fas fa-check-square"></i>Verifikasi</a></a></li>
-                <li id='pengelola-aset-link'><a class="nav-link" href="{{ route('anggotaPengelolaAset') }}"><i class="fas fa-users-cog"></i>Pengelola Aset</a></li>
                 <!-- <li id='pengelola-aset-link'><a class="nav-link" href="#"><i class="fas fa-users-cog"></i>Pengelola Keuangan</a></li> -->
                 @endif
+                <li id='pengelola-aset-link'><a class="nav-link" href="{{ route('anggotaPengelolaAset') }}"><i class="fas fa-users-cog"></i>Pengelola Aset</a></li>
               </ul>
             </li>
             <li id='dropdown-aset' class="nav-item dropdown">
@@ -140,20 +140,21 @@
                 <!-- <li id='dilepas-aset-link'><a class="nav-link" href="#"><i class="fas fa-ban"></i>Dilepas</a></li> -->
                 <!-- <hr />
                 <li><a class="nav-link" style="pointer-events: none; cursor: default;">Kelola Aset</a></li> -->
+                <li id="status-link"><a class="nav-link" href="#"><i class="fas fa-tachometer-alt"></i>Dasbor Aset</a></li>
                 <li id="usulan-link"><a class="nav-link" href="{{ route('usulanTerdaftar') }}"><i class="fas fa-lightbulb"></i>Usulan</a></li>
                 <li id="pembelian-link"><a class="nav-link" href="{{ route('pembelianTerdaftar') }}"><i class="fas fa-shopping-bag"></i>Pembelian</a></li>
+                <!-- <li><a class="nav-link" href="#"><i class="fas fa-gifts"></i>Hibah</a></li> -->
                 <li><a class="nav-link" href="#"><i class="fas fa-boxes"></i>Inventaris</a></li>
-                <li><a class="nav-link" href="#"><i class="fas fa-gifts"></i>Hibah</a></li>
-                <li><a class="nav-link" href="#"><i class="fas fa-hand-holding"></i>Peminjaman</a></li>
-                <li><a class="nav-link" href="#"><i class="fas fa-exclamation-triangle"></i>Pelaporan</a></li>
-                <li><a class="nav-link" href="#"><i class="fas fa-recycle"></i>Pelepasan</a></li>
-                <li><a class="nav-link" href="#"><i class="fas fa-download"></i>Unduh Data</a></li>
-                <!-- <li><a class="nav-link" href="#"><i class="fas fa-exclamation-triangle"></i>Pelaporan</a></li> -->
+                <!-- <li><a class="nav-link" href="#"><i class="fas fa-hand-holding"></i>Peminjaman</a></li> -->
+                <!-- <li><a class="nav-link" href="#"><i class="fas fa-tools"></i>Perawatan</a></li> -->
+                <!-- <li><a class="nav-link" href="#"><i class="fas fa-recycle"></i>Pelepasan</a></li> -->
+                <!-- <li><a class="nav-link" href="#"><i class="fas fa-download"></i>Unduh Data</a></li> -->
                 <hr />
-                <li><a class="nav-link" style="pointer-events: none; cursor: default;">Pengaturan</a></li>
-                <li id='kategori-aset-link'><a class="nav-link" href="{{ route('asetMaster') }}"><i class="fas fa-th-large"></i>Kategori</a></li>
+                <!-- <li><a class="nav-link" style="pointer-events: none; cursor: default;">Pengaturan</a></li> -->
+                <li id='kategori-link'><a class="nav-link" href="{{ route('kategoriTerdaftar') }}"><i class="fas fa-tags"></i>Kategori</a></li>
+                <li id='katalog-link'><a class="nav-link" href="{{ route('katalogTerdaftar') }}"><i class="fas fa-list-alt"></i>Katalog</a></li>
                 <!-- <li id='jenis-link'><a class="nav-link" href="{{ route('asetMaster') }}"><i class="fas fa-layer-group"></i>Jenis Barang</a></li> -->
-                <li id='Lokasi-link'><a class="nav-link" href="{{ route('asetMaster') }}"><i class="fas fa-map-marker-alt"></i>Ruangan</a></li>
+                <li id='lokasi-link'><a class="nav-link" href="{{ route('lokasiTerdaftar') }}"><i class="fas fa-map-marker-alt"></i>Lokasi</a></li>
               </ul>
             </li>
             @endif

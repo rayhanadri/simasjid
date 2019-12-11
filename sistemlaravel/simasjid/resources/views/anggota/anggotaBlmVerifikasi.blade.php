@@ -4,8 +4,17 @@
 <!-- <script type="text/javascript" src="{{asset('public/dist/assets/js/page/bootstrap-modal.js')}}"></script> -->
 <div class="main-content">
     <section class="section">
+        <div class="row">
+            <div>
+                <ol class="breadcrumb float-sm-left" style="margin-bottom: 10px; margin-left: 15px;">
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}"><i class="fas fa-mosque"></i> Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Keanggotaan</a></li>
+                    <li class="breadcrumb-item active">Verifikasi</li>
+                </ol>
+            </div>
+        </div>
         <div class="section-header">
-            <h1>Verifikasi Anggota</h1>
+            <h1><i class="fa fa-check-square"></i> Verifikasi Anggota</h1>
             <div></div>
         </div>
         <div class="row" style="padding-top: 10px;">
@@ -43,8 +52,8 @@
                 </div>
             </div>
             <div class="col-lg-4">
-                <div class="section-body" style="min-height: 300px; padding:20px;">
-                    <h6>Cari Berdasarkan Kriteria</h6>
+                <div class="section-body" style="padding:20px;">
+                    <h6><i class="fa fa-filter"></i> Filter Data</h6>
                     <!-- Pakai JQuery -->
                     <div class="column-search"></div>
                 </div>
@@ -251,7 +260,7 @@
             var link_foto = "{{ route('home') }}/" + obj.link_foto;
             $("#detailFoto").attr('src', link_foto);
             // console.log(link_foto);
-            
+
             //ganti warna status
             $(".font-status").filter(function() {
                 return $(this).text() === 'Aktif';

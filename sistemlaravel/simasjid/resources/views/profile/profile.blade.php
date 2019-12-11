@@ -3,8 +3,16 @@
 <!-- Main Content -->
 <div class="main-content">
   <section class="section">
+    <div class="row">
+      <div>
+        <ol class="breadcrumb float-sm-left" style="margin-bottom: 10px; margin-left: 15px;">
+          <li class="breadcrumb-item"><a href="{{ route('home') }}"><i class="fas fa-mosque"></i> Home</a></li>
+          <li class="breadcrumb-item active">Profile</li>
+        </ol>
+      </div>
+    </div>
     <div class="section-header">
-      <h1>Profile</h1>
+      <h1><i class="fa fa-user-circle"></i> Profile</h1>
       <div></div>
     </div>
     <div class="row">

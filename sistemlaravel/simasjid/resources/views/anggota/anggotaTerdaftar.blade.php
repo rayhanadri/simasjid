@@ -9,11 +9,20 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
 ?>
 <div class="main-content">
     <section class="section">
+        <div class="row">
+            <div>
+                <ol class="breadcrumb float-sm-left" style="margin-bottom: 10px; margin-left: 15px;">
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}"><i class="fas fa-mosque"></i> Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Keanggotaan</a></li>
+                    <li class="breadcrumb-item active">Terdaftar</li>
+                </ol>
+            </div>
+        </div>
         <div class="section-header">
-            <h1>Anggota Terdaftar</h1>
+            <h1><i class="fa fa-address-book"></i> Anggota Terdaftar</h1>
             <div></div>
         </div>
-        <div class="row" style="padding-top: 10px;">
+        <div class="row">
             <div class="col-lg-8">
                 <div class="section-body" style="min-height: 300px; padding:20px;">
                     <table id="table_id" class="table table-striped table-bordered" style="padding-bottom:20px;">
@@ -47,8 +56,8 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
                 </div>
             </div>
             <div class="col-lg-4">
-                <div class="section-body" style="min-height: 300px; padding:20px;">
-                    <h6>Cari Berdasarkan Kriteria</h6>
+                <div class="section-body" style="padding:20px;">
+                    <h6><i class="fa fa-filter"></i> Filter Data</h6>
                     <!-- Pakai JQuery -->
                     <div class="column-search"></div>
                     @if($inside_sekretaris)
@@ -127,7 +136,7 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
                 <div class="modal-footer bg-whitesmoke br">
                     <form action="{{ route('anggotaDelete') }}" method="post">
                         @csrf
-                        <input type="text" id="anggotaId" name="anggotaId" value="" hidden/>
+                        <input type="text" id="anggotaId" name="anggotaId" value="" hidden />
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak, Batalkan</button>
                         <input type="submit" value="Ya, Hapus" class="btn btn-danger" />
                     </form>
