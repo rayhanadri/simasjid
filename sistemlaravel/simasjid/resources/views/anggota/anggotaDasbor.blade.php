@@ -64,7 +64,7 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
                     <div class="card-wrap">
                         <div class="card-header">
                             <a href="{{ route('anggotaBlmVerifikasi') }}">
-                                <h4>Anggota Non-Aktif</h4>
+                                <h4>Anggota Belum Verifikasi</h4>
                             </a>
                         </div>
                         <div class="card-body">
