@@ -91,8 +91,8 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
                                     @endif
                                 </td>
                                 <td class="dt-center" style="width: 50px;padding-right: 5px;padding-left: 5px;height: 50px;">{{ $usulan->jumlah }}</td>
-                                <td style="min-width: 7em;" class="harga" data-a-sign="Rp. " data-a-dec="," data-a-sep=".">{{ $usulan->harga_usulan }}</td>
-                                <td style="min-width: 7em;" class="harga" data-a-sign="Rp. " data-a-dec="," data-a-sep=".">{{ $usulan->harga_usulan * $usulan->jumlah }}</td>
+                                <td style="min-width: 8.5em;" class="harga" data-a-sign="Rp. " data-a-dec="," data-a-sep=".">{{ $usulan->harga_usulan }}</td>
+                                <td style="min-width: 8.5em;" class="harga" data-a-sign="Rp. " data-a-dec="," data-a-sep=".">{{ $usulan->harga_usulan * $usulan->jumlah }}</td>
                                 <td class="font-status">{{ $usulan->status_usulan }}</td>
                                 @if(!empty($usulan->pembelian))
                                 <td class="font-status">{{ $usulan->pembelian->status_pembelian }}</td>

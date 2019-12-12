@@ -71,7 +71,7 @@ class UsulanController extends Controller
         $usulan->status_usulan = $request->status_usulan;
         $usulan->updated_at = now();
         $usulan->save();
-        return redirect(route('usulanTerdaftar'));
+        return redirect(route('usulanTerdaftar').'/detail/'.$usulan->id);
     }
     public function edit(Request $request)
     {
