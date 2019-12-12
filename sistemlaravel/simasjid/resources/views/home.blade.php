@@ -28,7 +28,7 @@
         <div class="col-lg-4 col-md-4 col-sm-4" style="margin:auto;">
           <div class="card" style="height:200px;">
             <div style="padding:30px; text-align:center;">
-              <a href="#"><i class="fa fa-users fa-7x"></i>
+              <a href="{{ route('anggotaDasbor') }}"><i class="fa fa-users fa-7x"></i>
                 <br><br>
                 <h4>Keanggotaan</h4>
               </a>
@@ -39,7 +39,7 @@
         <div class="col-lg-4 col-md-4 col-sm-4" style="margin:auto;">
           <div class="card" style="height:200px;">
             <div style="padding:30px; text-align:center;">
-              <a href="#"><i class="fa fa-warehouse fa-7x"></i>
+              <a href="{{ route('asetDasbor') }}"><i class="fa fa-warehouse fa-7x"></i>
                 <br><br>
                 <h4>Manajemen Aset</h4>
               </a>
