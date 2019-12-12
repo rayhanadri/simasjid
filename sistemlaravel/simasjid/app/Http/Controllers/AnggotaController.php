@@ -13,6 +13,22 @@ use Illuminate\Support\Facades\DB;
 
 class AnggotaController extends Controller
 {
+
+    public function dasbor()
+    {
+        //user terotentikasi
+        $anggota = Auth::user();
+
+        //jml anggota
+        $jml_aktif = Anggota::get()->where('id_status', '=', 1)->count();
+        $jml_blm_verif = Anggota::get()->where('id_status', '=', 3)->count();
+        $jml_non_aktif = Anggota::get()->where('id_status', '=', 2)->count();
+
+        //retval
+        return view('anggota.anggotaDasbor', ['anggota' => $anggota, 'jml_aktif' => $jml_aktif, 'jml_blm_verif' => $jml_blm_verif, 'jml_non_aktif' => $jml_non_aktif,]);
+    }
+
+
     //mendapatkan semua anggota terdaftar aktif dan non-aktif
     public function index()
     {

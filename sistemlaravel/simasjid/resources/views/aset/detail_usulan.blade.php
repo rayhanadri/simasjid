@@ -16,9 +16,9 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
             <div>
                 <ol class="breadcrumb float-sm-left" style="margin-bottom: 10px; margin-left: 15px;">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}"><i class="fas fa-mosque"></i> Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Manajemen Aset</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('asetDasbor') }}">Manajemen Aset</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('usulanTerdaftar') }}">Usulan</a></li>
-                    <li class="breadcrumb-item">{{ $detail_usulan->id }}</li>
+                    <li class="breadcrumb-item active">{{ $detail_usulan->id }}</li>
                 </ol>
             </div>
         </div>
@@ -36,7 +36,7 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
                 <a href="#" class="open-delete btn btn-icon btn-sm btn-danger" data-toggle="modal" data-id="#" data-target="#deleteModal" style="margin-bottom: 2px; width: 7em;"><i class="fas fa-trash"></i> Hapus</a>
                 @endif
                 @if( $detail_usulan->status_usulan == "Disetujui" && empty($detail_usulan->pembelian) )
-                <a href="#" class="open-edit btn btn-icon btn-sm btn-primary" data-toggle="modal" data-id="#" data-target="#editModal" style="margin-bottom: 2px; width: 12em;"><i class="fas fa-shopping-bag"></i> Buat Pembelian</a>
+                <a href="#" class="btn btn-icon btn-sm btn-primary" data-toggle="modal" data-id="#" data-target="#buatPembelianModal" style="margin-bottom: 2px; width: 12em;"><i class="fas fa-shopping-bag"></i> Buat Pembelian</a>
                 @endif
                 @if ( !empty($detail_usulan->pembelian) )
                 <a href="#" class="open-edit btn btn-icon btn-sm btn-secondary" data-toggle="modal" data-id="#" data-target="#editModal" style="margin-bottom: 2px; width: 12em;"><i class="fas fa-shopping-bag"></i> Lihat Pembelian</a>
@@ -240,6 +240,48 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
                         <input type="text" id="usulanId" name="usulanId" value="" hidden />
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Batalkan</button>
                         <input type="submit" value="Konfirmasi Edit Usulan" class="btn btn-warning" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Modal Buat Pembelian -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="buatPembelianModal">
+        <div class="modal-dialog" role="document">
+            <form method="POST" action="{{ route('pembelianCreate') }}">
+                @csrf
+                <input id="id_pengelola" type="text" class="form-control" name="id_pengelola" value="{{ $anggota->id }}" readonly hidden>
+                <input id="id_usulan" type="text" class="form-control" name="id_usulan" value="{{ $detail_usulan->id }}" readonly hidden>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Buat Pembelian</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table style="width:90%; margin: auto;">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Pilih Petugas Pembelian</th>
+                                    <td>
+                                        <select name="id_petugas" class="form-control select2" style="width: 100%;" required>
+                                            @foreach($list_anggota as $anggota_terpilih)
+                                            <option value="{{ $anggota_terpilih->id }}">{{ $anggota_terpilih->nama }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Keterangan</th>
+                                    <td><textarea id="keterangan" name="keterangan" class="form-control" placeholder="Keterangan"></textarea></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer bg-whitesmoke br">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batalkan</button>
+                        <input type="submit" value="Konfirmasi Buat Pembelian" class="btn btn-primary" />
                     </div>
                 </div>
             </form>

@@ -20,20 +20,25 @@ Route::middleware('auth')->group(function () {
 
     // group untuk anggota aktif
     Route::middleware('CheckStatus')->group(function () {
+        Route::get('anggota', 'AnggotaController@dasbor')->name('anggotaDasbor');
         //route keanggotaan
-        Route::get('anggota', 'AnggotaController@index')->name('anggotaTerdaftar');
+        Route::get('anggota/terdaftar', 'AnggotaController@index')->name('anggotaTerdaftar');
         Route::post('anggota/delete', 'AnggotaController@delete')->name('anggotaDelete');
         Route::post('anggota/edit', 'AnggotaController@edit')->name('anggotaEdit');
         Route::get('anggota/detail/{id}', 'AnggotaController@getDetail')->name('anggotaDetail');
-        //Route::get('anggota/all', 'AnggotaController@getAllUn');
+        //verifikasi anggota
         Route::get('anggota/verifikasi', 'AnggotaController@getUnverifiedList')->name('anggotaBlmVerifikasi');
-        // Route::get('anggota/verifikasi/{id}', 'AnggotaController@verify')->name('anggotaSetujuVerif');
         Route::post('anggota/verifikasi/tolak', 'AnggotaController@tolak')->name('anggotaTolakVerif');
         Route::post('anggota/verifikasi/terima', 'AnggotaController@terima')->name('anggotaTerimaVerif');
+        //anggota pengelola aset
         Route::get('anggota/pengelolaaset', 'AnggotaController@pengelola_aset_index')->name('anggotaPengelolaAset');
         Route::post('anggota/pengelolaaset/delete', 'AnggotaController@pengelola_aset_delete')->name('anggotaPengelolaAsetDelete');
         Route::post('anggota/pengelolaaset/add', 'AnggotaController@pengelola_aset_add')->name('anggotaPengelolaAsetAdd');
-
+        //anggota pengelola aset
+       
+        //route aset
+        Route::get('aset', 'DasborAsetController@dasbor')->name('asetDasbor');
+       
         //route usulan
         Route::get('aset/usulan', 'UsulanController@index')->name('usulanTerdaftar');
         Route::post('aset/usulan/create', 'UsulanController@create')->name('usulanCreate');
@@ -69,8 +74,8 @@ Route::middleware('auth')->group(function () {
         //route katalog
         Route::get('aset/lokasi', 'LokasiController@index')->name('lokasiTerdaftar');
 
-        Route::get('aset', 'AsetController@index')->name('asetMaster');
-        Route::post('aset', 'AsetController@selectKategori')->name('asetMasterSelectKategori');
+        // Route::get('aset', 'AsetController@index')->name('asetMaster');
+        // Route::post('aset', 'AsetController@selectKategori')->name('asetMasterSelectKategori');
         // Route::get('aset/kategori','AsetController@kategori')->name('asetKategori');
     });
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Pembelian;
+use App\Usulan;
 use App\Pengelola_Aset;
 use App\Anggota;
 use Carbon\Carbon;
@@ -50,14 +51,13 @@ class PembelianController extends Controller
     public function create(Request $request)
     {
         $pembelian = new Pembelian;
-        $pembelian->nama = $request->nama;
-        $pembelian->id_jenis = $request->jenis_aset;
-        $pembelian->id_kategori = $request->id_kategori;
+        $pembelian->id_usulan = $request->id_usulan;
         $pembelian->id_pengelola = $request->id_pengelola;
         $pembelian->id_petugas = $request->id_petugas;
-        $pembelian->jumlah = $request->jumlah;
-        $pembelian->harga = $request->harga;
-        $pembelian->status_pembelian = "Belum Dibeli";
+        $pembelian->keterangan = $request->keterangan;
+        $usulan = Usulan::get()->where('id', '=', $request->id_usulan)->first();
+        $pembelian->harga_pembelian = $usulan->harga_usulan;
+        $pembelian->status_pembelian = "Dalam Proses";
         $pembelian->created_at = now();
         $pembelian->updated_at = now();
         $pembelian->save();
@@ -171,22 +171,8 @@ class PembelianController extends Controller
             $detail_pembelian->link_foto_nota = $detail_pembelian->link_foto_nota . '?=' . $mtime;
         }
         Carbon::setLocale('id');
-        // $hari_dibuat = $detail_pembelian->created_at->dayName;
-        // $tgl_dibuat = $detail_pembelian->created_at->format('d');
-        // $bulan_dibuat = $detail_pembelian->created_at->monthName;
-        // $thn_dibuat = $detail_pembelian->created_at->format('Y');
-        // $pukul_dibuat = $detail_pembelian->created_at->format('H:i');
-        // $hari_diperbarui = $detail_pembelian->created_at->dayName;
-        // $tgl_diperbarui = $detail_pembelian->created_at->format('d');
-        // $bulan_diperbarui = $detail_pembelian->created_at->monthName;
-        // $thn_diperbarui = $detail_pembelian->created_at->format('Y');
-        // $pukul_diperbarui = $detail_pembelian->created_at->format('H:i');
-        // $detail_pembelian->dibuat = $hari_dibuat . ', ' . $tgl_dibuat . ' ' . $bulan_dibuat . ' ' . $thn_dibuat . ' pukul ' . $pukul_dibuat;
-        // $detail_pembelian->diperbarui = $hari_diperbarui . ', ' . $tgl_diperbarui . ' ' . $bulan_diperbarui . ' ' . $thn_diperbarui . ' pukul ' . $pukul_diperbarui;
         $detail_pembelian->dibuat = $detail_pembelian->created_at->isoFormat('LLLL');
         $detail_pembelian->diperbarui = $detail_pembelian->created_at->isoFormat('LLLL');
-
-
 
         return $detail_pembelian;
     }

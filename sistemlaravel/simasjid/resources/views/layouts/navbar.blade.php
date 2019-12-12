@@ -115,6 +115,7 @@
             <li class="nav-item dropdown" id="dropdown-keanggotaan">
               <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-users"></i> <span>Keanggotaan</span></a>
               <ul class="dropdown-menu">
+                <li id="dasbor-anggota-link"><a class="nav-link" href="{{ route('anggotaDasbor') }}"><i class="fas fa-tachometer-alt"></i>Dasbor Anggota</a></li>
                 <li id="terdaftar-link"><a class="nav-link" href="{{ route('anggotaTerdaftar') }}"><i class="fas fa-address-book"></i>Terdaftar</a></a></li>
                 <?php
                 //hide untuk selain sekretaris dan ketua
@@ -131,16 +132,7 @@
             <li id='dropdown-aset' class="nav-item dropdown">
               <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-warehouse"></i> <span>Manajemen Aset</span></a>
               <ul class="dropdown-menu">
-                <!-- <li><a class="nav-link" style="pointer-events: none; cursor: default;">Aset Terdaftar</a></li> -->
-                <!-- <li id='terdaftar-aset-link'><a class="nav-link" href="{{ route('asetMaster') }}"><i class="fas fa-broom"></i>Peralatan</a></li>
-                <li id='terdaftar-aset-link'><a class="nav-link" href="{{ route('asetMaster') }}"><i class="fas fa-boxes"></i>Perlengkapan</a></li>
-                <li id='terdaftar-aset-link'><a class="nav-link" href="{{ route('asetMaster') }}"><i class="fas fa-book"></i>Buku</a></li> -->
-                <!-- <li id='perbaikan-aset-link'><a class="nav-link" href="#"><i class="fas fa-tools"></i>Dalam Perbaikan</a></li> -->
-                <!-- <li><a class="nav-link" href="#"><i class="fas fa-question-circle"></i>Hilang</a></li> -->
-                <!-- <li id='dilepas-aset-link'><a class="nav-link" href="#"><i class="fas fa-ban"></i>Dilepas</a></li> -->
-                <!-- <hr />
-                <li><a class="nav-link" style="pointer-events: none; cursor: default;">Kelola Aset</a></li> -->
-                <li id="status-link"><a class="nav-link" href="#"><i class="fas fa-tachometer-alt"></i>Dasbor Aset</a></li>
+                <li id="dasbor-aset-link"><a class="nav-link" href="{{ route('asetDasbor') }}"><i class="fas fa-tachometer-alt"></i>Dasbor Aset</a></li>
                 <li id="usulan-link"><a class="nav-link" href="{{ route('usulanTerdaftar') }}"><i class="fas fa-lightbulb"></i>Usulan</a></li>
                 <li id="pembelian-link"><a class="nav-link" href="{{ route('pembelianTerdaftar') }}"><i class="fas fa-shopping-bag"></i>Pembelian</a></li>
                 <!-- <li><a class="nav-link" href="#"><i class="fas fa-gifts"></i>Hibah</a></li> -->
@@ -153,7 +145,6 @@
                 <!-- <li><a class="nav-link" style="pointer-events: none; cursor: default;">Pengaturan</a></li> -->
                 <li id='kategori-link'><a class="nav-link" href="{{ route('kategoriTerdaftar') }}"><i class="fas fa-tags"></i>Kategori</a></li>
                 <li id='katalog-link'><a class="nav-link" href="{{ route('katalogTerdaftar') }}"><i class="fas fa-list-alt"></i>Katalog</a></li>
-                <!-- <li id='jenis-link'><a class="nav-link" href="{{ route('asetMaster') }}"><i class="fas fa-layer-group"></i>Jenis Barang</a></li> -->
                 <li id='lokasi-link'><a class="nav-link" href="{{ route('lokasiTerdaftar') }}"><i class="fas fa-map-marker-alt"></i>Lokasi</a></li>
               </ul>
             </li>

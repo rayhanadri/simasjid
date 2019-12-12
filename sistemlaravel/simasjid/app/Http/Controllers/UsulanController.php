@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Usulan;
 use App\Pengelola_Aset;
 use App\Kategori;
+use App\Anggota;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -116,8 +117,11 @@ class UsulanController extends Controller
         //user terotentikasi
         $anggota = Auth::user();
 
+        //list user aktif
+        $list_anggota = Anggota::get()->where('id_status', '=', 1);
+
         //retval
-        return view('aset.detail_usulan', ['detail_usulan' => $detail_usulan, 'list_pengelola' => $arr_list_pengelola, 'anggota' => $anggota]);
+        return view('aset.detail_usulan', ['detail_usulan' => $detail_usulan, 'list_anggota' => $list_anggota, 'list_pengelola' => $arr_list_pengelola, 'anggota' => $anggota]);
     }
 
     public function getView($id)

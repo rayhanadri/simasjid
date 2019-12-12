@@ -1,13 +1,6 @@
 @include('layouts.header')
 @include('layouts.navbar')
-<!-- Main Content -->
-<!-- <script type="text/javascript" src="{{asset('public/dist/assets/js/page/bootstrap-modal.js')}}"></script> -->
 <?php
-
-use Carbon\Carbon;
-
-Carbon::setLocale('id');
-//hide untuk selain sekretaris dan ketua
 $inside_pengelola = in_array($anggota->id, $list_pengelola);
 ?>
 <div class="main-content">
@@ -16,7 +9,7 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
             <div>
                 <ol class="breadcrumb float-sm-left" style="margin-bottom: 10px; margin-left: 15px;">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}"><i class="fas fa-mosque"></i> Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Manajemen Aset</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('asetDasbor') }}">Manajemen Aset</a></li>
                     <li class="breadcrumb-item active">Kategori</li>
                 </ol>
             </div>
@@ -37,17 +30,6 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
                                 <th>No</th>
                                 <th>Nama Kategori</th>
                                 <th>Penanggung Jawab</th>
-                                <!-- <th class="dt-center">Katalog</th> -->
-                                <!-- <th class="dt-center" style="width: 50px;padding-right: 5px;padding-left: 5px;height: 50px;">Jumlah</th> -->
-                                <!-- <th class="dt-center">Harga Satuan</th>
-                                <th class="dt-center">Total Harga</th> -->
-                                <!-- <th class="dt-center">Dibuat</th>
-                                <th class="dt-center">Diperbarui</th>
-                                <th class="dt-center">Status</th>
-                                <th class="dt-center">Action</th> -->
-                                @if($inside_pengelola)
-                                <!-- <th class="dt-center" style="width: 11em">Buat Keputusan</th> -->
-                                @endif
                             </tr>
                         </thead>
                         <tbody>

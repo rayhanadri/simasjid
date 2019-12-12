@@ -1,12 +1,6 @@
 @include('layouts.header')
 @include('layouts.navbar')
-<!-- Main Content -->
-<!-- <script type="text/javascript" src="{{asset('public/dist/assets/js/page/bootstrap-modal.js')}}"></script> -->
 <?php
-
-use Carbon\Carbon;
-
-Carbon::setLocale('id');
 //hide untuk selain sekretaris dan ketua
 $inside_pengelola = in_array($anggota->id, $list_pengelola);
 ?>
@@ -16,7 +10,7 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
             <div>
                 <ol class="breadcrumb float-sm-left" style="margin-bottom: 10px; margin-left: 15px;">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}"><i class="fas fa-mosque"></i> Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Manajemen Aset</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('asetDasbor') }}">Manajemen Aset</a></li>
                     <li class="breadcrumb-item active">Kategori</li>
                 </ol>
             </div>

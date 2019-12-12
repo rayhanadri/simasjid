@@ -8,7 +8,7 @@
             <div>
                 <ol class="breadcrumb float-sm-left" style="margin-bottom: 10px; margin-left: 15px;">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}"><i class="fas fa-mosque"></i> Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Keanggotaan</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('anggotaDasbor') }}">Keanggotaan</a></li>
                     <li class="breadcrumb-item active">Verifikasi</li>
                 </ol>
             </div>
