@@ -676,6 +676,9 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
                 search: "Cari di tabel:",
                 zeroRecords: "Data tidak tersedia",
             },
+            "order": [
+                [0, "desc"]
+            ],
             //kriteria column 0 nama tipe input
             initComplete: function() {
                 this.api().columns([1]).every(function() {
