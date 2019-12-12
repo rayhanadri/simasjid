@@ -69,6 +69,7 @@
                 //hide untuk selain sekretaris dan ketua
                 $sekretaris = array(1, 3);
                 $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
+                //apakah ada id jabatan di array sekretaris yg bernilai 1 dan 3
                 ?>
                 @if($inside_sekretaris)
                 <li id="verifikasi-link"><a class="nav-link" href="{{ route('anggotaBlmVerifikasi') }}"><i class="fas fa-check-square"></i>Verifikasi</a></a></li>
@@ -84,6 +85,27 @@
                 <li><a class="nav-link" href="#"><i class="fas fa-chart-pie"></i>Laporan</a></li>
               </ul>
             </li>
+            <?php
+            //hide untuk selain panitia kurban
+            $panitia = array(1,10, 11);
+            $inside_panitia = in_array($anggota->id_panitia, $panitia);
+            $ketua_takmir = in_array($anggota->id_jabatan,$panitia);
+           ?>
+            @if($inside_panitia || $ketua_takmir)
+            <li id='link-drop-aset' class="nav-item dropdown">
+              <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-kaaba"></i><span>Kurban</span></a>
+              <ul class="dropdown-menu">
+                @if($anggota->id_panitia == 10 || $anggota->id_jabatan == 1   )
+              <li id='link-master-aset'><a class="nav-link" href="{{route('manajPanitia')}}"><i class="fas fa-briefcase"></i>Anggota Panitia</a></li>
+                @endif
+              <li><a class="nav-link" href="{{route('pekerjaan')}}"><i class="fas fa-briefcase"></i>Pekerjaan</a></li>
+                <li><a class="nav-link" href="#"><i class="fas fa-clipboard-list"></i>Pendaftaran</a></li>
+                <li><a class="nav-link" href="#"><i class="fas fa-clipboard-check"></i>Pemotongan</a></li>
+                <li><a class="nav-link" href="#"><i class="fas fa-dolly-flatbed"></i>Distribusi</a></li>
+              </ul>
+            </li>
+            @endif
+
             @endif
         </aside>
       </div>

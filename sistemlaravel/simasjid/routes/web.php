@@ -43,3 +43,7 @@ Route::middleware('auth')->group(function () {
 //route home
 Route::get('/', 'HomeController@index')->name('home');
 // Route::get('/home', '')->redirect(route('home'));
+Route::get('/kurban','KurbanController@index')->name('pekerjaan');
+Route::get('/panitia','PanitiaKurbanController@index')->name('manajPanitia');
+Route::patch('/panitia','PanitiaKurbanController@store')->name('tambahpanitia');
+Route::post('/panitia/hapus','PanitiaKurbanController@destroy')->name('hapuspanitia');

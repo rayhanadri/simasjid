@@ -29,17 +29,17 @@
             </div>
           </div>
         </div>
-        <!-- <div class="col-lg-4 col-md-4 col-sm-4" style="margin:auto;">
+         <div class="col-lg-4 col-md-4 col-sm-4" style="margin:auto;">
           <div class="card" style="height:200px;">
             <div style="padding:30px; text-align:center;">
               <a href="#"><i class="fa fa-edit fa-7x"></i>
                 <br><br>
-                <h4>Notulensi</h4>
+                <h4>Kurban</h4>
               </a>
               <br>
             </div>
           </div>
-        </div> -->
+        </div> 
         <div class="col-lg-4 col-md-4 col-sm-4" style="margin:auto;">
           <div class="card" style="height:200px;">
             <div style="padding:30px; text-align:center;">

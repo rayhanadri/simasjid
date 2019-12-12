@@ -35,8 +35,11 @@
   <link rel="stylesheet" href="{{ asset('public/plugins/icofont/icofont.min.css') }}">
 
   <!-- DataTables -->
-  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+  <link rel="stylesheet" href="{{asset('public/dist/datatables/datatables.min.css')}}">
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="{{asset('public/dist/datatables/select.bootstrap4.min.css')}}">
+
+
 
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
