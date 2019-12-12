@@ -362,7 +362,7 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
         $(".custom-select").css('width', '82px');
         status_colorized();
         //autonumeric 
-        // $('.harga').autoNumeric('init'); //harga
+        $('.harga').autoNumeric('init'); //harga
         $('#totalHarga').autoNumeric('init'); //total harga
         $('#totalHargaNon').autoNumeric('init'); //total harga
         $('#detailHarga').autoNumeric('init'); //autonumeric detailharga
