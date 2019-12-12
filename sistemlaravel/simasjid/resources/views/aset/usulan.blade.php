@@ -51,8 +51,8 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
             <div class="col-12">
                 <div class="section-body" style="min-height: 300px;">
                     <div class="col-12" style="margin-left: 0px; margin-top: 0px; margin-bottom:20px; padding: 0px;">
-                        <a href="#" class="btn btn-lg btn-info btn-primary" data-toggle="modal" data-target="#tambahModal"><i class="fas fas fa-plus"></i> Buat Usulan dari Katalog</a>
-                        <a href="#" class="btn btn-lg btn-info btn-primary" data-toggle="modal" data-target="#tambahModal"><i class="fas fas fa-plus"></i> Buat Usulan Non-Katalog</a>
+                        <a href="#" class="open-buatDariKatalog btn btn-lg btn-info btn-primary" data-toggle="modal" data-target="#buatDariKatalogModal"><i class="fas fas fa-plus"></i> Buat Usulan dari Katalog</a>
+                        <a href="#" class="open-buatNonKatalog btn btn-lg btn-info btn-primary" data-toggle="modal" data-target="#buatNonKatalogModal"><i class="fas fas fa-plus"></i> Buat Usulan Non-Katalog</a>
                     </div>
                     <table id="table_id" class="table table-striped table-bordered">
                         <thead>
@@ -91,11 +91,8 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
                                     @endif
                                 </td>
                                 <td class="dt-center" style="width: 50px;padding-right: 5px;padding-left: 5px;height: 50px;">{{ $usulan->jumlah }}</td>
-                                <!-- <td>{{ $usulan->harga }}</td>
-                                <td>{{ $usulan->harga * $usulan->jumlah }}</td> -->
                                 <td style="min-width: 7em;" class="harga" data-a-sign="Rp. " data-a-dec="," data-a-sep=".">{{ $usulan->harga_usulan }}</td>
                                 <td style="min-width: 7em;" class="harga" data-a-sign="Rp. " data-a-dec="," data-a-sep=".">{{ $usulan->harga_usulan * $usulan->jumlah }}</td>
-                                <!-- <td>{{ $usulan->updated_at->diffForHumans() }}</td> -->
                                 <td class="font-status">{{ $usulan->status_usulan }}</td>
                                 @if(!empty($usulan->pembelian))
                                 <td class="font-status">{{ $usulan->pembelian->status_pembelian }}</td>
@@ -103,16 +100,10 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
                                 <td class="font-status">Tidak Terdaftar</td>
                                 @endif
                                 <td class="dt-center">
-                                    <!-- <div class="btn-group mb-3" role="group" aria-label="Basic example" style="padding-left: 20px;"> -->
                                     <a href="#" class="open-detail btn btn-icon btn-sm btn-info" data-toggle="modal" data-id="{{ $usulan->id }}" data-target="#detailModal" style="margin-bottom: 2px; width:100%"><i class="fas fa-glasses"></i> Detail</a>
-                                    @if( ( $inside_pengelola || $usulan->id_pengusul == $anggota->id ) && ( $usulan->status_usulan == "Menunggu Keputusan" ) )
-                                    <a href="#" class="open-edit btn btn-icon btn-sm btn-warning" data-toggle="modal" data-id="{{ $usulan->id }}" data-target="#editModal" style="margin-bottom: 2px; width:100%"><i class="fas fa-edit"></i></i> Edit</a>
-                                    <a href="#" class="open-delete btn btn-icon btn-sm btn-danger" data-toggle="modal" data-id="{{ $usulan->id }}" data-target="#deleteModal" style="margin-bottom: 2px; width:100%"><i class="fas fa-trash"></i> Hapus</a>
-                                    @endif
                                     @if( !empty($usulan->pembelian) )
                                     <a href="{{ route('home').'/aset/pembelian/detail/'.$usulan->pembelian->id }}" class="btn-icon btn btn-sm btn-secondary" style="margin-bottom: 2px; width:100%"><i class="fas fa-shopping-bag"></i> Pembelian</a>
                                     @endif
-                                    <!-- </div> -->
                                 </td>
                             </tr>
                             @endforeach
@@ -122,48 +113,41 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
             </div>
         </div>
     </section>
-    <!-- Modal Detail -->
-    <div class="modal fade" tabindex="-1" role="dialog" id="tambahModal">
+    <!-- Modal Buat Dari Katalog -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="buatDariKatalogModal">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Tambah Usulan</h5>
+                    <h5 class="modal-title">Buat Usulan dari Katalog</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <form method="POST" action="{{ route('usulanCreate') }}">
+                    <input name="jenis_usulan" value="Katalog" readonly hidden>
                     @csrf
                     <div class="modal-body">
                         <div class="form-group row">
-                            <label for="pengusul" class="col-md-4 col-form-label text-md-right">Pengusul</label>
+                            <label for="pengusul" class="col-md-4 col-form-label text-md-right">Diusulkan oleh</label>
                             <div class="col-md-6">
                                 <input id="pengusul" type="text" class="form-control" name="pengusul" value="{{$anggota->nama}}" readonly disabled>
                                 <input id="id_pengusul" type="text" class="form-control" name="id_pengusul" value="{{$anggota->id}}" readonly hidden>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="nama" class="col-md-4 col-form-label text-md-right">Nama Barang</label>
+                            <label for="nama" class="col-md-4 col-form-label text-md-right">Kategori</label>
                             <div class="col-md-6">
-                                <input id="nama" type="text" class="form-control" name="nama" placeholder="Nama Barang Usulan" required>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="jenis_aset" class="col-md-4 col-form-label text-md-right">Jenis Aset</label>
-                            <div class="col-md-6">
-                                <select class="form-control" id="jenis_aset" name="jenis_aset" required>
-                                    <option>Pilih Jenis Aset</option>
-                                    <option value=1>Aset Tetap</option>
-                                    <option value=2>Persediaan</option>
-                                    <option value=3>Buku</option>
+                                <select id="pilihKategori" class="form-control select2" style="width: 100%;" name="pilihKategori" required>
+                                    @foreach( $list_kategori as $kategori)
+                                    <option value="{{ $kategori->id }}"> {{ $kategori->nama }} </option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="id_kategori" class="col-md-4 col-form-label text-md-right">Kategori Aset</label>
+                            <label for="nama" class="col-md-4 col-form-label text-md-right">Katalog</label>
                             <div class="col-md-6">
-                                <select class="form-control" id="id_kategori" name="id_kategori" required>
-                                    <option>Pilih Jenis Aset Dahulu</option>
+                                <select id="pilihKatalog" class="form-control select2" style="width: 100%;" name="pilihKatalog" required>
                                 </select>
                             </div>
                         </div>
@@ -179,7 +163,18 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
                                 <input id="harga" type="number" class="form-control" name="harga" placeholder="Perkiraan Harga Satuan" data-a-dec="," data-a-sep="." required>
                             </div>
                         </div>
-                        <!-- <input type="text" id="usulanId" name="usulanId" value="" hidden/> -->
+                        <div class="form-group row">
+                            <label for="totalHarga" class="col-md-4 col-form-label text-md-right harga">Total Harga</label>
+                            <div class="col-md-6">
+                                <input id="totalHarga" type="text" class="form-control harga" name="totalHarga" placeholder="Total Harga" data-a-dec="," data-a-sep="." disabled>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="keterangan" class="col-md-4 col-form-label text-md-right">Keterangan</label>
+                            <div class="col-md-6">
+                                <input id="keterangan" type="text" class="form-control" name="keterangan" placeholder="Keterangan">
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer bg-whitesmoke br">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
@@ -189,197 +184,124 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
             </div>
         </div>
     </div>
-</div>
-
-<!-- Modal Delete -->
-<div class="modal fade" tabindex="-1" role="dialog" id="deleteModal">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Hapus Usulan</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <img src="{{ route('home') }}/public/dist/assets/img/svg/trash.svg" id="detailFoto" class="mx-auto d-block" alt="hapus image" style="width:150px; height:150px;overflow: hidden;">
-
-                <h5 align="center">Apakah Anda yakin ingin menghapus usulan ini?</h5>
-            </div>
-            <div class="modal-footer bg-whitesmoke br">
-                <form action="{{ route('usulanDelete') }}" method="post">
+    <!-- Modal Buat Non Katalog -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="buatNonKatalogModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Buat Usulan dari Katalog</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="POST" action="{{ route('usulanCreate') }}">
+                    <input name="jenis_usulan" value="Non-Katalog" hidden>
                     @csrf
-                    <input type="text" id="usulanId" name="usulanId" value="" />
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak, Batalkan</button>
-                    <input type="submit" value="Ya, Hapus" class="btn btn-danger" />
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label for="pengusul" class="col-md-4 col-form-label text-md-right">Diusulkan oleh</label>
+                            <div class="col-md-6">
+                                <input id="pengusul" type="text" class="form-control" name="pengusul" value="{{$anggota->nama}}" readonly disabled>
+                                <input id="id_pengusul" type="text" class="form-control" name="id_pengusul" value="{{$anggota->id}}" readonly hidden>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="jumlah" class="col-md-4 col-form-label text-md-right">Nama</label>
+                            <div class="col-md-6">
+                                <input id="nama" type="text" class="form-control" name="nama" placeholder="Nama Barang" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="jumlah" class="col-md-4 col-form-label text-md-right">Jumlah</label>
+                            <div class="col-md-6">
+                                <input id="jumlahNon" type="number" class="form-control" name="jumlah" placeholder="Jumlah" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="harga" class="col-md-4 col-form-label text-md-right">Harga Satuan</label>
+                            <div class="col-md-6">
+                                <input id="hargaNon" type="number" class="form-control" name="harga" placeholder="Perkiraan Harga Satuan" data-a-dec="," data-a-sep="." required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="totalHarga" class="col-md-4 col-form-label text-md-right harga">Total Harga</label>
+                            <div class="col-md-6">
+                                <input id="totalHargaNon" type="text" class="form-control harga" name="totalHarga" placeholder="Total Harga" data-a-dec="," data-a-sep="." disabled>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="keterangan" class="col-md-4 col-form-label text-md-right">Keterangan</label>
+                            <div class="col-md-6">
+                                <input id="keterangan" type="text" class="form-control" name="keterangan" placeholder="Keterangan">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer bg-whitesmoke br">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary">Buat Usulan</button>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
-</div>
-<!-- Modal Edit -->
-<div class="modal fade" tabindex="-1" role="dialog" id="editModal">
-    <div class="modal-dialog" role="document">
-        <form method="POST" action="{{ route('usulanEdit') }}">
-            @csrf
+    <!-- Modal Detail -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="detailModal">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Edit Usulan</h5>
+                    <h5 class="modal-title">Detail Usulan</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <input id="id_pengelola" type="text" class="form-control" name="id_pengelola" value="{{$anggota->id}}" readonly hidden>
                     <table style="width:90%; margin: auto;">
                         <tbody>
                             <tr>
-                                <th scope="row">Nama Usulan Aset</th>
-                                <td><input class="form-control" type="text" id="editNama" name="editNama" /></td>
+                                <th scope="row">Jenis Usulan</th>
+                                <td id="detailJenis"></td>
                             </tr>
                             <tr>
-                                <th scope="row">Jenis Aset</th>
-                                <td><select id="editJenis" name="editJenis" class="form-control select">
-                                        <option value=1>Aset Tetap</option>
-                                        <option value=2>Persediaan</option>
-                                        <option value=3>Buku</option>
-                                    </select>
-                                </td>
+                                <th scope="row">Nama Barang</th>
+                                <td id="detailNama"></td>
                             </tr>
                             <tr>
-                                <th scope="row">Kategori Aset</th>
-                                <td><select id="editKategori" name="editKategori" class="form-control select">
-                                    </select>
-                                </td>
+                                <th scope="row">Kategori</th>
+                                <td id="detailKategori"></td>
                             </tr>
                             <tr>
                                 <th scope="row">Jumlah</th>
-                                <td><input type="number" id="editJumlah" name="editJumlah" class="form-control"></td>
+                                <td id="detailJumlah"></td>
                             </tr>
                             <tr>
                                 <th scope="row">Harga Satuan</th>
-                                <td><input type="number" id="editHarga" name="editHarga" class="form-control" /></td>
-                            </tr>
-                            <!-- <tr>
-                                <th scope="row">Dibuat</th>
-                                <td>
-                                    <input type='text' id="editDibuat" class="form-control" />
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                </td>
-                                </td>
+                                <td><span id="detailHarga" data-a-dec="," data-a-sep="."></span></td>
                             </tr>
                             <tr>
-                                <th scope="row">Diperbarui</th>
-                                <td><input type='text' id="editDiperbarui" class="form-control" />
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                </td>
+                                <th scope="row">Total Harga</th>
+                                <td><span id="detailTotal" data-a-dec="," data-a-sep="."></span></td>
                             </tr>
                             <tr>
-                                <th scope="row">Dibuat oleh</th>
-                                <td><input type='text' id="editDibuatOleh" class="form-control" readonly disabled /></td>
+                                <th scope="row">Keterangan</th>
+                                <td id="detailKeterangan"></td>
                             </tr>
                             <tr>
-                                <th scope="row">Diperbarui oleh</th>
-                                <td><input type='text' id="editDiperbaruiOleh" class="form-control" readonly disabled /></td>
-                            </tr> -->
-                            <!-- <tr>
-                                <th scope="row">Status</th>
-                                <td>
-                                    <select id="editStatus" name="editStatus" class="form-control select">
-                                        <option value="Ditolak">Ditolak</option>
-                                        <option value="Diterima">Diterima</option>
-                                        <option value="Menunggu Keputusan">Menunggu Keputusan</option>
-                                    </select>
+                                <th scope="row">Status Usulan</th>
+                                <td id="detailStatusUsulan" class="font-status"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Status Pembelian</th>
+                                <td id="detailStatusPembelian" class="font-status">
+
                                 </td>
-                            </tr> -->
+                            </tr>
                         </tbody>
                     </table>
                 </div>
                 <div class="modal-footer bg-whitesmoke br">
-                    <input type="text" id="usulanId" name="usulanId" value="" hidden />
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batalkan</button>
-                    <input type="submit" value="Konfirmasi Edit" class="btn btn-warning" />
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <a id="linkDetail" href="" class="btn btn-info"><i class="fas fas fa-glasses"></i> Detail Lengkap</a>
                 </div>
-            </div>
-        </form>
-    </div>
-</div>
-<!-- Modal Detail -->
-<div class="modal fade" tabindex="-1" role="dialog" id="detailModal">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Detail Usulan</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <table style="width:90%; margin: auto;">
-                    <tbody>
-                        <tr>
-                            <th scope="row">Jenis Usulan</th>
-                            <td id="detailJenis"></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Nama Barang</th>
-                            <td id="detailNama"></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Kategori</th>
-                            <td id="detailKategori"></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Jumlah</th>
-                            <td id="detailJumlah"></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Harga Satuan</th>
-                            <td><span id="detailHarga" data-a-dec="," data-a-sep="."></span></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Total Harga</th>
-                            <td><span id="detailTotal" data-a-dec="," data-a-sep="."></span></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Dibuat</th>
-                            <td id="dibuat"></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Diperbarui</th>
-                            <td id="diperbarui"></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Dibuat oleh</th>
-                            <td id="dibuatOleh"></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Diperbarui oleh</th>
-                            <td id="diperbaruiOleh"></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Keterangan</th>
-                            <td id="detailKeterangan"></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Status Usulan</th>
-                            <td id="detailStatusUsulan" class="font-status"></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Status Pembelian</th>
-                            <td id="detailStatusPembelian" class="font-status">
-
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
-            <div class="modal-footer bg-whitesmoke br">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button> -->
-                <a id="linkView" href="" class="btn btn-info"><i class="fas fas fa-glasses"></i> Detail Lengkap</a>
-                <!-- <input type="text" id="usulanId" name="usulanId" value="" /> -->
             </div>
         </div>
     </div>
@@ -440,7 +362,9 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
         $(".custom-select").css('width', '82px');
         status_colorized();
         //autonumeric 
-        $('.harga').autoNumeric('init'); //harga
+        // $('.harga').autoNumeric('init'); //harga
+        $('#totalHarga').autoNumeric('init'); //total harga
+        $('#totalHargaNon').autoNumeric('init'); //total harga
         $('#detailHarga').autoNumeric('init'); //autonumeric detailharga
         $('#detailTotal').autoNumeric('init'); //autonumeric detailtotal
         //onchange select jenis aset, show opsi kategori
@@ -469,6 +393,9 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
                 search: "Cari di tabel:",
                 zeroRecords: "Data tidak tersedia",
             },
+            "order": [
+                [0, "desc"]
+            ],
             //kriteria column 0 nama tipe input
             initComplete: function() {
                 //kriteria column 0 nama tipe select
@@ -562,84 +489,92 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
         $(".modal-footer #usulanId").val(thisDataUsulan);
     });
 
-    // onclick btn edit, show modal
-    $(document).on("click", ".open-edit", function() {
-        /* passing data dari view button detail ke modal */
-        var thisDataUsulan = $(this).data('id');
-        $(".modal-footer #usulanId").val(thisDataUsulan);
-        var linkDetail = "{{ route('home') }}/aset/usulan/view/" + thisDataUsulan;
-        $.get(linkDetail, function(data) {
-            //deklarasi var obj JSON data detail anggota
-            var obj = data;
-            var kategori = obj.kategori;
-            var pengusul = obj.pengusul;
-            var pengelola = obj.pengusul;
-            // ganti elemen pada dokumen html dengan hasil data json dari jquery
-            $("#editNama").val(obj.nama);
-            $("#editJenis").val(obj.id_jenis);
-            $("#editKategori").ready(function() {
-                var jenis = $(editJenis).val();
-                if (jenis) {
-                    $.ajax({
-                        type: "get",
-                        url: "{{ route('home') }}/aset/kategori/get/" + jenis,
-                        success: function(res) {
-                            if (res) {
-                                $.each(res, function(key, value) {
-                                    $("#editKategori").append('<option value="' + key + '">' + value + '</option>');
-                                });
-                                $("#editKategori").val(kategori.id);
-                            }
-                        }
-                    });
-                }
-            });
-            $("#editJenis").change(function() {
-                var jenis = $(editJenis).val();
-                if (jenis) {
-                    $.ajax({
-                        type: "get",
-                        url: "{{ route('home') }}/aset/kategori/get/" + jenis,
-                        success: function(res) {
-                            if (res) {
-                                $("#editKategori").empty();
-                                $("#editKategori").append('<option>Pilih Kategori</option>');
-                                $.each(res, function(key, value) {
-                                    $("#editKategori").append('<option value="' + key + '">' + value + '</option>');
-                                });
-                            }
-                        }
-                    });
-                }
-            });
-
-            $("#editJumlah").val(obj.jumlah);
-            $("#editHarga").val(obj.harga);
-            // $("#editDibuat").val(obj.created_at);
-            // $("#editDiperbarui").val(obj.updated_at);
-            // $("#editDibuatOleh").val(pengusul.nama);
-            // $("#editDiperbaruiOleh").val(pengelola.nama);
-            $("#editStatus").val(obj.status_usulan);
-            $('#editHarga').autoNumeric('update', {
+    $(document).on("click", ".open-buatNonKatalog", function() {
+        $("#hargaNon").change(function() {
+            var harga = $("#hargaNon").val();
+            var jumlah = $("#jumlahNon").val();
+            $("#totalHargaNon").val(harga * jumlah);
+            $("#totalHargaNon").autoNumeric('update', {
                 aSign: 'Rp. '
-            }); //autonumeric detailharga
-
-            //base root project url + url dari db
-            // var link_foto = "{{ route('home') }}/" + obj.link_foto;
-            // $("#detailFoto").attr('src', link_foto);
-            // console.log(link_foto);
+            });
+        });
+        $("#jumlahNon").change(function() {
+            var harga = $("#hargaNon").val();
+            var jumlah = $("#jumlahNon").val();
+            $("#totalHargaNon").val(harga * jumlah);
+            $("#totalHargaNon").autoNumeric('update', {
+                aSign: 'Rp. '
+            });
         });
     });
+
+    // onclick btn edit, show modal
+    $(document).on("click", ".open-buatDariKatalog", function() {
+        // ganti elemen pada dokumen html dengan hasil data json dari jquery
+        $("#pilihKatalog").ready(function() {
+            var kategori = $("#pilihKategori").val();
+            if (kategori) {
+                $.ajax({
+                    type: "get",
+                    url: "{{ route('home') }}/aset/katalog/byKategori/" + kategori,
+                    success: function(res) {
+                        if (res) {
+                            $.each(res, function(key, value) {
+                                $("#pilihKatalog").append('<option value="' + value.id + '">' + value.nama + '</option>');
+                            });
+                        }
+                    }
+                });
+            }
+        });
+        $("#pilihKategori").change(function() {
+            var kategori = $("#pilihKategori").val();
+            if (kategori) {
+                $.ajax({
+                    type: "get",
+                    url: "{{ route('home') }}/aset/katalog/byKategori/" + kategori,
+                    success: function(res) {
+                        if (res) {
+                            $("#pilihKatalog").empty();
+                            $.each(res, function(key, value) {
+                                $("#pilihKatalog").append('<option value="' + value.id + '">' + value.nama + '</option>');
+                            });
+                        }
+                    }
+                });
+            }
+        });
+        $("#harga").change(function() {
+            var harga = $("#harga").val();
+            var jumlah = $("#jumlah").val();
+            $("#totalHarga").val(harga * jumlah);
+            $("#totalHarga").autoNumeric('update', {
+                aSign: 'Rp. '
+            });
+        });
+        $("#jumlah").change(function() {
+            var harga = $("#harga").val();
+            var jumlah = $("#jumlah").val();
+            $("#totalHarga").val(harga * jumlah);
+            $("#totalHarga").autoNumeric('update', {
+                aSign: 'Rp. '
+            });
+        });
+
+    });
+
 
     // onclick btn detail, show modal
     $(document).on("click", ".open-detail", function() {
         /* passing data dari view button detail ke modal */
         var thisDataUsulan = $(this).data('id');
         $(".modal-footer #usulanId").val(thisDataUsulan);
-        var linkView = "{{ route('home') }}/aset/usulan/view/" + thisDataUsulan;
-        $("#linkView").attr("href", linkView);
+        //set link Detail Lengkap
         var linkDetail = "{{ route('home') }}/aset/usulan/detail/" + thisDataUsulan;
-        $.get(linkDetail, function(data) {
+        $("#linkDetail").attr("href", linkDetail);
+        //isi detail di modal
+        var linkView = "{{ route('home') }}/aset/usulan/view/" + thisDataUsulan;
+        $.get(linkView, function(data) {
             //deklarasi var obj JSON data detail anggota
             var obj = data;
             if (obj.jenis_usulan == "Katalog") {
@@ -661,14 +596,6 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
             $("#detailJumlah").html(obj.jumlah);
             $("#detailHarga").html(obj.harga_usulan);
             $("#detailTotal").html(obj.harga_usulan * obj.jumlah);
-            $("#dibuat").html(obj.dibuat);
-            $("#diperbarui").html(obj.diperbarui);
-            $("#dibuatOleh").html(pengusul.nama);
-            if (pengelola == null) {
-                $("#diperbaruiOleh").html('-');
-            } else {
-                $("#diperbaruiOleh").html(pengelola.nama);
-            }
             if (obj.keterangan == null) {
                 $("#detailKeterangan").html('-');
             } else {
@@ -688,13 +615,6 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
                 $("#detailStatusPembelian").html("Tidak Terdaftar");
             }
             status_colorized();
-            //autonumeric detailtotal
-            //base root project url + url dari db
-            // var link_foto = "{{ route('home') }}/" + obj.link_foto;
-            // $("#detailFoto").attr('src', link_foto);
-            // console.log(link_foto);
-
-
         });
     });
 </script>

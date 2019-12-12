@@ -26,30 +26,22 @@ class KategoriController extends Controller
                 $pj_kategori->anggota_pj_kategori;
             }
         }
-        // $group_pj_kategori = PJ_Kategori::get()->groupBy('id_kategori');
 
-        // for ($x = 1; $x < sizeof($group_pj_kategori); $x++) {
-        //     for ($y = 0; $y < sizeOf($group_pj_kategori[$x]); $y++) {
-        //         echo $group_pj_kategori[$x][$y]->id_kategori;
-        //     }
-        // }
-
-
-        // return $group_pj_kategori;
         //user terotentikasi
         $anggota = Auth::user();
 
-        // return $list_kategori;
-
         return view('aset.kategori', ['list_kategori' => $list_kategori, 'list_pengelola' => $arr_list_pengelola, 'anggota' => $anggota]);
-
-        //retval
-        // return view('aset.usulan', ['list_usulan' => $list_usulan, 'list_pengelola' => $arr_list_pengelola, 'anggota' => $anggota]);
     }
 
     public function get(Request $request)
     {
         $kategori = Kategori::get()->where('id', '=', $request->id);
+        return $kategori;
+    }
+
+    public function list()
+    {
+        $kategori = Kategori::get();
         return $kategori;
     }
 }

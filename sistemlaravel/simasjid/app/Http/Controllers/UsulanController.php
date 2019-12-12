@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Usulan;
 use App\Pengelola_Aset;
-use App\Transformer\Transformer;
+use App\Kategori;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -31,61 +31,76 @@ class UsulanController extends Controller
         //user terotentikasi
         $anggota = Auth::user();
 
-        // return $list_usulan;
+        //list_kategori
+        $list_kategori = Kategori::get();
 
         //retval
-        return view('aset.usulan', ['list_usulan' => $list_usulan, 'list_pengelola' => $arr_list_pengelola, 'anggota' => $anggota]);
+        return view('aset.usulan', ['list_usulan' => $list_usulan, 'list_kategori' => $list_kategori, 'list_pengelola' => $arr_list_pengelola, 'anggota' => $anggota]);
     }
+
+
 
     public function create(Request $request)
     {
         $usulan = new Usulan;
-        $usulan->nama = $request->nama;
-        $usulan->id_jenis = $request->jenis_aset;
-        $usulan->id_kategori = $request->id_kategori;
         $usulan->id_pengusul = $request->id_pengusul;
+        $usulan->jenis_usulan = $request->jenis_usulan;
+        if ($request->jenis_usulan == "Katalog") {
+            $usulan->id_katalog = $request->pilihKatalog;
+        } else {
+            $usulan->nama = $request->nama;
+        }
         $usulan->jumlah = $request->jumlah;
-        $usulan->harga = $request->harga;
+        $usulan->harga_usulan = $request->harga;
         $usulan->status_usulan = "Menunggu Keputusan";
         $usulan->created_at = now();
         $usulan->updated_at = now();
+        if ( !empty($request->keterangan) ) {
+            $usulan->keterangan = $request->keterangan;
+        }
+        // return $usulan;
         $usulan->save();
-        return redirect(route('usulanTerdaftar'));
+        return redirect(route('usulanTerdaftar').'/detail/'.$usulan->id);
     }
 
     public function update(Request $request)
     {
         $usulan = Usulan::get()->where("id", '=', $request->id)->first();
         $usulan->id_pengelola = $request->id_pengelola;
-        $usulan->status_usulan = $request->keputusan;
+        $usulan->status_usulan = $request->status_usulan;
         $usulan->updated_at = now();
         $usulan->save();
         return redirect(route('usulanTerdaftar'));
     }
     public function edit(Request $request)
     {
-        $usulan = Usulan::get()->where("id", '=', $request->usulanId)->first();
+        $usulan = Usulan::get()->where("id", '=', $request->id)->first();
         $usulan->id_pengelola = $request->id_pengelola;
-        $usulan->nama = $request->editNama;
-        $usulan->id_jenis = $request->editJenis;
-        $usulan->id_kategori = $request->editKategori;
-        $usulan->jumlah = $request->editJumlah;
-        $usulan->harga = $request->editHarga;
-        $usulan->status_usulan = $request->editStatus;
+        if ($usulan->jenis_usulan == "Non-Kategori") {
+            $usulan->nama = $request->nama;
+        }
+        $usulan->jumlah = $request->jumlah;
+        $usulan->harga_usulan = $request->harga;
         $usulan->updated_at = now();
         $usulan->save();
-        return redirect(route('usulanTerdaftar'));
+        return redirect(route('usulanTerdaftar').'/detail/'.$usulan->id);
     }
 
     public function delete(Request $request)
     {
-        $usulan = Usulan::get()->where("id", '=', $request->usulanId)->first();
+        $usulan = Usulan::get()->where("id", '=', $request->id)->first();
         $usulan->delete();
         return redirect(route('usulanTerdaftar'));
     }
 
     public function getDetail($id)
     {
+        //list pengelola
+        $obj_list_pengelola = Pengelola_Aset::get();
+        $arr_list_pengelola = [];
+        foreach ($obj_list_pengelola as $pengelola) {
+            $arr_list_pengelola[] = $pengelola->id_anggota;
+        }
         $detail_usulan = Usulan::get()->where('id', '=', $id)->first();
         if ($detail_usulan->jenis_usulan == "Katalog") {
             $detail_usulan->katalog;
@@ -94,24 +109,30 @@ class UsulanController extends Controller
         $detail_usulan->pengusul;
         $detail_usulan->pengelola;
         $detail_usulan->pembelian;
-        // $tglDibuat = $detail_usulan->created_at->format('d/M/Y');
-        // $pukulDibuat = $detail_usulan->created_at->format('H:i');
-        // $tglDiperbarui = $detail_usulan->updated_at->format('d/M/Y');
-        // $pukulDiperbarui = $detail_usulan->updated_at->format('H:i');
-        // $detail_usulan->dibuat = $tglDibuat.' pukul '.$pukulDibuat;
-        // $detail_usulan->diperbarui = $tglDiperbarui.' pukul '.$pukulDiperbarui;
-        Carbon::setLocale('id');
+        Carbon::setLocale('id'); // set locale Carbon (PHP DateTime Extension) 
         $detail_usulan->dibuat = $detail_usulan->created_at->isoFormat('LLLL');
         $detail_usulan->diperbarui = $detail_usulan->created_at->isoFormat('LLLL');
-        return $detail_usulan;
+
+        //user terotentikasi
+        $anggota = Auth::user();
+
+        //retval
+        return view('aset.detail_usulan', ['detail_usulan' => $detail_usulan, 'list_pengelola' => $arr_list_pengelola, 'anggota' => $anggota]);
     }
 
     public function getView($id)
     {
-        $detail_usulan = Usulan::get()->where('id', '=', $id)->first();
-        $detail_usulan->pengusul;
-        $detail_usulan->pengelola;
-        $detail_usulan->kategori->jenis_aset;
-        return $detail_usulan;
+        $view_usulan = Usulan::get()->where('id', '=', $id)->first();
+        if ($view_usulan->jenis_usulan == "Katalog") {
+            $view_usulan->katalog;
+            $view_usulan->katalog->kategori;
+        }
+        $view_usulan->pengusul;
+        $view_usulan->pengelola;
+        $view_usulan->pembelian;
+        Carbon::setLocale('id');    // set locale Carbon (PHP DateTime Extension) 
+        $view_usulan->dibuat = $view_usulan->created_at->isoFormat('LLLL');
+        $view_usulan->diperbarui = $view_usulan->created_at->isoFormat('LLLL');
+        return $view_usulan;
     }
 }

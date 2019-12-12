@@ -55,17 +55,15 @@ Route::middleware('auth')->group(function () {
         Route::post('aset/pembelian/sudahDibeli', 'PembelianController@sudahDibeli')->name('pembelianSudahBeli');
         Route::post('aset/pembelian/sudahDiterima', 'PembelianController@sudahDiterima')->name('pembelianSudahDiterima');
 
-
-
-
-
         //route kategori
         Route::get('aset/kategori', 'KategoriController@index')->name('kategoriTerdaftar');
+        Route::get('aset/kategori/list', 'KategoriController@list')->name('kategoriList');
         Route::post('aset/kategori/create', 'KategoriController@create')->name('kategoriCreate');
         Route::get('aset/kategori/delete', 'KategoriController@delete')->name('kategoriDelete');
 
         //route katalog
         Route::get('aset/katalog', 'KatalogController@index')->name('katalogTerdaftar');
+        Route::get('aset/katalog/byKategori/{id}', 'KatalogController@byKategori')->name('katalogByKategori');
         Route::post('aset/katalog', 'KatalogController@indexSelected')->name('katalogSelected');
 
         //route katalog
