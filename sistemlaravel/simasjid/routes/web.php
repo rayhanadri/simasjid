@@ -47,3 +47,4 @@ Route::get('/kurban','KurbanController@index')->name('pekerjaan');
 Route::get('/panitia','PanitiaKurbanController@index')->name('manajPanitia');
 Route::patch('/panitia','PanitiaKurbanController@store')->name('tambahpanitia');
 Route::post('/panitia/hapus','PanitiaKurbanController@destroy')->name('hapuspanitia');
+Route::patch('/panitia/edit','PanitiaKurbanController@update')->name('editPanitia');

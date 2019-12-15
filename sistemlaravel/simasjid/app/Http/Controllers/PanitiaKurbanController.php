@@ -94,9 +94,14 @@ class PanitiaKurbanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        
+        Anggota::where('id', $request->idAnggota)
+        ->update([
+            'id_panitia' => $request->idJabatan,
+            ]);
+            return redirect()->route('manajPanitia')->with('status','Panitia berhasil diubah');
     }
 
     /**

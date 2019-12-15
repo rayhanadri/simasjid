@@ -161,23 +161,28 @@
                     </button>
                     </div>
                     <div class="modal-body">
-                            <form method="POST" action="{{route('hapuspanitia')}}">
+                            <form method="post" action="{{route('editPanitia')}}">
                                     @csrf  
+                                    @method('patch')
                                     <div class="form-group">
                                             <label>Nama Panitia</label>
-                                            <p style="margin-bottom:10px; width:100%;">{{$item->nama}}</p>                                                 
+                                            <p style="margin-bottom:10px; width:100%;">{{$item->nama}}</p>    
+                                            <input type="hidden" name="idAnggota" value="{{$item->id}}">
+                                                                                         
                                     </div>
                                     <div class="form-group">
                                             <label>Posisi</label>    
                                             <select name="idJabatan" class="form-control select2" style="margin-bottom:10px; width:100%;">
-                                                @foreach ($jabatan as $item)                                              
-                                            <option  value="{{$item->id_jabatan}}">{{$item->jabatan}}</option>
-                                               
+                                                @foreach ($jabatan as $jabatans)
+                                                  
+                                                @if($isketuapanitia && $jabatans->id_jabatan == 10 )
+                                                <?php continue; ?>
+                                                @endif                                                     
+                                            <option  value="{{$jabatans->id_jabatan}}">{{$jabatans->jabatan}}</option>
+                                            
                                                 @endforeach    
                                             </select>
-                                    </div>        
-                                    <input type="hidden" name="idAnggota" value="{{$item->id}}">
-                                
+                                    </div>                                        
                     </div>
                     <div class="modal-footer bg-whitesmoke br">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
