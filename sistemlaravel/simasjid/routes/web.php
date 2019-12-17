@@ -45,15 +45,18 @@ Route::middleware('auth')->group(function () {
         Route::get('aset', 'DasborAsetController@dasbor')->name('asetDasbor');
 
         //route usulan
-        Route::get('aset/usulan', 'UsulanController@index')->name('usulanTerdaftar');
-        Route::post('aset/usulan/create', 'UsulanController@create')->name('usulanCreate');
-        Route::post('aset/usulan/update', 'UsulanController@update')->name('usulanUpdate');
-        Route::post('aset/usulan/delete', 'UsulanController@delete')->name('usulanDelete');
-        Route::post('aset/usulan/edit', 'UsulanController@edit')->name('usulanEdit');
-        Route::get('aset/usulan/detail/{id}', 'UsulanController@getDetail')->name('usulanDetail');
-        Route::get('aset/usulan/view/{id}', 'UsulanController@getView')->name('usulanView');
-        Route::post('aset/usulan/verifikasi/tolak', 'UsulanController@tolak')->name('usulanTolak');
-        Route::post('aset/usulan/verifikasi/terima', 'UsulanController@verif')->name('usulanAcc');
+        Route::get('aset/usulan', 'Aset\Usulan\GroupUsulanController@index')->name('usulanTerdaftar');
+        Route::get('aset/usulan/create', 'Aset\Usulan\GroupUsulanController@createForm')->name('usulanCreateForm');
+        Route::post('aset/usulan/create', 'Aset\Usulan\GroupUsulanController@create')->name('usulanCreate');
+        Route::get('aset/usulan/detail/{id}', 'Aset\Usulan\GroupUsulanController@detail')->name('usulanDetail');
+        // Route::post('aset/usulan/create', 'UsulanController@create')->name('usulanCreate');
+        // Route::post('aset/usulan/update', 'UsulanController@update')->name('usulanUpdate');
+        // Route::post('aset/usulan/delete', 'UsulanController@delete')->name('usulanDelete');
+        // Route::post('aset/usulan/edit', 'UsulanController@edit')->name('usulanEdit');
+        // Route::get('aset/usulan/detail/{id}', 'UsulanController@getDetail')->name('usulanDetail');
+        // Route::get('aset/usulan/view/{id}', 'UsulanController@getView')->name('usulanView');
+        // Route::post('aset/usulan/verifikasi/tolak', 'UsulanController@tolak')->name('usulanTolak');
+        // Route::post('aset/usulan/verifikasi/terima', 'UsulanController@verif')->name('usulanAcc');
 
         //route pembelian
         Route::get('aset/pembelian', 'PembelianController@index')->name('pembelianTerdaftar');
