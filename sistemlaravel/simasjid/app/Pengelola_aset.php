@@ -18,6 +18,6 @@ class Pengelola_Aset extends Model
     //pengelola anggota adalah anggota
     public function anggota_pengelola()
     {
-        return $this->hasOne('App\Anggota', 'id', 'id_pengelola');
+        return $this->hasOne('App\Anggota', 'id', 'id_anggota');
     }
 }

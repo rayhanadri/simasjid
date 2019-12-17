@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\Transformer\Transformer;
 use Auth;
 use Illuminate\Http\Request;
-// use App\Anggota_Status;
-// use App\Anggota_Jabatan;
-use Validator;
+use Illuminate\Validation\ValidationException;
 
 class ProfileController extends Controller
 {
@@ -22,14 +20,19 @@ class ProfileController extends Controller
         $file = $request->file('file');
 
         // validasi jenis file
-        $request->validate([
-            'file' => 'image|mimes:gif,jpeg,png,jpg,bmp|max:2048'
-        ]);
-        
+        $allowed_extension = ['jpg', 'jpeg', 'gif', 'png', 'bmp'];
+        $extension = $file->getClientOriginalExtension();
+        $inside_allowed = in_array($extension, $allowed_extension);
+        if( !$inside_allowed ){
+            throw ValidationException::withMessages([
+                'file' => 'Format file gambar yang diperbolehkan adalah jpg, jpeg, gif, png, dan bmp.',
+            ]);
+        }
+
         // tujuan folder upload
         $tujuan_upload = 'foto_profil';
 
-        //format nama file sesuai dengan username anggota
+        //format nama file sesuai dengan username anggota (Anggota adalah authenticated user).
         //kemudian simpan linknya
         $anggota = Auth::user();
         $filebaru = $anggota->username . '.' . $file->getClientOriginalExtension();

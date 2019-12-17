@@ -1,6 +1,5 @@
 @include('layouts.header')
 @include('layouts.navbar')
-
 <!-- Main Content -->
 <div class="main-content">
   <section class="section">

@@ -39,8 +39,6 @@ class UsulanController extends Controller
         return view('aset.usulan', ['list_usulan' => $list_usulan, 'list_kategori' => $list_kategori, 'list_pengelola' => $arr_list_pengelola, 'anggota' => $anggota]);
     }
 
-
-
     public function create(Request $request)
     {
         $usulan = new Usulan;
@@ -76,14 +74,16 @@ class UsulanController extends Controller
     public function edit(Request $request)
     {
         $usulan = Usulan::get()->where("id", '=', $request->id)->first();
+        // return $request;
         $usulan->id_pengelola = $request->id_pengelola;
-        if ($usulan->jenis_usulan == "Non-Kategori") {
+        if ( !empty($request->nama) ) {
             $usulan->nama = $request->nama;
         }
         $usulan->jumlah = $request->jumlah;
         $usulan->harga_usulan = $request->harga;
         $usulan->updated_at = now();
         $usulan->save();
+        
         return redirect(route('usulanTerdaftar').'/detail/'.$usulan->id);
     }
 

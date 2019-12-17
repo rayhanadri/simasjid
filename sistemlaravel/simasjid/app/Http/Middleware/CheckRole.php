@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Auth;
 
 class CheckRole
 {
@@ -13,23 +14,25 @@ class CheckRole
      * @param  \Closure  $next
      * @return mixed
      */
-    use Auth;
 
-    public function handle($request, Closure $next, $roles)
+    //LIST OF CONSTANT VALUE FOR MEMBER JABATAN
+    public const KETUA = 1;
+    public const SEKRETARIS = 2;
+    public const BENDAHARA = 3;
+    public const TAKMIR = 4;
+    public const REMAS = 5;
+
+    public function handle($request, Closure $next)
     {
-        $anggota = Auth::user();
+        //hide untuk selain sekretaris dan ketua
+        $sekretaris = array(self::KETUA, self::SEKRETARIS);
 
-        if ($anggota->id_jabatan == 1) {
+        //jika user terotentikasi merupakan ketua atau sekretaris bisa lanjutkan, jika tidak maka alihkan route '/' 
+        $authUser = Auth::user();
+        $inside_sekretaris = in_array($authUser->id_jabatan, $sekretaris);
+        if ($inside_sekretaris) {
             return $next($request);
         }
-
-        foreach ($roles as $role) {
-            // Check if user has the role This check will depend on how your roles are set up
-            if ($anggota->hasRole($role)) {
-                return $next($request);
-            }
-        }
-
-        return redirect(route('home'));
+        return redirect('/');
     }
 }

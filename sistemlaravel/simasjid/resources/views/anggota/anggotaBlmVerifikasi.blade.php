@@ -1,7 +1,14 @@
 @include('layouts.header')
 @include('layouts.navbar')
-<!-- Main Content -->
-<!-- <script type="text/javascript" src="{{asset('public/dist/assets/js/page/bootstrap-modal.js')}}"></script> -->
+<?php
+/* PHP UNTUK PENGATURAN VIEW */
+//anggota terautentikasi
+$authUser = Auth::user();
+//hide untuk selain sekretaris dan ketua
+$sekretaris = array(1, 2);
+$inside_sekretaris = in_array($authUser->id_jabatan, $sekretaris);
+?>
+
 <div class="main-content">
     <section class="section">
         <div class="row">
@@ -30,19 +37,19 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($list_anggota as $anggota_dalam_list)
+                            @foreach ($anggotaGroup as $anggota)
                             <tr>
-                                <td>{{ $anggota_dalam_list->nama }}</td>
-                                <td>{{ $anggota_dalam_list->jabatan }}</td>
-                                <td class="font-status">{!!$anggota_dalam_list->status!!}</td>
+                                <td>{{ $anggota->nama }}</td>
+                                <td>{{ $anggota->jabatan }}</td>
+                                <td class="font-status">{!!$anggota->status!!}</td>
                                 <td class="dt-center">
 
-                                    <!-- <button class="open-detail btn btn-sm" data-toggle="modal" data-id="{{ $anggota_dalam_list->id }}" data-target="#detailModal">Detail</button>
-                                    | <button class="open-detail btn btn-sm" data-toggle="modal" data-id="{{ $anggota_dalam_list->id }}" data-target="#detailModal">Detail</button> -->
+                                    <!-- <button class="open-detail btn btn-sm" data-toggle="modal" data-id="{{ $anggota->id }}" data-target="#detailModal">Detail</button>
+                                    | <button class="open-detail btn btn-sm" data-toggle="modal" data-id="{{ $anggota->id }}" data-target="#detailModal">Detail</button> -->
                                     <div class="btn-group mb-3" role="group" aria-label="Basic example" style="padding-left: 20px;">
-                                        <a href="#" class="open-detail btn btn-icon btn-sm btn-info" data-toggle="modal" data-id="{{ $anggota_dalam_list->id }}" data-target="#detailModal"><i class="fas fa-id-badge"></i> Detail</a>
-                                        <a href="#" class="open-tolak btn btn-icon btn-sm btn-danger" data-toggle="modal" data-id="{{ $anggota_dalam_list->id }}" data-target="#tolakModal"><i class="fas fa-times"></i></i> Tolak</a>
-                                        <a href="#" class="open-terima btn btn-icon btn-sm btn-primary" data-toggle="modal" data-id="{{ $anggota_dalam_list->id }}" data-target="#terimaModal"><i class="fas fa-check"></i> Terima</a>
+                                        <a href="#" class="open-detail btn btn-icon btn-sm btn-info" data-toggle="modal" data-id="{{ $anggota->id }}" data-target="#detailModal"><i class="fas fa-id-badge"></i> Detail</a>
+                                        <a href="#" class="open-tolak btn btn-icon btn-sm btn-danger" data-toggle="modal" data-id="{{ $anggota->id }}" data-target="#tolakModal"><i class="fas fa-times"></i></i> Tolak</a>
+                                        <a href="#" class="open-terima btn btn-icon btn-sm btn-primary" data-toggle="modal" data-id="{{ $anggota->id }}" data-target="#terimaModal"><i class="fas fa-check"></i> Terima</a>
                                     </div>
                                 </td>
                             </tr>
@@ -66,7 +73,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Detail Anggota</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Tutup.">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -100,10 +107,9 @@
                             </tr>
                         </tbody>
                     </table>
-                    <!-- <input type="text" id="anggotaId" name="anggotaId" value="" hidden/> -->
                 </div>
                 <div class="modal-footer bg-whitesmoke br">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup.</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                 </div>
             </div>
         </div>
@@ -114,7 +120,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Tolak Verifikasi Anggota</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Tutup.">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -126,9 +132,9 @@
                 <div class="modal-footer bg-whitesmoke br">
                     <form action="{{ route('anggotaTolakVerif') }}" method="post">
                         @csrf
-                        <input type="text" id="anggotaId" name="anggotaId" value="" hidden />
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak, Batalkan.</button>
-                        <input type="submit" value="Ya, Tolak." class="btn btn-danger" />
+                        <input type="text" id="id_tolak" name="id" value="" hidden />
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak, Batalkan</button>
+                        <input type="submit" value="Ya, Tolak" class="btn btn-danger" />
                     </form>
                 </div>
             </div>
@@ -140,21 +146,20 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Verifikasi Anggota</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Tutup.">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <img src="{{ route('home') }}/public/dist/assets/img/svg/checked.svg" id="detailFoto" class="mx-auto d-block" alt="verif image" style="width:150px; height:150px;overflow: hidden;">
-                    <input type="text" id="anggotaId" name="anggotaId" value="" hidden />
                     <h5 align="center">Apakah Anda yakin ingin verifikasi anggota ini?</h5>
                 </div>
                 <div class="modal-footer bg-whitesmoke br">
                     <form action="{{ route('anggotaTerimaVerif') }}" method="post">
                         @csrf
-                        <input type="text" id="anggotaId" name="anggotaId" value="" hidden />
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak, Batalkan.</button>
-                        <input type="submit" value="Ya, Verifikasi." class="btn btn-primary" />
+                        <input type="text" id="id_terima" name="id" value="" hidden />
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak, Batalkan</button>
+                        <input type="submit" value="Ya, Verifikasi" class="btn btn-primary" />
                     </form>
                 </div>
             </div>
@@ -230,20 +235,20 @@
     // onclick tolak, show modal
     $(document).on("click", ".open-tolak", function() {
         /* passing data dari view button detail ke modal */
-        var thisDataAnggota = $(this).data('id');
-        $(".modal-footer #anggotaId").val(thisDataAnggota);
+        var thisDataAnggota = $(this).data('id_tolak');
+        $(".modal-footer #id").val(thisDataAnggota);
     });
     // onclick verif, show modal
     $(document).on("click", ".open-terima", function() {
         /* passing data dari view button detail ke modal */
-        var thisDataAnggota = $(this).data('id');
-        $(".modal-footer #anggotaId").val(thisDataAnggota);
+        var thisDataAnggota = $(this).data('id_terima');
+        $(".modal-footer #id").val(thisDataAnggota);
     });
     // onclick pada detail, show modal
     $(document).on("click", ".open-detail", function() {
         /* passing data dari view button detail ke modal */
         var thisDataAnggota = $(this).data('id');
-        // $(".modal-body #anggotaId").val(thisDataAnggota);
+        // $(".modal-body #id").val(thisDataAnggota);
         var linkDetail = "{{ route('home') }}/anggota/detail/" + thisDataAnggota;
         $.get(linkDetail, function(data) {
             //deklarasi var obj JSON data detail anggota
@@ -261,27 +266,19 @@
             $("#detailFoto").attr('src', link_foto);
             // console.log(link_foto);
 
-            //ganti warna status
-            $(".font-status").filter(function() {
-                return $(this).text() === 'Aktif';
-            }).css('color', 'green');
-            //status non-aktif ubah warna merah
-            $(".font-status").filter(function() {
-                return $(this).text() === 'Non-Aktif';
-            }).css('color', 'red');
-            //status belum verifikasi ubah warna abu2
-            $(".font-status").filter(function() {
-                return $(this).text() === 'Belum Verifikasi';
-            }).css('color', '#dbcb18');
+            status_colorized();
         });
     });
     $(document).ready(function() {
         //ganti ukuran show entry
         $(".custom-select").css('width', '82px');
 
+        status_colorized();
+    });
+
+    function status_colorized() {
         //status aktif bold
         $(".font-status").css('font-weight', 'bold');
-
         /* ganti warna sesuai status */
         //status aktif ubah warna hijau
         $(".font-status").filter(function() {
@@ -295,6 +292,6 @@
         $(".font-status").filter(function() {
             return $(this).text() === 'Belum Verifikasi';
         }).css('color', '#dbcb18');
-    });
+    }
 </script>
 @include('layouts.footer')

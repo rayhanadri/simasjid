@@ -18,27 +18,32 @@ Auth::routes();
 //pakai middleware auth
 Route::middleware('auth')->group(function () {
 
+    //route home
+    Route::get('/', 'HomeController@index')->name('home');
+
     // group untuk anggota aktif
     Route::middleware('CheckStatus')->group(function () {
-        Route::get('anggota', 'AnggotaController@dasbor')->name('anggotaDasbor');
+        Route::get('anggota', 'Anggota\AnggotaController@dasbor')->name('anggotaDasbor');
         //route keanggotaan
-        Route::get('anggota/terdaftar', 'AnggotaController@index')->name('anggotaTerdaftar');
-        Route::post('anggota/delete', 'AnggotaController@delete')->name('anggotaDelete');
-        Route::post('anggota/edit', 'AnggotaController@edit')->name('anggotaEdit');
-        Route::get('anggota/detail/{id}', 'AnggotaController@getDetail')->name('anggotaDetail');
+        Route::get('anggota/terdaftar', 'Anggota\AnggotaController@index')->name('anggotaTerdaftar');
+        Route::get('anggota/detail/{id}', 'Anggota\AnggotaController@getDetail')->name('anggotaDetail');
+        //edit, delete anggota
+        Route::post('anggota/delete', 'Anggota\AnggotaController@delete')->name('anggotaDelete');
+        Route::post('anggota/edit', 'Anggota\AnggotaController@edit')->name('anggotaEdit');
+        
         //verifikasi anggota
-        Route::get('anggota/verifikasi', 'AnggotaController@getUnverifiedList')->name('anggotaBlmVerifikasi');
-        Route::post('anggota/verifikasi/tolak', 'AnggotaController@tolak')->name('anggotaTolakVerif');
-        Route::post('anggota/verifikasi/terima', 'AnggotaController@terima')->name('anggotaTerimaVerif');
+        Route::get('anggota/verifikasi', 'Anggota\VerifikasiController@index')->name('anggotaBlmVerifikasi');
+        Route::post('anggota/verifikasi/tolak', 'Anggota\VerifikasiController@tolak')->name('anggotaTolakVerif');
+        Route::post('anggota/verifikasi/terima', 'Anggota\VerifikasiController@terima')->name('anggotaTerimaVerif');
+
         //anggota pengelola aset
-        Route::get('anggota/pengelolaaset', 'AnggotaController@pengelola_aset_index')->name('anggotaPengelolaAset');
-        Route::post('anggota/pengelolaaset/delete', 'AnggotaController@pengelola_aset_delete')->name('anggotaPengelolaAsetDelete');
-        Route::post('anggota/pengelolaaset/add', 'AnggotaController@pengelola_aset_add')->name('anggotaPengelolaAsetAdd');
-        //anggota pengelola aset
-       
+        Route::get('anggota/pengelola-aset', 'Anggota\PengelolaAsetController@index')->name('anggotaPengelolaAset');
+        Route::post('anggota/pengelola-aset/delete', 'Anggota\PengelolaAsetController@delete')->name('anggotaPengelolaAsetDelete');
+        Route::post('anggota/pengelola-aset/add', 'Anggota\PengelolaAsetController@create')->name('anggotaPengelolaAsetAdd');
+
         //route aset
         Route::get('aset', 'DasborAsetController@dasbor')->name('asetDasbor');
-       
+
         //route usulan
         Route::get('aset/usulan', 'UsulanController@index')->name('usulanTerdaftar');
         Route::post('aset/usulan/create', 'UsulanController@create')->name('usulanCreate');
@@ -86,6 +91,6 @@ Route::middleware('auth')->group(function () {
 });
 
 
-//route home
-Route::get('/', 'HomeController@index')->name('home');
+// //route home
+// Route::get('/', 'HomeController@index')->name('home');
 // Route::get('/home', '')->redirect(route('home'));

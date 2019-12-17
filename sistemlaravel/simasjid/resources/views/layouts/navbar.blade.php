@@ -1,4 +1,14 @@
 <body>
+
+  <?php
+  /* PHP UNTUK PENGATURAN VIEW */
+  //anggota terautentikasi
+  $authUser = Auth::user();
+  //hide untuk selain sekretaris dan ketua
+  $sekretaris = array(1, 2);
+  $inside_sekretaris = in_array($authUser->id_jabatan, $sekretaris);
+  ?>
+
   <div id="app">
     <div class="main-wrapper">
       <div class="navbar-bg"></div>
@@ -70,8 +80,8 @@
             </div>
           </li>
           <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-              <img alt="image" src="{{ route('home') }}/{{ $anggota->link_foto }}?=<?php echo filemtime($anggota->link_foto) ?>" class="rounded-circle mr-1">
-              <div class="d-sm-none d-lg-inline-block"> {{$anggota->nama}}</div>
+              <img alt="image" src="{{ route('home') }}/{{ $authUser->link_foto }}?=<?php echo filemtime($authUser->link_foto) ?>" class="rounded-circle mr-1">
+              <div class="d-sm-none d-lg-inline-block"> {{$authUser->nama}}</div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
               <a href="{{ route('profile') }}" class="dropdown-item has-icon">
@@ -111,17 +121,12 @@
             <!-- <li class="menu-header">Dashboard</li> -->
             <li id='home-link'><a class="nav-link" href="{{ route('home') }}"><i class="fas fa-mosque"></i> <span>Home</span></a></li>
             <!-- <li class="menu-header">Starter</li> -->
-            @if($anggota->id_status == 1)
+            @if($authUser->id_status == 1)
             <li class="nav-item dropdown" id="dropdown-keanggotaan">
               <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-users"></i> <span>Keanggotaan</span></a>
               <ul class="dropdown-menu">
                 <li id="dasbor-anggota-link"><a class="nav-link" href="{{ route('anggotaDasbor') }}"><i class="fas fa-tachometer-alt"></i>Dasbor Anggota</a></li>
                 <li id="terdaftar-link"><a class="nav-link" href="{{ route('anggotaTerdaftar') }}"><i class="fas fa-address-book"></i>Terdaftar</a></a></li>
-                <?php
-                //hide untuk selain sekretaris dan ketua
-                $sekretaris = array(1, 2);
-                $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
-                ?>
                 @if($inside_sekretaris)
                 <li id="verifikasi-link"><a class="nav-link" href="{{ route('anggotaBlmVerifikasi') }}"><i class="fas fa-check-square"></i>Verifikasi</a></a></li>
                 <!-- <li id='pengelola-aset-link'><a class="nav-link" href="#"><i class="fas fa-users-cog"></i>Pengelola Keuangan</a></li> -->

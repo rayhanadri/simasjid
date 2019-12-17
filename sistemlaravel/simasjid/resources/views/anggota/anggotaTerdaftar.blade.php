@@ -1,12 +1,15 @@
 @include('layouts.header')
 @include('layouts.navbar')
-<!-- Main Content -->
-<!-- <script type="text/javascript" src="{{asset('public/dist/assets/js/page/bootstrap-modal.js')}}"></script> -->
+
 <?php
+/* PHP UNTUK PENGATURAN VIEW */
+//anggota terautentikasi
+$authUser = Auth::user();
 //hide untuk selain sekretaris dan ketua
 $sekretaris = array(1, 2);
-$inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
+$inside_sekretaris = in_array($authUser->id_jabatan, $sekretaris);
 ?>
+
 <div class="main-content">
     <section class="section">
         <div class="row">
@@ -25,6 +28,15 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
         <div class="row">
             <div class="col-lg-8">
                 <div class="section-body" style="min-height: 300px; padding:20px;">
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
                     <table id="table_id" class="table table-striped table-bordered" style="padding-bottom:20px;">
                         <thead>
                             <tr>
@@ -35,17 +47,17 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($list_anggota as $anggota_dalam_list)
+                            @foreach ($anggotaGroup as $anggota)
                             <tr>
-                                <td>{{ $anggota_dalam_list->nama }}</td>
-                                <td>{{ $anggota_dalam_list->jabatan }}</td>
-                                <td class="font-status">{!!$anggota_dalam_list->status!!}</td>
+                                <td>{{ $anggota->nama }}</td>
+                                <td>{{ $anggota->jabatan }}</td>
+                                <td class="font-status">{!!$anggota->status!!}</td>
                                 <td class="dt-center">
                                     <div class="btn-group mb-3" role="group" aria-label="Basic example" style="padding-left: 20px;">
-                                        <a href="#" class="open-detail btn btn-icon btn-sm btn-info" data-toggle="modal" data-id="{{ $anggota_dalam_list->id }}" data-target="#detailModal"><i class="fas fa-id-badge"></i> Detail</a>
+                                        <a href="#" class="open-detail btn btn-icon btn-sm btn-info" data-toggle="modal" data-id="{{ $anggota->id }}" data-target="#detailModal"><i class="fas fa-id-badge"></i> Detail</a>
                                         @if($inside_sekretaris)
-                                        <a href="#" class="open-edit btn btn-icon btn-sm btn-warning" data-toggle="modal" data-id="{{ $anggota_dalam_list->id }}" data-target="#editModal"><i class="fas fa-edit"></i></i> Edit</a>
-                                        <a href="#" class="open-delete btn btn-icon btn-sm btn-danger" data-toggle="modal" data-id="{{ $anggota_dalam_list->id }}" data-target="#deleteModal"><i class="fas fa-trash"></i> Hapus</a>
+                                        <a href="#" class="open-edit btn btn-icon btn-sm btn-warning" data-toggle="modal" data-id="{{ $anggota->id }}" data-target="#editModal"><i class="fas fa-edit"></i></i> Edit</a>
+                                        <a href="#" class="open-delete btn btn-icon btn-sm btn-danger" data-toggle="modal" data-id="{{ $anggota->id }}" data-target="#deleteModal"><i class="fas fa-trash"></i> Hapus</a>
                                         @endif
                                     </div>
                                 </td>
@@ -109,7 +121,7 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
                             </tr>
                         </tbody>
                     </table>
-                    <!-- <input type="text" id="anggotaId" name="anggotaId" value="" hidden/> -->
+                    <!-- <input type="text" id="id" name="id" value="" hidden/> -->
                 </div>
                 <div class="modal-footer bg-whitesmoke br">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
@@ -136,7 +148,7 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
                 <div class="modal-footer bg-whitesmoke br">
                     <form action="{{ route('anggotaDelete') }}" method="post">
                         @csrf
-                        <input type="text" id="anggotaId" name="anggotaId" value="" hidden />
+                        <input type="text" id="id" name="id" value="" hidden />
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak, Batalkan</button>
                         <input type="submit" value="Ya, Hapus" class="btn btn-danger" />
                     </form>
@@ -200,7 +212,7 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
                         </table>
                     </div>
                     <div class="modal-footer bg-whitesmoke br">
-                        <input type="text" id="anggotaId" name="anggotaId" value="" hidden />
+                        <input type="text" id="id" name="id" value="" hidden />
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Batalkan</button>
                         <input type="submit" value="Konfirmasi Edit" class="btn btn-warning" />
                     </div>
@@ -208,169 +220,148 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
             </form>
         </div>
     </div>
+</div>
+<!-- SCRIPT -->
+<script type="text/javascript">
+    //JS halaman aktif
+    document.getElementById("terdaftar-link").classList.add("active");
+    document.getElementById("dropdown-keanggotaan").classList.add("active");
+</script>
 
-    <!-- SCRIPT -->
-    <script type="text/javascript">
-        //JS halaman aktif
-        document.getElementById("terdaftar-link").classList.add("active");
-        document.getElementById("dropdown-keanggotaan").classList.add("active");
-    </script>
-
-    <script type="text/javascript">
-        //JQuery Pencarian Berdasarkan Kriteria
-        $(document).ready(function() {
-            $('#table_id').DataTable({
-                //kriteria column 0 nama tipe input
-                initComplete: function() {
-                    this.api().columns([0]).every(function() {
-                        var column = this;
-                        var input = $('<input class="form-control select" placeholder="Nama..." style="margin-bottom:10px;"></input>')
-                            .appendTo($(".column-search"))
-                            .on('keyup change clear', function() {
-                                if (column.search() !== this.value) {
-                                    column
-                                        .search(this.value)
-                                        .draw();
-                                }
-                            });
-                    });
-                    //kriteria column 0 nama tipe select
-                    this.api().columns([1]).every(function() {
-                        var column = this;
-                        var select = $('<select class="form-control select" style="margin-bottom:10px;"><option value="">Jabatan...</option></select>')
-                            // .appendTo($(column.header()).empty())
-                            .appendTo($(".column-search"))
-                            .on('change', function() {
-                                var val = $.fn.dataTable.util.escapeRegex(
-                                    $(this).val()
-                                );
+<script type="text/javascript">
+    //JQuery Pencarian Berdasarkan Kriteria
+    $(document).ready(function() {
+        $('#table_id').DataTable({
+            //kriteria column 0 nama tipe input
+            initComplete: function() {
+                this.api().columns([0]).every(function() {
+                    var column = this;
+                    var input = $('<input class="form-control select" placeholder="Nama..." style="margin-bottom:10px;"></input>')
+                        .appendTo($(".column-search"))
+                        .on('keyup change clear', function() {
+                            if (column.search() !== this.value) {
                                 column
-                                    .search(val ? '^' + val + '$' : '', true, false)
+                                    .search(this.value)
                                     .draw();
-                            });
-                        column.data().unique().sort().each(function(d, j) {
-                            select.append('<option value="' + d + '">' + d + '</option>')
+                            }
                         });
-                    });
-                    this.api().columns([2]).every(function() {
-                        var column = this;
-                        var select = $('<select class="form-control select" style="margin-bottom:10px;"><option value="">Status...</option></select>')
-                            // .appendTo($(column.header()).empty())
-                            .appendTo($(".column-search"))
-                            .on('change', function() {
-                                var val = $.fn.dataTable.util.escapeRegex(
-                                    $(this).val()
-                                );
-                                column
-                                    .search(val ? '^' + val + '$' : '', true, false)
-                                    .draw();
-                            });
-                        column.data().unique().sort().each(function(d, j) {
-                            select.append('<option value="' + d + '">' + d + '</option>')
+                });
+                //kriteria column 0 nama tipe select
+                this.api().columns([1]).every(function() {
+                    var column = this;
+                    var select = $('<select class="form-control select" style="margin-bottom:10px;"><option value="">Jabatan...</option></select>')
+                        // .appendTo($(column.header()).empty())
+                        .appendTo($(".column-search"))
+                        .on('change', function() {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+                            column
+                                .search(val ? '^' + val + '$' : '', true, false)
+                                .draw();
                         });
+                    column.data().unique().sort().each(function(d, j) {
+                        select.append('<option value="' + d + '">' + d + '</option>')
                     });
-                }
-            });
+                });
+                this.api().columns([2]).every(function() {
+                    var column = this;
+                    var select = $('<select class="form-control select" style="margin-bottom:10px;"><option value="">Status...</option></select>')
+                        // .appendTo($(column.header()).empty())
+                        .appendTo($(".column-search"))
+                        .on('change', function() {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+                            column
+                                .search(val ? '^' + val + '$' : '', true, false)
+                                .draw();
+                        });
+                    column.data().unique().sort().each(function(d, j) {
+                        select.append('<option value="' + d + '">' + d + '</option>')
+                    });
+                });
+            }
         });
-    </script>
-    <script type="text/javascript">
-        // onclick btn delete, show modal
-        $(document).on("click", ".open-delete", function() {
-            /* passing data dari view button detail ke modal */
-            var thisDataAnggota = $(this).data('id');
-            $(".modal-footer #anggotaId").val(thisDataAnggota);
+    });
+</script>
+<script type="text/javascript">
+    // onclick btn delete, show modal
+    $(document).on("click", ".open-delete", function() {
+        /* passing data dari view button detail ke modal */
+        var thisDataAnggota = $(this).data('id');
+        $(".modal-footer #id").val(thisDataAnggota);
+    });
+    // onclick btn edit, show modal
+    $(document).on("click", ".open-edit", function() {
+        /* passing data dari view button detail ke modal */
+        var thisDataAnggota = $(this).data('id');
+        $(".modal-footer #id").val(thisDataAnggota);
+        var linkDetail = "{{ route('home') }}/anggota/detail/" + thisDataAnggota;
+        $.get(linkDetail, function(data) {
+            //deklarasi var obj JSON data detail anggota
+            var obj = data;
+            // ganti elemen pada dokumen html dengan hasil data json dari jquery
+            $(".modal-body #editNama").val(obj.nama);
+            $(".modal-body #editJabatan").val(obj.id_jabatan);
+            $(".modal-body #editStatus").val(obj.id_status);
+            $(".modal-body #editUsername").val(obj.username);
+            $(".modal-body #editEmail").val(obj.email);
+            $(".modal-body #editAlamat").val(obj.alamat);
+            $(".modal-body #editTelp").val(obj.telp);
+            //base root project url + url dari db
+            // var link_foto = "{{ route('home') }}/" + obj.link_foto;
+            // document.getElementById("detailFoto").src = link_foto;
         });
-        // onclick btn edit, show modal
-        $(document).on("click", ".open-edit", function() {
-            /* passing data dari view button detail ke modal */
-            var thisDataAnggota = $(this).data('id');
-            $(".modal-footer #anggotaId").val(thisDataAnggota);
-            var linkDetail = "{{ route('home') }}/anggota/detail/" + thisDataAnggota;
-            $.get(linkDetail, function(data) {
-                //deklarasi var obj JSON data detail anggota
-                var obj = data;
-                // ganti elemen pada dokumen html dengan hasil data json dari jquery
-                $(".modal-body #editNama").val(obj.nama);
-                $(".modal-body #editJabatan").val(obj.id_jabatan);
-                $(".modal-body #editStatus").val(obj.id_status);
-                $(".modal-body #editUsername").val(obj.username);
-                $(".modal-body #editEmail").val(obj.email);
-                $(".modal-body #editAlamat").val(obj.alamat);
-                $(".modal-body #editTelp").val(obj.telp);
-                //base root project url + url dari db
-                var link_foto = "{{ route('home') }}/" + obj.link_foto;
-                document.getElementById("detailFoto").src = link_foto;
-                // console.log(link_foto);
-                //ganti warna status
-                $(".font-status").filter(function() {
-                    return $(this).text() === 'Aktif';
-                }).css('color', 'green');
-                //status non-aktif ubah warna merah
-                $(".font-status").filter(function() {
-                    return $(this).text() === 'Non-Aktif';
-                }).css('color', 'red');
-                //status belum verifikasi ubah warna abu2
-                $(".font-status").filter(function() {
-                    return $(this).text() === 'Belum Verifikasi';
-                }).css('color', '#dbcb18');
-            });
-        });
-        // onclick btn detail, show modal
-        $(document).on("click", ".open-detail", function() {
-            /* passing data dari view button detail ke modal */
-            var thisDataAnggota = $(this).data('id');
-            // $(".modal-body #anggotaId").val(thisDataAnggota);
-            var linkDetail = "{{ route('home') }}/anggota/detail/" + thisDataAnggota;
-            $.get(linkDetail, function(data) {
-                //deklarasi var obj JSON data detail anggota
-                var obj = data;
-                // ganti elemen pada dokumen html dengan hasil data json dari jquery
-                $("#detailNama").html(obj.nama);
-                $("#detailJabatan").html(obj.jabatan);
-                $("#detailStatus").html(obj.status);
-                $("#detailEmail").html(obj.email);
-                $("#detailAlamat").html(obj.alamat);
-                $("#detailTelp").html(obj.telp);
+    });
+    // onclick btn detail, show modal
+    $(document).on("click", ".open-detail", function() {
+        /* passing data dari view button detail ke modal */
+        var thisDataAnggota = $(this).data('id');
+        // $(".modal-body #id").val(thisDataAnggota);
+        var linkDetail = "{{ route('home') }}/anggota/detail/" + thisDataAnggota;
+        $.get(linkDetail, function(data) {
+            //deklarasi var obj JSON data detail anggota
+            var obj = data;
+            // ganti elemen pada dokumen html dengan hasil data json dari jquery
+            $("#detailNama").html(obj.nama);
+            $("#detailJabatan").html(obj.jabatan);
+            $("#detailStatus").html(obj.status);
+            $("#detailEmail").html(obj.email);
+            $("#detailAlamat").html(obj.alamat);
+            $("#detailTelp").html(obj.telp);
 
-                //base root project url + url dari db
-                var link_foto = "{{ route('home') }}/" + obj.link_foto;
-                $("#detailFoto").attr('src', link_foto);
-                // console.log(link_foto);
+            //base root project url + url dari db
+            var link_foto = "{{ route('home') }}/" + obj.link_foto;
+            $("#detailFoto").attr('src', link_foto);
+            // console.log(link_foto);
 
-                //ganti warna status
-                $(".font-status").filter(function() {
-                    return $(this).text() === 'Aktif';
-                }).css('color', 'green');
-                //status non-aktif ubah warna merah
-                $(".font-status").filter(function() {
-                    return $(this).text() === 'Non-Aktif';
-                }).css('color', 'red');
-                //status belum verifikasi ubah warna abu2
-                $(".font-status").filter(function() {
-                    return $(this).text() === 'Belum Verifikasi';
-                }).css('color', '#dbcb18');
-            });
+            status_colorized()
         });
-        $(document).ready(function() {
-            //ganti ukuran show entry
-            $(".custom-select").css('width', '82px');
+    });
+    $(document).ready(function() {
+        //ganti ukuran show entry
+        $(".custom-select").css('width', '82px');
 
-            //status aktif bold
-            $(".font-status").css('font-weight', 'bold');
+        status_colorized()
+    });
 
-            /* ganti warna sesuai status */
-            //status aktif ubah warna hijau
-            $(".font-status").filter(function() {
-                return $(this).text() === 'Aktif';
-            }).css('color', 'green');
-            //status non-aktif ubah warna merah
-            $(".font-status").filter(function() {
-                return $(this).text() === 'Non-Aktif';
-            }).css('color', 'red');
-            //status belum verifikasi ubah warna abu2
-            $(".font-status").filter(function() {
-                return $(this).text() === 'Belum Verifikasi';
-            }).css('color', '#dbcb18');
-        });
-    </script>
-    @include('layouts.footer')
+    function status_colorized() {
+        //status aktif bold
+        $(".font-status").css('font-weight', 'bold');
+        /* ganti warna sesuai status */
+        //status aktif ubah warna hijau
+        $(".font-status").filter(function() {
+            return $(this).text() === 'Aktif';
+        }).css('color', 'green');
+        //status non-aktif ubah warna merah
+        $(".font-status").filter(function() {
+            return $(this).text() === 'Non-Aktif';
+        }).css('color', 'red');
+        //status belum verifikasi ubah warna abu2
+        $(".font-status").filter(function() {
+            return $(this).text() === 'Belum Verifikasi';
+        }).css('color', '#dbcb18');
+    }
+</script>
+@include('layouts.footer')

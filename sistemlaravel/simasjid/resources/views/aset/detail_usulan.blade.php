@@ -18,7 +18,7 @@ $inside_pengelola = in_array($anggota->id, $list_pengelola);
                     <li class="breadcrumb-item"><a href="{{ route('home') }}"><i class="fas fa-mosque"></i> Home</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('asetDasbor') }}">Manajemen Aset</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('usulanTerdaftar') }}">Usulan</a></li>
-                    <li class="breadcrumb-item active">{{ $detail_usulan->id }}</li>
+                    <li class="breadcrumb-item">{{ $detail_usulan->id }}</li>
                 </ol>
             </div>
         </div>

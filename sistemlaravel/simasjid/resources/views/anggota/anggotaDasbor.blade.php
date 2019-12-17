@@ -1,10 +1,14 @@
 @include('layouts.header')
 @include('layouts.navbar')
 <?php
+/* PHP UNTUK PENGATURAN VIEW */
+//anggota terautentikasi
+$authUser = Auth::user();
 //hide untuk selain sekretaris dan ketua
 $sekretaris = array(1, 2);
-$inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
+$inside_sekretaris = in_array($authUser->id_jabatan, $sekretaris);
 ?>
+
 <!-- Main Content -->
 <div class="main-content">
     <section class="section">
@@ -33,7 +37,7 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
                             </a>
                         </div>
                         <div class="card-body">
-                            {{ $jml_aktif }}
+                            {{ $jumlahAktif }}
                         </div>
                     </div>
                 </div>
@@ -50,7 +54,7 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
                             </a>
                         </div>
                         <div class="card-body">
-                            {{ $jml_non_aktif }}
+                            {{ $jumlahNonAktif }}
                         </div>
                     </div>
                 </div>
@@ -68,7 +72,7 @@ $inside_sekretaris = in_array($anggota->id_jabatan, $sekretaris);
                             </a>
                         </div>
                         <div class="card-body">
-                            {{ $jml_blm_verif }}
+                            {{ $jumlahUnverified }}
                         </div>
                     </div>
                 </div>
