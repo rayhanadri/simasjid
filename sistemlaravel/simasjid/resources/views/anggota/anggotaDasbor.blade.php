@@ -67,7 +67,7 @@ $inside_sekretaris = in_array($authUser->id_jabatan, $sekretaris);
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
-                            <a href="{{ route('anggotaBlmVerifikasi') }}">
+                            <a href="{{ route('anggotaIndexVerifikasi') }}">
                                 <h4>Anggota Belum Verifikasi</h4>
                             </a>
                         </div>

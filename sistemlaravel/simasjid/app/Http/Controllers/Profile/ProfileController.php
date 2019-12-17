@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Profile;
 
-use App\Transformer\Transformer;
+use App\Http\Controllers\Anggota\AnggotaController;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
-class ProfileController extends Controller
+class ProfileController extends AnggotaController
 {
 
     public function uploadFoto(Request $request)
@@ -39,6 +39,8 @@ class ProfileController extends Controller
         $file->move($tujuan_upload, $filebaru);
         $anggota->link_foto = $tujuan_upload . '/' . $filebaru;
         $anggota->save();
+        $anggota->jabatan = $this->getJabatan($anggota);
+        $anggota->status = $this->getStatus($anggota);
 
         //kembalikan ke halaman profile
         return view('profile.profile', ['anggota' => $anggota]);
@@ -48,11 +50,10 @@ class ProfileController extends Controller
     {
         //buka index. Ambil data user terotentikasi, kemudian passing ke view home
         $anggota = Auth::user();
+
         //transform dari db id_jabatan (angka) ke string, misal 1 jadi Ketua Takmir
-        $anggota->jabatan = Transformer::t_jabatan($anggota->id_jabatan);
-        $anggota->status = Transformer::t_status($anggota->id_status);
-        // $anggota->status = Anggota_Status::find($anggota->id_status)->status;
-        // $anggota->jabatan = Anggota_Jabatan::find($anggota->id_jabatan)->jabatan;
+        $anggota->jabatan = $this->getJabatan($anggota);
+        $anggota->status = $this->getStatus($anggota);
 
         //tampilkan view profile dengan data anggota
         return view('profile.profile', ['anggota' => $anggota]);

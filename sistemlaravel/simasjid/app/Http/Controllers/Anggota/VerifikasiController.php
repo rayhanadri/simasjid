@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Anggota;
 
 use Illuminate\Http\Request;
-use App\Anggota;
+use App\Models\Anggota\Anggota;
 
 class VerifikasiController extends AnggotaController
 {
@@ -23,7 +23,7 @@ class VerifikasiController extends AnggotaController
             $anggota->jabatan = $this->getJabatan($anggota);
         }
         // retval
-        return view('anggota.anggotaBlmVerifikasi', ['anggotaGroup' => $anggotaGroup]);
+        return view('anggota.Verifikasi', ['anggotaGroup' => $anggotaGroup]);
     }
 
     //menolak verifikasi pendaftaran, return list anggota blm verifikasi
@@ -35,7 +35,7 @@ class VerifikasiController extends AnggotaController
         }
         $deleted_anggota = Anggota::get()->where('id', $request->id)->first();
         $deleted_anggota->delete();
-        return redirect(route('anggotaBlmVerifikasi'));
+        return redirect(route('anggotaIndexVerifikasi'));
     }
 
     //terima verifikasi pendaftaran, return list anggota blm verifikasi
@@ -48,6 +48,6 @@ class VerifikasiController extends AnggotaController
         $detail_anggota = Anggota::get()->where('id', $request->id)->first();
         $detail_anggota->id_status = 1;
         $detail_anggota->save();
-        return redirect(route('anggotaBlmVerifikasi'));
+        return redirect(route('anggotaIndexVerifikasi'));
     }
 }

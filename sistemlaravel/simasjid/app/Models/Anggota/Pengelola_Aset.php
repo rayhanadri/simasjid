@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models\Anggota;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -18,6 +18,6 @@ class Pengelola_Aset extends Model
     //pengelola anggota adalah anggota
     public function anggota_pengelola()
     {
-        return $this->hasOne('App\Anggota', 'id', 'id_anggota');
+        return $this->hasOne('App\Models\Anggota\Anggota', 'id', 'id_anggota');
     }
 }

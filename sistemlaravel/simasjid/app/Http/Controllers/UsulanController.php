@@ -36,7 +36,7 @@ class UsulanController extends Controller
         $list_kategori = Kategori::get();
 
         //retval
-        return view('aset.usulan', ['list_usulan' => $list_usulan, 'list_kategori' => $list_kategori, 'list_pengelola' => $arr_list_pengelola, 'anggota' => $anggota]);
+        return view('aset.usulan.usulan', ['list_usulan' => $list_usulan, 'list_kategori' => $list_kategori, 'list_pengelola' => $arr_list_pengelola, 'anggota' => $anggota]);
     }
 
     public function create(Request $request)
@@ -121,7 +121,7 @@ class UsulanController extends Controller
         $list_anggota = Anggota::get()->where('id_status', '=', 1);
 
         //retval
-        return view('aset.detail_usulan', ['detail_usulan' => $detail_usulan, 'list_anggota' => $list_anggota, 'list_pengelola' => $arr_list_pengelola, 'anggota' => $anggota]);
+        return view('aset.usulan.detail_usulan', ['detail_usulan' => $detail_usulan, 'list_anggota' => $list_anggota, 'list_pengelola' => $arr_list_pengelola, 'anggota' => $anggota]);
     }
 
     public function getView($id)

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Anggota;
 
-use App\Anggota;
+use App\Models\Anggota\Anggota;
 use App\Http\Controllers\Controller;
-use Auth;
 use Illuminate\Http\Request;
+use Auth;
 
 class AnggotaController extends Controller
 { 
@@ -112,7 +112,7 @@ class AnggotaController extends Controller
             $anggota->jabatan = $this->getJabatan($anggota);
         }
         //retval
-        return view('anggota.anggotaTerdaftar', ['anggotaGroup' => $anggotaGroup]);
+        return view('anggota.Terdaftar', ['anggotaGroup' => $anggotaGroup]);
     }
 
     //menghapus akun anggota, return list anggota terdaftar

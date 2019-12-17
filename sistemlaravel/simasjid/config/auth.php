@@ -68,7 +68,7 @@ return [
     'providers' => [
         'anggota' => [
             'driver' => 'eloquent',
-            'model' => App\Anggota::class,
+            'model' => App\Models\Anggota\Anggota::class,
         ],
 
         // 'users' => [

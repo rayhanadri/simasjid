@@ -32,14 +32,14 @@ Route::middleware('auth')->group(function () {
         Route::post('anggota/edit', 'Anggota\AnggotaController@edit')->name('anggotaEdit');
         
         //verifikasi anggota
-        Route::get('anggota/verifikasi', 'Anggota\VerifikasiController@index')->name('anggotaBlmVerifikasi');
+        Route::get('anggota/verifikasi', 'Anggota\VerifikasiController@index')->name('anggotaIndexVerifikasi');
         Route::post('anggota/verifikasi/tolak', 'Anggota\VerifikasiController@tolak')->name('anggotaTolakVerif');
         Route::post('anggota/verifikasi/terima', 'Anggota\VerifikasiController@terima')->name('anggotaTerimaVerif');
 
         //anggota pengelola aset
         Route::get('anggota/pengelola-aset', 'Anggota\PengelolaAsetController@index')->name('anggotaPengelolaAset');
         Route::post('anggota/pengelola-aset/delete', 'Anggota\PengelolaAsetController@delete')->name('anggotaPengelolaAsetDelete');
-        Route::post('anggota/pengelola-aset/add', 'Anggota\PengelolaAsetController@create')->name('anggotaPengelolaAsetAdd');
+        Route::post('anggota/pengelola-aset/add', 'Anggota\PengelolaAsetController@create')->name('anggotaPengelolaAsetCreate');
 
         //route aset
         Route::get('aset', 'DasborAsetController@dasbor')->name('asetDasbor');
@@ -85,9 +85,9 @@ Route::middleware('auth')->group(function () {
     });
 
     //route profil
-    Route::get('/profile', 'ProfileController@index')->name('profile');
+    Route::get('/profile', 'Profile\ProfileController@index')->name('profile');
     //route upload foto profil
-    Route::post('/profile', 'ProfileController@uploadFoto')->name('uploadFotoProfile');
+    Route::post('/profile', 'Profile\ProfileController@uploadFoto')->name('uploadFotoProfile');
 });
 
 

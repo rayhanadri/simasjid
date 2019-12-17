@@ -152,7 +152,7 @@ $inside_sekretaris = in_array($authUser->id_jabatan, $sekretaris);
 <!-- Modal Tambah -->
 <div class="modal fade" tabindex="-1" role="dialog" id="tambahModal">
     <div class="modal-dialog" role="document">
-        <form action="{{ route('anggotaPengelolaAsetAdd') }}" method="post">
+        <form action="{{ route('anggotaPengelolaAsetCreate') }}" method="post">
             @csrf
             <div class="modal-content">
                 <div class="modal-header">

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Anggota;
 
-use App\Pengelola_Aset;
+use App\Models\Anggota\Pengelola_Aset;
 use Illuminate\Http\Request;
-use App\Anggota;
+use App\Models\Anggota\Anggota;
 
 class PengelolaAsetController extends AnggotaController
 {
@@ -33,7 +33,7 @@ class PengelolaAsetController extends AnggotaController
 
         // return $pengelolaGroup;
         //retval
-        return view('anggota.anggotaPengelolaAset', ['pengelolaGroup' => $pengelolaGroup, 'bukanPengelolaGroup' => $bukanPengelolaGroup]);
+        return view('anggota.PengelolaAset', ['pengelolaGroup' => $pengelolaGroup, 'bukanPengelolaGroup' => $bukanPengelolaGroup]);
     }
 
     //menambah pengelola aset, return list anggota pengelola aset

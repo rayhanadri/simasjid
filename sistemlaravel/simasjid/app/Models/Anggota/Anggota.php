@@ -1,8 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Models\Anggota;
 
-use Illuminate\Database\Eloquent\Model;
+// use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\PasswordReset;

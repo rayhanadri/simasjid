@@ -128,7 +128,7 @@
                 <li id="dasbor-anggota-link"><a class="nav-link" href="{{ route('anggotaDasbor') }}"><i class="fas fa-tachometer-alt"></i>Dasbor Anggota</a></li>
                 <li id="terdaftar-link"><a class="nav-link" href="{{ route('anggotaTerdaftar') }}"><i class="fas fa-address-book"></i>Terdaftar</a></a></li>
                 @if($inside_sekretaris)
-                <li id="verifikasi-link"><a class="nav-link" href="{{ route('anggotaBlmVerifikasi') }}"><i class="fas fa-check-square"></i>Verifikasi</a></a></li>
+                <li id="verifikasi-link"><a class="nav-link" href="{{ route('anggotaIndexVerifikasi') }}"><i class="fas fa-check-square"></i>Verifikasi</a></a></li>
                 <!-- <li id='pengelola-aset-link'><a class="nav-link" href="#"><i class="fas fa-users-cog"></i>Pengelola Keuangan</a></li> -->
                 @endif
                 <li id='pengelola-aset-link'><a class="nav-link" href="{{ route('anggotaPengelolaAset') }}"><i class="fas fa-users-cog"></i>Pengelola Aset</a></li>
@@ -139,7 +139,8 @@
               <ul class="dropdown-menu">
                 <li id="dasbor-aset-link"><a class="nav-link" href="{{ route('asetDasbor') }}"><i class="fas fa-tachometer-alt"></i>Dasbor Aset</a></li>
                 <li id="usulan-link"><a class="nav-link" href="{{ route('usulanTerdaftar') }}"><i class="fas fa-lightbulb"></i>Usulan</a></li>
-                <li id="pembelian-link"><a class="nav-link" href="{{ route('pembelianTerdaftar') }}"><i class="fas fa-shopping-bag"></i>Pembelian</a></li>
+                <li id="usulan-link"><a class="nav-link" href="{{ route('usulanTerdaftar') }}"><i class="fas fa-clipboard-list"></i>Rencana</a></li>
+                <li id="pembelian-link"><a class="nav-link" href="{{ route('pembelianTerdaftar') }}"><i class="fas fa-truck-loading"></i>Pengadaan</a></li>
                 <!-- <li><a class="nav-link" href="#"><i class="fas fa-gifts"></i>Hibah</a></li> -->
                 <li><a class="nav-link" href="#"><i class="fas fa-boxes"></i>Inventaris</a></li>
                 <!-- <li><a class="nav-link" href="#"><i class="fas fa-hand-holding"></i>Peminjaman</a></li> -->
